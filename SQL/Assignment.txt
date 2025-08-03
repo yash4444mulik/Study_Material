@@ -1,0 +1,22 @@
+if table is not empty then which constraint we can apply on column 
+1. primary key 
+	=> if column contains duplicate or null values then we can't apply primary key 
+	=> if column does not contain duplicate or null values then we can apply primary key 
+	
+2. unique key 
+	=> if column does not contain duplicate value then happly we can apply unique key 
+	
+3. check key 
+	=> if column satisfy condition then we can apply check constraint
+	
+4. foreign key 
+	=> if column contain value thats are present in parent table then we can apply 
+	
+5. default key 
+	=> we can apply default constraint 
+	
+   
+   Default key 
+   => If we apply default constraint on column then oracle don't assign name to constraint 
+   => we can't drop default constrait 
+   => we can only add other constraint on default constraint column if condition satisfy

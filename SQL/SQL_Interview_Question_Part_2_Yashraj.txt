@@ -1,0 +1,65 @@
+Q.. What is mean by Contrainst?
+Q.. Why we apply constraint on column?
+Q.. What are different types of Constraints?
+Q.. What are different Levels of Constraint?
+Q.. What is mean by Column Level Constraint? 
+Q.. What is mean by Table Level Constraint?
+Q.. What will happen when we don't use Constraint keyword to define Constraint?
+Q.. What will happen when we use Constraint keyword to define Constraint? 
+Q.. What is mean by Composite Constraint?
+Q.. Which Constraints do we use at column level without Constraint keyword?
+Q.. Which Constraints do we use at column level using Constraint keyword?
+Q.. What are Propeties of Primary Key Constraint? 
+Q.. What are Propeties of Unique Key Constraint?
+Q.. What are Propeties of Foreign Key Constraint?
+Q.. What are Propeties of NOT NULL Constraint?
+Q.. What are Propeties of Default Constraint?
+Q.. What are Propeties of Check Constraint?
+Q.. What is difference between Primary Key and Foreign Key? 
+Q.. What is difference between Primary Key and Unique Key?
+Q.. What is difference between Unique Key and Foreign Key?
+Q.. If we don't know the Constraint name,how do you find constraint
+   name?
+Q.. How do you find which column has which constraint?
+Q.. How will you Drop constraint?
+Q.. How will you disable Constraint?
+Q.. How will you enable Constraint?
+Q.. In Parent-Child Relationship, what is table creation order?
+Q.. In Parent-Child Relationship,what is data insertion order?
+Q.. In Parent-Child Relationship,what is data deletion order?
+Q.. In Parent-Child Relationship, what is table deletion order?
+Q.. In Parent-Child Relationship, we can't delete Parent table directly,
+   first we need to delete child table and then delete parent table,
+   can we delete Parent table without deleting child table?How? 
+Q.. What are different types of relations?
+Q.. If relation is one to one then which table's primary key is refered in which 
+   table as foreign key?
+Q.. If relation is one to Many then which table's primary key is refered 
+   in which table as foreign key?
+Q.. If relation is Many to One then which table's primary key is refered 
+   in which table as foreign key?
+Q.. If relation is Many to Many then which table's primary key is refered 
+   in which table as foreign key?
+Q.. What is impact of Foreign Key Constraint table structure?
+Q.. Write a syntax to add new columns or columns
+Q.. Write a syntax to add Below Constraint on constraint on column
+   1) Primary Key.
+   2) Foreign Key 
+   3) Unique Key.
+   4) Not null
+   5) Check
+   6) Default
+Q.. Write a syntax to change the data type of columns
+Q.. Write a syntax to change column size.
+Q.. Wrtie a syntax to enable constraint
+Q.. Write a Syntax to disable constraint.
+Q.. Write a syntax to drop table.
+Q.. Write a syntax to drop columns
+Q.. Write a syntax to drop constraint.
+Q.. Write a syntax to rename table.
+Q.. Write a syntax to rename constraint
+Q.. Write a syntax to rename column.
+Q.. Can we drop table which refered in child table?
+Q.. Can we drop a column which is refered in child table?
+Q.. Can we drop constraint which is refered in child table?
+---------------------------------

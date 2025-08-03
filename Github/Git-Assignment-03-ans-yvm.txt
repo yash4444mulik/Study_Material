@@ -1,0 +1,81 @@
+Date: 11 march 2025
+----------------------
+1. What is the primary purpose of git restore?
+A) To restore deleted commits
+B) To revert changes in the working directory or staging area
+C) To push changes to a remote repository
+D) To delete a branch
+
+B) To revert changes in the working directory or staging area
+---------------------
+2. Which command restores a modified file in the working directory to its last committed state?
+A) git restore <filename>
+B) git reset <filename>
+C) git revert <filename>
+D) git commit --amend <filename>
+
+A) git restore <filename>
+---------------------
+3. What does git restore --staged <filename> do?
+A) Moves the file from the staging area back to the working directory
+B) Deletes the file permanently
+C) Pushes the file to the remote repository
+D) Resets the file to its original committed version
+
+A) Moves the file from the staging area back to the working directory
+-----------------
+4. What happens if you run git restore --source=HEAD <filename>?
+A) The file is restored to its last committed state
+B) The file is permanently deleted
+C) The file is pushed to the remote repository
+D) The file is staged
+
+A) The file is restored to its last committed state
+-----------------
+5. How do you restore all uncommitted changes in the working directory?
+A) git restore --worktree .
+B) git restore .
+C) git reset --hard
+D) Both B and C
+
+D) Both B and C
+------------------
+6. What is the difference between git restore and git checkout?
+A) git restore is used for files, while git checkout can switch branches
+B) They are completely identical
+C) git checkout restores only staged files
+D) git restore works only for untracked files
+
+A) git restore is used for files, while git checkout can switch branches
+---------------------
+7. What does git restore --staged . do?
+A) Moves all staged files back to the working directory without discarding changes
+B) Deletes all staged files
+C) Restores all staged files to the last commit
+D) Pushes all staged files
+
+A) Moves all staged files back to the working directory without discarding changes
+------------------
+8. Which option is required to confirm restoring a file when using git restore?
+A) --confirm
+B) --force
+C) --source
+D) No additional option is required
+
+D) No additional option is required
+--------------
+9. How do you restore a specific file from a previous commit?
+A) git restore --source=<commit-hash> <filename>
+B) git reset <commit-hash> <filename>
+C) git revert <commit-hash> <filename>
+D) git checkout <commit-hash> <filename>
+
+A) git restore --source=<commit-hash> <filename>
+------------------
+10. What does git restore --worktree do?
+A) Restores changes only in the working directory, not in the staging area
+B) Deletes all untracked files
+C) Moves files to the staging area
+D) Creates a new branch
+
+A) Restores changes only in the working directory, not in the staging area

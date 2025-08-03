@@ -1,0 +1,214 @@
+Q.. What is git?
+Q.. How to install git on windows?
+Q.. How to install git on Linux?
+Q.. How to check git is installed or not?
+Q.. Why gitbash is required on windows not for linux?
+Q.. What is difference between git and gitbash?
+Q.. What is github?
+Q.. What is gitlab?
+Q.. What is difference between github and gitlab?
+Q.. What is version control tool?
+Q.. key benefit of version control tool?
+Q.. What is use git init command?
+Q.. What is use of git status command?
+Q.. What is mean by staged file?
+Q.. What is meaning of indexed file?
+Q.. What is untracked files?
+Q.. What is meaning of deleted files?
+Q.. What is mean by tracked files?
+Q.. What is git add command?
+Q.. What is syntax of git add command?
+Q.. What is the use of git add . command?
+Q.. What is the use of git add -u command?
+Q.. What is the use of git add --a command?
+Q.. What is the use of git commit command?
+Q.. Syntax of git commit command?
+Q.. What is the use of -a option in git commit command?
+Q.. What is difference between HEAD,HEAD~1 and HEAD^ ?
+Q.. How do you modify the message of the last commit?
+Q.. What is the use of "git config --list" command?
+Q.. Which command is used to unstage file?
+Q.. When we should go with "git rm" command ? 
+Q.. When we should go with "git restore" command?
+Q.. if commit opeartion is performed and you will execute "git rm " command 
+	to unstage file then what will be happen?
+Q.. If we have not performed commit opeartion and we are using "git restore" command to 
+    unstage file then what will be happen?
+Q.. What is "git restore" command?
+Q.. What is the syntax of git restore command?
+Q.. What is the syntax to unstage single file?
+Q.. What is the syntax to unstage multiple files ?
+Q.. What is the syntax of restore file changes?
+Q.. What is the syntax of restore multiple file changes?
+Q.. can we restore deleted file using "git restore" command?
+Q.. if we delete file manually and i want to recover it how to recover?
+Q.. if we delete file using "git rm" command then how to recover it?
+Q.. What is difference between "git restore" and "git rm " command?
+Q.. what is "git rm " command?
+Q.. What is the syntax of "git rm " command?
+Q.. What is the syntax to unstage file?
+Q.. what is the syntax to unstage multiple files?
+Q.. What is the syntax to unstage directory?
+Q.. What is the syntax to remove file from system when file is present at stagging area?
+Q.. What is the syntax to remove file from system?
+Q.. How to unstage file forcefully?
+Q.. What is mean by forcefully removal in git rm command?
+Q.. Write a syntax to unstage all files at a time?
+Q.. Write a syntax to remove directory?
+Q.. Where "git rm" command is best sutaible?
+Q.. What is mean by branch?
+Q.. What is the use of "git branch" command?
+Q.. What is the syntax to list out all branch?
+Q.. What is the syntax to list out local branch?
+Q.. What is the syntax to list out remote branch?
+Q.. What is the syntax to create branch?
+Q.. What is the syntax to delete branch?
+Q.. What is the syntax to rename current working branch?
+Q.. What is the syntax to rename other branch?
+Q.. Which operation perform with the help of git checkout command?
+Q.. How to switch from one branch to another branch?
+Q.. How to create new branch with the help of git branch command?
+Q.. What is git switch command?
+Q.. How to create branch with the help of git switch command?
+Q.. How to switch on another branch with the help of git switch command?
+Q.. Which commands are used to create branch?
+Q.. What is the difference between local repository and remote repository?
+Q.. What is head file?
+Q.. What is git log command?
+Q.. In Which order commit history will display?
+Q.. When git log command execute which information will display?
+Q.. Which option is used to display each commit in single line?
+Q.. Which option is used to display number of commit?
+Q.. What is "git revert" command?
+Q.. What is the syntax of "git revert" command?
+Q.. What is default behaviour of "git revert"?
+Q.. What is difference between "git revert" and "git restore"?
+Q.. What is "git clone" command?
+Q.. With the help of "git clone" command by default which branch will clone?
+Q.. What is basic syntax of "git clone"?
+Q.. What are different option in "git clone"?
+Q.. What is --depth n option in "git clone" command?
+Q.. what is --single-branch -b <branch_name> in "git clone" command?
+Q.. What is "git clone --single-branch <url>" command?
+Q.. What is difference between 1. git clone -b <branch_name> <url>
+	2. git clone --single-branch -b <branch_name> <url> ?
+Q.. What is "git pull" command?
+Q.. What is syntax of "git pull" command?
+Q.. What is default behaviour of "git pull" command?
+Q.. What happen if you have uncommited changes and you run "git pull" command?
+Q.. git pull is combination of which two command?
+Q.. what is output of "git pull origin" command?
+Q.. what is output of "git pull origin feature-02" command?
+Q.. what is output of "git pull --ff-only" command?
+Q.. What is difference between "git fetch" and "git pull" command?
+Q.. if you have checked multiple branch locally and you do simple git pull 
+    then which branch update?
+Q.. What is mean by remote tracking branch?
+Q.. What is git push command?
+Q.. What is the syntax of "git push" command?
+Q.. What is output of "git push" command?
+Q.. What is output of "git push origin" command?
+Q.. What is output of "git push origin main" command?
+Q.. What is output of "git push main" command?
+Q.. What is use of "-u" option in git push command?
+Q.. What is "git switch" command?
+Q.. What is syntax to create branch using "git switch" command?
+Q.. What is syntax to switch branch using "git switch" command?
+Q.. What is "git fetch" command?
+Q.. What is syntax of "git fetch" command?
+Q.. What is default behaviour of "git fetch" command?
+Q.. What is output of "git fetch" command?
+Q.. What is output of "git fetch origin" command?
+Q.. What is output of "git fetch origin feature-02" command?
+Q.. What is output of "git fetch --prune" command?
+Q.. What is FETCH_HEAD?
+Q.. Where FETCH_HEAD file is located?
+Q.. What is "git merge" command?
+Q.. What is the syntax of "git merge" command?
+Q.. Can we merge multiple branch into single branch?How?
+Q.. What is the output of "git merge feature-02" command?
+Q.. What is the output of "git merge origin/feature-02" command?
+Q.. What is the output of "git merge feature-01 feature-02" command?
+Q.. What is the output of "git merge origin/feature-02 feature-01" command?
+Q.. What are two type of merge?
+Q.. What is fast-forward merge?
+Q.. What is non-fast-forward merge?
+Q.. What is difference between fast-forward merge and non-fast-forward merge?
+Q.. What is merge conflict?
+Q.. Why merge conflict came while merging changes?
+Q.. How to resolve conflict?
+Q.. What is mean by version control tool?
+Q.. Type of version control tool?
+Q.. What is difference between CVS and DVS?
+Q.. What is "cherry-pick" command?
+Q.. Syntax to merge single commit?
+Q.. Syntax to merge multiple commit?
+Q.. Syntax to merge specific range of commits?
+Q.. What is .gitingnore file?
+Q.. if file is listed in .gitingnore file and you want to keep track it then how it is possible?
+Q.. What is the limitation of .gitingnore file?
+Q.. What is "git stash" command?
+Q.. Which command is used to stash changes?
+Q.. Which command is used to see stash list?
+Q.. How to apply for stash file?
+Q.. How to apply and delete stash file?
+Q.. How to apply for perticular stash?
+Q.. How to drop specific stash?
+Q.. How to clear stash list?
+Q.. What is git config command?
+Q.. What are different level of configuration and scope of configuration?
+Q.. What is system level configuration?
+Q.. Where system level configuration file is saved?
+Q.. In windows where system level configuration file is saved?
+Q.. In linux where system level configuration file is saved?
+Q.. What is the file name for system level configuration?
+Q.. What is global level configuration?
+Q.. Where global level file is stored?
+Q.. In windows where global level configuration file is stored?
+Q.. In Linux where global level configuration file is stored?
+Q.. What is the file name for global level configuration file?
+Q.. What is local level configuration?
+Q.. Whare local level configuration file is stored?
+Q.. What is the file name for local level configuration?
+Q.. What is the precedence order among system,global and local level configuration?
+Q.. What is the syntax to display all configuration settings?
+Q.. Syntax to display system level configuration settings?
+Q.. Syntax to display global level configuration settings?
+Q.. syntax to display local level configuration settings?
+Q.. General syntax to display perticular configuration setting values?
+Q.. General syntax to add Git configuration settings?
+Q.. General syntax to remove git configuration settings?
+Q.. What is difference between below commands?
+	1. git config --global user.name
+	2. git config --global user.name 'robin hood'
+Q.. What is difference between below commands?
+	1. git config --global user.name 
+	2. git config --global --unset user.name
+Q.. How many level of configuration are there?
+Q.. Which configuration file affect all user and all repository on system?
+Q.. What type of file format is used by git configuration files?	
+Q.. What is mean by section in git configuration file?
+Q.. What is syntax to define section in git configuration file?
+Q.. Which section is used to set user name and mail in git?
+Q.. What is the use of [user] section in git?
+Q.. Write a command to display user name and mail globally?
+Q.. Write a command to display user name and mail?
+Q.. write a command to remove user name and mail?
+Q.. What are important section of core?
+Q.. What is core.autocrlf section?
+Q.. What is the use of core.fscache setting?
+Q.. How to enable core.fscache?
+Q.. How to cross check fscache value?
+Q.. What is use of core.filemode setting?
+Q.. [credential] section?
+Q.. What is git config file structure?
+Q.. What is section?
+Q.. what is key-value pair?
+Q.. what is comment?
+Q.. What is git push command?
+Q.. What is syntax for git push command?
+Q.. What is default behaviour of git push command?
+Q.. what is the use of "git push origin" command?
+Q.. what is the use of "git push origin main" command?
+Q.. What is the use of -u in git push command?
+Q.. What is the use of --delete option in git push command?

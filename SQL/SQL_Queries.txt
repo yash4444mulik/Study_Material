@@ -1,0 +1,96 @@
+Q.. write sql query to find sum of salary of employees whose designation is HR.
+==> select sum(salary) from employee where designation='HR'
+
+Q.. Write an sql query to find average salary of employee whose designation is PO.
+==> select avg(salary) from employee where designation='PO'
+
+Q.. write an sql query to find min salary of employee whose designation is null.
+==> select min(salary) from employee where designation is null
+
+Q.. write an sql query to find min salary of employee whose designation is not null.
+==> select min(salary) from employee where designation is not null;
+
+Q.. write a sql query to find max salary of employee whose designation is 'HR'
+==> select max(salary) from employee where designation='HR'
+
+Q.. write a sql query to find min,max,avg,sum of salary of employee whose designation is 'Dev'
+==> select sum(salary) as sum_salary,min(salary) as min_salary,
+	max(salary) as max_salary,avg(salary) as avg_salary from employee where designation ='Dev'
+	
+Q.. write sql query to find city wise sum of salary?
+==> select city,sum(salary)as sum_salary from employee group by city;
+
+Q.. write sql query to count city wise employee?
+==> select city,count(*) from employee group by city;
+
+Q.. write sql query to count pune city employee
+==> select count(*) as employee_count from employee where city='pune'
+
+Q.. Write sql query to find duplicate department id?
+==> select department_id,count(*) from employee group by department_id having count(*)>1;
+
+Q.. Write sql query to find duplicate emp number ?
+==> select emp_no,count(*) from employee group by emp_no having count(*)>1;
+
+Q.. Write sql query to find duplicate cities?
+==> select city,count(*) from employee group by city having count(*)>1;
+
+Q.. Display city wise sum salary of employee having average salary greater than 600.
+==> select city,sum(salary) as sum_of_salary from employee group by city having avg(salary)>600;
+
+Q.. Total salary per department
+==> select dept_name,sum(salary) as sum_of_salary from employee group by dept_name 
+
+Q.. Count designation wise employees
+==> select designation,count(*) from employee group by designation
+
+Q.. Find the number of Employees in each department
+==> select department,count(*) from employee group by department;
+
+Q.. Find the total salary paid in each department
+==> select department,sum(salary) from employee group by department
+
+Q.. Display the departments where total salary exceeds 100000
+==> select department,sum(salary)as salary from employee groupu by department having sum(salary)>10000 
+
+Q.. Display departments that have more than 5 employees
+==> select department,count(*)as count from employee having count(*)>5 group by department
+
+Q.. Find the department where total salary exceeds 50000 but 
+    only considere employees with deptid 103
+==> select department,sum(salary)as salary from employee where empid=103 group by department having sum(salary)>50000
+   
+Q.. Find the departments where total salary is between 50,000 and 
+    1,00,000 and average salary is greater than 5000
+==> select department,sum(salary)as salary from employee group by department
+    having sum(salary) between 50000 and 100000 and avg(salary)>5000
+	
+Q.. List departments with its total salary,sort the result in 
+    ascending order of total salary
+==> select department,sum(salary) as salary from employee order by sum(salary) asc 
+
+Q.. find customers who placed more than 5 orders. 
+==> select customer_name,order_id,count(*) frome employee 
+	group by customer_name,order_id having count(*)>5;
+
+Q.. You want to list departments where the average salary is greater than the overall 
+	average salary of all employees.
+==> select department,avg(salary)as average_salary from employee 
+	having avg(salary)>(select avg(salary) from employee)
+	
+Q.. Write query which will return departments that have only one employee?
+==> select department,count(*) from employee group by department having count(*)=1;
+
+Q.. You need to list all departments along with the total salary
+	including departments where no employees exist. 
+==> select department,sum(salary) from employee where department is not null group by department 
+
+Q.. Display Departments with more than 1 employee
+==> select department,count(*) from employee group by department having count(*)>1;
+
+Q.1 Composite primary key on empname and empno 
+	==> alter table Employee add (constraint empname_empno_pk primary key(empname,empno));
+	Q.2 composite unique key on empname and duration 
+	==> alter table Employee add constraint empname_duration_uk unique(empname,duration)
+	Q.3 Composite check constraint on duration and dept_id 
+	==> alter table Employee add constraint duration_dept_id check(duration>to_date('11-JUN-2000','dd-mon-yyyy') and dept_id>10)

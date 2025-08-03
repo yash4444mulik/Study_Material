@@ -1,0 +1,1379 @@
+						|| SHREE GANESHAY NAMH ||
+
+
+Q.. How you cross check which oracle version is installed on your system?
+==> Open command prompt and execute command 'sqlplus -v' 
+    if oracle installed then this command show oracle version 
+	if oracle is not installed then this command give you error 
+---------------------------------------------
+Q.. How you cross check Which React version is installed on system?
+==> using 'npm view react version' command
+---------------------------------------------
+Q.. How you cross check in which React version Project is developed?
+==> open package.json file and check version key 
+---------------------------------------------
+Q.. How to cross check node package version?
+==> Open command promt and type a command "node -v".
+    If node is installed then it retruns its version
+    If node is not installed then it returns an error.
+---------------------------------------------
+Q.. Which tool you are using to create a React Project?
+==> Vite tool
+---------------------------------------------
+Q.. Tell React Project creation steps
+==> open terminal on vs code and follow the below steps
+    1. type command "npm create vite@latest"
+    2. Specify Project name and module name
+    3. Select Framework as "React"
+    4. Select varient as "Javascript"
+---------------------------------------------
+Q.. How to cross check npm is installed or not your System?
+==> Open command promt and type a command "npm -v".
+    If npm is installed then it retruns its version
+    If npm is not installed then it returns an error.
+---------------------------------------------
+Q.. What is use of "npm run dev" command?
+==> To run an application in dev enviroment or to launch a dev server
+---------------------------------------------
+Q.. What is use of "npm run build" command?
+==> To build react application, build means creating production ready copy
+    of React application.
+---------------------------------------------
+Q.. If we execute "npm run build" command then On which location build copy get placed?
+==> "dist" directory
+---------------------------------------------
+Q.. Where donwloaded dependencies get stored in Project structure?
+==> in "node_modules"folder
+---------------------------------------------
+Q.. What is use of "npm run preview" command?
+==> To test production build copy in dev enviroment
+---------------------------------------------
+Q.. How to install bootstrap packge in react Project?
+==> npm install bootstrap@version_number (install specified version)
+    npm install bootstrap --save (install latest version)
+---------------------------------------------
+Q.. How to install react router package?
+==> npm install react-router-dom
+---------------------------------------------
+Q.. What is React?
+==> React is free and open source front end Javascript library developed by Jordan
+    Walke at Facebook in 2013. It is used to develope dynamic and interactive single
+	page application.
+---------------------------------------------
+Q.. What are features of React?
+==> 1. Virtual DOM
+	2. Component Based Architecture
+	3. Reusability and composition
+	4. JSX Syntax
+    5. Declarative Syntax
+	6. Strong community support
+	7. Hooks.
+---------------------------------------------
+Q.. What are different ways to write react component?
+==> We can write React component in two ways
+     1. Class component
+	 2. Functional component.
+---------------------------------------------
+Q.. What is JSX?
+==> JSX stand for javascript xml 
+    JSX is syntax extension of javascript
+	we can write javascript in html 
+	it is combination of javascript and html
+---------------------------------------------
+Q.. Which type of component have written in your Project,Function Based or class Based?
+==> I have written functional component in my project.
+---------------------------------------------
+Q.. What is file extention of React source code?
+==> .js or .jsx
+---------------------------------------------
+Q.. What is mean by Element and what are its characteristics?
+==> An element is smallet unit of component. Elements are native HTML element to Virtual DOM.
+    Characteristics of Element are as below
+     1. Element represent what you want to show on the screen.
+	 2. Elements are immutable.
+	 3. Element can be nested.
+	 4. Elements are native HTML element to Virtual DOM.
+---------------------------------------------
+Q.. What is meaning of ReactDOM.createRoot()?
+==> ReactDOM is a predefined component.
+     createRoot() is method and used to create root level container.
+     createRoot() method accept one input argument of DOM type and
+     return root object
+     const root=ReactDOM.createRoot(document.getElementById("root");
+     on that root object we can call render() function to load or to
+     render the component in specified container.
+---------------------------------------------
+Q.. What is use of "render()" function and how it is called?
+==> render() function is used to render or load components in
+     specified container.
+     It is called on the reference of "root" object which is returned by
+     ReactDOM.createRoot()function.
+---------------------------------------------
+Q.. What is syntax to import default export and named export component?
+==> 1) syntax to import default export component
+        import component_name from "package_name";
+    2) Syntax to import named export component
+        import {component_name} from "package_name;
+---------------------------------------------
+Q.. I am importing three named export component from the same package
+    then what will be the import statement.?
+==> import {component1_name,component2_name,component2_name} from "package_name"
+---------------------------------------------
+Q.. What is mean by Component in React?
+==> Component is reusable,self contained piece of code.
+     We can write either class base component or function base component.
+     I am familiar with function base component.
+     Syntax of function base component is
+     function function_name(props)
+     {
+        // function body
+     }
+     export statement.
+---------------------------------------------
+Q.. Is is mandatory to export function base component?
+==> It is not mandatory to export function base component if we are using in the same file
+    but if we want to use in another file then it is mandatory to export.
+---------------------------------------------
+Q.. What is the difference between Element and Component?
+==>  1. Element is smallest unit of component where as Component is a collection of elements.
+     2. Element represent what you want to show on the screen where component represent
+        its behaviour.
+     3. Elements are immutable where as components are dynamic and resuable.
+     4. Elements are created by JSX syntax or createElement() function
+        where as component can be created using class or function.
+---------------------------------------------
+Q.. What are different ways to export the component?
+==> We have 1) default export 2) named export 3) mixed export
+---------------------------------------------
+Q.. Why we export the component?
+==> To make component visible to other.
+---------------------------------------------
+Q.. Why we import a component?
+==> To use component functionality
+---------------------------------------------
+Q.. How many import statements can have single .jsx file?
+==> Single .jsx file have multiple import statement.
+---------------------------------------------
+Q.. What is position of import statement in the source code?
+==> First non comment statement in the source code is import statement.
+     i.e we need to write import statements at the beging of source code.
+------------------------------------------------------------------------------------------
+Q.. Which transpiler is used to translate React source code?
+==> Bable transpiler
+---------------------------------------------
+Q.. What is use of <React.StrictMode> tag?
+==> StrictMode is developer tool. It helps the developer to detect and highlight
+     problems or errors in the source code.
+---------------------------------------------
+Q.. Write import statement to import bootstrap?
+==> import "bootstrap/dist/css/bootstrap.min.css"
+---------------------------------------------
+Q.. What is syntax to define constants?
+==> const const_name=value;
+---------------------------------------------
+Q.. How many elements we can return at a time using function base component?
+==> In functional component we can retun only one element at a time.
+---------------------------------------------
+Q.. What are Fragments in React?
+==> Fragment is feature introduced in React 16.
+     It is used to enclose multiple elements without adding extra node to the DOM.
+      Syntax is
+      <React.Fragment>
+
+      </React.Fragment>
+     Or  <> ...</>
+------------------------------------------------------------------------------------------
+Q.. What is need of Fragments?
+==> Bydefault functional component returns single element at a time,
+     If we want to return multiple elements at a time then we need to
+     enclose inside container like <div> but container like <div> add
+     extra node to DOM and creates performance problem so to over come
+	 this problem in React 16 Fragment feature is introduced. Fragment
+	 enclose multiple elements without adding extra node to the DOM
+---------------------------------------------
+Q.. Why fragments are better than container divs?
+==> container like <div> add extra node to the DOM and create performance problem but
+     Fragment enclose multiple elements without adding extra node
+     to the DOM. So fragments are better than container divs
+---------------------------------------------
+Q.. Why React uses className over class attribute?
+==> React follows JSX syntax and JSX allows to mix JS code and HTML Code
+     but in JS class is a keyword and in HTML class is an attribute
+	 so to over this conflict React use className over class attribute
+---------------------------------------------
+Q.. Among HTML,CSS,JS,BootStrap,React which things browser understand directly?
+     i.e no need of conversion?
+==> HTML,CSS,JS,BootStrap
+---------------------------------------------
+Q.. What is Virtual DOM? 
+==> It is lightweight in memory representation of real DOM.
+     It acts bridge between developer component and Browser.
+---------------------------------------------
+Q.. How Virtual DOM works? 
+==> On first rendering React creates VDOM for Real DOM.
+     If there is change in component or state of the component is changed
+     then react create new copy of VDOM and follows reconciliation or
+     diffing process and Identifies the differences in the old and new copy of
+     VDOM and update the required changes without re-rending the whole page.
+------------------------------------------------------------------------------------------
+Q.. How to apply inline css to JSX element?
+==> Syntax to apply inline css to JSX element is
+     <ElementName style={{cssPropertyName:'value'}}>
+     Note: css Property name should be in camel case.
+---------------------------------------------
+Q.. What are different ways to achieve conditional Rendering?
+==> 1. if -- else statement
+     2. logical && operator.
+     3. ternary operator
+     4. switch statement
+---------------------------------------------
+Q.. How React component communicate with each other?
+==> React component communicate with each other via props and context API
+---------------------------------------------
+Q.. Limitation of JS?
+==> 1) Time-consuming:- Developers must write code from scratch which is time consuming.
+	2) Hard to maintain:- for large application it is difficult to maintain Javscript code.
+	3) Single-threaded:- javascript process one operation at a time.
+---------------------------------------------
+Q.. JS vs React?
+==> 1) JS is imperative:-Developer is responsible to define step to reach the destination.
+	2) React is declarative:-Developer is responsible to define UI componant,react figure out how to reach that state.
+---------------------------------------------
+Q.. React project structure:- 
+	1) node_modules directory
+	-> this directory get created when we fire npm install command.
+	-> this directory contains all installed node packages.
+	
+	2) public directorys
+	-> This directory contains static files that don't be changed.
+	
+	3) src directory
+	-> This is main directory for react code.Useful for developer.
+	-> under src folder we have below sub folders.
+		1) assets directory
+		  -> assets folder present inside src folder 
+		  -> this folder contains image,fonts and other static files.
+		
+		2) style directory
+		  -> This is not present bydefault but we can create under src.
+		  -> style directory contains css files 
+
+		3) componants directory
+		  -> this is not present bydefault but we can create under src.
+		  -> this directory contains reusable UI componant. i.e we can put react 
+		     file inside the componant directory
+	
+	4) Others files present inside root directory
+		1) package.json 
+		-> this file contains metadata about project 
+		-> metadata of project means information about project 
+			like project name,project name,version,dependancies,devdepandancies,etc
+		-> this is mandatary for every project.
+		
+		2) package.lock.json
+		-> it is automatic generated file when node_modules and package.json create.
+		-> package-lock.json is used for locking the dependancy with the installed version.
+		-> Usage: If dependancies have different version in different environment then 
+			it create problem
+		-> to overcome this problem,package-lock.json file is created it will take care to 
+			have same result in every environment.
+		-> it should be in source control with package.json file.
+		-> if your project is not working then delete it and create again 
+		
+		3) vite.config.js file 
+		-> this file contains vit configuration 
+		
+		4) eslintrc.cjs file 
+		-> it is configuration file for a tool named ESLINT 
+		-> ESLINT is open source javascript utility 
+		-> it used to developer to identifiy and fix common mistake,use best practises,
+			and maintain consistancy across your codebase.
+		-> This tools help us for voiding bugs
+------------------------------------------------------------------------------------------
+Q.. meaning of tilde(~) and caret (^) in package.json 
+==> -> NPM version are written using three dots seperated numbers like 2.3.4
+	-> first number from left side show major release and second number show minor release
+	   and third number show patch release of the package.so syntax is "major,minor,patch"
+	   
+	-> Tiled (~) notation:- it is used to match most recent patch version.
+	-> example:- the ~1.2.0 will update all the future patch updates 
+
+	-> caret(^) notation:- it is used to match the minor updates along with patch updates 
+	-> example:- The ^1.2.4 will update all the future minor and patch updates 
+---------------------------------------------
+Q.. What is JSON data format?
+==> - JSON stand for javascript object notation
+	- this is universaly accepted data exchange format 
+	- this JSON data format is language and platform is independant.
+	- JSON is most popular data exchange format 
+	- JSON is .json extension
+	- JSON file format is 
+		1. simple format 
+			{
+				key:value,
+				key:value,
+				key:value
+				}
+	- json object contain key value pair 
+	- key and value is seperated using colon
+	- one key and value pair is seperated by another key value pair by using comma 
+	- key should be unique but value can be duplicated.
+	- string type value should be inclose in double quote.
+	- after last key value pair don't need to specify comma if we specify comma 
+	  then we will get an error 
+	- one json file contain multiple json object 
+---------------------------------------------
+Q.. What is SEO ?
+==> SEO stand for Search Engine Optimization 
+		there are tag for SEO
+		title,meta 
+		inside meta tag we have keyword,author,description
+---------------------------------------------
+Q.. What is use of npm install command?
+==> -> "npm install" is a fundamental command in node.js Project.
+   It donwload and install all dependencies listed in "dependencies"
+   "devDependencies" section of "package.json" file.
+	-> dependencies listed in "dependencies" sections are required to run an application
+	-> dependencies listed in "devDependencies" section are developement specific dependencies
+	   like framework or build tool.
+
+---------------------------------------------
+Q.. What happens when we execute "npm install" command?
+==> -> When we fire only "npm install" then first it check "package.json" file
+   is there ir not. If it is available then use it,if it is not available
+   then create "package.json" file.
+	-> Download and install node js related dependencies.
+
+---------------------------------------------
+Q.. Explain map() method working in react.
+==> 1. map() method iterate(access item one by one) an array and return new array as the result
+   2. map() method don't modify original array but create new array.
+   3. in short we can say In React, the map() method iterate an array and render a list of  
+      elements dynamically.
+   4. we call map method as array_name.map();
+   5. Map method take callback function as an input argument.
+   6. This callback function get called for each array element and construct new array.
+   7. We provide a key prop to each <li> element, using the index of the array as the key. 
+      However, it's better to use a unique identifier from your data instead of the index.
+------------------------------------------------------------------------------------------
+Q.. What are props in React? 
+==> 1. Props stands for properties.
+   2. It is a mechanism to pass data from parent to child component
+   3. Syntax to pass data via props is as below
+      <ComponentName attributeName="value"/>
+   4. Example:
+      <Header title="My App" />
+   5. In the child component, you can access the props passed from the parent component 
+      using the "props" object.
+---------------------------------------------
+Q.. Characteristics of Props.
+==> 1. Props are immutable(read-only), meaning they cannot be changed by the child component.
+   2. Props are passed from parent components to child components.
+   3. Props can be of any JavaScript data type, including strings, numbers, booleans, 
+      objects, arrays, functions, and even React elements
+   4. Props are passed as named attributes in JSX syntax
+   5. Components can define default values for props using default props.
+   6. Instead of passing props directly from parent to child, props can also be passed 
+      indirectly through Context API
+---------------------------------------------
+Q.. With Props which type of information we can pass?
+==> Via Props you can pass various types of information, like
+   1. Primitive types data- String Number Boolean
+   2. Complex type data- Array and Object
+   3. We can pass functions as props
+   4. We can pass JSX elements(React Element)   
+   5. We can pass Callback Functions as props
+   6. We can pass Children Components as props
+   7. You can pass standard HTML attributes as props, such as class names, IDs, and styles.
+---------------------------------------------
+Q.. What is state in React ?
+==> State is a JavaScript object used to store data within a component.
+    and it represents the current condition or state of a component. 
+---------------------------------------------
+Q.. Characteristics of state.
+==> 1. It is used to used to store data within a component.
+   2. It is mutable, meaning it can be changed over time using setState() method
+   2. In the function based component State is  initialized using useState() hook
+      In the class base component state is initialized using constructor	  
+   3. State is commonly used in React to create controlled components
+   4. State is local to the component means other component we cannot access or modify
+      directly
+   5. state can be passed down to child components as props
+---------------------------------------------
+Q.. What is the difference between state and props?
+==> 1. state is mutable but props are immutable
+   2. state is used to store the data where as props are used to pass the data.
+   3. State have different lifecycle methods like componentDidMount(), componentDidUpdate(), 
+      and componentWillUnmount() where as props do not have lifecycle methods.
+   4. props are read only where as state is read and write 
+------------------------------------------------------------------------------------------
+Q.. How to use  React-icon Library in the Project?
+==> First we need to install React-icon Library as
+   npm install react-icons –save
+   If we want to use icon then import and use. 
+   import {IconName} from "react-icons/IconName";
+---------------------------------------------
+Q.. How React Works?
+==> React follows a component-based architecture, in component-based architecture
+   App is the main or root component of a React application. This App  component
+   is the starting point of  React component tree.
+   When component is loaded React creates an in-memory structure called the virtual DOM
+   This virtual DOM is different from actual browser DOM.
+   When component state is changed, React updates the virtual DOM's state to mirror these changes.
+   React then compares the current and previous versions of the virtual DOM
+   It identifies the specific nodes that need updating
+   Only these nodes are updated in the real browser DOM.
+---------------------------------------------
+Q.. What is the difference between HTML and React event handling?
+==> 1. In HTML, event names are written in lowercase but in React event name is 
+      written in camelCase.
+	  <button onclick='handleEvent()'>
+	  <button onClick={handleEvent}>
+	  
+   2. In HTML, function name must be followed by parenthesis but 
+      in react we specify function name without parenthesis.
+	  
+   3. In HTML function name must be enclosed in single or double quote
+      but in React no need to enclose function name in single or double quote.
+	  
+   4. In HTML,We can add event listener any time using external javascript
+      but in React We have to specify all the Events at the time of component creation.
+	  
+   5. In HTML, we may avoid default behavior by returning false, but in React, we must call 
+      preventDefault() explicitly	  
+---------------------------------------------
+Q.. What are synthetic events in React?
+==> 1. Different browsers may have different names for the events.
+   2. In React, synthetic event is a special type of event object that acts as a wrapper    
+      and holds browser's native event.
+   3. It contains information about events which are supported by different browser
+      in single API.
+   4. synthetic event ensuring that events work identically across all browsers.
+---------------------------------------------
+Q.. What are inline conditional expressions?
+==> ternary operator and logical operator are considered as inline conditional
+   expressions.
+---------------------------------------------
+Q.. What is "key" prop and what is the benefit of using it in arrays of elements?
+==> 1. The "key" prop is a special attribute in React  and used to uniquely identify elements 
+      in a list.
+   2. Key prop helps React to identify which items have changed, are added, or are removed.
+   3. key prop is improving performance by minimizing unnecessary re-renders  
+------------------------------------------------------------------------------------------
+Q.. What are controlled components?
+==> In React, Controlled Components are those in which form’s data like <input>, <textarea>, 
+   and <select> is controlled by the component’s state  itself.
+   ->  Controlled component takes its current value through props and makes changes through callbacks like onClick, onChange, etc
+   
+  -> In a controlled component, the value of the form element is passed as a prop from the parent component, and event handler is used to update the state whenever the value changes.
+   
+  -> A parent component manages its own state and passes the new values as props to the controlled component
+---------------------------------------------
+Q.. What are uncontrolled components?
+==> Uncontrolled component means the value of the form element is controlled by the DOM itself
+   rather than React state
+   
+   In an uncontrolled component, you don't set the value prop of the form element.
+---------------------------------------------
+Q.. What is the difference between createElement and cloneElement?
+==> createElement and cloneElement both are methods provided by React for creating and 
+   manipulating React elements but they have servel differences 
+   1. createElement is used to create new React elements from scratch, while cloneElement is 
+      used to clone and modify existing React elements
+	  
+   2. createElement takes at least three arguments: type of the element,prop  and
+      children (optional, additional React elements or strings).
+	  const element = React.createElement('div', { className: 'container' }, 'Hello, world!');
+      
+	  cloneElement takes two arguments: the element to clone and the new props to apply
+	  const originalElement = <button>Hello</button>;
+      const clonedElement = React.cloneElement(originalElement, { className: 'btn-primary' });
+---------------------------------------------
+Q.. What are Higher-Order components?
+==> 1. Higher-order components (HOCs) are a powerful feature of the React library
+   2. They allow you to reuse component logic across multiple components
+   3. A higher-order component is a function that takes a component as an argument and   
+      returns a new component that wraps the original component
+	  const EnhancedComponent = higherOrderComponent(WrappedComponent);
+---------------------------------------------
+Q.. What is children prop?
+==> 1. In React, the children prop is a special prop that allows components to pass children 
+      elements directly to another component.
+   2. It allows you to nest components within each other in a declarative way.
+   3. The children prop can be any React element, including other components, strings, or 
+      even fragment
+---------------------------------------------
+Q.. How to write comments in React?
+==> Comments means non executable code. Comments get ignored at the time of execution.
+   Comments are useful for developers.
+   In React we have two types of comments
+   1. Single-line comments
+      // This is a single-line comment in React
+   2. Multi-line comments
+	  /*
+			This is a multi-line comment
+			in React. It can span multiple lines.
+	  */
+Note: writing comments in JSX
+    If you are writing comments directly within JSX code, you need to enclose them in curly braces {} because JSX treats anything inside curly braces as JavaScript expressions. Here's how you can write comments within JSX:
+	<div>
+		{/* This is a comment in JSX */}
+			<p>Hello, world!</p>
+	</div>
+------------------------------------------------------------------------------------------
+Q.. What is reconciliation?
+==> 1. React Reconciliation is the process through which React updates the Browser DOM.
+   2. When the state or props of a component changes, first virtual DOM get updated
+      and create new version of virtual DOM. Current version of virtual is compaired
+	  with old version of virtual DOM. Only changed part get updated in Real DOM
+	  instead of re-rendering the entire DOM tree.
+   3. Reconciliation process helps us to improve the application performance.
+---------------------------------------------
+Q.. What is mean by lazy loading?
+==> lazy lading means component get loaded on demand.
+---------------------------------------------
+Q.. What is mean by eager loading?
+==> Eager loading means component get loaded in the beginning.
+---------------------------------------------
+Q.. How lazy loading is achieved in React?
+==> ->   To achieve lazy loading React has provided ready made method lazy() and 
+     Suspense component. 
+    
+	-> Steps to Implement Lazy Loading
+	   1. Recognize the component you want to Lazy Load
+	   2. import the `lazy()` and Suspense components from the React package
+	   3. Use the `lazy()` function to dynamically import the component you want to lazy load.
+		  Note that the argument to the `lazy()` function should be a function that returns the result of the import() function. 
+	   4. Wrap the lazy-loaded component in a `Suspense` component, which will display a fallback  
+		  UI while the component is being loaded:
+---------------------------------------------
+Q.. What does lazy() do in React?
+==> lazy() is used to import components dynamically. i.e on demand
+---------------------------------------------
+Q.. What is means by Suspense component?
+==> Suspense component is a component provided by React.
+   used to wrap the lazy() loded component and show fallback UI while component being loaded (a simple “Loading…” message)
+------------------------------------------------------------------------------------------
+Q.. Does the lazy function support named exports?
+==> lazy function does not support named exports directly.
+   It's primarily used for default exports.
+---------------------------------------------
+Q.. What are stateless components?
+==>Function base component are considered as stateless component.
+   i.e A stateless component is a function that takes props as input and 
+   returns JSX (JavaScript XML) to describe the UI.
+	-> Characteristics of Stateless Components:
+   1.Do not have their own state
+   2.easy to debug
+   3.easy to write
+---------------------------------------------
+Q.. What are stateful components?
+==> -> Class base component are considered as stateful component.
+   i.e Stateful components are the class components.
+   Stateful components,are those that manage their own state
+	-> Note:In React, "state" refers to an object that determines how a component 
+        renders and behaves
+
+---------------------------------------------
+Q.. When we should go with stateful component?
+==> when you need to manage state or when dealing with 
+   complex UI logic that requires the component changes over time
+---------------------------------------------
+Q.. When we should go with stateless component?
+==> when we focus only on UI part and does not need any state management then 
+    we should go with stateless component 
+---------------------------------------------
+Q.. What is the use of react-dom package?
+==> 1. ReactDOM is a package in React that provides DOM-specific methods 
+   2. react-dom package is required for building React applications that target 
+      web browsers.
+   3. To install ReactDOM use command "npm install react-dom"
+   4. To import ReactDOM use statement as "import ReactDom from "react-dom"
+   5. some key functionalities provided by the react-dom package
+      1. Rendering React Components: use "ReactDOM.render()" method to render the component
+	  2. Event Handling
+	  3. DOM Manipulation: We can access DOM element directly using "ReactDOM.findDOMNode()"
+	  4. Portal Support
+---------------------------------------------
+Q.. What is hooks 
+==> Hooks are the special type of function in react which is introdued in react 16.8 
+   it is used to manage the state of functional component 
+---------------------------------------------
+Q.. Why hooks are introduced?
+==> In react we use functional component and function components are the stateless component 
+	i.e we can't manage the state in function based component so to overcome this problem 
+	in react 16.8 hook concept is introduced
+---------------------------------------------
+Q.. which thing achieve using hook?
+==> with the help of hook we can manage the state of function based component 
+	we can use life cycle method in functional component 
+	we can other react feature in functional component 
+---------------------------------------------
+Q.. benifits of hook?
+==> It simplify the code 
+	it improve the readability of code 
+	it improve the reusability of code 
+	partially it improve the perfomance of application
+---------------------------------------------
+Q.. Rule to define the hooks?
+==> First we need to import the hook from react package 
+	hooks can be defined in the functional component 
+	hook called at the top of functional component 
+	hook can't be conditional
+---------------------------------------------
+Q.. What is the useState()?
+==> useState() syntax is 
+		const [currentState,setState]=useState(initialValue);
+	useState() accept one input argument i.e initial value 
+	initial value can be string,boolean,object,array etc 
+	useState()return an array which contain two element first one is currentState and 
+	second is setState
+---------------------------------------------
+Q.. What is useEffect()? 
+==> useEffect is used handle the side effect in functional component 
+	Side effect means perform some actions when component is rendered 
+	some example of side effects are :- fetching the data,setting up subscription,direct updating DOM and timers 
+	class component has lifecycle methods are componentDidMount,componentDidUpdate,componentWillUnmount.
+	useEffect is combination of all these methods 
+	Syntax of useEffect() 
+		useEffect(function,dependancy)
+		
+		useEffect() accept two input argument first one is function and second is depedancy
+		on Execution useEffect() return "undefined"
+---------------------------------------------
+Q.. What is Babel?
+==> Babel is translator and used to translate JSX syntax into browser understandable format.
+---------------------------------------------
+Q.. What is Transpiler? What is the difference between Compiler & Transpiler?
+==> ->  A Transpiler is a tool that converts source code from one high-level programming 
+    language(JSX) to another high-level programming language(JavaScript). 
+    Example: Babel
+	->  A compiler is a tool that converts high-level programming language(Java) into a lower   
+	level language(machine code or bytecode).	
+---------------------------------------------
+Q.. What is the difference between Declarative & Imperative syntax?
+==> ->  Declarative syntax focuses on describing the desired result without specifying the  
+    step-by-step process where as Imperative syntax describe step by step process to 
+    achieve a particular goal.
+	->  Example: React follows Declarative syntax(JSX)
+				JavaScript follows imperative syntax
+---------------------------------------------
+Q.. What is Spread Operator in JSX?
+==> The spread operator denoted by three dots (...) and it is used to expand or spread an  
+   array or object
+---------------------------------------------
+Q.. What is Prop Drilling in React?
+==> Prop drilling means Passing down data or state through every level of a component
+     hierarchy.
+---------------------------------------------
+Q.. Why to Avoid Prop Drilling? In how many ways we can avoid Prop Drilling?
+==> -> Why to avoid Prop Drilling
+	   1. It affect the application performance
+	   2. It increases the lenght of code and reduces  readability.
+	   3. Debugging becomes challenging
+	   4. Maintenance becomes difficult
+	   5. Biolar plate code.
+	-> Ways to avoid Prop Drilling
+	   1. Using Context API
+	   2. Using Redux
+	   3. Using Component Composition(By using Higher Order Component)
+	   4. Using Callback Functions
+	   5. Using Custom Hooks
+---------------------------------------------
+Q.. Syntax of useEffect hook or How useEffect hook works?
+==> useEffect hook accept two input arguments, first input argument is callback function
+     (we call it as effects function)and second argument is dependency array and it is optional
+     So Syntax of useEffect hook is as below
+     useEffect(<function>, [dependency])
+   
+     If there change in the dependency then useEffect hook get executed.
+     i.e Dependency arrays act as triggers for useEffect to rerun
+---------------------------------------------
+Q.. What is Dependency Array in useEffect() hook?
+==> ->   Dependency array act as trigger for useEffect to rerun.
+	->   Dependency array constains list of all reactive values referenced inside 
+	 callback function.
+	 Reactive values can be props, state,variables,functions which are declared 
+	 inside component body
+---------------------------------------------
+Q.. What happens if we don't specify dependency array in useEffect hook?
+==> If you do not provide the dependencies array in useEffect then useEffect() 
+     will run on every render.
+     useEffect(() => {
+        //Runs on every render
+     }); 
+---------------------------------------------
+Q.. What happens if we specify an empty dependency array in useEffect hook?
+==> If we provide empty dependencies array in useEffect then useEffect() runs 
+     on the first render only.
+     useEffect(() => {
+          //Runs only on the first render
+       }, []);
+---------------------------------------------
+Q.. What happens if specify dependency array with Props or state in useEffect?
+==> If you provide Props or state values in dependency array then useEffect()
+     runs on the first render and on every change in dependency value.
+     useEffect(() => {
+       //Runs on the first render
+      //And on every change in dependency value
+      }, [prop, state]);
+---------------------------------------------
+Q.. Why useContext hook is introduced?
+==> We can pass the data from parent to child via props but Passing data via props 
+    is not good programming practice because props has prop driling problem.
+    Prop drilling means Passing down data or state through every level of a component
+    hierarchy.So to over come prop driling problem react has introduced 
+    useContext hook.
+---------------------------------------------
+Q.. What is useContext Hook?
+==> useContext is predefined hook and it allows us to manage the state globaly.
+---------------------------------------------
+Q.. How to use useContext() hook?
+==> We can use useContext hook in three simple steps.
+     1. Creating Context.
+     2. Providing Context.
+     3. Consuming Context.
+---------------------------------------------
+Q.. What is createContext() method or How we create Context?
+==> createContext method is used to create context object. It accept one input 
+     argument and returns context object. syntax of createContext is as below
+	 const contextRef=createContext(initialValue);
+---------------------------------------------
+Q.. What is Provider Property or How we provide created context object to other component?
+==> Provider Property is used to provide created context object to consumer.
+     Syntax is as below
+	 <ContextObjeRef.Provider value={sharedData}>
+        <Component1/>
+		<Component2/>
+		<Component2/>
+   </ContextObjeRef.Provider>
+   Here "value" prop hold the sharedData.i.e The data which you want to share to 
+   other components.
+   
+   We can provide Context Object by creating Provider function as below
+   const ContextProvider=(props)=>{
+   
+   return (
+			<ContextObjectName.Provider value={sharedData}>
+			    {props.children}
+			<ContextObjectName.Provider/>
+		)
+   }
+   OR
+   function ContextProvider(props)
+   {
+      return (
+			<ContextObjectName.Provider value={sharedData}>
+			    {props.children}
+			<ContextObjectName.Provider/>
+		)
+   }
+   
+---------------------------------------------
+Q.. What is Consumer Property or What is use of useContext()?
+==> ->  We can consume created context using useContext() hook.
+	->  The component who wants to access the data need to define useContext() hook
+		inside the function and pass created context object name as input argument to it.
+	   
+		const variableName=useContext(ContextObjectName);
+	   
+		Here, useContext hook accept one input argument and that input argument is 
+		created context object name.
+
+---------------------------------------------
+Q.. When to use useContext() hook instead of props in real applications?
+==> Use useContext instead of props when you want to avoid prop drilling.
+     Examples:Theming,User Authentication
+---------------------------------------------
+Q.. What is useReducer Hook?
+==> ->   useReducer is simillar to useState hook,but instead of providing 
+     state and setter function it provides state and dispach function.
+	->   Especially useReducer is used for complex state logic.
+---------------------------------------------
+Q.. What is Syntax of useReducer() hook or how useReducer work?
+==> ->   useReducer accept two input arguments, first argument is reducer Function
+     and second argument is initial Value. initial Value is an optional
+   
+	->   on execution it returns an array with two elements, first element is state
+		 and second element is dispach Function so Syntax is as below
+		 const[state,dispachFunction]=useReducer(reducerFunction,initialValue);
+	   
+	->   Purpose of Reducer Function-In reducer Function we  write state updation logic.
+		 reducer Function accept two input arguments,first input argument is current state
+		 and second input argument is action object which is comming from dispach Function 
+	   
+		 function reducer(currentState,actionObj)
+		 {
+			// state Updation Logic
+		 }  
+	->   purpose of dispach function is to dispach the action object to 
+		 reducer Function.
+---------------------------------------------
+Q.. How execution happens in useReducer hook?
+==> When some event get generated like onClick,onSubmit, onChange then event handler
+     function get called,from event handler function we call the dispach function
+     by passing action object, this dispach function call reducer function and 
+     inside reducer function we write state updation logic.
+---------------------------------------------
+Q.. What are the similarities between useState() and useReducer() hook?
+==> 1. Both hooks are used to update state
+     2. Both hooks returns an array with two elements
+---------------------------------------------
+Q38. When to use useState() and when to use useReducer()?
+->    useState is used for managing simple state where useReducer() is used to 
+      mange complex state logic.
+------------------------------------------
+Q39. What are the differences between useState() and useReducer() Hook?
+->   1. useState is used for managing simple state where useReducer() is used to 
+        mange complex state logic.
+	 2. useState accept one input argument where useReducer accept two input arguments.
+	 3. useState returns an array with two elements,first element is state and second element
+	    is setter function where useReducer return an array with two elements,first element
+		is state and second element is dispach function.
+	 4. useState is suitable for managing a single piece of state where useReducer is 
+	    suitable for managing multiple state.
+------------------------------------------
+Q40. What are dispatch function & reducer function in useReducer Hook?
+->   dispach function is used to dispach the action object and reducer function is
+     used to implement state updation logic.
+------------------------------------------
+Q41. What is useCallback hook?
+->   useCallback is predefined hook,it returns memoized function defination between 
+     re-renders.
+   
+->   It means when we use useCallback hook,it doesn't create multiple instances of same 
+     function between re-renders.
+
+->   instead of creating new instance of function,it returns cached function on re-render
+     of the component. 
+------------------------------------------
+Q42. What is Syntax of useCallback hook?
+->   useCallBack accept two input arguments,first input argument is callback function
+     and second input argument is dependency array. on execution useCallBack returns
+	 it returns memoized function defination. so syntax is as below.
+     const myFun = useCallback(() => {}, []);
+------------------------------------------
+Q43. What is useMemo Hook?
+->   useMemo is a predefined hook,it returns memoized value between re-renders.
+
+->   It means instead of re-calculating the value it returns cache value on component
+     re-rendering and avoid unnecessary re-renders.    
+------------------------------------------
+Q44. What is Syntax of useMemo hook?
+->   useMemo hook accept two input arguments, first input argument is call back function
+     and second argument is dependency array.
+	 
+	 const result=useMemo(callBackFunction,[dependency])
+   
+     On the first render, useMemo get executed and return the result of calculation.
+   
+     During next renders, if dependencies haven’t changed then it will return same value.
+     If there change in the dependencies then useMemo get executed and perform re-calculation
+     and return new value.	
+   
+->  Advantage of using useMemo hook is it improve the application performance
+------------------------------------------
+Q45. What is useRef hook?
+->  It is  a predefined hook and used  to persist values between re-renders.
+    OR
+    It is a predefined hook and used to create mutable variable which will not 
+    re-render the component.
+------------------------------------------
+Q46. What is syntax of useRef hook?
+->   const ref=useRef(initialValue);
+     The useRef hook accept one input argument of any type and returns 
+     an object with a single property and property name is "current"
+     {
+       current:value
+     }
+-> input argument is optional,if we don't pass initial value then "current" property value 
+   is set to undefined.
+   {
+     current:undefined
+   }
+   
+-> if we pass initial value then that value is set to "current" property on first render.
+   {
+     current:passedValue
+   }
+   You can later set it to something else.
+   
+-> If we want to access current property then ref_name.current
+------------------------------------------
+Q47. When to use useRef hook?
+-> 1. Accessing DOM Elements: We can access DOM element using useRef.
+      Example : focusing on an input field when a component is mounted
+
+   2. Storing Mutable Data: We can store data that persists across renders but 
+      doesn't cause a re-render when component is updated, unlike useState.
+	  
+   3. Referencing Interval or Timeout IDs: By using useRef hook we can keep the track of    
+      setInterval or setTimeout IDs and use these IDs in clearInterval or clearTimeout
+	  function.
+      
+   4. Tracking Previous State or Props: It helps in keeping track of a component's previous 
+      state or props to compare with current values.
+	  
+   5. Implementing Custom Hooks: useRef can be used within custom hooks to retain stateful  
+      values.
+------------------------------------------
+Q48. What is useLayOutEffect Hook
+->   useLayOutEffect is same as useEffect Hook only difference is 
+     useEffect get executed when componet is rendered but useLayOutEffect
+     hook get executed before componet rendering.
+   
+     useEffect(callBackfunction,[dependency])
+   
+     useLayOutEffect(callBackfunction,[dependency])
+   
+->   If we want to perform some side effect before componet rendering then 
+     go with useLayOutEffect hook.
+   
+->   If we want to perform some side effect after componet rendering then 
+     go with useEffect hook.
+------------------------------------------
+Q49. When to use useLayoutEffect() Hook?
+->   If we want to perform some side effect before componet rendering then 
+     go with useLayOutEffect hook.
+------------------------------------------
+Q50. What problem do React Hooks solve?
+->   React hooks has solved state management,lifecycle and side effect
+     problems of function component.
+------------------------------------------
+Q51. What are Component life cycle phases?
+->   Component Life Cycle Phases are as below 
+     1.  Mounting Phase: Component creation started
+	 2.  Updating Phase: Component updated
+	 3.  Unmounting Phase: Removal from the DOM
+--------------------------------------------
+Q1. What are limitations of React or What are disadvantage of react?
+-> 
+------------------------
+Q2.What are different lifecycle phases of component?
+-> Every component has 3 lifecycle phases and these are as below.
+   1. Mounting: Component creation started
+   2. Updating: Component is updated
+   3. UnMouting: Component is removed from DOM
+---------------------------
+Q3.In which lifecycle phase component will be re-rendered?
+-> In the updating phase component will be re-rendered if any props or state is changed
+--------------------------
+Q4. How we include external css file in React?
+->  We include external css file in React by using import statement
+--------------------------
+Q5. How we include external css file in HTML Page?
+->  We include external css file in HTML page by using <link> tag.
+--------------------------
+Q6. What is mean by Bundling in react?
+->  Bundling is process of importing and merging files into a single file.
+    This bundle can then be included on a webpage to load an entire app at once.
+-------------------------
+Q7. What is mean by code splitting in React?
+->  Code splitting is a technique where Bundle splitted into smaller chunks, 
+    and loaded on demand.
+---------------------------
+Q7. How we achieve code splitting in React?
+->  We can achieve code splitting in simple stpes
+    1. Use React.lazy() to lazily import components.
+	2. Wrap components with Suspense to handle loading. 
+	3. Configure your build tool (e.g., Webpack) for dynamic imports
+---------------------------
+Q8. What is the role of the import() function in code splitting?
+->  import() function is used to import the component on demand.
+    import() function returns promise.
+---------------------------
+Q9. What is advantage of Code Splitting?
+->  It improve the application performance.
+    Because- Code splitting reduces the initial load time of your application 
+	by only loading the necessary code for the current view or feature.
+---------------------------
+Q10. How do you inspect and analyze the generated chunks in a React application? 
+->   Use tools like Webpack Bundle Analyzer to analyze the size and composition of chunks.
+---------------------------
+Q11. How to install Webpack Bundle Analyzer?
+-> 
+----------------------------
+Q12. What is role of lazy() function?
+->   lazy() function present in "react" package.
+     lazy() function is used to load the component dynamically.
+	 lazy() function accept callback function as input argument.
+	 
+	 const MyLazyComponent = lazy(() => import('./MyLazyComponent'));
+----------------------------------	 
+Q13. What is role of Suspense component?
+->   Suspense component present in react package and it is used to specify fallback 
+     UI while the lazily loaded component is being fetched.
+	 
+	 const MyLazyComponent = lazy(() => import('./MyLazyComponent'));
+	 
+	 <Suspense fallback={<div>Loading...</div>}>
+            <MyLazyComponent />
+     </Suspense>
+----------------------------------
+Q14. Can you dynamically load CSS files using code splitting in React? 
+->   Yes, using dynamic import() for CSS files allows you to load styles on-demand 
+     along with the corresponding components.
+----------------------------------
+Q15. How can you Optimize Performance in a React application?
+-> 	 1. Memoization with useMemo and useCallback:
+	 2. Optimizing Renders with React.Fragment:
+	 3. Lazy Loading with React.lazy:
+	 4. Code Splitting:
+	 5. Optimizing Images and Assets
+----------------------------------
+Q16. How to handle forms in React?
+->   The preferred and recommended approach for handling forms in React is by using 
+     controlled components.
+----------------------------------	 
+Q17. How can you handle multiple input fields in a controlled form?
+->   create separate state variables for each input field and update them individually 
+     using the onChange event.
+----------------------------------
+Q18. How do you handle form validation in a controlled component?
+->   By using conditional rendering based on the state and validate input values before 
+     updating the state
+----------------------------------   
+Q19. In what scenarios might using uncontrolled components be advantageous?
+->   Uncontrolled components are useful if we want to integrate react code with non-React code,
+     such as third-party libraries or legacy code.
+---------------------------------- 
+Q20. How to pass data from child component to parent Component in React?
+->   Parent provides a callback function to child and child component invoke
+     this callback function to pass data back to the parent.
+----------------------------------
+Q21. What are the differnt ways to Style React components?
+->   I know 4 different ways to Style React components and these are as below.
+		1. Inline Styles: 
+		2. Global Stylesheets
+		3. CSS-Modules
+		4. CSS Frameworks
+-----------------------------------
+Q22. What is syntax to apply Inline css to React element?
+->   We apply Inline style using "style" attribute
+     Syntax:
+	 <elementName style={ {propertyName""value",cssPropertyName:"value}}/>
+	 
+	 Value to style attribute is css object,property name should be camel case
+	 and value should be enclosed in double quoted.
+	 
+	 Example:
+	 <h1 style={ {color:"red",fontSize:"15px"} } >My Heading </h1>
+-----------------------------------
+Q23. How we apply global stylesheets to react element?
+->   Create seperate .css file and import that file in the required component
+-----------------------------------
+Q24. How we apply bootstrap css to react element?
+->   First install bootstrap in the project and import bootstrap css 
+     in the component
+-----------------------------------
+Q25. How we apply style using css module of react?
+->   Create a css file with name "ComponentName.module.css"
+     then import that file in the required component.
+	 To apply style use "className" attribute and specify the value to className
+	 attribute as className={style.className}
+------------------------------------
+Q26. What is mean by event?
+->   An Action performed by user on webpage is called event.
+     Button Click,Link Click, Submit the Form etc
+------------------------------------
+Q27. What is mean by event handling?
+->   Responding to user action is nothing but event handling.
+------------------------------------
+Q28. What is mean by Event Source?
+->   The Element who generates events is called Event Source.
+     Example: button,input box
+	 Note: Event Source is always HTML Element.
+------------------------------------
+Q29. What is mean by Event Listener?
+->   Event Listener is function which listen the user actions.
+------------------------------------
+Q30. What is mean by Event Handler?
+->   Event Handler is function which handles the user actions
+------------------------------------
+Q31. What are event handling steps.
+->   Event handling steps are as below.
+     1. Indentifying the Event Source
+	 2. Defining Event Handlers
+	 3. Registering Event Listeners
+------------------------------------
+Q32. Nameing Convention for Event Listeners When we are Registring Event Listeners 
+     throght "addEventListener" Function.
+->   1. Event listener name should be lower case.
+	 2. Event listener name should be enclosed in quoate.
+	 3. Event listener name should not be prefixed with "on"
+------------------------------------
+Q33. Nameing Convention for Event Listeners When we are Registring Event Listeners as   
+     attribute to event source.
+->   1. Event listener name should be camel case. 
+	 2. Event listener name should not be enclosed in quoate.
+	 3. Event listener name should be prefixed with "on".
+	 4. Note: All predefined event listers in HTML and React are prefixed with "on"
+------------------------------------
+Q34. Nameing Convention for event handlers
+->   1. In HTML event handler names should be lower case but in React event handler name 
+        should be in camel case and should be prefixed with "handle".
+	 2. In HTML event handler name should be enclosed in quotes but in React event handler
+        name should be enclosed in curly braces.
+	 3. In HTML event handler name should be followed by parenthesis but in react event handler
+        name should not followed by parenthesis.bymistake function name followed by parenthesis then it get called on page load without user action.
+------------------------------------
+Q35. What are Most commonly used events?
+->   1. Mouse Event 
+     2. Keyboard events
+     3. Form events
+     4. Window/Document events
+------------------------------------
+Q37. What is inline event handler?
+->   Inline event handler means instead of defining event handling logic in 
+     seperate function,we define handling logic as value to event listener.
+   
+    Example: Seperate event Handler Function
+   
+    <button onClick={handleOnclick}>Click Me</button>
+   
+   function handleOnclick()
+   {
+     alter("You Clicked Me")
+   }
+   in above example we have defined event handling logic in seperate function.
+   --------------------------------------
+   Example : Inline event handler
+   1. <button onClick={()=>alert('You Clicked Me Here')}>Click Me</button>
+   
+   Or 
+   2. <button onClick={alert('You Clicked Me Here')}>Click Me</button>
+   
+   But difference between above two statement is first statement is called on user click
+   but second one executed on page load.
+------------------------------------
+Q38. What is event Propogation?
+->   The order in which event handlers are executed when an event occurs on a webpage
+     is nothing but event Propogation.
+->   When event occurs then it goes from three different phases.
+     1. Capturing phase 2. Target phase 3. Bubbling phase 
+->   In the capturing phase, event propogates to downword direction.i.e from
+     top of document to event source.
+->   In the Target phase, the event handler is executed.
+->   In the Bubbling phase, event propogates to upword direction. i.e from
+     event source to Parent.
+->   This is the default behavior for most of events in the DOM.
+->   Example:
+     Consider the below Example.
+     Here <div> contains two buttons. Both buttons and  <div> have onClick handlers
+     function Toolbar() 
+    {
+      return (
+        <div className="Toolbar" onClick={() => {
+         alert('You clicked on the toolbar!');
+       }}>
+        <button onClick={() => alert('Playing!')}>
+           Play Movie
+        </button>
+        <button onClick={() => alert('Uploading!')}>
+           Upload Image
+        </button>
+    </div>
+   );
+  }
+  export default Toolbar;
+  
+-> If you click on either button, its onClick will run first, followed by the parent <div>’s 
+   onClick. So two messages will appear. If you click the toolbar itself, only the parent <div>’s onClick will run.  
+------------------------------------
+Q39. How to stop event Propogation?
+->   If we want to stop event Propogation then call stopPropagation() function from child's 
+     event handler.
+------------------------------------
+Q40. How Parent communicate with Child?
+->   Parent can communicate with child by passing data via props. Child read that props 
+     and can use it.
+------------------------------------
+Q41. How child communicate with Parent?
+->   Child can communicate with Parent by Bubbling up events.
+     i.e Instead of defining event handler in child, we define event handler in Parent 
+	 and pass event handler as props to child. Child read this event handler and use 
+	 it for bubbling up the event.In this way we can perform Child-Parent communication.
+------------------------------------
+Q42. How we Prevente Default behaviour of Event Handler?
+->   Some browser events have default behavior associated with them. 
+     For example, a <form> submit event, which happens when a button 
+     inside of it is clicked
+     but we can prevent this default behavior by calling preventDefault()
+     function on event object as "event.preventDefault()"
+------------------------------------
+Q43. preventDefault vs stopPropogation
+->   e.preventDefault()  : Prevent the default behavior of browser events.
+     e.stopPropagation() : Stope event from bubbling up.
+------------------------------------
+Q44. What are synthetic events in React?
+->   Different browsers may have different event names so same event may or may not 
+     work in all browsers.To over come this problem React introduced synthetic
+	 event. synthetic event is a special type of event object which wrappe the  
+     browser's native events and that events are supported by all browsers and hence
+	 same event work identically across all the browsers.
+------------------------------------
+Q45. State the following statements true or false.
+   1. If we are not passing any arguments to event handler then default argument to
+      Event handler function defination is event object.
+   2. We can't pass event object expilictly to event handler as an argument.
+   3. If are passing  arguments in event handler then event object is bydefault 
+      available to event handler defination
+   4. If are passing  arguments in event handler then event object is bydefault 
+      available to event handler defination and we no need to pass event 
+      object explicitly.
+   5. In which order we have passed arguments, in the same order we need to catch in 
+      the handler defination.
+   6. Generally event object is passed as last argument to event handler.
+---------------------------------------------
+Q.. What is redux?
+==> - Redux is open source JavaScript library 
+	- it help to manage the state of react application by providing a predictable state 
+	  container that can be accessed by all components in the application.
+	- Redux provide centerized store for store all state data.this allow components to easily 
+	  access and update state without having to manage it locally within each component
+	- To use redux toolkit steps are 
+		
+		- to create redux store steps are 
+		- install the react-redux using commnad 
+		npm install react-redux 
+		- install the redux toolkit using command 
+		npm install @reduxjs/toolkit 
+		- create folder with name store 
+		and create index.js file inside that 
+		- open index.js file 
+		- import the configureStore from @reduxjs/toolkit 
+		- create the store using configureStore() 
+			const store_name=configureStore({reducer})
+		- create slice using createSlice() method 
+		- import createSlice() from @reduxjs/toolkit
+		- to create slice synax is 
+			const slice_anme =createslice({
+			})
+		- export createSlice actions 
+		- export store 
+		- wrap the component inside the provider 
+		- import provider from react-redux 
+		- to import provider syntax 
+			import {Provider} from "react-redux"
+		- pass store as named attribute to Provider container 
+			syntax is <Provider store={store_name}/>
+		13. use the store value using useSelector() 
+			const result=useSelector(store=>store.value);
+		14. dispatch the action using useDispatch hook 
+			const dispatch=useDispatch()
+		
+---------------------------------------------
+Q.. Disadvatages of redux?
+==> Action types are difficult to maintain 
+	Store becoming too big 
+	mistakly editing store 
+	Reducer becoming too big
+---------------------------------------------
+Q.. Feature of Redux?
+==> - Predictable State Container 
+		Redux provides a predictable state container that can be accessed by all components in the application
+	- Centeralized State management 
+		Redux stores state globally in a centralized store, making it easy for any component to access the state it needs
+	- Performance Optimization
+		 Redux automatically implements complex performance optimizations to ensure that components only re-render when the data they need has actually changed
+	
+---------------------------------------------
+Q.. React vs React Native?
+==> - React is library where as React native Framework
+	- React is used to build dynamic and interactive user interface where as 
+	  React Native is used to building native mobile application for ios and android 	
+	- React compiles to javascript that can run in any browser where as 
+	  React Native compiles to native ios and android code ,utilizing native platfrom API's 
+	- React uses web componant to build UI's where as React native uses native components 
+	  for building UI's 
+	- React use virtual dom to render browser code in react  whereas 
+	  React Native utilize API's and native UI component to build mobile application
+---------------------------------------------
+
+
+
+NOTES WHEN I START LECTURE
+
+
+
+---------------------------------------------
+
+Q. What are 5 different ways to style react component?
+=> 1. inline style 
+	=> we can apply inline style using 2 ways 
+	   1. first create object then use it 
+				const inlineStyle={
+								title:{
+										font-size:100px;
+										font-weight:800;
+									  }
+								}
+								
+				<h1 className={inlineStyle.title}>Heading</h1>
+				
+	   2. directly apply inline 
+			<h1 className={{font-size:"100px",font-weight:"800"}}>Heading</h1>
+			
+	2. css style sheet 
+		create seperate style sheet for each file 
+		
+	3. css modules
+		create file_name.module.css file and import that file to component 
+		import style from 'file_name.module.css'
+		
+	4. global style sheet 
+		create one file and use that file for each component 
+		
+	5. css framework
+		use different framework like bootstrap,tailwind 
+
+---------------------------------------------
+Q.. Benefit of CSS module?
+==> 1. localized class name it avoid global cofilct 
+	2. styles are scoped to individual component 
+	3. helps in creating component specific styles 
+	4. automatic generate unique class name 
+---------------------------------------------
+Q.. What is the difference between HTML and React event handling?
+==> 1. In HTML, event names are written in lowercase but in React event name is 
+      written in camelCase.
+	  <button onclick='handleEvent()'>
+	  <button onClick={handleEvent}>
+	  
+   2. In HTML, function name must be followed by parenthesis but 
+      in react we specify function name without parenthesis.
+	  
+   3. In HTML function name must be enclosed in single or double quote
+      but in React no need to enclose function name in single or double quote.
+	  
+   4. In HTML,We can add event listener any time using external javascript
+      but in React We have to specify all the Events at the time of component creation.
+	  
+   5. In HTML, we may avoid default behavior by returning false, but in React, we must call 
+      preventDefault() explicitly	  
+---------------------------------------------
+Q.. What are synthetic events in React?
+==> 1. Different browsers may have different names for the events.
+   2. In React, synthetic event is a special type of event object that acts as a wrapper    
+      and holds browser's native event.
+   3. It contains information about events which are supported by different browser
+      in single API.
+   4. synthetic event ensuring that events work identically across all browsers.
+---------------------------------------------
+Q.. What is react developer tool?
+==> react developer tool allow us
+	1. Inspection
+		allow you to inspection of react component heirarchies
+	2. State and props 
+		view and edit current state and props of component 
+	3. Performance
+		Analyze component re-renders and perfomance
+	4. Navigation
+		Conveniently navigate through the entire component tree 
+	5. Filtering 
+		Filter components by name or source to locate them quickly 
+	6. Real-Time feedback
+		See live changes as you modify state and props
+
+---------------------------------------------   
+

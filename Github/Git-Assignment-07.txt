@@ -1,0 +1,60 @@
+1. What does the git pull command do?
+A) Downloads changes from the remote repository but does not merge them
+B) Downloads and merges changes from the remote repository into the local branch
+C) Only merges local branches
+D) Pushes local changes to the remote repository
+---------------
+2. What is the default behavior of git pull?
+A) Fetch changes from remote but do not apply them
+B) Fetch and merge changes from the remote branch into the current branch
+C) Delete the current branch and create a new one from remote
+D) Push changes to the remote repository
+----------------
+3. Which of the following commands is equivalent to git pull?
+A) git fetch && git merge
+B) git clone && git merge
+C) git push && git merge
+D) git rebase && git push
+----------------
+4. How do you pull changes from a specific branch in Git?
+A) git pull origin <branch-name>
+B) git fetch origin <branch-name>
+C) git merge origin <branch-name>
+D) git checkout <branch-name>
+---------------
+5. What will happen if your local branch has uncommitted changes when you run git pull?
+A) Git will overwrite the local changes without warning
+B) Git will stash the changes automatically and then pull
+C) Git will show an error and ask you to commit or stash your changes
+D) Git will merge the changes automatically
+--------------
+6. What flag should be used with git pull to perform a rebase instead of a merge?
+A) --no-ff
+B) --squash
+C) --rebase
+D) --force
+-------------
+7. What is the difference between git pull and git fetch?
+A) git fetch downloads changes but does not merge, while git pull fetches and merges changes
+B) git pull downloads changes without merging, while git fetch fetches and merges
+C) git fetch pushes changes, while git pull fetches them
+D) git pull only updates remote branches
+-----------
+8. What command should you run to avoid merge conflicts when using git pull?
+A) git pull --force
+B) git pull --squash
+C) git pull --rebase
+D) git pull --hard
+------------
+9. Which of the following situations requires a git pull?
+A) When you want to update your local branch with the latest remote changes
+B) When you want to push your local changes to the remote repository
+C) When you want to create a new repository
+D) When you want to delete a remote branch
+--------------
+10. What happens if there are merge conflicts after running git pull?
+A) Git will automatically resolve the conflicts
+B) Git will abort the pull and discard remote changes
+C) Git will pause and ask you to manually resolve the conflicts
+D) Git will automatically commit the conflicting changes
+s

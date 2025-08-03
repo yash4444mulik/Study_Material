@@ -1,0 +1,1401 @@
+===================================================================================================
+								GITHUB
+===================================================================================================
+
+Q.. What is Git?
+==> Git is free and open source distributed version control tool.
+	free means no need to pay to use
+	Open source means source code is open
+	Git developed in C language.
+	it run on linux operating system
+	Git maintained by linux
+	Junio Hamano and other developer invented Git
+---------------------------------------------------
+Q.. Difference between program file and program file 86?
+==> if our system is 64 bit and we want to install application which is also 64bit then
+    it is maintained by program file where as
+	if we want to install 32bit application in 64bit system then it is maintained by
+	program file 86.
+---------------------------------------------------
+Q.. what is difference between windows os and Linux os?
+==> Linux is free and open source where as windows os is paidable
+	window os is more user friendly it can be used by anyone where as
+	to use linux use must have some technical knowledge.
+	window is less secure than linux because of its widespread use
+	window can slow over time due to background process and updates where
+	linux is know for it's stability
+---------------------------------------------------
+Q.. How to install Git on Windows?
+==> Download gitbash and install
+	once gitbash install then it internally install git
+	Along with git,git GUI also installed
+---------------------------------------------------
+Q.. What is gitbash?
+==> gitbash is command line interface for windows user to intract with git.
+---------------------------------------------------
+Q.. How to install git on Linux Operating System?
+==> To install git on Linux OS execute command
+		sudo apt install git
+---------------------------------------------------
+Q.. How to cross check git is available or not in your system?
+==> Open command prompt and execute command "git --version" or "git -v"
+	If git is available on your system then this command give git version
+	if git is not available then it give error like "git not recongnize"
+---------------------------------------------------
+Q.. Why gitbash required for windows not for linux os?
+==> Git developed in C language and it runs on linux os
+	Git run on linux OS means to run git linux environment is required.
+	On windows OS gitbash is provides Linux environment
+	so get linux environment on windows we use gitbash.
+---------------------------------------------------
+Q.. What is difference between Git and Gitbash?
+==> Git is version control tool where as Gitbash is command line interface for windows
+    to work on git
+---------------------------------------------------
+Q.. What is github?
+==> github is web-based git repository.
+---------------------------------------------------
+Q.. What is gitlab?
+==> gitlab is web-based git repository?
+---------------------------------------------------
+Q.. What is difference between github and gitlab?
+==> Both are web-based git repository but gitlab provide
+	more features like project planning,CICD pipeline.
+---------------------------------------------------
+Q.. What is version control tool?
+==> Any software or system that manage source code over the time is
+    called Version control tool.
+	Version control system is called source control
+	Purpose of version control system is to manage versions of project files
+---------------------------------------------------
+Q.. key benefit of version control system?
+==> 1. We can work in collaboration
+    => We can work in collaboration means different persons work on
+	   same file at a time without overwritting each other changes
+
+	2. We can maintain source code history
+	=> Every change in the source can be recorded including who,when and why
+
+	3. We can restore code changes
+	=> We can restore code changes if something went wrong
+
+	4. We can perform developement in isolated manner
+	=> Version control system allow to experiment new ideas on seperate branch
+	   without distrbing main codebase.
+
+	5. We can perform feature developement in parallel
+	6. We can perform code review through pull request
+	7. Version control system support modern CI/CD pipeline
+	8. We can overcome conflict
+	=> One developer can't write other developer changes.if one developer try to
+	   overcome other developer changes then we will get conflict
+---------------------------------------------------
+Q.. Rule for command writting in Git?
+==> All command start with git
+	All git command are in lowercase
+	All git command are case sensative
+---------------------------------------------------
+Q.. "git init"	command?
+==> git init command is used to initiliz git repository
+	ones this command get executed then
+	1. .git folder get created
+	2. one branch created with "main" or 'master'
+---------------------------------------------------
+Q.. "git status" command?
+==> This command is used to know the status of local repository
+	Ones this command get executed it give status of local repository
+	In status we will get below information
+	1. Untracked files
+	2. Modified files
+	3. Deleted files
+	4. Staged files
+---------------------------------------------------
+Q.. What is meaning of staged files?
+==> files present in stgging area nothing but staged files 
+---------------------------------------------------
+Q.. what is the meaning of indexed files?
+==> files present in stagging area are called as indexed file 
+---------------------------------------------------
+Q.. What is Untracked files?
+==> Newly added files are known as Untracked files or the files whose record
+	is not available in git called as Untracked files
+	Untracked files names are displyed in red color under "Untracked files:" section
+---------------------------------------------------
+Q.. What is meaning of tracked files?
+==> staged and commited files are called as tracked files.
+---------------------------------------------------
+Q.. What is meaning of deleted files?
+==> if we delete tracked files then that files will be considered as deleted files.
+---------------------------------------------------
+Q.. "git add" command?
+==> "git add" command is used to add untracked files,modified files and deleted files
+	to stagging area.
+	With the help of "git add" command we can add single or multiple files in stagging area
+	Case 1:
+		To add single file syntax:
+			git add File_name
+	Case 2:
+		To add Multiple file syntax:
+			git add File_name1 File_name2 File_name3
+
+	Case 3:
+		To add all file at a time Syntax:
+			git add --a
+			git add -A
+
+	Case 4:
+		To add all .txt file at a time then syntax:
+			git add '*.txt'
+
+	Case 5:
+		To add modified and deleted file to staging area syntax:
+			git add -u
+
+---------------------------------------------------
+Q. "git add -u" command?
+==> git add -u command add modified and deleted file to staging area
+	this command does not add newly created file to stagging area
+---------------------------------------------------
+Q.. "git add -A" command?
+==> git add -A command add newly added,modified and deleted files to stagging area
+---------------------------------------------------
+Q.. "git add ." command?
+==> add all files in stagging area from current working directory.
+---------------------------------------------------
+Q.. How to stage files in a specific directory, say src/?
+==> 1. git add src/
+	2. git add -A src/
+	3. git add . (if inside src/)
+
+---------------------------------------------------
+Q.. What happens internally when you execute command "git add"?
+==> when we execute command then internally it create hash code for file content
+	this is called SHA-1
+	If two files have same content then git create same hash code
+	Store file in blob(binary large object) this blob file available inside .git/object directory
+	If we want to view hash code of file content then use below command
+	=> git ls-files --stage
+
+
+	100644   e69de29bb2d1d6434b8b29ae775ad8c2e48c5391     0       F1.txt.txt
+
+	100644==> file mode and file permission
+	e69de29bb2d1d6434b8b29ae775ad8c2e48c5391==> hashcode
+	0 ==> stage Number
+	F1.txt.txt ==> file name
+
+	Stage Number:
+		If value is 0 means normal
+		If value is >0 means conflict resolution
+
+
+	e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+	==> First two character of hash code used to give name to folder
+		Remaining character is used for file name
+
+---------------------------------------------------
+Q.. What is the repository in git?
+==> Repository is a storage location for code
+---------------------------------------------------
+Q.. What happens when we execute command "git add ."?
+==> it add all modified and new files to stagging area.
+---------------------------------------------------
+Q.. "git commit"?
+==> "git commit" is used to add stagging files to commit area.
+	this command is used to commit the changes
+	By using git commit command we can commit single file changes or multiple
+	file changes
+
+	Case 1: commit single file
+	==> Syntax: git commit file_name -m 'message'
+
+	Case 2: Commit multiple file
+	==> Syntax: git commit file1 file2 -m 'message'
+
+	Case 3: Commit specific extension file
+	==> syntax: git commit *.txt -m 'message'
+
+	Case 4: Commit all stages file
+	==> git commit -m 'message'
+
+---------------------------------------------------
+Q.. what is the use of "-a" option in git commit command?
+==> if we want to add file changes into directly commit area without adding in stagging area 
+	then we should go with "-a" option 
+	Syntax: git commit file_name -a -m 'messge'
+	
+	this command only commit modified and deleted file in commit area does not commit untracked files 
+---------------------------------------------------
+Q.. What is difference between HEAD,HEAD~1 and HEAD^ ?
+==> HEAD points to latest commit on current branch 
+	HEAD~1 & HEAD^ both points to previous commit of current branch 
+---------------------------------------------------
+Q.. How do you modify the message of the last commit?
+==> git commit --amend -m 'new message'
+---------------------------------------------------
+Q.. "git config --list" command?
+==> This command is used to view/display git configuration details
+	To exist from this command press q
+---------------------------------------------------
+Q.. what is mean by staged files?
+==> The file which is present in stagging area is called staged files
+	Staged files name is present in green color.
+---------------------------------------------------
+Q.. What is mean by modified file?
+==> if you changed content of tracked file then it become modified file
+	if file is modified then we need to commit it
+---------------------------------------------------
+Q.. Which command is used to unstage file?
+==> there two command to unstage file 
+	1. git restore 
+	2. git rm 
+---------------------------------------------------
+Q.. When should we go with "git rm" command ? 
+==> if you have not performed any commit operation on respository and you want 
+	to unstage file then you can go with git rm command.
+---------------------------------------------------
+Q.. When should we go with "git restore" command?
+==> if you have performed any commit operation on respository and you want to 
+	unstage file then you can go with "git restore" command.
+---------------------------------------------------	
+Q.. if commit opeartion is performed and you will execute "git rm " command 
+	to unstage file then what will be happen?
+==> we don't get any error,file will unstage.
+---------------------------------------------------
+Q.. if we have not performed any commit operation on respository and we are 
+	using "git restore" command to unstage file then what will happen?
+==> if no any commit opeartion is performed and we use "git restore" command to 
+	unstage file then we will get error "fatal : could not resolve head " 
+	
+	- beacause of head pointer is not available on respository 
+	- head is pointer which is created when first commit 
+	  opeartion performed and it always point to latest commit  
+	- so git could not found that head that why this error is occur 
+---------------------------------------------------	
+Q.. git restore command?
+==> with the help of git restore command we can
+	1. To unstage single or multiple files
+	2. To undo/discard the changes of single or multiple file and restore previous stage
+	
+	
+	NOTE: if we initilize new empty git repository and add one file in stagging area 
+		  and you want to unstage it then we will give an error like "could not resolve head"
+		  this error occur due to no commit from repository creation.
+		  - in that case use "git rm --cached option" command
+
+	Q. unstage A.log file?
+	=> git restore --staged A.log
+
+	Q. unstage A.log B.log files?
+	=> git restore --staged A.log B.log
+
+	Q. unstage all files?
+	=> git restore --staged .
+
+	Q. restore A.log file changes?
+	=> git restore A.log
+		// restore happens only if there is A.log is modified file and it is in working area
+
+	Q. restore A.log B.log file changes?
+	=> git restore A.log B.log
+		// restore happens only if there is A.log,B.log is modified file and it is in working area
+
+	Q. restore all files changes?
+	=> git restore .
+		// restore happens only if there all file are modified file and it is in working area
+---------------------------------------------------
+Q.. Can we use "git restore" command to recover deleted file?How?
+==> Yes,we can use git restore command to recover deleted file 
+	- If we delete file manually then it get deleted from file system 
+	  so recover use "git restore deleted_file_name" 
+	- If we delete file using "rm" command then it will get deleted 
+	  from respository and file system.To restore then we need to use below command
+		1. git restore --staged deleted_file_name 
+		2. git restore deleted_file_name
+---------------------------------------------------
+Q.. if no commit operation is performed on respository and you are using 'git restore --staged'
+    command then what will happen?
+==> If no commit operation is performed and we are using "git restore --staged" command 
+	to unstage file then will get an error like "could not resolve head"
+	- Reason: "head" is one pointer which point to latest commit 
+			  if no commit performed then "head" is not created 
+			  so git unble to resolve 
+---------------------------------------------------
+Q.. What is the difference between git restore and git rm command?
+==> with the help of git restore command we can unstage file and undo changes in the file where as 
+	with the help of git rm command we can unstage file and remove from local repository 
+	
+	if no commit operation performed in git respository and you want to unstage file then we can 
+    go with git rm command we can't use git restore command if we use git restore command then 
+	we will get an error 
+	
+	git restore is used to restore deleted file where as 
+	git rm is not used to restore deleted files 
+---------------------------------------------------
+Q.. is git restore command is available in all git versions?
+==> No it was introduced in Git 2.23
+	for older version we use git checkout 
+---------------------------------------------------
+Q.. What is difference between "git restore --staged file_name" and "git rm --cached" command?
+==> "git rm --cached" => this command remove file from stagging area and place back 
+						into working area and stop tracking 
+	
+	"git restore --staged" => this command remove file from stagging area and place back into 
+							 working area.
+---------------------------------------------------
+Q.. git rm command?
+==> rm stand for remove
+	with the help of git rm command we can
+	1. remove file from stagging area and place back into working area
+	2. remove file from stagging area and delete from system
+	3. remove directory from stagging area and place back into working area
+	4. remove directory from stagging area and delete from system
+	
+	
+	Q. git rm syntax to unstage file?
+	=> git rm --cached file_name 
+	
+	Q. git rm syntax to unstage file forcefully?
+	=> git rm --cached -f file_name 
+	
+	Q. What is meaning of forcefull removal?
+	=> if we add file in staging area and you modified it and you want to unstage that file 
+	   using "git rm --cached file_name" command then we will get an error so in that case we 
+	   need to unstage it forcefully so in that case we use "git rm --cached -f file_name" command 
+	   
+	Q. git rm command to unstage all files at a time?
+	=> git rm --cached -r . 
+	   git rm --cached *
+	   
+	Q. git rm syntax to delete file from system?
+	=> git rm file_name 
+	
+	Q. git rm syntax to delete forcefully file from system?
+	=> git rm -f file_name 
+	
+	Q. git rm syntax to unstage directory?
+	=> git rm --cached -r directory_name 
+	
+	Q. git rm syntax to unstage forcefully directory ?
+	=> git rm -rf --cached directory_name 
+	
+	Q. remove f1.txt from stagging area
+	=> git rm --cached f1.txt
+
+	Q. remove f1.txt f2.txt from stagging area
+	=> git rm --cached f1.txt f2.txt
+
+	Q. remove f1.txt from stagging area and delete from system
+	=> git rm -f f1.txt
+
+	Q. remove Dir directory from stagging area
+	=> git rm -r --cached Dir
+
+	Q. remove Dir directory from stagging area and also from system
+	=> git rm -fr Dir
+---------------------------------------------------
+Q.. where "git rm --cached " command is best sutaible?
+==> if we add file name inside ".gitignore" then git will ignore that file
+	if file is already tracked then we add file name inside the ".gitignore" file 
+	then it will keep tracking 
+	- in that situation we need to use "git rm --cached " command to unstage file 
+	- with the help of "git rm --cached" command we remove it from stagging area but 
+	  it does not remove from system and git will not track 
+	- i.e "git rm --cached" best sutaible to stop tracking of tracked file.
+	  
+---------------------------------------------------
+Q.. What is mean by Branch?
+==> Branch is an independant line of development
+	with the help of branch concept we can perform parallel developement
+	Every repository have one root branch and its name either "main" or 'master'
+	we have other different branch like 'release branch','bug fix branch','feature branch' etc
+---------------------------------------------------
+Q.. git branch command?
+==> with the help of git branch command we can perform below operation
+	1. we can listout local branches 
+	2. we can listout remote branches 
+	3. we can listout local+remote branches 
+	4. we can create new branches 
+	5. we can delete single or multiple branch 
+	6. we can rename current working branch 
+	7. we can rename other branch 
+	
+	1. syntax to listout local branches 
+	=> git branch 
+	
+	2. syntax to listout remote branches 
+	=> git branch -r 
+	
+	3. syntax to listout local+remote branches 
+	=> git branch -a 
+	
+	4. syntax to create new branch 
+	=> git branch branch_name 
+	
+	5. syntax to delete single branch 
+	=> git branch -d branch_name 
+	
+	6. syntax to delete multiple branches 
+	=> git branch -d <branch_name1> <branch_name2> 
+	
+	7. Rename current working branch 
+	=> git branch -m <new_branch_name>
+	
+	8. Rename other branch 
+	=> git branch -m <old_branch_name> <new_branch_name>
+
+---------------------------------------------------
+Q.. with the help of git checkout command which operation we can perform?
+==> with the help of git checkout command we can perform below operation 
+	1. we can create new branch and switch on that branch 
+	2. we can switch current branch to another branch 
+	3. we can checkout remote branch 
+---------------------------------------------------
+Q.. How to switch one branch to another?
+==> git checkout branch_name
+---------------------------------------------------
+Q.. Create new branch and switch that branch?
+==> git checkout -b branch_name
+---------------------------------------------------
+Q.. syntax to checkout remote branch ?
+==> git checkout -b branch_name origin/branch_name
+---------------------------------------------------
+Q.. git switch command?
+==> with the help of git switch command we can perform below operation 
+	1. create new branch switch on that branch 
+		git switch -c branch_name 
+	2. switch on one branch to another branch 
+		git switch branch_name 
+---------------------------------------------------
+Q.. Which commands are used to create branch ?
+==> 1. git branch 
+	2. git checkout 
+	3. git switch 
+---------------------------------------------------
+Q.. How to clone all branch without new branch clonned?
+==> git fetch origin
+---------------------------------------------------
+Q.. What is difference between local repository and remote repository?
+==> local repository available for perticular user where as
+	remote repository available for everyone
+
+	local repository available on local system where as
+	remote repository available on server
+
+	To work on local repository no internet connection required where as
+	To work on remote repository internet connection is required
+
+	To perform on local repository we use git commands where as
+	To perform on remote repository we don't use git commands
+---------------------------------------------------
+Q.. What is head file?
+==> head is pointer and it always point to current working branch.
+	when you switch from one branch to another branch internally head pointer also
+	switched and point to that branch.
+---------------------------------------------------
+Q.. git log command?
+==> when we commit the changes then commit id(commit hash) is generated and it is used
+	to maintain commit history
+	
+	git log command is used to view commit history
+	hashcode and commit id is different things
+	Syntax:
+		git log <option>
+
+		option is optional thing
+---------------------------------------------------
+Q.. In which order "git log " command display committed history?
+==> Reverse of chronological order (latest commit first and first commit last)
+---------------------------------------------------
+Q.. when git log command executed then which information will display in output?
+==> 1. commit id 
+	2. user name and email 
+	3. commit message 
+	4. date and time of commit 
+---------------------------------------------------
+Q.. Which option is used to display each commit in single line?
+==> git log --oneline
+---------------------------------------------------
+Q.. Which option is used to display limit number of commit?
+==> git log -n <number>
+---------------------------------------------------
+Q.. git revert command?
+==> git revert command is used to revert(undo) the commited changes
+	we can revert last commit or we can revert specific commit
+
+	Syntax:
+		git revert <option> <commit_id>
+
+		once this command execute this will open text editor then we can specify
+		our new commit message
+		
+---------------------------------------------------------
+Q.. What are different option of "git revert" command?
+==> There are multiple option but most commonly used option are 
+	1. --no-commit 
+	2. --no-edit 
+---------------------------------------------------
+Q.. What is default behaviour of "git revert" command?
+==> If we execute "git revert" command then it open text editor to add commit message.
+	Ones we add commit message and close the editor,git revert undo specified commit 
+	changes by creating new commit 
+---------------------------------------------------
+Q.. What is the use of "--no-commit" option?
+==> By default git revert command open text editor and we need to add commit message
+	if we use "--no-commit" option then git undo changes but does not commit automatically
+	i.e this option allow us to review or modify the changes 
+---------------------------------------------------
+Q.. What is the use of "--no-edit" option?
+==> By default git revert command open text editor and we need to add commit message
+	if we use "--no-edit" option then git does not open text editor.Git add default
+	commit message automatically.
+---------------------------------------------------
+Q.. What is the difference between "git restore" and "git revert" command?
+==> - git restore command undo working area file changes where as
+	  git revert command undo commit area file changes 
+	- git restore undo uncommited changes but git revert undo committed changes 
+	- git restoer does not create new commit where as 
+	  git revert always create new commit 
+	- git restore does not affect commit history where as 
+	  git revert affect commit history 
+	- git restore command syntax: "git restore file_name" where as 
+	  git revert command syntax: "git revert commit_id"
+
+---------------------------------------------------
+Q.. git clone command?
+==> git clone command is used to clone remote repository on local 
+	with the help of git clone command we can clone a repository and 
+	we can clone specific remote branch
+---------------------------------------------------
+Q.. By default which branch clonned by "git clone" command?
+==> main/master 
+---------------------------------------------------
+Q.. What is the basic syntax of "git clone" command?
+==> git clone <option> <repo-url>
+---------------------------------------------------
+Q.. What is the syntax to clone branch?
+==> git clone -b branch_name <repo_url>
+	or 
+	git clone --branch branch_name <repo_url>
+---------------------------------------------------
+Q.. What is the default behaviour of "git clone" command?
+==> Default behaviour means if we don't specify the option in git clone command 
+	- when "git clone <url>" command is executed then following thing happens 
+	1. clones entire repository
+		clone the entire repository means download all branches referances,tags 
+		and commit history
+	2. clone default branch 
+	3. Add remote name "origin"
+		link your local repository to original remote repo. 
+		you can push/pull from origin after clonning 
+---------------------------------------------------
+Q.. What are the different option in git clone command?
+==> 1. --depth <n>
+	2. --branch or -b 
+	3. --single-branch 
+---------------------------------------------------
+Q.. What is the use of --depth <n> option in git clone command?
+==> By default git clone command download all commit history if you don't want to 
+	download all commit history then we can go with --depth <n> option 
+	- --depth <n> download only specific number of commit 
+	- Syntax: 
+			git clone --depth <n> <url> 
+			git clone --depth <n> -b <branch_name> 
+			
+		In first syntax by default it consider main/master branch 
+		
+		In second syntax we can specify branch 
+---------------------------------------------------
+Q.. What is the use of --branch or -b option in git clone command?
+==> By default git clone command clone main or master branch if you want to clone 
+	specific branch then we can go with --branch or -b option 
+	- Syntax: 
+		git clone -b branch_name <url>
+		git clone --branch branch_name <url> 
+		
+---------------------------------------------------
+Q.. What is the use of --single-branch option in git clone command?
+==> Bydefault git clone command download all branches references if you want to clone 
+	single branch and download only that branch referance then we should go with --single-branch 
+	option 
+	
+	Syntax: 
+			git clone --single-branch <url>
+			git clone --single-branch -b branch_name <url>	
+			
+		In first syntax bydefault it consider main/master branch 
+		
+		In second syntax we can specify branch 
+---------------------------------------------------
+Q.. What is the difference between 1. git clone -b branch_name <url> 
+	2. git clone --single-branch -b branch_name <url> 
+==> - first command clone specific branch but download all remote branches referances
+	  tag and commit history
+	- second command clone specific branch and specific branch references tag and commit history 
+---------------------------------------------------
+Q.. git pull command?
+==> git pull command download remote branch changes and merge into local repository.
+	- git pull command performing two operation => fetch and merge 
+	  so git pull is combination of two commands git fetch and git merge 
+---------------------------------------------------
+Q.. What is the syntax of git pull command?
+==> Syntax: git pull <remote_name> <branch_name>
+	-> here remote_name and branch_name are optional 
+	-> if we don't specify remote_name then it consider "origin"
+	-> if we don't specify branch_name then it download all branch and merge only current 
+	   working branch changes 
+---------------------------------------------------
+Q.. What is the default behaviour of git pull command?
+==> Default behaviour means if we don't specify remote_name and branch_name 
+	then what will happen 
+	- if we don't specify remote_name then git consider "origin"
+	- if we don't specify branch_name then git download all branch but 
+	  merge only current working branch changes 
+	- suppose we are working on march-task branch and if we use git pull command 
+	  then all remote branch changes get downloaded 
+---------------------------------------------------
+Q.. What happen if you have uncommited changes when you run the git pull command?
+==> git pull will fail 
+---------------------------------------------------
+Q.. What is your action if git pull fails because of uncommited changes?
+==> commit changes or stash changes 
+---------------------------------------------------
+Q.. git pull command is combination of which two command?
+==> git merge and git fetch 
+---------------------------------------------------
+Q.. how can you avoid an automatic commit with the git pull command?
+==> You can avoid an automatic commit by breaking git pull into two seperate command
+	Step 1: Fetch the changes 
+	Syntax: git fetch <remote_name> <branch_name>
+	
+	Step 2: Manually merge with --no-commit 
+	Syntax: git merge --no-commit FETCH_HEAD
+---------------------------------------------------
+Q.. git pull command?
+==> download all changes from remote "orgin" but merge only current working branch changes 
+---------------------------------------------------
+Q.. git pull origin?
+==> This is same as 'git pull' but only difference is here manually specified remote_name 
+---------------------------------------------------
+Q.. git pull origin feature-003?
+==> this command download changes from "feature-003" branch and merge into current working 
+	branch 
+---------------------------------------------------
+Q.. git pull --ff-only
+==> here ff stands for fast forward 
+	pull all remote branch changes and merge only current working branch changes if 
+	fast forward merge 
+---------------------------------------------------
+Q.. What is difference between git fetch and git pull?
+==> git fetch download all changes but don't merge automatically
+	git pull download the changes and merge automatically
+---------------------------------------------------
+Q.. if you have multiple branches checked our locally, and you do simple 
+	git pull, which branch updates?
+=> 	when we run git pull then current working branch changes merge automatically but 
+	other branch update are fetched but they are not merged automatically 
+---------------------------------------------------
+Q.. What is mean by remote tracking branch?
+==> A remote branch associated with your local branch 
+	if you want to know the remote tracking branch for your local branches,
+	then use "git branch -vv" command 
+---------------------------------------------------
+Q.. What is working difference between git restore and git revert command?
+==> git revert command undo the commit message and we can specify new message where as
+	git restore command is used to move stagging area file into untracked area
+	and undo the file changes
+---------------------------------------------------
+Q.. git push command ?
+==> git push command is used to push local repository changes on remote repository or central repo.
+	Syntax:
+		git push <remote_name> <branch_name> 
+		
+--------------------------------------------
+Q.. What is the syntax of git push command?
+==> git push <remote_name> <branch_name> 
+	-> here remote_name and branch_name are optional things 
+	-> if we don't specify remote_name then by default it considered as origin 
+	-> if we don't specify branch_name then by default it considered as current working branch 
+	-> if we specify branch_name then changes from that branch pushed to remote 
+--------------------------------------------
+Q.. What is difference between below command?
+==> 1. git push 
+	2. git push origin 
+	3. git push origin main 
+	4. git push main 
+	
+	=> first command push current working branch changes on default remote origin 
+	=> Second command is same as first only difference is in second command remote
+		name explicitly specified,both command will push current working branch changes 
+		on remote origin 
+	=> third command push main branch changes on origin 
+	=> fourth command give an error,when we want to push particular branch 
+		changes then use complete syntax as 
+		git push <remote_name> <branch_name> 
+--------------------------------------------
+Q.. What is the use of "-u" option in git push command?
+==> -u option is used to set upstream branch for local branch 
+	Explination: 
+	When you create a branch on local repository and try to push first time 
+	then we will get an error because for created local branch there is no any upstream
+	and there is no link between remote and local branch 
+	
+	=> When you execute git push command with -u option 
+		1. it create a branch on remote if not exist 
+		2. create link between local and remote branch 
+		3. push local branch change on remote branch 
+	
+---------------------------------------------------
+Q.. if branch is create on local and we want to push branch changes on remote then 
+	which steps we need to do?
+==> we don't push changes directly to remote first we need to upstream local branche 
+	using command 
+	git push -u <remote_branch> <local_branch > 
+	
+	this is one time activity next time onword we can use only 
+	"git push" command 
+--------------------------------------------
+Q.. What is the use of --delete option in git push command?
+==> --delete is used to delete remote branch 
+	Syntax: 
+		git push <remote_name> --delete <local_branch> 
+--------------------------------------------
+Q.. git switch command?
+==> git switch have 2 purpose
+		1. used to switch from one branch to another
+		for e.g we want to switch from test_1 to practise_1 syntax is
+			git switch test_1
+
+		2. used to create and switch on branch
+		for e.g if we want to create and switch on test_2 branch then syntax is
+			git switch -b test_2
+-----------------------------------------------------
+Q.. git diff command?
+==> git diff command is used to show difference between two commit.
+	it is used to compare changes made in one commit with the
+	changes made in other commit
+	git consider changes version of same file as two different files
+	then it give names to these two file and shwo difference between them
+
+	Case 1: difference between working area and stagging area
+		Syntax: git diff
+
+	Case 2: Difference between stagging area and last commit
+		Syntax: git diff --staged
+
+	Case 3: Difference between two commits
+		Syntax: git diff commit_hash1 commit_hash2
+
+	Case 4: Difference between branches
+		1) your current branch with other local branch
+		Syntax:  git diff branch_name
+
+		2) your current branch with remote branch
+		Syntax: git diff origin/remote-branch
+
+	**) Output of git diff command
+	==>     diff --git a/NewFile.txt b/NewFile.txt
+			index ba938d8..d9a11c0 100644
+			--- a/NewFile.txt
+			+++ b/NewFile.txt
+			@@ -1 +1,2 @@
+			-this is line number 1
+			\ No newline at end of file
+			+this is line number 1
+			+This is line number two
+			\ No newline at end of file
+
+		 a/F1.txt => means before modification
+		 b/F1.txt => after modification
+----------------------------------
+Q.. git fetch command?
+==> - git fetch command is used to download updates from remote repository 
+	  such as new branch,referances,commit and tags 
+	- git fetch command download all updates from remote repository but don't merge 
+	  it into your local branch 	
+--------------------------------------------------
+Q.. Syntax of git fetch command?
+==> git fetch <remote_name> <branch_name> 
+	- here <remote_name> and <branch_name> is optional 
+	- if we don't spcify <remote_name> then default remote name is origin
+	- if we don't specify <branch_name> then bydefault all branches get downloaded 
+---------------------------------------------------
+Q.. What is default behaviour of "git fetch" command?
+==> bydefault git fetch command download all branches from default remote(origin)
+	but don't merge it into local repository 
+---------------------------------------------------
+Q.. What happes when below commands are executed?
+==> 1. git fetch  
+	2. git fetch origin 
+	3. git fetch origin feature-001 
+	4. git fetch --prune 
+	
+	1. git fetch 
+		it download all references from remote but don't merge into local repository 
+		
+	2. git fetch origin 
+		same as git fetch,but explicitly specifies the remote name origin 
+		
+	3. git fetch origin feature-001
+		fetch only feature-001 branch referances from remote 
+		this is useful when you don't want to fetch everything 
+	
+	4. git fetch --prune 
+		Remove remote branches from local repository that no longer exist on the remote 
+---------------------------------------------------
+Q.. what is FETCH_HEAD and what is its use?
+==> FETCH_HEAD is pointer which point to most recent feched commit 
+---------------------------------------------------
+Q.. where FETCH_HEAD file and where it is present?
+==> FETCH_HEAD file present in ".git" folder and which store commit you fetched from remote repository
+---------------------------------------------------
+Q.. git merge command?
+==> git merge command is used to merge other branch changes into current branch
+
+	Note: 
+	1. On github.com we merge on branch changes into another branch through pull request 
+	
+	2. on local repository we merge one branch changes into another branch by using 
+		"git merge" command.
+		
+--------------------------------------------
+Q.. What is the syntax of git merge command?
+==> Sytnax; 
+			git merge <options> <source_branch> 
+			
+		-> options are optional 
+		-> source branch which branch changes want to merge on current branch 
+		
+		-> if we want to merge remote branch changes into current branch then 
+			syntax: 
+				git merge <option> origin/<source_branch>
+		
+		-> if we are trying to merge remote branch changes then first fetch the 
+		   changes then merge 
+		   i.e first execute "git fetch" 
+		   
+		   git merge origin/<source_branch> 
+--------------------------------------------
+Q.. Can we merge multiple branch into single branch ?
+==> Yes, we can merge multiple branch into single branch 
+	-> syntax: 
+		git merge <option> <branch1> <branch2> ---N 
+		
+--------------------------------------------
+Q.. What happen if we execute below commands?
+==> 1. git merge feature-001
+		=> this command merge feature-001 branch into current working branch 
+	2. git merge origin/feature-001
+		=> this command merge remote branch feature-001 into current working branch 
+	3. git merge feature-001 feature-002
+		=> this command merge feature-001,feature-002 branch into current working branch 
+	4. git merge origin/feature-001 feature-002 
+		=> this command merge remote feature-001 and local feature-002 branch into current 
+			working branch 
+
+---------------------------------------------------
+Q.. Type of merge?
+==> there are 2 type of merge
+	1. fast forward merge
+	2. non fast forward merge
+
+
+	1. fast forward merge
+	=> it simple and easy
+	   if parent branch have new commits but child branch don't have new commits
+	   sinces it creation and you want to merge parent branch into child branch
+	   then it is fast forward merge
+
+		** To merge changes follow below step **
+
+		step 1: switch to main branch
+				git switch main  / git checkout main
+
+		step 2: fetch remote updates
+				git fetch
+
+		step 3: switch to your child branch
+				git switch child_branch
+
+		step 4: execute git merge command to merge remote changes to child branch
+				git merge <remote_branch>
+
+
+	2. Non fast forward merge
+	=> if parent branch have some commits and child branch have new commits and you
+	   are merging parent branch changes into your current branch then there is
+	   non fast forward merge
+
+	   in non fast forward merge new merge commit is created
+	   in non fast forward merge sometime we get merge conflict
+
+	   Step 1: switch to child branch
+	   Step 2: fetch remote changes
+	   Step 3: execute git merge command
+
+	   once git merge command execute then it will open we need to add commit there and close editor
+
+---------------------------------------------------
+Q.. What is difference between fast forward merge and non fast forward merge?
+==> fast forward merge happens when there is no any change in child branch since it creation where as
+	non fast forward merge happens when both branches have new commits
+
+	in fast forward no new commit is created where as
+	in non fast forward new merge commit is created
+
+	in fast forward we don't get conflict where as in non fast forward we get conflict
+
+---------------------------------------------------
+Q.. What is merge confilct?
+==> Mis-match in content is nothing but merge conflict
+
+Q.. why merge conflict came while merging the changes
+==> while merging one branch into another git compare old version with new version,
+	here git expect old version changes should be there in addition to new changes
+	if old version changes are not there then we will get conflict.
+---------------------------------------------------
+Q.. How to resolve conflict?
+==> there is no any command or short cut to resolve conflict we need to resolve conflict manually
+
+	step 1: go to working directory and open git bash
+	step 2: switch to your branch
+	step 3: execute git fetch command
+	step 4: execute git merge command to merge remote branch changes into local branch
+	step 5: if there is conflict then open conflict file
+
+		<<<<<<<<<<<<<<<<<<head     ==> line 1
+		----------------
+		----------------		   ==> conflict came from current branch
+		----------------
+		================           ==> line 2
+		----------------
+		----------------		   ==> conflict came from other branch
+		----------------
+		>>>>>>>>>>>>>>>>bug fix    ==> line 3
+
+
+	step 6: To Resolve conflict delete line 1,line 2,line 3
+			for content you need to decide what to keep and what discard and you have
+			various possibilities
+			1. you can keep your changes and discard other developer changes
+			2. you can keep other developer changes and discard your changes
+			3. you can keep both changes
+
+	step 7: save file
+	step 8: commit and push file
+---------------------------------------------------
+Q.. how git work in real time?
+==> suppose you have assigned a task.
+	To complete task and push code changes on remote repository you need to follow below steps
+	Step 1. we create workspace folder
+	Step 2. clone repository on local system if repository not available
+			for clonning command git clone <url>
+	Step 3. create you branch on remote Repository
+	Step 4. checkout your branch on local system
+			for that purpose fetch changes using git fetch command
+			then execute git checkout -b <branch_name> origin/<branch_name>
+	Step 5. Add you code changes commit that changes and push to remote repository
+	Step 6. To review changes and merge your branch into parent branch raise pull request
+	Step 7. To raise pull request you need to follow below steps
+			1. click on "pull request" tab
+			2. click on "new pull request"
+			3. compare source and target branch
+			4. if there is conflict then resolve it
+			5. add description
+			6. add reviewer
+			7. raise pull request
+			8. share pull request to your TL via mail
+			9. ones pull request is approved then merge your code changes
+			10. close pull request and delete branch
+---------------------------------------------------
+Q.. What is mean by version control tool?
+==> Any system or software that manage source code over the time is nothing but version control tool
+---------------------------------------------------
+Q.. Type of version control tool?
+==> there are 2 type of version control tool
+	1. Centralized version control system (CVS)
+	2. Distributed version control system (DVS)
+---------------------------------------------------
+Q.. What is the difference between CVS and DVS ?
+==> 1. In CVS every time developer need to get local copy of source code from server every time but
+	   In DVS no need to get local copy of source code every time because developer has local repository
+	2. CVS does not provide offline access where as DVS provide offline access to local repository
+	3. In CVS developer modify the source code and push changes on remote repository directly where as
+	   in DVS developer modify the source code and commit the changes in local repository first then push
+	   changes on remote repository
+	4. CVS is easy to use and easy to maintain where as
+	   DVS is difficult for beginner because several commands need to reminder
+	5. working on branch is difficult in CVS but working on branch is easier in DVS
+		REASON: IN CVS GET MORE CONFLICT AS COMPAIRE TO DVS
+	6. Performance wise CVS is slow where as DVS is fast
+		REASON: IN CVS EVERY COMMAND HIT TO SERVER WHERE AS IN DVS EVERY COMMAND HIT TO LOCAL REPO.
+	7. If CVS server is down then developer can't work where as
+	   if DVS server is down then developer can work using their local copies
+	8. CVS exmple SVN
+	   DVS exmple git
+--------------------------------------------
+Q.. What is "git cherry-pick" command?
+==> It is used to merge specific commit of one branch into another branch 
+	without merging whole branch 	
+	
+	-> syntax: 
+		1. if we want to merge single commit 
+			git cherry-pick <commit_id> 
+		
+		2. if we want to merge multiple commit 
+			git cherry-pick <commit_id1> <commit_id2> 
+			
+		3. Merge range of commits 
+			git cherry-pick <start_commit_id> ^.. <end_commit_id> 
+--------------------------------------------
+Q.. How to merge remote branch changes into local branch using cherry-pick command?
+==> # First way	
+		1. checkout remote branch 
+		2. find its commit id 
+		3. use git cherry-pick command to merge changes 
+
+	# second way 
+		1. Fetch changes using git fetch command 
+		2. find remote branch commit history 
+		3. use cherry-pick to merge changes 
+--------------------------------------------
+Q.. .gitignore file ?
+==> A project have multiple files like .java files,.env files,.txt files,.log files
+	- sometimes we want to keep track of some kinds of files
+	- for example we want to ignore .txt files and A.log file
+	- To ignore file Git provided .gitignore file.if you want to ignore specific file
+	  add their names or pattern to the .gitignore file.
+
+Q.. what is .gitignore file?
+==> it is normal text file that tells Git which files or directory should not be tracked
+--------------------------------------------------
+Q.. if file listed in .gitignore file but you want to track file how will you track it?
+==> if we add file name inside .gitignore file then you want to track it then 
+	we have 2 ways 
+	# way first 
+		remove file name from .gitignore file 
+	
+	# way second 
+		track file forcefully using command 
+		git add -f file_name 
+---------------------------------------------------
+Q.. what is limitation of .gitignore file?
+==> .gitingnore file work only for untracked file 
+	if file is already tracked then git will not ignore unless you 
+	untrack using "git rm --cached file_name"
+--------------------------------------------
+Q.. if file name added in .gitignore file and if you want to track it how will you do it?
+==> if we add file name inside .gitignore file then you want to track it then 
+	we have 2 ways 
+	# way first 
+		remove file name from .gitignore file 
+	
+	# way second 
+		track file forcefully using command 
+		git add -f file_name 
+--------------------------------------------
+Q.. git stash command?
+==> Suppose you have made changes in working directory but you have not commited those changes
+	and you are switching to another branch then you will get an error
+	- when you are switching a branch then you need to save your changes either temporary or
+	  permanetly otherwise we will get an error
+	- to save changes temporary we use 'git stash' command
+	  to save changes permanetly we use 'git commit' command
+
+	Case 1. if we want to stash both unstage and staged changes then we use
+	Syntax:  git stash
+
+
+	Case 2. if we want see the list of stash
+	Syntax: 'git stash list'
+
+	case 3: if we want to reapply stash
+	Syntax: 'git stash apply'
+		note: if we reapply for stash then file is placed at working area but file is also in stash list
+
+	case 4: if we want to apply and delete stash
+	Syntax: 'git stash pop'
+
+	case 5: if we want to apply for perticular stash
+	Syntax: 'git stash stash@{n}
+
+	case 6: if we want to drop specific stash
+	Syntax: git stash drop stash@{n}
+
+	Case 7: if we want to remove all stash list
+	Syntax: git stash clear
+	
+  Note:- if file is modified then we can make it "git stash" 
+		 if file is newly added and we modified it then it will not elligible for this 
+		 
+---------------------------------------------------
+Q.. what is the use of "git config" command?
+==> git config command is used to view and customize git configuration 
+---------------------------------------------------
+Q.. Level of configuration and scope of configuration?
+==> We have 3 differenct scope
+	1. System level configuration
+	2. local level configuration
+	3. global level configuration
+
+	1. System level configuration
+	=> Configuration applicable to every user on system is nothing but system level configuration.
+	=> system level configuration file location varries different as per Operating system
+	=> if you are windows user then file location is => "C:\Program Files\Git\etc" file name .gitconfig
+	=> if you are linux user then file location is => "/etc" directory file name gitconfig
+
+
+	2. global level configuration
+	=> configuration applicable to specific user nothing but global level configuration.
+	=> global level configuration file available in user's home directory
+	=> In window => c:\user\username => file name is .gitconfig
+	=> In linux => home/userName => file name is .gitconfig
+
+	3. local level configuration
+	=> configuration applicable for specific repository is nothing but local level configuration
+	=> local level configuration file is available inside ".git" folder of repository and 
+	   file name is "config"
+
+--------------------------------------------
+Q.. Hierarchy of configuration
+==> 1. system level configuration : applicable to every user on system
+	2. global level configuration : applicable to specific user
+	3. local level configuration : applicable to current repository only
+--------------------------------------------
+Q.. precedance order among system,global,local
+==> local level=>global level=>system level
+	=> precedance order means in which order git apply configuration settings
+	=> high priority goes to local level configuration and low priority goes to system level
+--------------------------------------------
+Q.. write syntax to display all configuration settings?
+==> git config <scope> --list 
+	
+	1. display system level configuration 
+		git config --system --list 
+	
+	2. display global level configuration 
+		git config --global --list 
+		
+	3. display local level configuration 
+		git config --local --list 
+---------------------------------------------------
+Q.. General syntax to display perticular configuration settings value 
+==> git config <scope> <section.key> 
+	Display user name and value 
+	1. git config --global user.name 
+	
+---------------------------------------------------
+Q.. Syntax to display system level configuration settings?
+==> git config --system --list
+---------------------------------------------------
+Q.. Syntax to display global level configuration settings?
+==> git config --global --list
+---------------------------------------------------
+Q.. syntax to display local level configuration settings?
+==> git config --local --list
+---------------------------------------------------
+Q.. General syntax to display perticular configuration setting values?
+==> git config --system section.key
+---------------------------------------------------
+Q.. General syntax to add configuration setting 
+==> git config <scope> <section.key> value 
+	key and value should be seperated by space 
+	if value is boolean then use true/false 
+	if value is string type then use single or double quote 
+	For exmple 
+		git config --global user.name 'yashraj'
+--------------------------------------------
+Q.. General syntax to remove settings 
+==> git config <scope> --unset <section.key> 
+	- Example : remove user name and email from local configuration 
+		1. git config --local --unset user.name 
+---------------------------------------------------
+Q.. What is difference between below commands?
+	1. git config --global user.name
+	2. git config --global user.name 'robin hood'
+==> first command is used to display user name and value where as 
+	second command is used to set user name globally.
+---------------------------------------------------
+Q.. What is difference between below commands?
+	1. git config --global user.name 
+	2. git config --global --unset user.name
+==> first command is used to display user name value 
+	second is used to remove user name globally 
+---------------------------------------------------	
+Q.. How many level of configuration is there?
+==> 3(system,global,local)
+---------------------------------------------------
+Q.. which configuration file affect all user and all respository on system?
+==> System level configuration and file name is "gitconfig" file
+---------------------------------------------------
+Q.. What type of file format is used by git configuration files?
+==> INI-style file format 
+---------------------------------------------------
+Q.. What is mean by section in git configuration file?
+==> section is way to group related settings togher 
+---------------------------------------------------
+Q.. What is the syntax to define section in git configuration file?
+==> we can define section using square bracket [section-name]
+---------------------------------------------------
+Q.. Which section is used to set user name and mail in git?
+==> user section
+---------------------------------------------------
+Q.. What is the use of [user] section in git?
+==> [user] section is used configure name and mail id of user 
+---------------------------------------------------
+Q.. Write a command to display user name and mail globally?
+==> git config --global user.name 'yashraj'
+	git config --global user.mail 'yash4444mulik@gmail'
+---------------------------------------------------
+Q.. Write a command to display user name and mail?
+==> git config --global user.name 
+	git config --global user.mail 
+---------------------------------------------------
+Q.. write a command to remove user name and mail?
+==> git config --global --unset user.name 
+	git config --global --unset user.mail 
+---------------------------------------------------
+Q.. What are important section of core?
+==> 1. autocrlf
+	2. filemode
+	3. fscache
+---------------------------------------------------
+Q.. What is core section?
+==> this section is used to define basic/core settings that controls git behaviour
+---------------------------------------------------
+Q.. What is core.autocrlf section?
+==> To manage automatic line ending conversion between windows and unix system.
+---------------------------------------------------
+Q.. What is the use of core.fscache setting?
+==> fscache stand for FileSystem cache.
+	this setting is used to enable or disable filsystem cache.
+	we need to enable this setting for windows user.
+	This settings avoid unneccessary disk read and improve the git performance.
+---------------------------------------------------
+Q.. How to enble core.fscache?
+==> git config --system core.fscache true 
+---------------------------------------------------
+Q.. How to cross check fscache value?
+==> git config --system core.fscache
+---------------------------------------------------
+Q.. What is the use of core.filemode setting?
+==> filemode means file permission 
+	its value is either true or false 
+	if file permission is true then git will track file permission changes and content changes 
+	if file permission is false then git will not track file permission changes but track 
+	content changes 	
+---------------------------------------------------
+Q.. [credential] section
+==> this section defines how git handle credentials 
+	example 
+		[credential]
+			helper=value 
+			
+	-> helper has 3 values 
+		-> 1. helper = cache 
+		-> 2. helper = store 
+		-> 3. helper = manager 
+---------------------------------------------------
+Q.. what is use of helper[cache]?
+==> cache the credential in memory i.e temporary store credential in memory
+---------------------------------------------------
+Q.. what is use of helper[store]?
+==> save the credential in plane text 
+	it is not recommended
+---------------------------------------------------
+Q.. What is helper[manager]?
+==> use window credential manager to store and retrive the credential.
+---------------------------------------------------
+Q.. git config file structure?
+==> git config file uses INI-style format. INI stand for initilization
+	this INI style format was first used by windows operating system
+	but nowdays this INI style used in many tools
+	An INI style is made up of
+		1. sections
+		2. key-value pairs
+		3. comment (it is optional)
+
+		1. sections : section is way to group related settings together.
+					  A file can have multiple sections
+
+					# rule for sections
+					1. square bracket is used to define section
+						syntax: [section-name]
+
+					2. section name is not case sensative
+						[Core]=[core]
+
+					3. section can have subsection.subsection must be enclosed in double quote
+						[remote "origin"] => here remote is section and origin is subsection
+
+					4. nesting is not allowed
+
+		2. key-value pairs
+			Each setting in a section is a key-value pair
+			[section-name]
+			key1=value
+			key2=value
+
+			# rule for key-value
+			1. key-value pair must be under some section
+
+			2. key and value seperated by = sign
+
+			3. Key is not case sensative but value is case sensative
+
+			4. Duplicate keys are allowed but last occurance take effect but this applies within same section
+
+			5. if value is string type then we can specify with quote or without quote/
+
+			6. if value is multi word then we need to specify in quote
+
+			7. each key has single value
+
+		3. comment
+			-> comment is optional
+			-> in git we use # symbol to provide comment
+			-> comment are ignored by parser
+--------------------------------------------
+Q.. What is git push command?
+==> To push local repository commited changes on remote repository.
+---------------------------------------------------
+Q.. What is syntax for git push command?
+==> syntax: 
+		git push <remote_name> <branch_name>
+	here remote name and branch name is optional 
+---------------------------------------------------
+Q.. What is default behaviour of git push command?
+==> default behaviour means if you don't specify the option in git push command 
+	syntax of git push command is 
+		git push <remote_name> <branch_name> 
+	if we don't specify remote name then it consider default remote name origin 
+	if we don't specify branch name then it consider current working branch name 
+---------------------------------------------------
+Q.. what is the use of "git push origin" command?
+==> this command is used to push local respository changes into remote repository
+	here changes push to remote repository name origin 
+	and branch is default working branch.
+---------------------------------------------------
+Q.. what is the use of "git push origin main" command?
+==> this command is used to push local respository changes into remote repository
+	here remote respository name origin and 
+	branch name is main 
+---------------------------------------------------
+Q.. what is use of "git push main" command?
+==> this command give error because we need to specify remote respository name here 
+---------------------------------------------------
+Q.. What is the use of -u in git push command?
+==> -u option is used to set upstream branch for local branch 
+	When we create branch on local and try to push first time
+	then we will get an error beacause for created local branch there is no upstream branch 
+	and there is no any link between remote and local branch 
+	-> What happen when we execute "git push" command with -u option 
+		- it create branch on remote is no exist 
+		- create link between local and remote branch 
+		- push local branch changes on remote branch 
+---------------------------------------------------
+Q.. What is the use of --delete option in git push command?
+==> --delete option is used to delete remote branch 
+	Syntax: 
+		git push <remote_name> --delete <branch_name> 
+---------------------------------------------------

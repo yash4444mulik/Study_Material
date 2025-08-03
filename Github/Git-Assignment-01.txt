@@ -1,0 +1,62 @@
+Date:11 March 2025
+-------------------
+1. What does git add do?
+A) git add .
+B) git add -A
+C) git add --all
+D) All of the above
+--------------------
+2. Which command stages all modified and new files in the current directory?
+A) Deletes files from the repository
+B) Moves files to the remote repository
+C) Stages changes for the next commit
+D) Commits changes directly
+-----------------------
+3. What is the purpose of git add -p?
+A) Automatically commits changes
+B) Allows interactive staging of changes
+C) Pushes changes to the remote repository
+D) Removes files from the staging area
+-----------------------
+4. What happens if you run git add on an already staged file without modifying it?
+A) The file gets committed automatically
+B) The file gets staged again with no changes
+C) The file is removed from the staging area
+D) Git throws an error
+----------------------
+5. Which of the following commands stages deleted files as well?
+A) git add .
+B) git add -A
+C) git add -u
+D) Both B and C
+-------------------
+6. What does git add -u do?
+A) Stages only modified and deleted files
+B) Stages only new files
+C) Stages all files, including new ones
+D) Unstages all files
+------------------
+7. If you run git add myfile.txt, where is the file stored?
+A) In the working directory
+B) In the staging area (index)
+C) In the remote repository
+D) In the Git commit history
+-----------------------
+8. How do you stage all files in a specific directory, say src/?
+A) git add src/
+B) git add -A src/
+C) git add . (if inside src/)
+D) All of the above
+-------------------
+9. What is the difference between git add . and git add -A?
+A) git add . adds all changes in the current directory, while git add -A stages all changes across the repository
+B) They are completely identical
+C) git add . adds only new files, while git add -A stages everything
+D) git add -A ignores deleted files
+-------------------
+10. What happens if you forget to run git add before committing?
+A) Git automatically stages and commits changes
+B) Only previously staged changes will be committed
+C) Git throws an error
+D) The commit will be empty
+===========================================

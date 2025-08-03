@@ -1,0 +1,96 @@
+# Date 17 March 2025
+-------------------------
+Q. How will you check installed git version?
+ANS- git-v or git--version
+------------------------------
+Q. Which command is used to check the status of local repository?
+ANS- git status
+--------------------------------
+Q. What is use of git init command? 
+ANS-initialization empty repository
+
+Q. Suppose,I have added four new files say F1.txt,F2.txt,F3.txt and  
+   f4.txt in working directory.If I check the status of local repository then what is status of local repository?
+ANS-untrack area
+
+Q. F1.txt file status is untracked,I want to add this file into 
+   stagging area,write git command to add into stagging area?
+ANS-git add F1.txt
+
+Q. I have 2 untracked files,2 modified files and 1 delete files,write a  
+   git command to add all these files into stagging area at a time.
+ANS- git add --a
+---------------------------------------------------------------
+Q. Suppose I have 10 files in working area,some are text files,some are 
+   log files,some are pdf files,write git command for below requirement
+   1. Add only text files into stagging area.
+   git add *.txt 
+   -------------------
+   2. Add only log files into stagging area.
+   git add *.log
+   -------------------
+   3. Add only pdf files into stagging area.
+   git add *.pdf
+   -------------------
+   4. Add only text and log files into stagging area
+   git add *.txt *.log
+   -------------------
+  5. Add only pdf and log files into stagging area.
+   git add *.log *.pdf
+
+   
+-----------------------------------------------------
+   
+Q. Suppose I have A1.txt file,status of that file is untracked,now I am 
+   adding A1.txt into stagging area so I have written below command,now guess what will happen if below command is executed? I mean which file get added into stagging area.
+   command: git add a1.txt
+ANS- this command will give error because file name is wrong and git is case sensitive
+------------------------------------------------------------
+   
+Q. State the following statement are valid or invalid
+1. git commands are case insensitive
+  valid
+-----------------------------
+2. git is maintained by windows
+  Invilid
+-----------------------------
+3. github is maintained by Linux
+   valid
+-------------------------------
+4. we can execute git commands on normal directory
+   invalid
+---------------------------------
+5. gitbash is version control tool
+   valid
+--------------------------------------
+6. git restore --stagged command removes a file from commit area
+   and put into working area.
+   invalid
+--------------------------------------
+7. We can add Untracked files directly into commit area?
+   invalid
+------------------------------------------
+8. We can add modified files directly into stagging area.
+   valid
+----------------------------------------
+9. If local repository file is deleted from our system then no 
+   need to add it into commit area.
+  invalid
+-----------------------------------------
+10. git bash display committed file names in green color
+   invalid
+-------------------------------------
+11. git bash display deleted file names in red color
+   valid
+---------------------------------
+12. When we add a file into stagging area then index is created or 
+    index is updated.
+   invalid
+-----------------------------------
+13. Every files has unique index.
+   valid
+-----------------------------------
+
+
+
+

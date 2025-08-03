@@ -1,0 +1,33 @@
+git clone <url>
+
+git clone -b branch_name <url>
+
+git restore .  --------
+
+git add -u 
+
+
+git add --a 
+
+
+git add . 
+
+
+git restore and git revert diff 
+
+
+git fetch and git pull 
+
+
+.gitconfig ==> 
+
+.gitconfig
+
+.config 
+
+.git 
+
+
+git add -f file_name 
+
+git checkout 

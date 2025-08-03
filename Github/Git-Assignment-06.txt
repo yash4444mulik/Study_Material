@@ -1,0 +1,67 @@
+1. What does the git clone command do?
+A) Creates a new Git repository
+B) Copies a remote repository to your local machine
+C) Pushes changes to a remote repository
+D) Merges two branches
+----------------------
+2. What is the correct syntax to clone a repository from GitHub?
+A) git clone <repository-url>
+B) git fetch <repository-url>
+C) git push <repository-url>
+D) git init <repository-url>
+---------------------
+3. What does the --bare option do in git clone --bare?
+A) Clones the repository without history
+B) Creates a repository without a working directory
+C) Clones only the latest commit
+D) Clones the repository without .git
+------------------
+4. What happens if you run git clone <repo-url> myproject?
+A) Clones the repository into a new directory named myproject
+B) Clones the repository into the current directory
+C) Creates a new branch named myproject
+D) Deletes the local repository
+-------------------
+5. Which flag should be used to clone only a specific branch?
+A) --single-branch
+B) --branch-only
+C) --only-branch
+D) --fetch-branch
+--------------------
+6. Which of the following statements is true about git clone --depth 1 <repo-url>?
+A) Clones the entire repository with full history
+B) Clones only the latest commit of the repository
+C) Clones the repository without branches
+D) Clones the repository without a .git directory
+-------------------
+7. What does git clone --mirror <repo-url> do?
+A) Clones the repository including all remote branches and refs
+B) Clones only the working directory without Git history
+C) Creates a duplicate repository without any branches
+D) Clones the repository and pushes all local commits
+
+✅ Answer: A) Clones the repository including all remote branches and refs
+---------------
+8. How do you clone a repository using SSH instead of HTTPS?
+A) git clone ssh://git@github.com:user/repo.git
+B) git clone git+ssh://github.com:user/repo.git
+C) git clone git@github.com:user/repo.git
+D) git ssh clone github.com:user/repo.git
+
+✅ Answer: C) git clone git@github.com:user/repo.git
+--------------------
+9. What happens if you run git clone inside an existing Git repository?
+A) It clones the repository inside another repository, which may cause issues
+B) It overwrites the existing repository
+C) It automatically merges the cloned repository with the current one
+D) It aborts the operation and shows an error
+
+✅ Answer: A) It clones the repository inside another repository, which may cause issues
+----------------
+10. How can you clone a repository and directly change into its directory in one command (Linux/macOS)?
+A) git clone <repo-url> && cd <repo-name>
+B) git clone <repo-url> / cd <repo-name>
+C) git clone <repo-url> --cd
+D) git clone <repo-url> && open <repo-name>
+
+✅ Answer: A) git clone <repo-url> && cd <repo-name>

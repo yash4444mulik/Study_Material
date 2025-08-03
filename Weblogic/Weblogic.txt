@@ -1,0 +1,1199 @@
+					***WEBLOGIC***
+
+Q. 	What is your daily schedule?
+=> when i login to my system then i check all mail 
+   and take action on mail which are related to me 
+   then i login to ticketing tool JIRA and take 
+   ticket to resolve one by one based on priority.
+----------------------------------
+Remotely.
+I am using company's laptop(HDFC ERGO General Insurance)
+VPN(Virtual Private Network)
+
+# Remote Work Process
+1. Connect to VPN
+2. Connect Remote Desktop 
+   -> Provide IP address for Remote Desktop
+   -> User Name and Password.
+3. Connect to VDI
+------------------------
+Q. What is Application name?
+-> I am not working on single application
+   I am working on Motor Claim Module.
+   We have different delers and for each deler we have 
+   seperate Application.
+   For Honda we have Honda_clm_app
+   For Hyundai we have Hyundai_clm_app
+   Application type is war file.
+------------------------------
+Q. Who are the users of your application?
+-> Motor Delears.
+-----------------------------
+Q. Is this application available to outside persons?
+-> No, application is accessible only for Tie up Delears.
+-----------------------------
+Q. How you work as Per SLA?or Who assigns tickets to you,how you resolve?
+-> SLA stands for Service Level Agreement.
+-> On daily basis we come across different types issue.
+-> We have different Priorities to resolve it.
+   We have P1,P2,P3,P4 priorities.
+   P1 means: Critical issue , SLA is 2/3 hours or on same day.
+   P2 means: Hight Priority, SLA is 2/3 hours or on same day
+   P3 means: Medium Priority,SLA is within 2 days 
+   P4 means: Low Priority,SLA is is within 3/4 days.
+   
+-> Most of time we face P2,P3 and P4 type issue.
+-> TL assigns Jira ticket to me. I Check its Priority.
+   I take ticket to resolve.
+   First I chanage its status : Open to Under Process
+   Provide Due Date. Start working on it.
+   Provide Solution and Finaly close the ticket with solution
+   Remark.
+--------------------------------
+Q. What is your role in UAT and QA enviroment?
+-> I deploy the applications on UAT and QA enviroment.
+   start server,stop server.
+   If there is any problem for application then troubleshoot.
+---------------------------------
+Q. How you share log files to developer or tester? because you are 
+   working as support Engineer..Why need logs to them?
+-> How you share log files to developer or tester?
+   First Login to Server via Putty.
+   navigate to Logs Directory
+   Display the constent of Log file using linux command 
+   like tail,head more,less, grep
+   Select reqired content and save it in one file 
+   share the file over mail.
+-> Why need logs to them?
+   Developer of Tester don't have access of Production enviroment.
+   That's why they ask logs from us.
+---------------------------------
+Q. If there is war file. I want to deploy on server but while 
+   deployment I am getting error..how you overcome this error?
+-> Check the error in logs.
+   If war file is fails,common reason is version mis-match.
+   For example: If developer compiled code on JDK 9 but Server 
+   has JDK 8 version.
+---------------------------------
+Q. Which Precaution will you take while deployment?
+-> I am deploying an application on UAT and QA server.
+   When I want to deployment an application then I need to take 
+   confirmation for Testers. So send mail to all tester and take 
+   confirmation from them, If 70% to 80% tester give ok then I
+   deploy an application.
+-> If there is xml file deployment or class file deployment then 
+   First stop server -> Do Deployment -> Restart server.
+---------------------------------
+Employee(empno,empname,salary,DOJ)
+Q. Write an sql query to find duplicate empnames?
+Q. I want to display empno,empname,salary and doj
+   but hide salary column values.
+-> select empno,empname,salary,NVL2(doj,null,null)
+----------------------
+Q. Which ticketing tool you are using?
+=> JIRA
+----------------------------------   
+Q. On daily basis how many tickets you resolves?
+=> 15 to 20 ticket
+-----------------------------------
+Q. Who assign ticket to you?
+=> my TL assign ticket to me.
+-----------------------------------
+Q. How many team member are there?
+=> there are 11 team member 
+	3 backend developer 
+	2 tester 
+	2 UI developer
+	4 support engineer
+------------------------
+Q. are you working in rotational shift?
+=> yes we are working in rotational shift 
+   we have two shift morning and evening 
+   morning shift - 7 am to 3 pm 
+   evening shift - 2.30 pm to 10.30pm 
+-----------------------
+Q. For which type of appliction you are supporting?
+=> fronted is developed using React and backend developed using java 
+   I am supporting for fronted
+------------------------
+Q. which database is used in your project?
+=> oracle 
+-------------------------
+Q. How to connect oracle database?
+=> To connect oracle database we used sql developer tool
+-------------------------  
+Q. Which middleware you are using?
+=> i am using weblogic middleware
+-------------------------
+Q. Explain your project architecture?
+=> my project has three layer 
+   fronted is developed using html,css,js,react js,bootstrap
+   backend is developed using spring,spring boot 
+   for database we use oracle
+-------------------------   
+Q. Explain your current project?
+=> i am working on insurance domain.In my project there are two models 
+   1. policy module 
+   2. claim module 
+   Being insurance organization we provide differenet types of policies 
+   like motar policy,agri policy,health policy,bike policy 
+   so we have differenet types of claim like motor claim,agri claim,health claim
+   but i am working on motor claim 
+   being insurance organization we have tie up with differenet motor delears 
+   like hundai,kia,mahindra,ford,maruti 
+   for claim registration we provide 2 communication channels 
+   1. web portal 
+   2. webservices 
+   web portal for customer and webservices for motor delears
+   ones claim register then that claim goes from different stages like 
+   1. survey appointment 
+   2. survey completion 
+   3. assesment 
+   4. document upload 
+   5. final assesment
+   6. final payout done to customer and claim get closed 
+   Being Support engineer my role is to support the delears in the claim 
+   processing and assist internal user for the UI releated issues 
+-------------------------  
+Q. What are your responsibilites in your project?
+=> - I am working as L1 production support engineer
+   - Resolve the ticket as per requirement 
+   - UI debugging and root cause analysis 
+   - Involve in deployment activity 
+   - write simple and complex sql queries 
+   - communicate with client via call,mail or chat 
+   - Involve in daily scrum meeting 
+   - support for UAT and SIT testing 
+   - attending mail for production issues and identify them and fix them 
+   - Involve in DR activity 
+   - Involve in data recon activity
+   - start and stop server in QA and UAT envirnoment 
+----------------------------
+Q. which type of application you are handling?
+=> we are handling java based rest api 
+-------------------------
+Q. which tecnology is used to develope REST API?
+=> these are developed in spring boot 
+-------------------------  
+Q. do you know spring boot?
+=> no 
+-------------------------  
+Q. on which JDK version these application are developed?
+=> jdk 1.8 
+-------------------------  
+Q. which JRE version used?
+=> JRE 1.8 
+--------------------------  
+Q. Why jdk is required?
+=> to develope and run java program 
+-------------------------  
+Q. Why JRE is required?
+=> to run java program 
+------------------------------------------------
+Q.How much rate your self for Linux out of 5, 5 means excellent and 1 means poor?
+Ans: I rate myself as 3.5
+------------------------------------
+Q.How much rate your self for Linux out of 10, 10 means excellent and 1 means poor?
+Ans:  I rate myself as 7.5
+------------------------------------
+Q.How much rate your self for SQL out of 5, 5 means excellent and 1 means poor?
+Ans:  I rate myself as 3.5
+------------------------------------
+Q.How much rate your self for SQL out of 10, 10 means excellent and 1 means poor?
+Ans:  I rate myself as 7.5
+------------------------------------
+Q. How many services your argnization has exposed/produced to delear?
+Ans: Two services we have exposed/produced for delears and these are
+     1) Claim registration 
+     2) Document Upload
+Note: exposed/produced means service are developed and given to some other.
+------------------------------------
+Q. How many services your orgnization has consumed from delears?
+Ans: We have consumed below services 
+    1) Survey Appoitment
+    2) Survey Completion
+    3) Final Assessment
+    4) Claim Closing
+Note: consumed means some other orgnization service we are using.
+------------------------------------
+Q. What is your role in DR activity?
+Ans: 1) DR stands Disaster Recovery.
+     2) In our organization this activity is carried out twice in year.
+	    First it carried out in June/July and second it is carried out Dec/Jan
+		It is two days activity. It generally carried out on saturday and sunday.
+		It started on Saturday at 11:00 pm and end on Sunday 11:00 pm.
+     3) In DR activity actual server is down and DR server is up.
+     4) In DR activity my role is to check services are working or not.
+
+Q. What is DR server location and What is actual server Location?
+-> Actual Server Loacation-Banglore and DR Server Location is Pune.
+------------------------------------
+Q. How you cross check services running or not?
+=> 1. i check entry in the database and check the timestamp 
+   ==> to check entry i write sql query 
+		select * from clm_dtls where delear_flag='Honda' order by reg_date desc 
+		
+   2. i check document upload process
+   3. i check log of server 
+   4. we have dummy claim registration process and we follow the process one by one 
+      and do one dummy claim 
+	  if there is entry in the DB then we conclude the services working properly 
+	  if there is no entry in the DB then i inform to DBA team and developement team 
+	  so and so service not working properly 
+----------------------------------
+Q. What is your role in deployement activity?
+=> - I make deployement of an application in QA and UAT envirnoment as per 
+     developer and testing requirement 
+   - Being L1 production support engineer I don't have permission in production 
+     envirnoment
+----------------------------------
+Q. Tell me steps to deploye application on weblogic?
+=> login to weblogic application manager 	 
+   Go to deployement section 
+   Browser the war file -> next -> next and install 
+----------------------------------
+Q. what is your role in data remidiation or data recon activity?
+=> - data recon activity is carried out to make data in synch
+   - data in synch means claim status at delear portal and insurance organization portal 
+     must be same 
+   - generally delear send list of claim status over mail then we need 
+     to cross check the status of every claim at our end,if there is 
+	 mismatch in status then we need to update status manually.
+----------------------------------
+Q. How update data manually?
+=> For that we use postman tool 
+	1. open postman tool 
+	2. select HTTP Method 
+	3. add end point URI in the postman address bar 
+	4. add the request payload 
+	5. hit the service and check the response 
+----------------------------------
+Q. share log to developer?
+=> When developer ask for logs of production then i login to 
+   server through putty and share log to developer 
+   For that i take help of linux command 
+   1. cd 2. grep 3. cat,less,more,head,tail
+----------------------------------
+Q. on the daily basis which type of issues you face?
+=> on the daily basis i face different type of issue but 
+   some issues are as below 
+	1. claim registration releted issue 
+		- delear sying i am getting error like workshop id is not available hence 
+		  claim is not registerd
+		- some time delear says i registered the claim but claim number is not received 
+	    - Some times delealer get response like "Policy/Cover Note Number does not 
+		  exist, hence Claim not Registred"
+	2. claim settlement related issue 
+	3. document upload related issued 
+		- sometime delear unable to upload the document?
+		- some times our internal user unable to view the uploaded document?
+		-> Example: One customer have reported an incident, I am unable to upload
+			the documents on the Portal.
+		-> Alternate solution: Accept customer document on official mail id.
+	4. application slowness related issued 
+		- Long running process
+		- process which consume high cpu 
+		- process which consume high memory
+	5. server space related issue 
+	6. user account related issue 
+		- custumer unable to access their online account to manage policy 
+		- System was not displying certain information
+		- resolve the issue related to the submission of document?
+		- customer unable to view their profile on company website?
+		- customer application was not properly functioning?
+		- customer record is not updated in the system?
+		- user unable to login?
+----------------------------------
+Q. Claim registration related issues?
+=> 	some time delar unable to register the claim 
+    there are several reason due to which claim registration fails 
+	In that case i need to check error message is getting in the response 
+	based on error message i need to take further action to resolve the issue 
+	For example 
+	1. delear sying i am getting error like workshop id is not available hence 
+	   claim is not registerd
+	=> solution:- take the workshop details from delear and map those workshop 
+	   details in the database 
+	   - To map workshop details I prepare insert query 
+	     get approve from TL and execute DML statemet 
+    
+	2. some time delear says i registered the claim but claim number is not received 
+	=> solution:- cross check entry in the database against given policy number 
+				  if claim is available then share that number 
+				  if claim is not generated then check what response we have sent 
+				  to delear in 'ws_logs' table 
+    
+	3. Some times delealer get response like "Policy/Cover Note Number does not 
+       exist, hence Claim not Registred"
+    => solution:- for given cover note number ,at insurance organization side 
+					policy number is not generated.payment is pending from delear.
+---------------------------
+Q. Document upload related issues?
+=> 1. sometime delear unable to upload the document?
+   => solution:- if delear is facing document upload issue 
+				 then i need to check certain things like 
+				 1. type of document(our system allow pdf,image,zip)
+				 2. size of document(less than 20MB)
+				 
+   2. some times our internal user unable to view the uploaded document?
+   => solution:- Uploaded document stored at server directory from that 
+				directory documents moved to another location through 
+				omini utility.if user unable to view them then i need to 
+				check omini utility status with the help of omini team 
+				because omini utility handled by omini team 
+				then i connect with omini team and get it resolved 
+---------------------------
+Q. Application slowness issue?
+=> If there is applicatio slowness issue then i check 
+	1. Long running process 
+		ps -ux 
+	2. process which consume high running process 
+		ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%cpu
+    3. process which consume high memory 
+	   ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%mem
+	
+	If required then i kill the process by taking approval from TL 
+	To kill process syntax is :- kill -9 process id 
+-------------------------------------	
+Q. server space issue 
+=> solution - check server space by using df,du,free command 
+			- if there is space problem then i need to find unwanted files 
+			  like back dated log files or unwanted files which has consumed 
+			  high space for that file I need delete with approval 
+			- I will find files using find command and delete 
+			  for example i want to delete 60 days file using find command 
+			  syntax find . -type f -ctime -60 |find . -type f -name'*.log'
+---------------------------
+Q. Which issue you solved recently as a support engineer?
+=> Issue: custumer unable to access their online account to manage policy 
+   reason: the customer had forgotten their password and wasn't able to reset it
+   solution: After troubleshooting the issue,I identify that the customer was entring 
+			 wrong sequrity question 
+			 i reset the sequrity question and provided a new password to the customer,
+			 allowing them to access their account 
+			 
+    # SQL query to update the password 
+		update user_passwd_dtls set password='yash' where username='yash'
+--------------------------
+Q. System was not displying certain information 
+=> solution: after troubleshooting the issue,i identified the customer 
+			 browser version and application supporting version mis-match.
+			 I told him to update browser version 
+			 In addition I provided some guidlines how to use the system
+			 correctly to avoid similar issues in the future 
+----------------------------------------------------
+Q. resolve the issue related to the submission of document?
+=> solution: customer were not able to upload the required document to the website 
+			 through investigation, I found that the issue was due to incorrect 
+			 file format then i advised them to correct file format before uploading them.
+			 then issue get resolved
+---------------------------
+Q. customer unable to view their profile on company website?
+=> solution: This issue caused duo to incorrect coding which i was able to 
+			identify and fix with help of developement team 
+---------------------------
+Q. customer application was not properly functioning?
+=> 1. this issue caused due to incorrect configuration of application settings 
+   2. I identify the issue and correct the configuration allowing the application 
+		to run properly
+   3. in addition i provided the customer with detailed instruction on how to 
+      maintain application setting in future 
+---------------------------
+Q. user unable to login?
+=> after troubleshooting i identify user account was locked due to multiple times 
+   incorrect login attempt 
+   after unlocking the account user able to login for unlocking i take help of 
+   sql command update 
+   syntax:-   update user_login_dtls set unlock=0 where user_name='yash'
+---------------------------
+Q. customer record is not updated in the system?
+=> solution : After investigation I found policy number is wrong updated 
+			  i correct it by updating these policy details and issue resolved 
+---------------------------
+Q. What is the meaning of 500 internal server error and how it resolved?
+=> - The HTTP 500 code is generic error response 
+   - 500 internal server error means something has gone wrong on 
+     server side while processing the request 
+   - I hangover the issue to developement team 
+     I connect to developement team to resolve the issue 
+---------------------------
+Q. Suppose You know the sub-query and join concept,which one
+    you will give more preference and Why?
+Ans: Between sub-query and join concept i will give more
+     preference to joins concept because performance
+     wise joins are recomonded to use
+---------------------------
+Q. Why you looking for job change?
+-> For technical growth
+
+Q. Technical growth means what?
+-> Currently I am working on insurance domain but I want working
+   on Banking and Telecom domain.
+   
+-> Here we are using less number of tools, I want to expore
+   myself in term of tools also.
+---------------------------
+# I have hands on experience to write simple and complex
+  SQL query.
+Q> For which reason you write an SQL Query.
+-> 1.Our Internal user ask for various reports, in that case I 
+   write query to tetrive data from data base. Retived data
+   export in excel and share to users.
+   1. Delear wise claim Registration reports
+   2. Delear wise claim Registration fail report reports
+   3. Delear wise claim settle reports
+   
+-> 2. I write insert statement to map workshop details.
+-> 3. I write update statement to unlock user account.
+-> 4. I write update statement to user account password
+-> 5. I DR I use select statement to cross check application
+      is working or not.
+----------------------------------------------------------
+Q> What is mean by Incident?
+-> An unwanted or unexpected event occured during the execution
+   of process is nothing but incident.
+
+  For Example : Suppose we have virutal meet with client after 15 min
+  but our internate is down.
+  
+  For Example: Delear has registered the claim but in response claim
+  number is received.
+-------------------------------------------------
+Q. What is mean by Incident management?
+-> Providing alternative solution so that we can continue with rest of work
+   is nothing but Incident management.
+-> Example: One customer have reported an incident, I am unable to upload
+   the documents on the Portal.
+-> Alternate solution: Accept customer document on official mail id.
+
+-> Example: Delear has registered the claim but in response claim
+    number is not received.
+-> Alternative Solution: Fetch the claim number from the database and share 
+   to delear.
+   
+-> Incident management goal is to resolve the issue as quickly as possible 
+   with temporary solution or with aternative soltion.
+--------------------------------------------------
+Q. What is Probelm?
+-> If same incident is happing or occuring again and again then it becomes 
+   problem
+
+   Example : If frequently internate is going down. Frequently electricity 
+   supply if off then it becomes problem
+   
+---------------------------------------------------
+Q> What is problem Management?
+-> Finding  the root cause and given permanent solution to fix the Problem
+   is nothing but problem Management 
+-----------------------------------------------------------  
+# Priorities of an Incident
+-> We have Priorities P1,P2,P3 and P4
+   P1: Critical issue.
+   P2: High Priority issue
+   P3: Medium Priority issue
+   P4: Lowest Priorities issue
+   
+Q. How we decide Priority of an issue and what is its SLA(Service Level 
+   Aggreement)?
+-> How much percent services are blocked and what is impact on the 
+   business,based on that we decide Priority of an issue.
+   
+-> P1: Total applicaiton is down, total services of an applicaiton are 
+       blocked.
+	   If issue is of P1 type then we need to resolve within 2/3 hours 
+	   or on same day.
+	   
+	  Example: No one is able to login  to system.
+	  Example: No one delear is able to register the claim.
+	  Example: For Every Delear not getting claim number in response.
+	  Example: No one delear able to upload the documents.
+	   
+-> P2: If issue is of P2 type then we need to resolve on same day.
+       Example: We have 5 delears, out of 5 Honda Delear Claim Registration
+	   service is not working. We need to resolve that issue on same day.
+	   
+	   Example: We have 5 delears, out of 5 Honda Delear Document service
+	   is not working. We need to resolve that issue on same day.
+	   
+-> P3: If issue if of P3 then we need to resolve within 2 days.
+       Example: Suppose For Honda Delear.Chenai,New Delhi and Mumbai
+	   Workshops unable to register claim or unble upload documents.
+	   We need to resolve within 2 days.
+	   
+-> P4: If issue is P3 type then we need to resolve in 3/4 days.
+       Example: One the Delear has registered claim but it is not 
+	   settled.
+-----------------------------------------------------------
+Q. Who decides Priority of issue?
+-> If ticket is directly assigned then all details are mentioned in the 
+   ticket.
+   
+-> If there is direct mail from Delear and I need to raise ticket 
+   then based on business impact I decide its Priority.
+------------------------------------------------------------
+# ITIL Change Request 
+-> ITIL stands for Information Technology Infrastructure Library
+
+Q. What is Change request?
+-> We are updating application or application data manually.
+-----------------------
+Q. Process of Change request
+1) Identification of Change or need for a change:
+   change initiator should gather information about the current state of the system and create a detailed change request document. 
+   That document describes the proposed change, the reasons for the change, and the impact of the change on the system.
+   
+2. Initial assessment and evaluation of the change 
+-> In this step,change management authority team review the change request 
+   document,check the its feasibility.
+   The change management authority will assess the risks and benefits of the change.The change management authority can approve,reject or 
+   ask for more information on the change request.
+   
+3. Implementation of the change
+-> Once the change request is approved by the change management authority, 
+   then IT Team responsible for implementing the change.
+   
+   The IT Team create a detailed plan for execution by filling 
+   the change request form.
+   
+-> Steps carried out by Item Team.
+   1) First we need to raise change request by filling form.
+      In that Change request form we need to speacify information like
+		1) Project Name
+		2) Who has requested the change?
+		3) why a change is necessary?
+		3) What is priority and urgency of the change?
+		4) Change category(standard, emergency, normal, etc)
+		5) change type (minor, major, etc)
+		4) What is business impact right now?
+		5) What is benifit if we execute that change?
+		6) Which module this change is required?
+		7) Who is going to implement that change?
+		8) Where that change is going to execute?
+		9) What is implementation plan?
+		10) What is recovery plan?
+		11) Who is going approve this change request?
+   2) Send for Approval
+   3) Ones approved, execute it.
+   
+4. Review and closure of the change request
+The review and closure of the change request is the final step in the ITIL change request process. This steps cross checking of changes and documenting
+the results,and then closing the change request.
+----------------------------------------------
+Q. Give one example of Change request which you have executed
+   
+1) I have executed change request to make data in sync for 5000 claims.
+   Our Application exchange data with Delear Application.
+   Claim status should be same at both end. If there is mismatch in claim status then delear unable to register claim.
+   Delear shared 5000 claims along with its status, we cross checked status at our 
+   end and we found there is mismatch in the status.For those claim status updation
+   I raised change request and executed.
+   1) I take back up of 5000 claims.
+   2) I prepared update query for 5000 claims
+   3) Raised change request by mentioning required information and get 
+      approved
+   4) Executed that change request.
+------------------------------------------------------
+Example: I have executed Change Request to Map 100 workshop details.
+------------------------------------------------------
+Q. What is mean by server?
+=> server is one kind of software which handle incoming https request 
+------------------------------------------------------
+Q. What is weblogic?
+=> weblogic is application server used to develope,deploye and run 
+   java based enterprise application.
+------------------------------------------------------
+Q. What is mean by domain in weblogic?
+=> Domain is single logical admistritive unit which can contain one or 
+   more weblogic server instance.   
+------------------------------------------------------
+Q. What are differenet component of weblogic?
+=> 1. Admin Server :Admin server is central point of control for managing the 
+					domain's configuration and monitoring operation 
+				   - Every domain has a single Admin server 
+   2. Managed Server:Managed server run the actual application or services 
+					- A domain can contain one or more managed server 
+					- managed servers are controlled by admin server 
+					  but they can operate independently once started 
+   3. Node Manager:Node manager is utility in weblogic server 
+				  - node manager help us to start,stop or restart 
+				    server instances remotely
+   4. Cluster: managed server in domain can be grouped into clusters 
+				for load balancing and high availability.
+			  - clustering distributes the application workload across 
+			    multiple servers and improve performance and reliability of an application 
+------------------------------------------------------
+Q. How to start Admin server?
+=>  there are 3 ways to start admin server 
+	1. by executing script 
+	2. using wlst tool 
+	3. using node manager 
+	
+	1. by executing script 
+		- open command prompt 
+		- navigate to bin directory of user_project 
+		- execute script startWeblogic.sh 
+	
+	2. using wlst tool 
+		- open command prompt 
+		- navigate to oracle_common directory then navigate 
+		  bin directory of common directory 
+		- execute script wlst.sh 
+		- execute command 
+		  startServer('servername','domainName','url','username','password');
+		-startServer('AdminServer','base_domain','t3://localhost:7001','weblogic','weblogic@123')
+	
+	3. using node manager
+		- open command prompt navigate to bin directory 
+		- execute script startNodeManager.sh script 
+		- execute wlst.sh script 
+		- execute command 	
+                  nmConnect('nodemanager','nodemanager@123','localhost','5556','base_domain','C:\\Weblogic_14C\\user_projects\\domains\\base_domain','ssl')
+		- nmStart('AdminServer','Server')
+		
+------------------------------------------------------
+Q. How to deploy the application?
+=> To deploy the application login to Admin server 
+	- go to deployement section 
+	- click on install button 
+	- browser the war or jar file 
+	- click on next button
+	- if file is war then select option deployement as an application 
+	- if file is jar then select option deployement as library
+	- click on next button 
+	- select server 
+	- click on next button
+	- click on finish button 
+------------------------------------------------------
+Q. where deployed files stored?
+=> user_project/domain/servers/admin_server/staged
+------------------------------------------------------
+Q. How to connect Admin server?
+=> To connect Admin server Admin server must be up and running 
+   - To connect Admin there are multiple ways 
+     1. connect via weblogic admistritive console (browser-based UI)
+	 2. connect via WLST  tool 
+	 3. connect via putty tool 
+	 4. connect via node manager 
+	 
+	1. connect via weblogic admistritive console 
+	==> To connect Admin server first admin server need to up and running 
+		- start admin server open command prompt at bin directory of domain 
+		- execute command startWeblogic.cmd or startWeblogic.sh script 
+		- open browser and enter URL :
+			http://<hostname>:<admin_port>/console
+			http://locathost:7001/console
+			http://DESKTOP-1VT9LL4:7001/console
+			http://192.168.31.126:7001/console
+		- To find system name use command "hostname"
+		- To find ip address use command "hostname -i" //ifconfig
+	
+	2. connect via WLST tool 
+	==> WLST(weblogic scripting tool) is a powerful command line interface 
+	    for automating and scripting weblogic server tasks 
+		- open command prompt 
+		- navigate to wlst.cmd or wlst.sh script 
+		  this file is available at "oracle_comman/common/bin"
+		- execute script 
+		- To connect admin server use command 
+		  connect('username','password','t3://hostname:admin_port')
+		   Where,
+			username: WebLogic Admin server user name.
+			password: WebLogic Admin server password.
+			t3: is a protocol for internal commuincation
+			hostname: System name where admin server is running.
+			admin_port: Admin Server port.
+   
+	3. connect via putty tool 
+	==> open putty tool 
+	   - specify hostname,port number,connecting type as "ssh" and click on open 
+	   - click on open button to connect 
+	
+	4. # Connecting Admin Server Through the nodemanager.
+	-> Steps:
+	  1. start wlst 
+	  2. Connect by using below command  
+	   nmConnect('nodemanager','nodemanager@123','localhost','5556','base_domain',
+	  'C\:\\weblogic12c\\user_projects\\domains\\base_domain','plain')
+	  3. Connect to Server.
+		 connect('username', 'password', 't3://localhost:7001')
+------------------------------------------------------
+Q. How to stop admin server?
+=> to stop admin server there are 4 different ways 
+   1) Through "stopWeblogic.cmd" or "stopWeblogic.sh" script
+   2) Through the "wlst" tool
+   3) Through the nodemanager
+   4) Through WebLogic Admin console
+   
+   1. using script 
+	1. Open command prompt and Navigate to domain's bin directory
+	2. Execute "stopWeblogic.cmd" if you are on windows.
+      Execute ""stopWeblogic.sh" if your are Linux.
+   
+   2.using wlst tool 
+	   1. start "wlst" tool
+	   2. Connect to Admin Server through below command
+		  connect('username', 'password', 't3://localhost:7001')
+	   3. shutdown('servername')
+		  Example: shutdown('AdminServer') 
+		  
+   3. Stoping Admin Server Through Through the nodemanager
+	-> Steps:
+	   1. nodemanager should be up and running
+	   2. start wlst tool.
+	   3. Connect to nodemanager
+		  nmConnect('nodemanager','nodemanager@123','localhost','5556','base_domain',
+	  'C\:\\weblogic12c\\user_projects\\domains\\base_domain','plain')
+	  
+	  4.Connect to Admin Server.
+		connect('username', 'password', 't3://localhost:7001')
+	  5. nmKill('AdminServer')
+	  6. nmDisconnect() : To disconnect from node manager.
+	  
+   4. Stoping AdminServer Through WebLogic Admin console
+	-> Steps:
+	   1. Login to Admin Console
+	   2. Environment -> Servers -> Control -> Select sever -> Shutdown
+------------------------------------------------------
+Q. Who said you to deploy the application?
+When Developer/Tester ask to Deploy an application on server/bin
+Then share mail and share the path of shared folder.
+I copy the war file from share folder to my local system
+and deploy.
+------------------------------------------------------
+Q. How to create managed server?
+=> - login to weblogic administration console 
+   - navigate to Environment section 
+   - navigate to server section 
+   - click on new button to create managed server 
+   - Enter required information like 
+     server_name==> specify unique server name ,
+     server_listen_address==> This is the IP address or hostname of the machine 
+      where the Managed Server will run.,
+    
+server_listen_port==> The port on which the Managed Server will listen
+   - click on next button 
+   - click on finish button 
+------------------------------------------
+Q. How to start managed server?
+=> there are multiple ways to start managed server 
+	1. by executing startup script from command line 
+	2. using weblogic administration console 
+	3. using WLST tool 
+	
+	
+	1. by executing startup script from command line 
+	==> - open terminal or command prompt 
+	    - navigate to the domain's bin directory 
+		- run startManagedWeblogic script,passing the server name 
+		  and URL of the admin server as below 
+		
+		startManagedWeblogic.sh <managed_server_name>
+		http://<admin_server_hostname>:<admin_server_port>
+	
+	2. using weblogic administration console
+	==> if admin server is running then you can start managed server 
+	    using weblogic administration console 
+		- login to administartion console 
+		- navigate to envirnoment section then navigate server section 
+		- navigate to control section
+		- select managed server that you want to start and click start 
+		
+	3. using WLST tool (WebLogic Scripting tool)
+	==> WLST tool allow you to start managed server 
+	   - open terminal or command prompt 
+	   - navigate to wlst directory 
+	   - /oracle_comman/common/bin
+	   - connect to admin server using WLST tool 
+		 connect ('username','password','t3://localhost:7001')
+	   - Start managed server :
+			start ('managed_server_name')
+	
+------------------------------------------
+Q. How to check status WLST 
+==> 1. to check status of server 
+		state('ManagedServere1')
+	2. stop the managed server 
+		shutdown('ManagedServere1','server1',force='true')
+	3. disconnect and exit WLST
+		disconnect()
+	4. close the prompt 
+		exit()
+------------------------------------------
+Q. Tell me step to connect server using putty?
+==> 1. open putty tool and enter hostname or ip address 
+    2. enter port number 
+	3. select ssh protocol 
+	4. click on open button to connect 
+	5. enter the username and password 
+	6. on sucessful login we can access the command line interface of server 
+------------------------------------------
+-----------------------------------------------------
+Q. Application Deployment Modes in WebLogic Server
+-> We deploy an application on Managed server.(For your information)
+-> We have 12 Managed servers in Production.
+-> On UAT and QA we have 2 Managed Server.
+-> I make deployment in QA and UAT environments.
+-> DBA Team is doing Deployment in the Production. 
+   I am working as helping hand to DBA. So, In Production Deployment my role is 
+   1. Extract call components and Maintain the status in one Excel file 
+   2. For JSP files,js files,procedure,sql queries we deploy
+      in pre-prod(Pre-Production) and cross check for compilation
+   3. If there is compilation Problem then inform the respective 
+      Developer via mail and revert the call.
+   4. Inform  the status of Call extraction to DBA.
+   5. Initiate the mail for Deployment.
+   6. DBA team do the deployment in the morning between 6 to 7
+------------------------------------------------------ 
+Q. How to add server port?
+==> I don't know in our organization network related activities 
+	are handled by network administartion team 
+------------------------------------------
+Q. Which version of weblogic you are using?
+Ans: 12c
+-----------------------------------------
+Q. What is default port of weblogic?
+Ans: 7001
+-----------------------------------------
+Q. How many server are there in your orgnization?
+Ans: I am hadling one server and it has 12 ports.
+-----------------------------------------
+Q. How to start weblogic server?
+Ans: To start the weblogic server we need to run startWebLogic.sh file
+-----------------------------------------
+Q. Where "startWebLogic.sh" file available?
+Ans : It is available in bin directory
+-----------------------------------------
+Q. How to stop weblogic server?
+Ans: To stop the weblogic server we need to run stopWebLogic.sh
+-----------------------------------------
+Q. Where "stopWebLogic.sh" file available?
+Ans : It is available in bin directory
+-----------------------------------------  
+Q. Weblogic is which type of server?
+-> It is Application server
+------------------------------------------------	
+Q. have you worked on tomacat server?
+=> yes i have worked on tomcat server 
+   in developement environment we are using tomcat
+   On UAT(user acceptance testing) and QA(quality assurance testing)
+   and production envirnoment we are using weblogic
+------------------------------------------------
+Q. How to start tomcat?
+=> - navigate to bin directory 
+   - click on Tomcat9w.exe file then new window get opened
+   - on that window click on start button 
+------------------------------------------------
+Q. How to stop tomcat?
+=> - navigate to bin directory 
+   - click on Tomcat9w.exe file then new window get opened
+   - on that window click on stop button 
+------------------------------------------------
+Q. Where server logs are stored in tomcat?
+=> server level logs are stored inside 'cataline.date.log' file 
+   and that file is located inside log directory 
+   - here date format is 'yyyy-mm-dd'
+------------------------------------------------
+Q. where application level logs are stored?
+=> application level logs are store in 'tomcat9-stdout.date.log'
+   here date format is 'yyyy-mm-dd'
+------------------------------------------------
+Q. What is difference between internet and intranet?
+=> If application is available on internet then it is accessible to every one 
+   If application is available on intranet then it is accessible to organization 
+   people only or specify user only 
+------------------------------------------------
+Q. do you have experience in server installation and cofiguration?
+=> No,I don't have experience in server installation and configuration
+   Being L1 support engineer my role is to deploy an application on server,
+   to start applicaiton,to stop application and to stop server of 
+   UAT and QA environment
+------------------------------------------------
+Q. How many thread can weblogic server handle?
+=> bydefault weblogic server handle 400 request 
+------------------------------------------------
+Q. Can we have multiple domains in weblogic?
+=> you can use single weblogic server installation to create and 
+   run multiple domains,or 
+   you can use multiple installations to run a single domain 
+------------------------------------------------
+Q. What is ideal thread in weblogic?
+=> the thread which not performing task is considered as ideal thread 
+------------------------------------------------
+Q. What is thread?
+=> program under execution is know as thread
+------------------------------------------------
+Q. How to handle 1000 request per second?
+=> To handle high traffic,you should setup load balancer with 
+   multiple node/instances
+------------------------------------------------
+Q. Do you have experience in load balancer?
+=> No 
+------------------------------------------------
+Q. what is JVM 
+=> JVM Stand for java virtual machine 
+   JVM used to run java program 
+------------------------------------------------
+Q. What is time of deployement?
+=> we have deployement 2 times in month at morning 6 to 7
+------------------------------------------------
+Q. How will you troubleshoot when weblogic server fails to start?
+=>- there are multiple reason for server fails to start 
+  - some check point as below 
+  1. check server logs for error message
+  2. analysis common error message 
+		- port conflicts
+		- out of memory error 
+		- database connection issue 
+		- file/directory permission 
+  3. verify java envirnoment
+		- java version 
+		- java home 
+		- jvm parameter
+  4. check configuration files for error 
+  5. check network and database connectivity
+  6. clear temporary and cache files 
+  1. check server logs for error message 
+  => If admin server is failing then check admin server log 
+     admin server log stored in 'server/adminServer/log/'  
+     - if managed server is failing then check manged server 
+	   log 
+  2. Analyze common error message 
+	a) port conflicts:Error like "address already in use"
+	solution: use netstate or lsof to find process using the port or configure 
+	          weblogic to use a different port in config.xml file 
+			- lsof command:- display process with port number			 
+			
+	b) Out of memory error : error like "java.hang.outofmemoryerror" indicate memory constraint 
+	solution: increase heap memory in the server's startup configuration
+				(-xms or -xmx parameter in setDomainEnv.sh)
+	
+	c) Database connection issue: Database connectivity issue or incorrect credentials 
+	solution: verify the database server status,network accessibility and the 
+				correctness of JDBC configuration
+				which is present in config/jdbc directory
+				
+	
+	d) file/directory permission: error like 'java.io.FileFoundationException' weblogic may not 
+			not have necessary file or directory access 
+	solution: Ensure weblogic has read/write permission on all necessary directories 
+			Q. how to give permission of read/write?
+			=> using chmod command => sudo chmod 777 file_name 
+			
+  3. Verify java envirnoment: 
+		a) Java Version: confirm java version is compatible with your weblogic server 
+		b) Java_home: check java_home and path point to valid jdk 
+		c) jvm parameter: In setDomainEnv.sh verify jvm arguments,unsupported argument 
+							can cause the JVM fails 
+
+  4. check configuration files for error 
+	a) config.xml : syntax error or incorrect value in config.xml file 
+		solution: correct any error or rollback provious configuration 
+		
+	b) Starts scripts : Error in script like 'startWeblogic.sh' or 'startManagedWeblogic.sh'
+						may also prevent backup 
+       solution: review recent changes and restore any modified start script if necessary
+  
+  5. check network and database connectivity: 
+		a) ping database and external services: ensure network access to external services 
+				and databases that weblogic depend on 
+		b) Firewall and network configuration: check firewall rule to network setting to 
+			    ensure they aren't blocking access to critical resources 
+
+   6. Clear temporary and cache files 
+		corrupted temporary or cache files can prevent startup delete that file from 
+		following directories
+		$DOMAIN_HOME/servers/AdminServer/tmp/
+		$DOMAIN_HOME/servers/AdminServer/cache/
+		$DOMAIN_HOME/servers/AdminServer/data/
+		These files will be recreated at the next startup attempt.
+---------------------------------
+Q. How would you handle an out-of-memory error in WebLogic? 
+-> To handle an out-of-memory error in WebLogic, you can try these steps:
+1. Increase the memory
+   Modify the "setDomainEnv" script to increase the values of the USER_MEM_ARGS parameter. 
+   -Xms1024m -Xmx4096m
+   -Xms: Initial heap size
+   -Xmx: Maximum heap size
+   Note: default value are : -Xms256m -Xmx512m
+---------------------------------
+# Important Configuration Files in WebLogic
+1. config.xml
+-> Location: DOMAIN_HOME/config/
+-> config.xml is Central Configuration file for domain.
+-> We can peform settings for AdminServer,ManagedServer,nodemanager,
+   Machine 
+-> We can change AdminServer name, ManagedServer name,machine name
+   and its port numbers.
+-> We can enable or disable SSL for AdminServer,ManagedServer,Machine.
+-> We can change listen address.
+-> We can change domain name and its version.
+-> Deployed application details are also available in config.xml file.
+----------------------------
+2. boot.properties
+-> Location: DOMAIN_HOME/servers/ServerName/security/
+-> This file contains the credentials (username and password) 
+   needed for the WebLogic Server to start automatically.
+Q. If you want to change user name and password for AdminServer then 
+   which need to modify?
+-> boot.properties
+Q. AdminServer credentials are stored in which file?
+-> boot.properties
+----------------------------   
+3. nodemanager.properties
+-> Location: WL_HOME/user_projects/domains/base_domain/nodemanager
+-> nodemanager is a utility for starting, stopping, and monitoring 
+   WebLogic Server instances remotely.
+-> nodemanager.properties Contains the configuration settings for 
+   the Node Manager.   
+----------------------------    
+4. startWebLogic.sh / startWebLogic.cmd
+-> Location: C:\weblogic12c\user_projects\domains\base_domain\bin
+-> The startup script for starting the WebLogic Admin Server on Unix (.sh) 
+   or Windows (.cmd) platforms.
+-> Defines the environment and classpath settings needed to start WebLogic 
+   Server, including paths to Java and other required libraries.
+   
+5. startManagedWebLogic.sh / startManagedWebLogic.cmd
+-> Location: C:\weblogic12c\user_projects\domains\base_domain\bin
+-> Similar to startWebLogic, but specifically for starting Managed Servers.
+-> Ensures that Managed Servers connect to the Admin Server upon 
+   startup and inherit necessary domain configuration settings.
+---------------------------------------------------------------- 
+# nm_password.properties
+Location:base_domain\config\nodemanager
+This file contains the encrypted credentials (username and password) used by Node Manager to authenticate with WebLogic Server
+
+By default, this file is generated when you start Node Manager for the first time and enter the credentials, or it may be generated during the WebLogic domain configuration if you set up Node Manager at that time
+
+If Node Manager authentication is required for your setup, the credentials in nm_password.properties must match the username and password configured in the WebLogic Server's config.xml file for Node Manager access.
+
+If we want to change username and password for nodemanager then 
+edit nm_password.properties file 
+username=
+password=
+
+ones nodemanager is started then user name and password get converted into
+encrypted form as 
+hashed={Algorithm\=SHA-256}93ZJmzERlrCXyVLaSqcLVuVT7SB5mM5WPB4xrTBdTiI\=
+----------------------------------------
+6. setDomainEnv.sh / setDomainEnv.cmd
+-> Location: DOMAIN_HOME/bin/
+-> Contains environment variables such as Java options, 
+   memory settings, and classpath definitions specific to the WebLogic domain.
+-> Called by startup scripts to set up the environment, impacting the memory 
+   and performance settings of WebLogic Server instances.
+-----------------------   
+7. setUserOverrides.sh / setUserOverrides.cmd
+-> Location: DOMAIN_HOME/bin/
+-> A user-editable script for customizing or overriding environment 
+   variables set in setDomainEnv.
+-> Allows custom environment configurations without modifying the main 
+   domain script, which can be useful for domain-specific adjustments
+-----------------------   
+8. logging.properties
+-> Location: DOMAIN_HOME/config/
+-> Configures the logging settings, including log file paths, log levels, 
+   and rotation policies for the WebLogic domain.
+-> Controls the level and granularity of logging information for 
+   troubleshooting and performance monitoring.
+-----------------------    
+9. jms.xml
+-> Location: DOMAIN_HOME/config/jms/
+-> Stores configurations for JMS (Java Message Service) resources within the 
+   domain, like JMS servers, queues, and topics.
+-> Purpose: Allows configuration of messaging resources, crucial for 
+  applications that use JMS for communication between components  
+----------------------- 
+10. security.xml
+-> Location: DOMAIN_HOME/config/
+-> Manages security-related configurations, including users, 
+   roles, groups, and security policies.
+-> Purpose: Controls domain-level security, allowing admins to define and 
+   enforce user roles and access policies 
+----------------------- 
+11. jdbc.xml(Java Database Connectivity)
+-> Location: DOMAIN_HOME/config/jdbc/
+-> Contains definitions and settings for JDBC data sources.
+-> Purpose: Configures database connectivity for applications running in 
+   WebLogic, including connection pool settings.   
+-------------------------------------
+# Deploying an application in weblogic
+1. start weblogic admin server
+-> We can start weblogic admin server in two ways 
+   1. by executing "startWeblogic.cmd or .sh file"
+   2. Connect to nodemanager and start weblogic.
+   
+Q. How to start weblogic admin server in background?
+-> start /B startWebLogic.cmd > weblogic.log 2>&1
+-> nohup ./startWebLogic.sh > weblogic.out 2>&1 &
+
+Q. How to start weblogic admin server in forground?
+-> startWebLogic.cmd
+-> startWebLogic.sh
+
+2. Login to admin console 
+-> http://locahost:7001/console
+-> Go to development section
+-> Browse an application which you want to deploy.
+-> Choose installation type and scope
+   Install this deployment as an application: If war file  
+   Install this deployment as library: If jar file
+   
+->Select deployment targets and follow the subsequent steps
+-----------------------------------------------
+   
+# Deployment modes in WebLogic
+1. Stage Mode
+In Stage mode, the application files are first copied (or staged) to each target server in the domain. This approach is useful when you have multiple Managed Servers in a cluster
+
+Recommended when all Managed Servers are remote, or when each server should have its own copy of the application
+--------------
+2. Nostage Mode
+In Nostage mode, application files are not copied to each Managed Server. Instead, the application is accessed from a central location where it is initially deployed.
+
+3. External Stage Mode
+In External Stage mode, the staging of the application files is managed outside of WebLogic (e.g., by a system administrator).
+-------------
+Choosing a Deployment Mode
+1.Stage Mode: 
+  Good for distributed production environments with multiple Managed Servers.
+
+2. Nostage Mode: 
+ Suitable for development or single-machine setups.
+
+3. External Stage Mode: 
+Ideal for environments needing specific control over file management.
+-------------		
+**Table structure**
+JIPL_CLM_DTLS=> CLM_NO	
+				POL_NO	
+				COVER_NOTE
+				CUST_NAME
+				PLACE_OF_ACCIDENT	
+				VEHICAL_REG_NO	
+				LICEN_NO	
+				CAUSE_OF_ACCIDENT	
+				DOB	DATE_OF_ACCIDENT	
+				DRIVER_NAME	
+				CUST_MOBILENO	
+				WORKSHOP_ID
+				WORKSHOP_CITY	
+				DELEAR_CLM_ID	
+				DELEAR_MOB_NO	
+				DELEAR_FLAG	
+				CLM_REG_DATE
+				REG_MESSAGE	
+				CLM_STATUS	
+				SURVEY_ID	
+				SURVEY_APP_DATE	
+				SURVEY_DONE_DATE	
+				SURVEY_COMPL_REMARK	DOC_ID
+
+jipl_workshop_dtls=> WORKSHOP_ID	
+					WORKSHOP_NAME	
+					CITY	
+					DELEAR_NAME	
+					DELEAR_MOB	
+					DELEAR_MAIL_ID
+					
+					

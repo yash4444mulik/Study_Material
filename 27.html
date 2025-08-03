@@ -1,0 +1,45 @@
+<html>
+<head> 
+<script src="./external.js">
+</script>
+<script>
+		/*
+		
+		How to check propoerties exist in Object?
+		1. using in operator  
+		2. using undefined keyword 
+		3. using hasOwnProperty method  
+		
+		*/
+		
+		let Obj={
+				name:'Yashraj',
+				age:25,
+				address:{
+						Taluka:'Phaltan',
+						District:'Satara'
+						},
+				Mobile:'vivo'
+				}
+		
+		let deepCopy = JSON.parse(JSON.stringify(Obj));
+		console.log(`deepCopy =>`, deepCopy)
+		
+		let shallowCopy={...Obj}
+		console.log(`shallowCopy`,shallowCopy)
+		
+		Obj.address.Taluka='solapur'
+
+		
+		
+	
+		
+		
+	
+		
+</script>
+</head>
+<body>
+<h1>this is my html</h1>
+</body>
+</html>

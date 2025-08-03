@@ -1,0 +1,81 @@
+Q.. How do you cross check oracle is installed or not on your system?
+==> To check oracle is installed or not open command prompt and execute 'sql plus' command. 
+	if this command return oracle version that mean oracle is installed 
+	if this command give error then we conclude oracle is not installed
+	
+Q.. How do you connect to Oracle Database?
+==> To connect Oracle database we use sql developer tool 
+
+Q.. Tell Steps to connect Oracle Database Via Sql Developer?
+==> Open sql developer tool 
+	click on connect option which is mentioned in menu bar 
+	then fill in all details likes username password port number 
+	then click on connect button 
+	
+Q.. What is mean by data?
+==> Properties of entity is nothing but data.
+
+Q.. What is mean by Entity?
+==> Anyting in real word is nothing but entity. 
+
+Q.. What is mean by Database?
+==> collection of data in systematic manner is nothing but database 
+
+Q.. State the Examples of Relational Databases?
+==> oracle,mysql,IBM DB2
+
+Q.. What is difference between SQL and Oracle?
+==> 
+
+Q.. What is difference between SQL and MySQL?
+==>
+
+Q.. With the help of SQL Which operations we can perform on database?
+Q.. What is use of desc command?
+Q.. Which three special symbols are allowed for table name?
+Q.. I am trying to insert data into table but I am getting an error
+   "too many values". What is wrong with insert statement?
+Q.. I am trying to insert data into table but I am getting an error
+   "not enough values". What is wrong with insert statement
+Q.. What is syntax of "INSERT INTO" statement?
+Q.. I am trying to insert data into table but I am getting an error 
+   "table or view does not exist" What is wrong with insert statement?
+Q.. What is SELECT statement syntax ?
+Q.. What is mean by String in Oracle?
+Q.. To define String type value which data types are used in Oracle?
+Q.. What is the minimum and maximum capacity of the CHAR data type?
+Q.. What is the minimum and maximum capacity of the VARCHAR data type?
+Q.. What is difference between char and varchar data type?
+Q.. What is difference between varchar and varchar2 data types?
+Q.. What is mean by precision in number data type?
+Q.. What is mean by scale in number data type?
+Q.. What is range of precision?
+Q.. What is range of scale?
+Q.. If we don't specify a precision value, what is its default?
+Q.. If we don't specify a scale value, what is its default?
+Q.. What is dual table in Oracle?
+Q.. What is default date format in Oracle?
+Q.. What is use of BLOB data type in Oracle?
+Q.. What is use of CLOB data type?
+Q.. What is use of BFILE data type?
+Q.. What is use of IN clause?
+Q.. How many values we can specify in "IN" clause?
+Q.. What is difference between NULL,Zero and Blank Space.
+Q.. What is use of Between .. AND operator?
+Q.. What is use of LIKE operator in Oracle?
+Q.. What is update statement syntax?
+Q.. While updating records if we don't specify where clause,what will
+   happen?
+Q.. What is delete statement syntax?
+Q.. While deleting records if we don't specify where clause,what will
+   happen?
+Q.. If wrong record is inserted,how will you correct it?
+Q.. If wrong record is updated,how will you correct it?
+Q.. If wrong record is deleted,how will you restore it?
+Q.. Which statements come under DDL?
+Q.. Which statements come under DML?
+Q.. Which statements come under DQL?
+Q.. Which statements come under DCL?
+Q.. Which statements come under TCL?
+Q.. We can rollback insert,update ,delete but can't rollback create table
+   statement,Why?

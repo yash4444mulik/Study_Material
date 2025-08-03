@@ -1,0 +1,2681 @@
+
+
+----------- श्री गणेशय नम: ----- 
+
+----------- JAVASCRIPT ------
+
+
+Q..	What is ECMA?
+==>	ECMA stand for europion computer manufcturing association 
+	Founded in 1961.its headqueter in switerzland geneva.
+	which release standard related to technology.
+---------------------
+Q..	What is ECMA-262?
+==> ECMA-262 is standard relesed by ECMA internation 
+	which contain specification related to general purpose scripting language 
+---------------------
+Q.. What is Ecmascript?
+==> Ecmascript is standard for scripting language
+---------------------
+Q.. What is Javascript?
+==> Javascript is general purpose scripting language.
+	javascript invented by Brenden Eich in 1995
+	initially it was developed for netscape 2 browser 
+	in 1997 javascript became ECMA standard(ECMA-262) and relesed it's first version 
+	i.e Ecmascript 1.
+	Internet explorer was the first browser to support ecmascript 1 edition 
+	latest version of ecmascript is ES-23 released in 2023
+---------------------
+Q.. Feature of Javascript?
+==> It is light in weight.
+	it is interpreted language
+	it is prototype based language
+	it is case sensative language
+	it is dynamic typed and loosely typed programming language
+	It support functional programming
+	it is single threaded language
+	it is platform independent 
+---------------------
+Q.. What is mean javascript is light in weight?
+==> light in weight means it consume less resources when code or appliction running 
+	because of javascript is interpreted language means it not compile it is direct 
+	interpreted
+---------------------
+Q.. What is mean by Interpreted language?
+==> in general source code get first compiled to check syntax
+	if syntax is correct then byte code is generated and that byte code get executed by interpreter.
+	In an Interpreted language code not get compiled it get directly executed by interpreter
+---------------------
+Q.. What is mean by dynamic typed or loosely typed programming language?
+==> dynamic typed or loosely typed means data type checking is not strict 
+	means variable is not bound to a specific data type. 
+---------------------
+Q.. What is mean by functional type programming language?	
+==> Functional programming means we try to bind everything in pure mathamatical function.
+---------------------
+Q.. What is mean by prototype based programming language?
+==> prototype based programming language is a style of object oriented programming
+    in that classes not used to define object 
+	In prototype based programming language protypes are used.
+	Prototype means already exist 
+	Already exist object can be cloned,modified or extended.
+---------------------
+Q. What is mean by case sensative?
+=> case sensative means upper case and lower case are different.
+---------------------
+Q.. Building block of javascript?
+=> 	1. Identifier
+	2. Reserve words
+	3. Data types 
+	4. Literals
+	5. Variables 
+---------------------
+Q.. What is mean by Identifier?
+==> Any name give to variable,function,constant,symbols are called Identifier.
+	These Identifier are predefined or user defined.
+	These Identifier are used for identification purpose.
+---------------------
+Q.. What is mean by Reserve words?
+==> the words whose meaning already defined in javascript nothing but reserve words 
+	we can't change meaning of reserve words.
+	there are two type of Reserve words.
+		1. Reserve keyword 
+		2. Reserve literals 
+		
+		1. Reserve keyword
+		=> Reserve keyword like if,else,switch,break,continue,return,do,while,for 
+		
+		2. Reserve literals 
+		=> there are 3 reserve literals true,false,null
+---------------------
+Q.. How we embed javascript in HTML?
+==> we can embed javascript in two ways
+		1. using <script> tag 
+		2. using creating seperate file of .js exetention and link that file to page 
+---------------------
+Q.. when we use script tag inside body and head secction?
+==> When script tag contain event triggering function then we can place that script tag inside head section
+	if script tag contain normal javascript then we can place inside body section.
+---------------------
+Q.. What is variable in javascript?
+==>	Thing who varries the value nothing but javascript.
+	There are 3 keyword to declare the variable 
+		1. var  
+		2. let 
+		3. const 
+---------------------
+Q.. Rule to define the variable?
+==> 1. variable name can be combination of uppercase,lowercase,digit,special symbol like _ and $
+	2. variable name should not be start with digit 
+	3. blank space is not allowed in variable name.
+	4. keyword not allowed as variable name.
+	
+	syntax to declare variable 
+		variable_delcaration_keyword variable_name = variable_value.
+---------------------
+Q.. What is variable declaration,initilization?
+==> Declaration means declare the variable like var x.
+	initilization means give value to variable x=10.
+	delcaration and initilization in one like var x=10.
+---------------------
+Q.. What is Literals?
+==> Any value assigned to variable nothing but Literals.
+---------------------
+Q.. Scope of variable?
+==> Scope means accessibility and visibility of variable 
+	There are 3 type of scope 
+		1. local scope 
+		2. block scope 
+		3. global scope 
+	
+	1. local scope variable:- variable declare inside the function have local scope 
+							  we can't access variable outside the function 
+							  local variable create at the time of function execution 
+							  and delete as soon as function execution completed. 
+	
+	2. Block scope variable:- block scope variable means variable declared inside curley bracket 
+							  let and const have only block scope.
+							  block scope variable create at the time of block execution and 
+							  delete as soon as block execution complete 
+
+	3. Global scope variable:- global scope variable means variable declared outside the function 
+							   and block is called glocal scope variable 
+							   global scope variable access anywhere 
+							   global scope variable create at the time of web page load and 
+							   delete when web page close 
+
+---------------------
+Q.. what is difference between var,let and const keyword?
+==> in javascript there are 3 different keyword to declare the variable 
+	1. var 
+	2. let 
+	3. const 
+	
+	1. var: var is old one 
+			var have global scope 
+			in var keyword initilization is not mandatary 
+			in var keyword redeclaration is allowed 
+			in var keyword reassignment is allowed 
+			hoisting is allowed in var keyword
+
+	2. let : let is introduced in ES-6 i.e in 2015 
+			let has block scope 
+			in let keyword initilization is not mandatary
+			in let keyword redeclaration is not allowed 
+			in let keyword reassignment is allowed 
+			hoisting is not allowed in let keyword
+
+	3. const : const is introduced in ES-6 i.e in 2015
+				const has block scope
+				in const keyword initilization is mandatary
+				in const keyword redeclaration is not allowed 
+				in const keyword reassignment is not allowed 
+				hoisting is not allowed in const keyword
+---------------------
+Q.. What is mean by Hoisting?
+==> Hoisting is process in which interpreter appears to move the declaration of variable and function 
+	Hoisting means accessing the variable before it's declaration.
+	like if we access any variable before it's delcaration that is hoisting
+	for examaple  we are accessing x variable before it's declaration 
+	in var keyword hoisting is allowed only 
+	in let and const keyword hoisting is not allowed.
+	
+	var=> for var keyword hoisting is allowed 
+		  if we access variable before its declartion the var will hoist 
+		  because memory space is created for that variable 
+	
+	const=> for const hoisting is not allowed 
+			if we try to access variable before it's delcaration in const keyword we will get an error 
+			because javascript move const keyword in temporal dead zone (TDZ)
+			it space is created but that variable move to TDZ
+	
+	let => for let hoisting is not allowed 
+			if we try to access variable before it's delcaration in let keyword we will get an error 
+			because javascript move let keyword in temporal dead zone (TDZ)
+			it space is created but that variable move to TDZ
+			
+	for function hoisting is allowed 
+		
+		1. 
+			sayHi()
+			
+			function sayHi(){console.log('hi')}
+		
+		2.
+			sayHi()
+			
+			var sayHi=function(){console.log('hi')}
+			// this will give error sayHi is not function
+			
+---------------------
+Q.. How to define function?
+==> we can define function using 2 ways 
+	1. using function declaration 
+		function name_of_funciton(){
+			//funtion body.
+		}
+	2. using function expression 
+		variable_delcaration_keyword variable_name = function (){
+																//function body
+	3. arrow function 
+		Arrow function introduced in ES-6 i.e in 2015
+		An anonymus function is know as arrow function 
+		Anonymus means function without name and function keyword.
+			const square=()=>console.log('click');
+------------------------------------------
+Q.. Operator in JAVASCRIPT?
+==> there are multiple operator in javascript
+	1. Arithmatic operator
+	2. Logical operator
+	3. Comparison operator 
+	
+	1. Arithmatic Operator
+		- Addtion +
+		- Substraction -
+		- Multiplication *
+		- Division /
+		- Moduls %
+		- Increment ++
+		- Decrement --
+		
+	2. Logical Operator
+		- And 
+		- OR 
+		- NOT 
+		
+	3. Comparison Operator
+		- greater than > 
+		- less than < 
+		- greater than equal to >=
+		- less than equal to <=
+		- assignment = 
+		- not equal to !=
+		- is equal to ==
+		- strictly equal to ===
+	
+---------------------
+Q.. What is if else statement?
+==> if else is control flow statement used to repetative execution of perticular block of code 
+	syntax: 
+		if(condition){
+		block of code 
+		}
+		else {
+		executable statement
+		}
+		
+		in if statement condition is true then if block will execute 
+		otherwise else block come in picture 
+		else is counter part of if.
+		we can write if statement without else but we can't write else statement without if 
+		
+---------------------
+Q.. What is AND '&&' logical operator?
+==> '&&' is used for apply the condition and execute the statement 
+	there are 4 type of case 
+	if 1st statement is true and 2nd is false then result will be false 
+	if 1st statement is false and 2nd is true then result will be false 
+	if both statment is false then result will be false 
+	if 1st statement is true and 2nd is true then result will be true 
+	
+	for e.g 
+	 
+		10>5  && 10<5  =>> false 
+		10<5  && 10>5  =>> false 
+		10<5  && 10<5 ==> false 
+		10>5  && 5<10 ===> true 
+		
+	
+---------------------
+Q.. What is OR '||' logical operator?
+==> OR operator is used apply the condition and filter the data 
+	there are 4 conditions 
+	if 1st statement is true and 2nd statement is false then result will be true 
+	if 1st statment is false and 2nd statment is true then end result will be true 
+	if both statments are false then end result will be false 
+	if both statements are true then end result will be true 
+	
+	for e.g 
+	
+	10>5 || 5>10 => true 
+	10<5 || 5<10 => true 
+	10<5 || 5>10 => false
+	10>5 || 5<10 => true 
+	
+---------------------
+Q.. What is switch statement?
+==> switch statement is used to perform different action based on different condition.
+	Syntax: 
+		switch (expression){
+		case value1:
+		//block of statement 
+		case value2: 
+		//block of statement
+		.
+		.
+		N 
+		default: 
+		//block of statement		
+		}
+		
+	switch statement evaluted once 
+	the value of expression is compaired with all case value 
+	if there is match then it execute perticular block of code 
+	if there is not match then it execute default block of code 
+---------------------
+	switch(4){
+	case 1: 
+		console.log("1");
+	case 2: 
+		console.log("2");
+	case 3:
+		console.log("3");
+	case 4: 
+		console.log("4");
+	case 5: 
+		console.log("5");
+	case 6:
+		console.log("6");
+		
+	default:
+		console.log('this is default message');
+	}
+	
+	
+==> Result 
+		4
+		5
+		6
+		this is default message 
+	
+---------------------
+	switch(4){
+	case 1: 
+		console.log("1");
+	case 2: 
+		console.log("2");
+	case 3:
+		console.log("3");
+	case 4: 
+		console.log("4");
+	case 5: 
+		console.log("5");
+		break;
+	case 6:
+		console.log("6");
+		
+	default:
+		console.log('this is default message');
+	}
+	
+	
+==> Result 
+		4
+		5
+		
+---------------------
+switch(4){
+	case 1: 
+		console.log("1");
+	case 2: 
+		console.log("2");
+	case 3:
+		console.log("3");
+	case 4: 
+		console.log("4");
+	case 5: 
+		console.log("5");
+		break;
+	case 6:
+		console.log("6");
+		
+	default:
+		console.log('this is default message');
+	}
+	
+	
+==> Result 
+		4
+		5
+		
+---------------------
+
+Q.. What are different type of loop in js?
+==> 1. do while 
+    2. while 
+	3. for 
+	4. for in 
+	5. for out 
+---------------------
+Q.. What is do while loop in js?
+==> do while is control flow statement which execute block of code repetativly.
+	
+	Syntax : 
+		do
+		{
+		//executable statments
+		}
+		while (condition)
+		
+---------------------
+Q.. What is while loop in js?
+==> While loop is control flow statement which is used to execute perticular block of code repetativly.
+
+	while(condition){
+		//block of statement
+	}
+---------------------
+Q.. What is difference between do and while loop?
+==> do loop execute line of code at list one time where as 
+	while loop execute only if there is condition true 
+---------------------
+Q.. What is for loop?
+==> for loop is control flow statement which execute perticular block of code repetativly 
+	syntax 
+		for(expression1;expression2;expression3){
+		//block of code 
+		}
+		here 
+			expression 1 means loop counter declaration and initilization 
+			expression 2 means condition on loop counter  
+			expression 3 means loop counter increment or decrement
+---------------------
+Q.. Comment in JS?
+==> Comment is non executable part in web page.comment is write for only information purpose.
+	there are two types of comment in js 
+	1. single line comment :
+	=> denoted using double forward slash '//'
+	
+	2. multi line comment: 
+	=> denoted using /*  commented part */
+---------------------
+Q.. What are the data types in JS?
+=> 	There are two types of data types in js 
+	1. primitive data type 
+	2. object data type/ non primitive data type 
+	
+	1. Primitive data type 
+	=> Primitive data type is predefined in js like 
+		1. string 
+			String means any uppercase lowercase value 
+		2. boolean 
+			boolean means true or false 
+		3. number 
+			number means any integer or floating value 
+		4. undefined 
+			undefined means value is not defined 
+		5. null
+			null is special type of value which is different than zero and blank 
+			null means not present 
+		6. symbol
+			symbol means value whose instance is unique and immutable 
+			for e.g
+				let sym = Symbol("Hello")
+				console.log(typeof(sym));
+				console.log(sym);
+	
+	2. Object data type
+	=> Object data type is created by programmer like 
+		1. Array
+		2. Object 
+		3. Date 
+---------------------	
+Q.. What is Object?
+==> Object is collection of key value pair 
+	object is denoted using {}
+	syntax of object 
+		const obj={
+					key:value,
+					key:value,
+					N
+					}
+					
+-------------------------
+Q.. How to create Object?
+==> we can create object using 3 different ways 
+	1. Object Literals.
+			var obj={
+				name:'yashraj',
+				age:23
+					}
+			console.log(obj);
+			
+	2. Object Constructor.
+			var obj=new Object()
+			obj.name='yashraj'
+			obj.age=12
+			console.log(obj);
+	
+	3. Object.create() method.
+			let person={name:'yashraj',
+				age:122
+				}
+				
+			var obj=Object.create(person)
+			obj.name='yashraj'
+			obj.age=0
+			console.log(obj);
+--------------------------			
+Q.. How to add,delete,modify properties of Object?
+==> to add object.propertie=value 
+	to delete delete object.property 
+	to modify object.property=value 
+---------------------
+Q.. How to access properties of object?
+==> there are 2 ways to access the properties of object 
+	1. Object.keys().forEach()
+		let obj={
+				name:'yashraj',
+				age:23
+					}
+					
+		Object.keys(obj).forEach((item)=>{console.log(`${item},${item}:${obj[item]}`)})
+		//name,name:yashraj age,age:23
+		
+	2. Object.values().forEach()
+		let obj={
+				name:'yashraj',
+				age:23
+					}
+					
+		Object.values(obj).forEach((item)=>{console.log(`${item}`)})//yashraj 23
+---------------------	
+Q.. How to check properties exist in object?
+==> there are 3 ways 
+	1. using 'in' operator
+	2. using 'hasOwnProperty' method 
+	
+	1. using 'in' operator 
+		if value is present then this method return true 
+		if value is not present this method return false 
+		console.log("name" in person)
+	2. using 'hasOwnProperty' method
+		if value is present then this method return true otherwise it return false 
+		console.log(Obj.hasOwnProperty('name'))
+		
+---------------------
+Q.. How to copy object?
+==> there are 3 ways to copy object 
+	1. using spread operator 
+	2. using shallow copy 
+	3. using deep copy 
+	
+	1. using spread operator:- 
+		spread operator expand the element from iterable element such as object,array,function 
+		spread oprator denoted using triple dot ...
+		
+		let newObj={...oldObj}
+	
+	2. using deep copy 
+		let newObj=JSON.parse(JSON.stringify(person));
+	
+	3. using shallow copy 
+		let newObj=Object.assign({},person)
+		
+---------------------
+Q.. What is deep copy?
+==> - deep copy means creating new copy of object or array including all nested data 
+	- To make deep copy of object syntax is 
+		let newObj=JSON.parse(JSON.stringify(Obj))
+---------------------
+---------------------
+Q.. What is difference between deep copy and shallow copy?
+==> - In shallow copy if we change nested object value then same correction update in original object 
+	  where as 
+	  In deep copy if we change nested object value then same correction not update in original object 
+	- In shallow copy, nested data is not safe. Where as In deep copy, all data is safe
+	- to make shallow copy of object we use spread operator or Object.assign({},obj_name) method 
+	  where as 
+	  To make deep copy of object we use JSON.parse(JSON.stringify(obj_name)) method 
+---------------------
+Q.  What is difference between primitive and non primitive data type?
+==> Primitive data type are predefined where as Non-Primitive data type are created by programmer.
+	Primitive data type are immutable where as Non-Primitive data type are mutable,
+	Primitive data type store single value where as Non-Primitive data type store multiple value 
+	Primitive data type are simple where as Non-Primitive data type are complex 
+----------------------	
+Q.. What is Array?
+==> with the help of normal variable we can store single value at a time,we can't store multiple 
+	value with normal variable that's why Array come in picture.
+	Array is collection of homogeneous and heterogeneous value.
+	homogeneous means similar type of values 
+	heterogeneous means dissimilar type of values 
+	
+	Syntax of Array 
+		variable_delcaration_keyword Array_name =[value1,valu2,value3...N]
+----------------------
+Q.. How to access Array element?
+==> document.write(array_name[array_index]);
+----------------------
+Q.. How to calculate length of array?
+==> document.write(array.length);
+-----------------------
+Q.. Method to access array element?
+==> 1) toString()
+		toString() method is used to convert array element into string 
+		this method does not modify original array 
+		this method create new array 
+		Syntax: 
+			const new_array=old_array.toString()
+		
+	2) pop()
+		pop() method is used to remove last element from array 
+		this method does not create new array.
+		this method modify the original array.
+		Syntax: 
+			array_name.pop();		
+		
+	3) join()
+		join() method is used to convert array element into string and add user defined divider
+		This method does not modify original array 
+		this method create new array.
+		Syntax: 
+			const new_array=array_name.join('divider')
+			
+	4) shift()
+		shift() method is used to remove begining index of array.
+		this method does not create new array 
+		this method modify original array.
+		Syntax: 
+			array_name.shift();
+		
+	5) unshift()
+		unshift() method is used to add element in the begining of array.
+		this method does not create new array this method modify original array.
+		Syntax: 
+			array_name.unshift('value1','value2',value3')
+		
+	6) push()
+		push() method is used to add element in end of array.
+		this method does not create new array this method modify original array.
+		Syntax: 
+			array_name.push(values);
+		
+	7) concat()
+		concat() method is used to join 2 or more array.
+		this method does not modify oringal array 
+		this method create new array.
+		Syntax: 
+			let new_array=array_name.concat()
+			
+	8) flat()
+		flat() method is used to convert multi dimenstional array into single dimentional 
+		this method does not modify orignal array this method create new array.
+		this method accept one input argument that is numeric value 
+		=> if we have inside multimentional again multidimentional then use "infinite"
+		=> otherwise we can use numeric value as 1,2,3,4
+		const new_array=array_name.flat(infinite)
+	
+	9) splice()
+		splice() method is used to add or delete element from array. 
+		this method does not create new array,this method modify existing array.
+		array_name.splice(value1,value2,new element)
+		
+			value1 refer to from where you add or delete element
+			value2 refer to how many element you want to delete
+				
+	10) slice()
+		slice() method is used to find sub array from source array.
+		This method does not modify original array this method create new array.
+		array_name.slice(start_index,end_index);
+		
+	11) sort()
+		sort() method is used to sort the array element in ascending order.
+		number,uppercase,lowercase	
+		this method does not modify original array this method create new array.
+		Syntax: 
+			const new_array=array_name.sort()
+		
+	12) reverse()
+		reverse() method is used to sort array element in descending order
+		lowercase,uppercase,number
+		This method does not modify original array this method create new array.
+		Syntax: 
+			const new_array=array_name.reverse()		
+		
+	13) forEach()
+		forEach() method is used to access array element one by one 
+		This method accept callback function as an input argument 
+		Syntax: 
+			array_name.forEach(callback_function);
+						
+			
+	14) every()
+		every() method is used to check all value of array satisfying given condition or not 
+		if value of an array satisfying given condition then every() method return true otherwise
+		it return false.
+		this method accept callback_function as an input argument 
+		Syntax: 
+			array_name.every(callback_function);
+					
+		
+	15) map()
+		map() method is used to access array element one by one and do some operation on it 
+		this method create new array 
+		this method accept callback function as input argument 
+		Syntax: 
+		array_name.map(callback_function)
+			
+	16) filter()
+		filter() method is used to filter the array element based on some condition.
+		This method does not modify original array this method create new array.
+		this method accept callback_function as an input argument 
+		Syntax: 
+			array_name.filter(callback_function)
+		
+	17) reduce ()
+		redcue() method is used to read array element one by one and do summation of all that
+		this method does not modify original array this method create new array.
+		this method accept one input argument i.e callback_function
+		Syntax: 
+			array_name.reduce(callback_function);
+		
+	18) some()
+		some() method is used to check some value of array satisfying given condition or not 
+		if some value satisfying given condition then it return true otherwise it return false 
+		this method accept callback_function as an input argument 
+		Syntax: 
+			array_name.some(callback_function)
+		
+	19) indexOf()
+		indexOf() method is search element in given array if value is present then it return its 
+		first occurance
+		if value is not found then it return -1 as result 
+		Syntax: 
+			array_name.indexOf(Search_element,startIndex);
+			
+			if startIndex is <0 then it start calulationg from right side of array.
+			if there are same element then it return it's first occurance position
+		
+	20) lastIndexOf()
+		lastIndexOf() method is used to search element in array if value is present then it return 
+		its last index. 
+		Syntax: 
+			array_name.lastIndexOf(searchElement,endIndex)
+			
+			if given element is present then it return it's last occurance 
+			if given element is not present then it return -1 as result 
+						
+		
+	
+-------------------------
+Q.. what is difference between spread and rest operator?
+==> Spread operator is used to expand element from an iterable element such array,object into individual element
+    where as 
+	Rest operator is used to get remaining argument from an array.	
+	
+	
+	Spread Operator
+			let a=[1,2,3,4,5,6]
+	
+			function getNumbers(...num){
+				console.log(...num)
+			}
+			getNumbers(...a)
+			
+    Spread Operator with Object:
+			let Obj={
+					   name: 'yash',
+					   age: 18,
+					   hobbies: ['cricket','kabbadi']
+					   }
+					   
+			let newObj={
+						...Obj,
+						age:24
+						}
+			console.log(newObj);
+	
+	
+	Rest Operator Example
+			function getRestOperator(a,b,c,...others){
+			console.log(others)
+			let otherSum=others.reduce((ab,bc)=> ab+bc)
+				return a+b+c+otherSum;
+			}
+			
+			const getResult=getRestOperator(1,2,3,4,5,6,7,8,9,10)
+			console.log(getResult)
+	
+	Rest Operator with object: 
+			const Obj={
+					   name: 'yash',
+					   age: 18,
+					   hobbies: ['cricket','kabbadi']
+					   }
+			let {...newElements}=Obj
+			console.log(newElements);
+			
+	
+		
+-------------------------
+Q.. What is Object?
+==> Object is collection of key value pair 
+	object is denoted using {}
+	syntax of object 
+		const obj={
+					key:value,
+					key:value,
+					N
+					}
+					
+-------------------------
+Q.. How to create Object?
+==> we can create object using 3 different ways 
+	1. Object Literals.
+			var obj={
+				name:'yashraj',
+				age:23
+					}
+			console.log(obj);
+			
+	2. Object Constructor.
+			var obj=new Object()
+			obj.name='yashraj'
+			obj.age=12
+			console.log(obj);
+	
+	3. Object.create() method.
+			let person={name:'yashraj',
+				age:122
+				}
+				
+			var obj=Object.create(person)
+			obj.name='yashraj'
+			obj.age=0
+			console.log(obj);
+---------------------------------------
+Q.. what is difference between array and object?
+==> Array is collection of indexed homogeneous and heterogeneous value where as Object is collection key value pair 
+    Array is denoted using [] where as object is denoted using {}
+	element in the array is ordered where as element in the object is not ordered 	
+-------------------------
+Q.. What is array destructuring?	
+==> Array destructuring introduced in ES-6 
+	Array destructuring allow you to extract array element and assign them to individual variable 
+	Syntax 
+		let [variable1,variable2...N]=Array_name 
+		
+	Array Destructuring in Array: 
+		let AllColors=['red','green','orange','white','blue']
+		
+		let [color1,color2]=AllColors 
+		console.log(color1)//red
+		console.log(color2)//green
+		
+		let [,,,color4]=AllColors
+		console.log(color4)//white
+		let {4:color4}=AllColors  // if we want to 4th color then use this 
+	
+	
+	Array Destructuring in function: 
+		let AllColors=['red','green','orange','white','blue']
+		
+		function ColorCall([a,b]){
+					console.log(a,b)
+					}
+					
+					ColorCall(AllColors)
+		
+		
+		function ColorCall({4:a,6:b}){
+					console.log(a,b)
+				 }
+				 
+				 ColorCall
+		
+		
+    Object Destructuring:
+		let Obj={
+					Name: 'yash',
+					age:24,
+					address:{
+							city:'Mulikwadi',
+							district:'satara'
+							}
+				}
+				
+		let {name,age}=Obj
+		let {name:userName,age:userAge}=Obj //for user defined age 
+		let {address:{city}}=Obj
+		
+	
+	Object Destructuring in function: 
+	
+		let user={
+				  Name:'Yash'
+				  age:25
+				  }
+		
+		function Introduction({age,Name}){
+			console.log(age,Name)
+		}
+				  
+		Introduction(user)
+	
+	Object Destructuring in function with inner object
+		let obj={
+			name:'yashraj',
+			age:24,
+			address:{city:'phaltan',dist:'satara'}
+				}
+				
+		function arraydescture({age:userDefinedAge,name:userDefinedAgeName,address:{city:userCity}}){
+		
+		console.log(userDefinedAge,userDefinedAgeName,userCity)
+			
+		}
+		
+		arraydescture(obj)
+				  
+		
+-------------------------	
+Q.. What is Default paramter?
+==> Default parameter means value set to the variable at the time of function defination
+	----------
+	
+	function Multiply(a,b)
+	{
+		console.log(a*b)
+	}
+
+	Multiply(2,5)//10 
+	-----------
+	
+	function Multiply(a,b)
+	{
+		console.log(a*b)
+	}
+	
+	Multiply(2)//NaN
+	------------
+	
+	function Multiply(a,b=1)//this is default parameter 
+	{
+		console.log(a*b)
+	}
+	
+	Multiply(2)//2
+	------------
+	
+	
+	function Multiply(a,b=1){
+		console.log(a*b)
+	}
+	
+	Multiply(2,10)//20
+	------------
+	function Multiply(a,b){
+		console.log(a*b)
+	}
+	
+	Multiply(2,true)//2
+	------------
+	function Multiply(a,b){
+		console.log(a*b)
+	}
+	
+	Multiply(2,'')//0  because null consider as falsy values 
+	
+	
+-------------------------	
+Q.. what is difference between argument and parameter?
+==> Parameter is placeholder defined at the time of function delcaration
+	Argument is actual value passes to function when it is called
+-------------------------
+Q.. What is callback function/Higher order function?
+==> Callback function is function which is passed to another function as an input argument nothing but
+    callback function 
+	
+	function a(b){
+		console.log(typeOf(b))//string
+		console.log(b)
+	}
+	a('hi')//hi 
+	------------
+	function a(b){
+		console.log(typeOf(b))//Object 
+		console.log(b)
+	}
+	a({userName:'yash',age:24}) //{userName: 'yash', age: 24}
+	------------
+	function a(b){
+		console.log(typeOf(b))//Object 
+		console.log(b)
+	}
+	a([1,2,3,4,6])//[1,2,3,4,6]
+	------------
+	function a(b){
+		b()
+	}
+	
+	function sayHi(){
+		console.log('hiiiiiiiiiiiiiiii')
+	}
+	
+	a(sayHi
+	-------------
+	function a(b){
+		b()//this will get an error because we passed string as an argument and b called as function
+	}	
+	a('akdjklajkld');
+	
+-------------------------
+Q.. What is callback hell?
+==> nexted callback stacked below another forming pyramid like structure nothing but callback hell.
+-------------------------
+Q.. What is popup/dialogue box in javascript?
+==> popup box is messege popup on screen.
+	there are 3 type of popup 
+	1. alert box 
+	2. confirm box 
+	3. prompt box 
+	
+	1. alert box
+		alert box is used to show popup message on screen 
+		it show popup message with ok button 
+		Syntax: 
+			window.alert();
+			
+		use: used to make sure information is coming from user or not.
+		
+	2. confirm box: 
+		confirm box is used to show popup message on screen 
+		it show popup message with ok and cancle button.
+		if user click on ok button then confirm function return true 
+		if user click on cancle button then confirm function return false 
+		Syntax: 
+			window.confirm('message')
+			
+		use: if we want confirmation like accept or reject then we use confirm box 
+		
+    3. prompt box: 
+		propmt box is used to display popup box with specified message and get information from user
+		it display popup message with input box and ok and cancle button.
+		if user click on ok button then prompt function return value 
+		if user click on cancle button prompt function return null.
+		Syntax: 
+			window.prompt('please enter');
+---------------------------------------
+Q.. What is event?
+==> an action performed by user on webpage is called event 
+	like click,button click,submit etc 
+---------------------------------------
+Q.. What is event handling?
+==> Responding to user action nothing but event handling.
+	event handling is divided into 3 different part 
+	1. Identify an Event Source: the element who generate event nothing but event source 
+								  like button,input box.event source is always HTML element 
+								 - Identify event source means identify html element
+	2. Event Listener: Event Listener is function who listen an event 
+					  - there are 2 ways to register Event Listener
+					  1. First Approch is using 'addEventListener' function.
+						 - addEventListener function accept two input arguments 
+						 - first argument is event listner name,event listner always in lowercase
+						 - event listner always enclose in quote
+						 - second argument is event handler function 
+						   addEventListener('eventListner','eventHandlerFunction');
+						 - for example 
+							addEventListener('click',handleOnClick);
+						 - <body>
+							<button id="buttonClick">click me</button>
+							<script>
+							let button=document.getElementById('buttonClick')
+							button.addEventListener('click',handleOnClick)
+							
+							function handleOnClick(){
+								alert('this is message');
+							}
+							</script>
+							</body>
+							
+					  2. Second Approch is using adding event listner as attribute to event source 
+						 - adding event listner in html tag as attribute so syntax is 
+						 - <htmlTag eventName={functionName()}>content</htmlTag>
+						 - <body>
+							<button onclick={handleOnClick()}>click me</button>
+							<script>
+								function handleOnClick(){alert('click me');}
+							</script>
+							</body>
+					  
+	3. Event Handler : Event Handler is function who handle the an event
+						- Event handler name should be in lowercase it is not mandatary
+						- Event handler name is enclosed in quote 
+						- Event handler should be followed parenthesis 
+						- If we don't specify the parenthesis the we don't get any changes 
+--------------------------------------------
+#  Most commonly used events.
+   1. Mouse Event 
+   2. Keyboard events
+   3. Form events
+   4. Window/Document events
+-----------------------------
+-> 1. Mouse Event: Mouse Generate following types of events
+
+      1. Event name : click
+	     Event Listener name: onClick
+	  -----------------------------
+	  2. Event name : mouseover
+	     Event Listener name: onMouseOver
+	  -----------------------------
+	  3. Event name : mouseout
+	     Event Listener name: onMouseOut
+	  -----------------------------
+	  4. Event name : mousedown
+	     Event Listener name: onMouseDown
+	  -----------------------------
+	  5. Event name : mouseup
+	     Event Listener name: onMouseUp
+	  -----------------------------
+	  6. Event name : mousemove
+	     Event Listener name: onMouseMove
+------------------------------------------
+-> 2. Keyboard events: Keyboard Generate following types of events
+
+      1. Event name : keydown 
+	     Event Listener name: onKeyDown
+	  -----------------------------
+	  2. Event name : keyup 
+	     Event Listener name: onKeyUp
+------------------------------------------
+-> 3. Form events: Form Element Generate following types of events
+
+      1. Event name : focus 
+	     Event Listener name: onFocus
+	  -----------------------------
+	  2. Event name : submit
+	     Event Listener name: onSubmit
+	  -----------------------------
+	  3. Event name : change
+	     Event Listener name: onChange
+	  -----------------------------
+	  4. Event name : blur
+	     Event Listener name: onBlur
+------------------------------------------
+-> 4. Window/Document events: Window Generate following types of events
+
+      1. Event name : load 
+	     Event Listener name: onLoad
+	  -----------------------------
+	  2. Event name : unload
+	     Event Listener name: onUnLoad
+	  -----------------------------
+	  3. Event name : resize
+	     Event Listener name: onResize	
+---------------------------------------
+Q.. What is Error and Exception handling in javascript?
+==> There are 3 type of error in javascript
+	1. Syntax Error
+	2. Runtime Error 
+	3. Logical Error 
+	
+	1. Syntax Error: Syntax Error means syntax is not correct as per programming language.
+					- Syntax Error occur at the time of interpretation 
+		for e.g 
+		=> Blank space is not allowed in function name if there is blank space then we will get an error.
+		=> predefined names is not allowed as function name if we use predefined names as function name 
+		   then we will get an error like if,else,while,function,switch,onclick
+        => If we misspell the predefined keyword then we will get an error 
+			like we misspell function keyword then we will get an error 
+	
+	2. Logical Error: Logical error occur when there is any logical mistake in program.
+					- these type of error does not throw any error or exception 
+					
+	3. Runtime Error: These are called exceptions and these error occurs at the time of execution. 
+---------------------------------------
+Q.. What is Exception in javascript?
+==> unwanted or unexcepted event that break normal execution flow nothing but exception.
+	if execption occure then rest of code is not execute.
+---------------------------------------
+Q.. What is mean by Exception handling?
+==> Exception handling means providing alternative way so that rest of code get executed if exception occured.
+	To handle exception JS provide below keyword.
+		1. try 	
+		2. catch 
+		3. finally 
+		4. throw 
+		
+		1. try :- inside try block we write risky code.
+				  risky code means the code which create problem.
+				  Syntax: 
+					try{
+						//risky code 
+					}
+		2. catch :- inside catch block we write exception handling code 
+					Syntax: 
+						catch{
+							//risky code 
+						}
+		
+		3. finally:- inside finally we write cleanup code 
+					 specially of finally block is it always get executed 
+					 whether exception is occured or not.
+					 Syntax: 
+						finally{
+							//block of code 
+						}
+		
+		4. throw: throw block is used to throw user defined exception.
+		
+		
+	Different cases for try,catch and finally block 
+	1. after try block we need to take catch or finally block otherwise we will get an error 
+	2. If we are taking try-catch-finally then sequence will be first try then catch and then finally.
+	3. between try and catch or try and finally we can't write other executable statement.
+	4. for try,catch and finally block curley brackets are manadatary otherwise we will get an error.
+	5. nesting of try,catch,finally block allowed. 
+	6. we can't take catch without try.
+	7. we can't take finally without try.
+
+---------------------------------------
+Q.. Default Exeception handling in JS?
+-> If exception is occured then program execution is stoped then JS engine create an Exeception
+   Object and that object is thrown by printing information on console like error name error 
+   description.
+-> catch block execute if and only if there is an exception.if there is no exception 
+   in try then catch block not executed.
+-> finally block execute either exception is occured or not.
+-> there may be chance of getting error inside try,catch and finally block.like:- 
+   printing undefined variable.
+---------------------------------------
+Q.. What is event object?
+==> whenever event is triggered then browser internally create an event object 
+    and passes it as argument to event handler function.
+	The event object contains various properties method that provide information about the 
+	event such as the type of event,the element that triggered the event etc.
+---------------------------------------
+Q.. what is event bubbling?
+==> Event bubbling is the process where single event is added on child that propagate 
+    up to top most parent.
+		<body>
+			<div id='yash'>
+			<div id='jay'>
+			<button id='button'> Like Me</button>
+			</div>
+			</div>
+			
+		<script>
+
+			let button=document.getElementById('button');
+			button.addEventListener('click',()=>console.log('button clicked'))
+
+			let jay=document.getElementById('jay')
+			
+			jay.addEventListener('click',()=>console.log('jay div clicked'));
+			
+			let yashraj=document.getElementById('yash');
+			yashraj.addEventListener('click',()=>console.log('yash div click'))
+			
+			
+		</script>
+		</body>
+---------------------------------------		
+Q.. What is event capturing?What is event delegation?
+==> Event delegation is the process where you add single event on parent element that handle all child element.
+	
+		<body>
+			<div id='yash'>
+			<div id='jay'>
+			<button id='button'> Like Me</button>
+			</div>
+			</div>
+			
+		<script>
+
+			let button=document.getElementById('button');
+			button.addEventListener('click',()=>console.log('button clicked'),true)//only add here true
+
+			let jay=document.getElementById('jay')
+			
+			jay.addEventListener('click',()=>console.log('jay div clicked'),true);//only add here true
+			
+			let yashraj=document.getElementById('yash');
+			yashraj.addEventListener('click',()=>console.log('yash div click'),true)//only add here true
+			
+			
+		</script>
+		</body>
+---------------------------------------	
+Q.. How to stop event propagation?
+==> To stop event propagation simply use event.stopPropagation() in event handler function.
+		<body>
+			<div id='yash'>
+			<div id='jay'>
+			<button id='button'> Like Me</button>
+			</div>
+			</div>
+			
+		<script>
+
+			let button=document.getElementById('button');
+			button.addEventListener('click',(event)=>{
+					event.stopPropagation();
+					console.log('button clicked')
+					})
+
+			let jay=document.getElementById('jay')
+			
+			jay.addEventListener('click',()=>console.log('jay div clicked'));
+			
+			let yashraj=document.getElementById('yash');
+			yashraj.addEventListener('click',()=>console.log('yash div click'))
+			
+			
+		</script>
+		</body>
+		
+---------------------------------------
+Q.. What is Immediate Stop Propagation?
+==> Stop Propagation is the process where event triggered on child that not propagate up to the parent 
+	To stop Propagation we have event.stopPropagation() method is their 
+	but if we want to trigger 2 event on single event source and also they don't want to propagate 
+	for that purpose we use event.stopImmediatePropagation() method.
+	
+		<body>
+			<div id='yash'>
+			<div id='jay'>
+			<button id='button'> Like Me</button>
+			</div>
+			</div>
+			
+		<script>
+
+			let button=document.getElementById('button');
+			button.addEventListener('click',(event)=>{
+					
+					console.log('button clicked')
+					})
+					
+					button.addEventListener('click',(event)=>{
+					event.stopImmediatePropagation();
+					console.log('button clicked 1')
+					})
+
+			let jay=document.getElementById('jay')
+			
+			jay.addEventListener('click',()=>console.log('jay div clicked'));
+			
+			let yashraj=document.getElementById('yash');
+			yashraj.addEventListener('click',()=>console.log('yash div click'))
+			
+			
+		</script>
+		</body>
+		
+		
+---------------------------------------
+Q.. How to prevent default behaviour of event source?
+==> To prevent default behaviour we have preventDefault() method 
+	suppose we have anchor tag and anchor tag contain url of another 
+	but if we want to click only on anchor tag and not open url mention in that case 
+	we can go through with preventDefault() method.
+	
+		<body>
+			<div id='yash'>
+			<div id='jay'>
+			<a id='button' href="index.html"> Like Me</a>
+			</div>
+			</div>
+			
+		<script>
+
+			let a=document.getElementById('button');
+			a.addEventListener('click',(event)=>{
+					event.preventDefault();
+					console.log('a clicked')
+					})
+		</script>
+		</body>
+
+----------------------------------------
+Q.. What is event debouncing?
+==> 
+
+		<body>
+			<div id='yash'>
+			<div id='jay'>
+			<input type="serach" oninput="perfectFunction()"/>
+			</div>
+			</div>
+			
+		<script>
+
+			
+		let counter=0;
+			function getData(){
+			
+				console.log('clicked',counter++)
+			}
+			
+			function debouncingFunction(callbackfunc,timeSec){
+			
+				let timer
+				return function(...args){
+					if (timer)clearTimeout(timer)
+					
+					setTimeout(()=>{
+						callbackfunc();
+					},timeSec)
+				}
+			
+			}
+			
+			let perfectFunction=debouncingFunction(getData,1000)
+
+		</script>
+		</body>
+---------------------------------------
+Q.. What is event loop?
+==> Javascript is single threaded language means javascript perform single task at a time 
+	if there is perticular task which consume more time to execute like 10 to 15 sec then 
+	there may be delay to execute other task to overcome this problem event loop come in picture.
+	Event loop is machanism in javascript that handle Asynchronous operations and ensuring that 
+	non-blocking tasks are executed efficiently 
+	Event loop helps to manage multiple tasks without blocking main thread.
+	The event loop acts as a bridge between the two, 
+	moving tasks from the queue to the stack when the stack is empty.
+---------------------------------------
+Q.. What is call Stack?
+==> Call Stack is data structure that keep track of the functions that are currently being executed.
+	call stack ensures that functions are executed in the correct order.
+	Simple steps of the call stack:-
+		1. When function is called:- it is added to the stack 
+		2. When function finished:- it is removed from stack 
+		3. The process Repeat :- untill there are no function in the stack 
+	
+	
+		function first() {
+		  second();
+		}
+
+		function second() {
+		  console.log("Hello");
+		}
+
+		first();
+	
+	here:- 	=> first() is added to the stack.
+			=> second() is added to the stack.
+			=> console.log("Hello") is executed.
+			=> Functions are removed from the stack as they complete.
+	
+	
+	If there are task which consume some time they there may be problem to avoid that WEB API concept used.
+	there are different WEB API's 
+	1. Fetch API 
+		fetch()
+	2. Timers API 
+		setTimeout()
+		setInterval()
+	3. Console API 
+		console
+	4. Geolocation API 
+		Geolocation
+		GeolocationPosition
+	5. Web Storage API 
+		localStorage
+		sessionStorage
+	6. File API 
+		Blob
+		File 
+		FileList
+	7. Performance API 
+		performance
+		performanceMeasure
+	8. HTML DOM 
+		HTMLElement
+		HTMLLIElement
+		HTMLDivElement
+	9. URL API 
+		URL
+		
+
+	Exmple of setTimeout()=> 
+		setTimeout(()=>console.log('2000'),2000)
+		setTimeout(()=>console.log('100'),100)
+		console.log('script End')
+	==> first setTimeout is go to call stack  then it move to WEB API's
+		Then secondTimeout is go to call stack  then it move to WEB API's 
+		Then console.log('script End') goes to call stack  then it execute console.log('script End')
+		Then WEB API's reminder for secondTimeout because 100 milisecond completed then it move to TASK QUEUE 
+		then event loop move that secondTimeout to call stack then secondTimeout get executed
+		Then WEB API's remider for firstTimeout because 2000 milisecond completed then it move to TASK QUEUE
+		then event loop move that firstTimeout to call stack then firstTimeout get executed
+	
+(REFERED BY KG CODING VIDEO)
+---------------------------------------
+Q.. What is callback Queue/TASK QUEUE?
+==> callback Queue/TASK QUEUE is part of event loop mechanism which manage execution of code. 
+	callback Queue/TASK QUEUE is queue which hold task waiting to execute.
+	
+	Exmple of Callback Queue/TASK QUEUE()=> 
+		setTimeout(()=>console.log('2000'),2000)
+		setTimeout(()=>console.log('100'),100)
+		console.log('script End')
+	==> first setTimeout is go to call stack  then it move to WEB API's
+		Then secondTimeout is go to call stack  then it move to WEB API's 
+		Then console.log('script End') goes to call stack  then it execute console.log('script End')
+		Then WEB API's reminder for secondTimeout because 100 milisecond completed then it move to TASK QUEUE 
+		then event loop move that secondTimeout to call stack then secondTimeout get executed
+		Then WEB API's remider for firstTimeout because 2000 milisecond completed then it move to TASK QUEUE
+		then event loop move that firstTimeout to call stack then firstTimeout get executed
+---------------------------------------
+Q.. What is Microtask Queue?
+==> Microtask Queue is part of event loop mechanism which manage execution of code.
+	Microtask Queue is another queue in the runtime with a higher priority than the TASK QUEUE.
+	This Queue is specially dedicated to PROMISES,AWAIT
+	
+	Example of Microtask Queue?
+		fetch('https://api.site.com/posts')
+		.then(res=>console.log(res))
+		console.log('end of script');
+		
+	==> first fetch() method goes to call stack then it move to WEB API's and waiting for 
+		response from external site
+		then .then goes to call stack then it move to WEB API's and waiting for response 
+		then console.log() goes to call stack it get execute 
+		then after getting response from external site .then goes to Microtask Queue and 
+		from Microtask Queue it will be move to call stack with the help of event loop 
+		then it will get executed.
+----------------------------------------
+Q.. Function declaration in javascript?
+==> 1. using function declaration:- 
+		function square(num){
+			return num*num
+		}
+		square(4)
+	  NOTE:- we can call square() before function declaration or after function declaration
+	
+	2. using function expression:- 
+		const square = function(num){
+						return num*num
+						}
+		square(4)
+	 NOTE:- we can't call square() before function declaration here 
+	
+	3. Arrow function expression:
+		const square=(num)=>{
+						return num*num
+						}
+		square(4);
+		
+-------------------------------------------		
+Q.. What is Explicit/Implicit return?
+==> 1. Explicit return : Explicit return means we need to specify return keyword in function 
+						 for returning value from function 
+						For e.g
+						 function square(num){
+							return num*num
+						 }
+						 
+    2. Implicite return : Implicit return means we don't need to specify return keyword in function 
+						  to return value from function 
+						For e.g 
+						  const square=(num)=> num*num;
+-------------------------------------------		
+Q.. What is Arrow function?
+==> Arrow function introduced in ES-6 i.e in 2015
+	An anonymus function is know as arrow function 
+	Anonymus means function without name and function keyword.
+	
+	Rule to define Arrow function:-
+	1. if arrow function does not accept any argument then parenthasis are manadatary.
+		const square=()=>console.log('click');
+	2. if arrow function accept one input argument then parenthesis are optional 
+		const square=num=> num*num
+	3. if arrow function accept two or more argument then parenthesis are mandatary.
+		const addition=(a,b)=> a+b;
+	4. if arrow function body contain single statement then curley brackets are optional 
+		const square=()=>console.log('click');
+	5. if arrow function body contain multiple statement then curley brackets are mandatary.
+		const square=(num)=> {
+								console.log('inside squere block')
+								return num*num
+								}
+    6. if arrow function contain single statement and return some value then return keyword is optional 
+		const square=(num)=> num*num
+		
+---------------------------------------
+Q.. What is difference between Normal function and arrow function?
+==> Normal function is function with function keyward where as 
+	Arrow function is function without function keyward 
+	Noraml function is old one where as 
+	Arrow function is introduced in ES-6 i.e in 2015
+	In Arrow function return keyward is not manadatary if it contain single statement where as 
+	In Normal function return keyward is manadatary if it contain single statement.
+	Syntax of Normal function is function function_name(){function_body}
+	Syntax of Arrow function is ()=>{function_body}
+---------------------------------------
+Q.. What is Synchronous?
+==> Synchronous means code run in perticular sequence of instruction given in the program.
+	Each instruction wait for previous instruction to complete it's execution
+	
+		function firstFunction(){
+			console.log('firstFunction')
+		}	
+		
+		function secondFunction(){
+			console.lod('second function')
+		}
+---------------------------------------
+Q.. What is Asynchronous?	
+==> Function which is run in parallel with other function nothing but Asynchronous programming.
+	good example of Asynchronous programming is setTimeout and setInterval.
+		function firstFunction(){
+			console.log('firstFunction')
+		}	
+		
+		function secondFunction(){
+			setTimeout(()=>console.log('second function setTimeout'),3000)
+		}
+		
+		function thirdFunction(){
+			console.log('second function')
+		}
+		
+		firstFunction()
+		secondFunction()
+		thirdFunction()
+---------------------------------------
+Q.. What is need of promises?
+==> with the help of Asynchronous programming we can execute multiple task in parallel but 
+	Asynchronous programming is difficult to write and debug so to over come this problem 
+	Promise come in picture.
+---------------------------------------	
+Q.. What is promises?
+==> Promises introduced in ES-6 i.e in 2015
+	used to handle Asynchronous operation effectively 
+	Promises provide way to deal with Asynchronous operation that may take some time to complete
+	such as fetching data from server,reading a file or any other Asynchronous task.
+	- Promises has 3 stage 
+		1. pending : this is initial stage in this stage promise neither fullfilled or rejected.
+		2. fullfilled/resolved: operation successfully completed and promise resulting value.
+		3. Rejected: operation failed and the promise has a reason for the failure.
+	- Promise has 2 Properties
+		1. state 
+		2. result
+		if state is pending then result will be undefined
+		if state is fullfilled then result will be value 
+		if state is rejected then result will be error object 
+		
+	- we can't access the properties directly but we can access through method and these 
+	  method as below 
+	  promiseObj.then()
+	  promiseObj.catch()
+	  promiseObj.finally()
+	  
+	- To create promises there are 2 ways 
+		1. using promise constructor 
+			const promiseObj=new Promise(executorFunction)
+			
+			=> Exmple 1: To console array or error message
+			
+					const PromiseObj=new Promise(myFunction)
+					function myFunction(res,rej){
+						setTimeout(()=>{
+							let rollNo=[1,2,3,4,5,6,7,9]
+							res(rollNo)
+							rej('error while communicating')
+						},3000)
+					}
+					PromiseObj.then((rollNumbers)=>{
+						console.log(rollNumbers)
+					}).catch((errorMsg)=>console.log(errorMsg))
+			
+			=> Exmple 2: To console perticular roll number information 
+					
+					let promiseObj=new Promise((resolved,rejected)=>{
+	
+						setTimeout(()=>{
+							let rollNo=[1,2,3,4,5,6,7,8]
+							resolved(rollNo)
+							rejected('error getting in array')
+						},2000)
+					})
+					
+					let getRollNumberInformation=(indexNumber)=>{
+					
+						return new Promise((res,rej)=>{
+						setTimeout((indexNumber)=>{
+							let data={
+									name:'yashraj',
+									age:24
+									}
+							res(`My name is ${data.name}.i'am ${data.age} year old and my roll number is ${indexNumber}`)
+							rej(`data not found`)
+						},2000,indexNumber)
+						}
+						)
+					
+					}	
+					
+					promiseObj.then((rollNumber)=>{
+						console.log(rollNumber)
+						return getRollNumberInformation(rollNumber[1])
+					}).then((kuchBhi)=>{
+							console.log(kuchBhi)
+						})
+			
+---------------------------------------	
+Q.. What is async and await?
+==> - async keyword is used to write asynchronous function.
+	- a word before function means one simple thing a function always return promise.
+	  so rather then return value directly from function tell them to return promise.
+	- await can be used inside async functions.it pauses execution of async function.
+	- it pause the execution untill promise is getting resolved or rejectd.
+	
+	- creating promise using async and await.
+			async function getData(){
+			let promiseObj=new Promise((res,rej)=>{
+								let rollNo=[1,2,3,4,5,6,7]
+								res(rollNo)
+								rej('error in array')
+							} )				
+			let data= await promiseObj
+			console.log(data)
+			}
+			getData()
+------------------------------------------
+Q.. What is difference between break,return and continue?
+==> break is used to terminate the loop 
+	return is used to return the value where as 
+	continue is used to stop current execution and move on next loop.
+------------------------------------------
+Q.. What is setTimeout?
+==> - setTimeout is asynchronous function which is used to execute code asynchronouslly 
+	  after some delay.
+	- setTimeout execute onces
+	- after execution it returns timer id 
+	- Syntax:
+		setTimeout(callbackFunction,Time)
+	 setTimeout accpet two input argument first one is callback function and 
+	 second argument is delay time 
+------------------------------------------
+Q.. What is setInterval?
+==> - setInterval is asynchronous function which is used to execute code asynchronouslly
+	  after some delay 
+	- setInterval run repeatedly
+	- syntax: 
+		setInterval(callbackFunction,time)
+	- setInterval accpet two input argument first callbackFunction and time 
+	- after execution it return number 
+------------------------------------------
+Q.. How to stop execution in setTimeout and setInterval?
+==> To stop execution in setTimeout and in setInterval is using 
+	clearTimeout(timerid)
+	- clearTimeout accept one input argument i.e timerId
+------------------------------------------
+Q.. What is null?
+==> null is special type of value it is totally different than zero and blank 
+	null means not present 
+------------------------------------------
+Q.. What is difference between undefined and null?
+==> null means not present where as 
+	undefined means value not defined.
+------------------------------------------
+Q.. What is type of undefined and null?
+==> undefined type is undefined and null is type of object	
+------------------------------------------
+Q.. javascript is static or dynamic?
+==> dynamic 
+	static means variable does not change at runtime 
+	dynamic means variable change at runtime 
+------------------------------------------
+Q.. What is difference between == and === ?
+==> == is used to compaire two variable but it not conside the data type of variable 
+    === is used to compaire two variable but it consider the data type of variable 
+------------------------------------------
+Q.. what is difference between 2=='2' and 2==='2'?
+==> first statement is true and second stateent is false 
+	in first statement only value compaired it does not consider the data type of variable 
+	in second statement it compaire value as well as data type of variable.
+------------------------------------------
+Q.. What is this keyword?
+==> this keyword is used to refer the object in function which execute some code. 
+------------------------------------------
+Q.. What is string in javascript?
+==> string is data type in js which is used to store and manipulate the data.
+------------------------------------------
+Q.. What is template literals?
+==> Template literals introduced in ES-6 
+	- it is denoted using backtick ``
+	- it is also know as template string 
+	- it is used to store multiline string and string interpolation.
+------------------------------------------	
+Q.. What is string interpolation?
+==> to add variable value inside template literals nothing but string interpolation 
+	syntax: 
+		${variable_name}
+	for example	
+		let name='yashraj'
+		let newString='My name is ${name}'
+------------------------------------------
+Q. What is difference between single,double quote and backtick?
+==> single quote and double quote is used to store string where as 
+	backtick is used to store multiline string with string interpolation.
+------------------------------------------
+Q.. What is selector in js?
+==> selector is used to select element and perform some action on it 
+	it can select element based on id attribute,class attribute or element name 
+	like getElementById,getElementByClassName,getElementByTagName,querySelector,querySelectorAll
+------------------------------------------
+Q.. What is difference between getElementById,getElementByClassName,getElementByTagName?
+==> getElementById select html element based on id attribute value where as 
+	getElementByClassName select html element based on class attribute where as 
+	getElementByTagName select html element based on element name
+------------------------------------------
+Q.. What is querySelector() and querySelectorAll()?
+==> querySelector() is used to select single html element based on condition and perform some operation on it,
+	querySelectorAll() is used to select all html element based on condition and perform some operation on it.
+------------------------------------------
+Q.. How to modify element properties and atrributes?
+==> textContent,innerHTML,style.property_name,setAttribute,removeAttribute
+------------------------------------------
+Q.. What is difference between textContent and innerHTML?
+==> both textContent and innerHTML is used to add or change content of html element
+	but there is difference like 
+	- textContent is consider all passed content as plane text where as 
+	- innerHTML consider all passed content as HTML element.
+	- if we specify <h1> tag in textContent then it pass that value directly to element where as 
+	- if we specify <h1> tag in innerHTML then it consider html tag and add the style also and make it uppercase.
+------------------------------------------
+Q.. How to remove properties/attribute of element in js?
+==> - To remove properties/attribute removeAttribute() method is there 
+	  this method remove properties and attribute of element
+	  syntax: removeAttribute('attribute_value')
+	  this method accept one input argument i.e attribute value.
+	- To add properties/attribute setAttribute() method is there 
+	  this method add properties of element
+	  Syntax: setAttribute('attribute_name','attribute_value')
+	  this method accept two input argument first is attribute_name and second is attribute value
+------------------------------------------
+Q.. What is function in javascript?
+==> function is block of code used to perform some task 
+	syntax: 
+		function function_name(){
+		//block of code 
+		}
+---------------------
+Q.. What is global function?
+==> the function which can access any where in web page nothing but global function.
+	some global function are there like 
+	
+	1. isFinite()
+	2. isNaN()
+	3. parseInt()
+	4. parseFloat()
+	
+	1. isFinite(): this function is used to check input value is finite number or not 
+				  - this function take one input argument i.e number 
+				  - syntx: isFinite(input)
+				  - if input is finite number then it return true.
+				  - if input is not finite number then it return false
+				  
+	2. isNaN(): this function used to check input value is not a number
+				- this functio take one input argument i.e value 
+				- if value is not a number then it return true otherwise it return false 
+				- syntax: isNaN(value)
+				
+	3. parseInt():- this function used to convert string into number.
+				  - syntax: parseInt(input)
+				  - if provided input is well defined string then it convet into number 
+				    otherwise it return NaN
+					
+	4. parseFloat() :- this function used to convert string into floating value 
+					- Syntax: parseFloat() 
+					- this function take one input argument 
+					- if provided value is well defined string then it convert into 
+					  floting value.
+---------------------
+Q.. what is window object?
+==> window object is associated with browser window 
+	there are multiple window objects
+	1. open(): this method used to open new window 
+			   this method accept one input argument i.e url 
+			   syntax: 
+				window.open();
+				
+	2. print(): this method is used to print the content available on screen 
+				this method does not accept any input argument 
+				Syntax: 
+					window.print()
+	3. stop() : this method is used to stop loading window 
+				this method does not accept any input argument 
+				Syntax: 
+					window.stop();
+---------------------
+## screen Object 
+	1) availWidth
+	2) availHeight
+	3) height
+	4) width
+	
+	1) availWidth:- this method is used to return total width of screen.
+				  - It excludes the window task bar 
+				  - syntax:- 
+							screen.availWidth;
+							
+	2) availHeight:- this method is used to return total height of screen.
+				   - it excludes then window task bar.
+				   - syntax:-
+							screen.availHeight;
+							
+    3) width:- this method is used to return width of screen.
+			 - it include window task bar 
+			 - syntax:- 
+						screen.width;
+	
+	4) height:- this method is used to return height of screen.
+	          - it include window task bar 
+
+----------------------------------------
+Q.. What are the different method for string?
+==> there are multiple method for string manupulation 
+	1. charAt()
+	2. charCodeAt()
+	3. startsWith()
+	4. endsWith()
+	5. concat()
+	6. includes()
+	7. toUpperCase()
+	8. toLowerCase()
+	9. indexOf()
+	10. lastIndexOf() 
+	11. trimStart()
+	12. trimEnd()
+	13. trim()
+	
+		1) charAt() 
+			this method is stand for character at.
+			this method is used to find character at specified position.
+			this method accept one input argument.
+			if index value is present then it return it character 
+			if index value is out of range then it return empty character.
+			syntax:- 
+				string_name.charAt(index);
+				
+		2) charCodeAt()
+			This method return unicode of character at specific index.
+			this method accept one input argument.
+			if index value is present then it return it's unicode.
+			if index value is not present then it return NaN.
+			Syntax:-
+				string.charCodeAt(index);
+		
+		3) startsWith()
+			This method is used to check string is start with specified value or not 
+			if string is start with specified value then it return true otherwise it return false.
+			this method accpet one input argument 
+			syntax:- 
+				string.startsWith("value");
+		
+		4) endsWith()
+			This method is used to check string is end with specified value or not.
+			if string is end with specified value then it return true otherwise it return false.
+			it accept one input argument
+			syntax:- 
+				string.endsWith("value");	
+				
+		5) concat()
+			this method is used to join two or more string.
+			this method accept two or more input argument.
+			syntax:-
+				string.concat(string,'new element);
+				
+		6) includes() 
+			this method is used to check string contain specified value or not.
+			this method accept two input argument 
+			inclues("value","start_index");
+			if value is present then it return true otherwise it return false.
+		
+		7) toUpperCase()
+		this method is used to convert all character of string into uppercase.
+		this method does not accept any input argument.
+		Syntax:-
+			string.toUpperCase();
+			
+			
+	8) toLowerCase()
+		this method is used to covert all character of string into lowercase.
+		this method does not accept any input argument.
+		syntax:- 
+			string.toLowerCase();
+			
+			
+	10) indexOf() 
+		this method is used to find value in string if value is present then it retrun it's 
+		first occurance 
+		if value is not present then it return -1.
+		this method accept two input arguments 
+		syntax:-
+			string.indexOf(value,start_index);
+			
+			
+	11) lastIndexOf()
+		this method is used to find value in string and returns it's last occurance from string 
+		if value is not present then it returns -1.
+		this method accept two input argument.
+		syntax:-
+			string.lastIndexOf(search_value,stop_index);
+			
+	12) trimStart()
+		this method is used to trim white/extra space from starting of index.
+		this method does not accept any input argument.
+		syntax:-
+			string.trimStart();
+			
+	13) trimEnd()
+		this method is used to trim extra/white space from ending of index.
+		this method does not accept any input argument.
+		syntax:-
+			string.trimEnd();
+			
+	14) trim();
+		this method is used to remove white/extra space from both side i.e right and left 
+	
+----------------------------------------	
+
+------------------------------------------
+ 1) write a program to find number is prime or not?
+   2) Print Fibonacci series for number 5?
+   3) Write a program to find max number from two number?
+   4) Write a program to find min number from two number?
+   5) Write a program to find odd number?
+   6) Write a program to find even number?
+   7) Write a program to find number is positive,negative or zero?
+   8) Write a program to find max number from 3 number?
+   9) Write a program to find multiplication of 2 number?
+   10) Write a program to find multiplication of 2 number is even or odd?
+   11) Write a program to find max number from 2 number and it is even or odd?
+   12) Write a program to swap two numbers?
+   13) Write a program to join two string?
+   14) Write a program to find square of two numbers?
+   15) Write a program to print "hello" word 10 times?
+   16) Write a program to print number from 10 to 1?
+   17) Write a program to print number from 1 to 10?
+   18) Write a program to print even number from 1 to 10?
+   19) Write a program to print odd number from 1 to 10?
+   20) Write a program to print 10 input box?
+ 
+------------------------------------------
+
+1.write a regular expression to test input should start with alphabets?/^[A-z]/
+2.write a regular expression to test input should start with only uppercase alphabets?
+3.write a regular expression to test input should start with only lowercase alphabets?
+4.write a regular expression to test input should start with only digit?
+5.write a regular expression to test input should start with special symbols like @#$%&*()=?
+
+
+
+6.write a regular expression to test input does not start with alphabets?/^[^A-z]/
+7.write a regular expression to test input does not start with uppercase alphabets?
+8.write a regular expression to test input does not start with lowercase alphabets?
+9.write a regular expression to test input does not start with digit?
+10.write a regular expression to test input does not start with special symbol like @#$%^&*()=?
+
+
+
+11.write a regular expression to test input ends with alphabets?/[A-z]$/
+12.write a regular expression to test input ends with uppercase alphabets?
+13.write a regular expression to test input ends with lowercase alphabets?
+14.write a regular expression to test input ends with digit?
+15.write a regular expression to test input ends with special symbol like !@#$%^&*()=?
+
+
+
+16.write a regular expression to test input does not end with alphabets?/^[A-z]$/
+17.write a regular expression to test input does not end with upper case alphabets?
+18.write a regular expression to test input does not end with lower case alphabets?
+19.write a regular expression to test input does not end with digit?
+20.write a regular expression to test input does not end with special symbol like !@#$%^&*=?
+
+
+write a regular expression to test input does contains at least two alphabets?/[A-z]{2,0}/
+21.write a regular expression to test input does contains at least one alphabets?/[A-z]/
+22.write a regular expression to test input does contains at least one uppercase alphabets?
+23.write a regular expression to test input does contains at least one lowercase alphabets?
+24.write a regular expression to test input does contains at least one digit?
+25.write a regular expression to test input does contains at least one symbol like !@#$%^&*()_+?><,./\;':"~`?
+
+
+
+26.write a regular expression to test input does not contains any alphabets?/^[^A-z]+$/
+27.write a regular expression to test input does not contains any uppercase alphabets
+28.write a regular expression to test input does not contains any lower case alphabets?
+29.write a regular expression to test input does not contains any digit?
+30.write a regular expression to test input does not contains any special symbol like !@#$%^&*()_+?
+
+
+
+31.write a regular expression to test input contains only alphabets?/^[A-z]+$/
+32.write a regular expression to test input contains only uppercase alphabets?
+33.write a regular expression to test input contains only lowercase alphabets?
+34.write a regular expression to test input contains only digit?
+35.write a regular expression to test input contains only special symbol like !@#$%^&*()_+?
+
+
+
+
+	21) get a user input and check it is divisible by 5 or not.//shradha khapra ep2
+	22) write a code which give grade to students according to their marks 
+	80-100 A
+	70-79 B 
+	50-69 C 
+	below 50 D //shradha khapra 3
+
+
+
+   23) prompt the user to their entire full name.generate a username for them based on input 
+	   start username with @,followed by their full name and ending with full name length ? 
+	   for e.g username="yashmulik"  return=@yashmulik9 //shradha khapra 3
+   24) for given array with marks of students -> [85,97,44,38,76,60]. find the average marks of 
+       entire class //shradha Khapra 4
+   25) for given array with pricing of 5 items ->[250,500,203,400,502] all have an offer with 10% off on them.
+       change the array to store final price after applying offer.//shradha khapra 4 
+   26) create an array to store companies -> "bloomberg","microsoft","uber","idm","google","netflix"
+		a) remove first company from the array 
+		b) remove uber and add ola in its place 
+		c) add amzon at the last //shradha khapra 4
+   27) create a function using "function" keyword that takes a string as an arguments & return 
+		number of vowels in the string.//shradha khapra 5
+   28) create a array/string which store 5 string value and make all uppercase/lowercase/initcap.//shradha khapra 5
+   29) [10,20,23,22,30] print the square of this array?//shradha khapra 5
+   30) [10,20,23,22,30] find gretest number from the array? //shradha khapra 5
+   31) [91,50,94,48,92,93,40,58] find marks greater than 90 //shradha khapra 5.
+   32) take a inpt from user like n,calcualte the sum of 1 to n.//shradha khapra 5.
+ 
+--------------------------------------
+Q. Write a JavaScript function to check if a given number is prime or not.
+Q. Write a JavaScript program to reverse given String without using predefined function
+Q. Write a Program to generate 6 digit otp.
+Q. Write a JS function to generate 8 digit password where
+	1. password lenght should be 8 characters
+	2. 2,4,6,8 place contains upper case characters or special symbol #$@
+	3. 1,3,5,7 place contains digit
+	4. Example : 1A4B5@7C
+Q. Write a JavaScript to find factorial of a given number.
+Q. Write a JavaScript function to find sum of digit of Given number.
+Q 1. Write a JavaScript function to check if a given number is prime or not.
+Q 2. Write a JavaScript program to calculate the factorial of a given number.
+Q 3. Write a JavaScript function that takes an array of numbers and returns a 
+     new array with only the even numbers. 
+Q 4. Write a JavaScript program to reverse a given string
+Q 5. Write a JavaScript function to check if a given string is a palindrome (reads the same  
+     forwards and backwards). 
+Q 6. Write a JavaScript program to find the maximum number in an array.
+Q 7. Write a JavaScript function to calculate the sum of two numbers
+Q 8. Write a JavaScript program to convert a string to title case (capitalize the first letter 
+    of each word).
+Q 9. Write a function that takes an array of objects and a key, and returns a new array sorted 
+     based on the values of that key in ascending order.
+	 
+Q 10 . Write a recursive function to calculate the factorial of a given number. 
+--------------------------------------------------------------------------------
+# Trace the Output for the following questions
+-----------------------------------------------
+Q. 1
+let x = { b: 1, c: 2 }; 
+let y = Object.keys(x);keys() is method, which retrives only keys from an object. 
+console.log(y);// [b,c]
+console.log(y.length); //2
+-----------------------
+let x = { b: 1, c: 2,a:5,b:4 }; 
+let y = Object.keys(x); 
+console.log(y); // [b,c,a,b]
+console.log(y.length); //3 
+Explaination: If we are storing object in the form of key-value paire, key is unique
+but value can be duplicate, if we are trying to add duplicate key then old value is 
+replaced with new value.
+-------------------------
+Q. 2
+
+let x = '{ "b": 1, "c": 2 }'; // here x is of type JSON String
+let y = JSON.parse(x); // 
+console.log(typeof y); //object
+console.log(y);// {b: 1, c: 2}
+Explaination: here "typeof" is an operator, its purpose is to check type of variable.
+parse() is a method/function which convert JSON String into JS Object
+-----------------------------
+Q. 3
+let x = 0.1 + 0.2; // x is holding floating point values
+console.log("value of x is "+x);//
+let y = 0.3; // y is holding floating point value.
+console.log("value of y "+y);
+console.log(x == y); // false  
+Explaination:
+-> == operator compare only values where as === operator compare values along with its 
+   data type.
+-> To get flat form independent result there are IEEE 754 standards but
+   we can't give conclude, floating point arithemtic calculation does not flow 
+   IEEE 754 standards, so result of floating point arithemtic calculation varries
+   from platfrom to platfrom
+------------------------------
+Q. 4
+
+let x = 1 > 2 > 3; 
+console.log(x); 
+cosole.log(typeof x);// boolean
+Explaination: Comparison operator get resolved from left to right
+so first 1>2 is evaluted and get result false,that false is converted into 0
+and on next step 0> 3 comparison is done.
+------------------------------
+Q. 5
+
+let x = false; 
+console.log(typeof x);// boolean
+let y = "0";
+console.log(typeof y); //string
+let z = 0; 
+console.log(typeof z); // number
+console.log(x == y); // true
+console.log(x == z); // true
+-----------------------
+let x = false; 
+console.log(typeof x);// boolean
+let y = "0";
+console.log(typeof y); //string
+let z = 0; 
+console.log(typeof z); // number
+console.log(x === y); // false
+console.log(x === z); // false
+------------------------------
+Q. 6
+
+let x = []; 
+console.log(typeof x);// Object
+console.log(Boolean(x));// true
+Explaination:
+-> in JS arrays are considered object type.
+-> Boolean(x) : this line is converting an array into boolean type array.
+-> an empty array is considered truhty value.
+------------------------------
+Q. 7
+
+let x = Infinity; 
+console.log(typeof x); // number
+let y=NaN;
+console.log(typeof y);// number
+------------------------------
+Q. 8
+let x = "5"; 
+let y = 2; 
+console.log(x + y); // 52
+console.log(x - y); // 3
+-----------------------
+let x = "Five"; 
+let y = 2; 
+let z=0;
+console.log(x + y); // Five2
+console.log(x - y); // NaN
+console.log(z/0);// NaN
+-----------------------------
+Q. 10
+
+let x = "hello"; // x is Primitive type String
+let y = new String("hello"); //  y is object type String.
+console.log(x == y); // true
+console.log(x === y); // false
+--------------------
+Q. 11
+
+let x = []; 
+let y = []; 
+let z = x + y; 
+console.log(typeof z); // 
+----------------------
+Q. 12
+let x = [1, 2, 3, 4, 5]; 
+let y = x.filter((n) => n >= 3); 
+console.log(y); // [3,4,5]
+console.log(x);// [1, 2, 3, 4, 5]
+Note: filter() method always return new array,it does not modify the existing array
+----------------------------
+Q. 13
+let x = true; 
+let y = false; 
+let z = x + y && x * y; 
+let w = x + y || x * y; 
+console.log(z); // 0
+console.log(w); // 1
+--------------------
+Q. 15
+
+let x = "false"; 
+let y = !x; 
+console.log(y);//  true
+----------
+let x = false; 
+let y = !x; 
+console.log(y);// true
+-----------
+Q. 16
+
+let x = 1; 
+let y = "1"; 
+console.log(++x, ++y); //  2 2
+-------------
+let x = 1; 
+let y = "1"; 
+console.log(++x, x); // 2 2
+console.log(++y, y); //2 2
+------------
+let x = 1; 
+let y = "1"; 
+console.log(x++, x); // 1 2
+console.log(y++, y); // 1 2
+
+console.log(++x, x++); // 3 3
+console.log(++y, y++); // 3 3
+--------------------------------
+Q. 17
+var num = 8; 
+var num = 10; 
+console.log(num);//10 
+--------------------
+Q. 18
+let x = "b"; 
+let y = "a"; 
+console.log(x + y + + y + y); //baNaNa
+-----------------------------
+Q.19
+console.log(x); 
+var x; 
+Explaination: Before execution of the code hoisting happens, variable x is placed 
+before console.log(x), here variable is declared but not assigned any value.
+So JS engine consider its value as "undefined"
+------------------
+Q. 20
+let x = [2]; 
+let y = 2; 
+console.log(x == y); 
+console.log(x ===y);
+Explaination: == operator meant for comparison and it compaire only values.
+=== operator also ment for comparison but it compaire values along with its data type.
+---------------------
+Q.21
+let x = [1, 2, 3]; 
+console.log(typeof x); // object.
+Explaination: In Js arrays are considered as an Object.
+-----------------------
+Q. 22
+let x = true + true; 
+let y = x + false; 
+console.log(y); //2
+Explaination: JS is loosely typed programming language. i.e type of variable is
+decided based on which type of value it is holding.
+Operator + is ment for arithmetic addition if values are Number type.
+If values are String type then it perform concatenation.
+If values are boolean type then before operating it convert into number.
+let x = true + true; 
+=> let x=1+1;
+=> let x=2;
+let y=x+false;
+    y=2+0;
+	y=2
+-----------------------
+Q. 23
+const a = { b: { c: 2 } }; // a is object type
+const b = { ...a }; // triple dot is a spred operator, it copies object values
+                     // or array values
+a.b.c = 3; // we are updating values, we access values from object using dot
+           // operator.
+console.log(b.b.c); //3
+----------------------
+Q. 24
+let x = [1, 2, 3]; 
+let [, , y] = x; 
+console.log(y); // 3
+-------------
+Q. 25
+let x = { a: 1, b: 2 }; // x is an object type 
+let y = { b: 3 };  // y is an object type
+let z = { ...x, ...y }; // z is an object
+// spred operator copies values of x and y but y object has key as "b" so
+// its value is replaced with 
+console.log(z);// {a:1,b:3}
+-----------------
+Q. 26
+let x = [1, 2, 3]; 
+let y = x.map((num) => { 
+x.push(num + 3); // This line is modifying x array,adding 
+                 // element at the end of an array
+return num + 1; // returning new array element.
+}); 
+console.log(y); // [2,3,4]
+console.log(x); // [1,2,3,4,5,6]
+-------------
+Q. 27
+let arr = [1, 2, 3]; 
+arr[10] = 4; 
+console.log(arr.length); // 11
+console.log(arr);//[1,2,3,empty,4]
+console.log(arr[0]);//1
+console.log(arr[2]);// 3
+console.log(arr[10]);// 4
+console.log(arr[7]);// undefined
+-------------------
+Q. 28
+let x = { a: 1 }; 
+let y = Object.assign({}, x); 
+console.log(x === y); // false
+-------------------
+Q. 29
+let x = [1, 2, 3, 5]; 
+let y=x.forEach((e) => { 
+    if (e > 2 && e < 5) 
+    return e; 
+    console.log(e); // 1,2,5
+}); 
+console.log(x);
+console.log(y); // undefined
+Note: Working of forEach method
+------------------
+Q. 30
+let x = 10; 
+let y = 20; 
+console.log("total = " + x + y); 
+-------------------------------Q. 31
+let x = 5; 
+let y = 6; 
+x += x > y ? x : y; 
+console.log(x); 
+Explaination:
+-> If we have addition,substraction,multiplication and division
+   then priority goes either multiplication or division, then addition or substraction
+   they get resolved from left to right.
+   let a=3+5*2-7/2;
+   
+-> Assignment operator has least priority.
+-> Among ternary operator and addition operator Priority goes to ternary operator.
+x += x > y ? x : y;
+ x=x+x>y?x:y;
+ x=5+5>6?5:6; // variables are replaced with actual values and first ternary operator is solved
+ x=5+6;
+ x=11
+--------------------
+Q. 32
+const arr = [1, 2, 3]; 
+arr.forEach((num) => num * 2); 
+console.log(arr); // [1,2,3]
+//Exaplaination: forEach() method is used to iterate an array
+// it is not modifiying an existing array. 
+--------------------
+Q. 33
+let a = [1, 2, 3]; 
+console.log(a[2]);// 3
+a.push(a[2]++); // Retrive 2 indexed element and push to an array,after do the 
+                // increment of 2 indexd element 
+console.log(a);//[1,2,4,3] 
+----------------------
+Q. 34
+let x; 
+console.log(x); // undefined
+-----------
+Q. 36
+let x = [1, 2, 3]; 
+let y = x.join(""); 
+console.log(y);//123
+console.log(typeof y);// string
+console.log(x);[1,2,3] 
+-----------------------
+Q. 37
+let margin = "10px"; 
+let x = parseInt(margin); 
+console.log(parseInt(x)); //10
+----------------------
+Q. 38
+setTimeout(() => { 
+   console.log(1); 
+   }, 0); 
+   console.log(2);  
+-> out put is 
+2
+1
+------------------------
+Q. 39
+let x = [1, 2, 3]; 
+let y = x.map((x, i) => x + i); 
+console.log(y); //[1,3,5] 
+Explaination:map() function has an argument as callback function,
+to that callback function we are passing an array,index value.
+map function performing addition of array element and its index value.
+-------------------------
+Q. 40
+let x = [null, 0, "0", false, "a","false",NaN]; 
+let y = x.filter((value) => value); 
+console.log(y); // ["0","a","false"]
+--------------------------
+Q. 41
+let x = true; 
+let y = false; 
+console.log(x + y); //1
+---------------------------
+Q. 42
+let x = ["apple", "banana", "cherry"]; 
+let y = x.filter((i) => i.startsWith("b")); 
+let z = x.filter((i) => i.endsWith("y")); 
+console.log(y); //[banana]
+console.log(z); //[cherry]
+----------------------------
+Q. 43
+let x = 10.5; 
+let y = parseInt(x); 
+console.log(y); //10
+-----------------------------
+Q. 44
+let x = 1; 
+console.log(x + x++); //2
+console.log(x);//2
+------------
+let x = 1; 
+console.log(x + ++x); //3
+console.log(x);//2
+--------------------------
+Q. 45
+let x = [1]; 
+let y = x + 1; 
+console.log(y); 11
+
+let x = [1,2]; 
+let y = x + 1; 
+console.log(y); //1,21
+
+let x = [1,2,3]; 
+let y = x + 1; 
+console.log(y); //1,2,31
+
+let x = [1,2,3]; 
+let y = 1+x; 
+console.log(y); //11,2,3
+-----------------------------
+Q. 46
+let x = 7; 
+let y = !!x && !!!x; 
+console.log(y); 
+
+Explanation: 
+In this code, the !! operator is used to convert the value of x to a boolean. The first ! operator negates the value of x and returns false since x is a non-zero number. The second ! operator negates the boolean value false, so it becomes true. 
+
+Then, the && operator is used to perform a logical AND operation between the two boolean values true and false. In a logical AND operation, both operands must be true for the result to be true. Since one of the operands (false) is false, the result of the && operation is false.
+Therefore, the output of console.log(y) will be false.
+-----------------
+Q. 47
+let a = 10; 
+let b = (a, a + 10); 
+console.log(b); 
+
+Explanation:
+In this code, the comma operator, is used to evaluate two expressions: first, the expression a, which has the value 10, and then the expression a + 10, which has the value 20. 
+The comma operator evaluates both expressions but returns only the value of the second expression (a + 10), which is 20. Therefore, the value of b is 20.
+Therefore, the output of console.log(b) will be 20.
+------------------
+Q. 48
+let x = "5"; 
+let y = 3; 
+console.log(x - y);
+Explanation: 
+In this code, the – operator is used to subtract the value of y from the value of x. When the – operator is used with a string and a number, the string is automatically converted to a number before the subtraction operation is performed. So the string “5” is converted to the number 5. Then, the expression x – y evaluates to 5 – 3, which is 2. 
+Therefore, the output of console.log(x – y) will be 2. 
+------------------
+Q. 49
+let x = 7; 
+let y = (typeof x).length; 
+console.log(y); 
+Explanation: 
+In this code, the typeof operator is used to determine the data type of the variable x. Since x is assigned the number 7, the data type of x is “number”. The typeof operator returns a string that represents the data type of its operand. The string “number” has a length of 6. Therefore, the value of y is 6. 
+Therefore, the output of console.log(y) will be 6.
+---------------------
+Q. 50
+let x = 6; 
+let y = typeof (x == 6); 
+console.log(y); 
+Explanation:
+In this code, the expression (x == 6) uses the equality operator == to compare the value of x with the number 6. Since x has the value 6, the expression evaluates to true. 
+The typeof operator is then used to determine the data type of the result of the expression (x == 6), which is a boolean value. The typeof operator returns a string that represents the data type of its operand. 
+The string “boolean” has a length of 7. Therefore, the value of y is “boolean”. 
+Therefore, the output of console.log(y) will be “boolean”.
+---------------------
+Q. 51
+let x = [1, 2, 3]; 
+let y = x.slice(); 
+console.log(y, x === y); 
+Explanation:
+In this code, the slice() method is used to create a shallow copy of the array x. The slice() method returns a new array with the same elements as the original array. Since the slice() method creates a new array, it does not modify the original array x. 
+The new array is assigned to the variable y. The equality operator === is used to compare x and y for identity, i.e., whether they refer to the same object in memory. Since y is a new array that has the same elements as x but is a different object in memory, the comparison x === y returns false. 
+Therefore, the output of console.log(y, x === y) will be the string representation of the array y followed by false.
+------------------------
+Q.52
+let x = () => { 
+return { y: "z" }; 
+}; 
+console.log(typeof x().y); 
+
+Explanation: 
+In this code, x is defined as an arrow function that returns an object with a single property “y” whose value is “z”. When the function x is called with x(), it returns the object { y: “z” }. The dot notation. is used to access the property “y” of the returned object. 
+The expression x().y evaluates to the string “z”. The typeof operator is then used to determine the data type of the result of the expression, which is a string. 
+Therefore, the output of console.log(typeof x().y) will be “string”.
+------------------------
+Q. 53
+const a = [1, 2, 3]; 
+const b = [...a]; 
+b.push(4); 
+console.log(a);
+
+Explanation: In this code, a new array b is created as a copy of array a using the spread operator. Since the spread syntax creates a new array, the two arrays a and b are distinct objects in memory and modifications to one will not affect the other.
+The push() method is called on b to add the value 4 to the end of the array. 
+The output of console.log(a) will be [1, 2, 3] because the original array a is not modified. The push() method only adds the value 4 to the end of array b, which is a separate array. 
+Therefore, the output of console.log(a) will be [1, 2, 3]
+but if we do console.log(b) then output is [1,2,3,4]
+-----------------------
+Q. 54
+let x = [31, 2, 8]; 
+x.sort(); 
+console.log(x); 
+Explanation: sort() method an array in ascending order.
+-----------------------
+Q. 55
+let x = 0; 
+let y = "0"; 
+console.log(false == x); 
+console.log(false == y); 
+--------------------------
+Q. 56
+let x = 018; 
+let y = 015; 
+
+console.log(x - y); 
+Explanation: 
+In this code, the variables x and y are assigned values in octal (base 8) notation because the leading zero in a numeric literal in JavaScript indicates that the number is in octal notation
+--------------------
+Q.57
+let a = [1, 2, 3]; 
+let b = [4, 5, 6]; 
+console.log(a + b); 
+-------------------
+Q. 58
+let x = [1, 2, 3, 4]; 
+let [a, ...b] = x.reverse(); 
+
+console.log(b); 
+Explanation:
+In this code, the reverse method is called on the array x, which reverses the order of its elements in place. The reversed array [4, 3, 2, 1] is then destructured into the variables a and b. 
+The variable a is assigned the first element of the reversed array, which is 4. The rest of the elements of the reversed array [3, 2, 1] are collected into an array using the rest parameter syntax (…), and assigned to the variable b. Therefore, the value of b will be [3, 2, 1].
+
+Therefore, the output of console.log(b) will be [3, 2, 1].
+-----------------------
+Q59.
+const x = true; 
+const y = 1; 
+
+console.log(x == y, x === y); 
+--------------------------
+Q. 60
+let x = (() => { 
+return 9; 
+})(); 
+
+console.log(x); 
+
+
+

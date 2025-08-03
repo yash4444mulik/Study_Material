@@ -1,0 +1,52 @@
+Q.. What is ECMA?
+Q.. What is ECMA-262?
+Q.. What is Ecmascript?
+Q.. What is Javascript?
+Q.. What are the feature of Javascript?
+Q.. What is the meaning of light in weight?
+Q.. What is mean by interpreted language?
+Q.. What is mean by dynamic typed and loosly typed programming language?
+Q.. What is mean by prototype based programming language?
+Q.. What is mean by Identifier?
+Q.. What is reserve word?
+Q.. How to embed javascript in HTML?
+Q.. when we place script tag inside head section or body section?
+Q.. What is variable?
+Q.. What are the rule to specify variable?
+Q.. What is variable declartion and initilization?
+Q.. What are literals?
+Q.. What is scope of variable?
+Q.. What is local scope?
+Q.. What is block scope?
+Q.. What is global scope?
+Q.. What is difference between var,let,const?
+Q.. What is Hoisting?
+Q.. How to define function?
+Q.. Operator in javascript?
+Q.. What is if else statement?
+Q.. What is AND operator?
+Q.. What is OR operator?
+Q.. What is switch statement?
+Q.. What are different type of loops in javascript?
+Q.. What is do while loop?
+Q.. What is while loop?
+Q.. What is difference between do while and while loop?
+Q.. What is for loop?
+Q.. What is comment in js?
+Q.. What is Data type in js?
+Q.. What is Primitive data type in js?
+Q.. What is Object data type in js?
+Q.. What is Object?
+Q.. How to create Object?
+Q.. How to add,delete,modify properties of Object?
+Q.. How to access properties of Object?
+Q.. What is Object.keys().forEach() method?
+Q.. What is Object.values().forEach() method?
+Q.. How to check properties exist in Object?
+Q.. What is 'in' operator in Object?
+Q.. What is 'hasOwnProperty' in Object?
+Q.. How to copy object?
+Q.. What is deep copy?
+Q.. What is shallow copy?
+Q.. What is difference between deep copy and shallow copy?
+Q.. What is difference between primitive and non-primitive data type?

@@ -1,0 +1,140 @@
+Q.. What is entity?
+Q.. What is Attribute?
+Q.. What is Data?
+Q.. What is database?
+Q.. What is SQL?
+Q.. With the help of SQL which activity we can perform?
+Q.. What is difference between Oracle and SQL?
+Q.. What is difference between SQL and Mysql?
+Q.. What are different type of SQL statement?
+Q.. What is DDL statement?
+Q.. What is DML statement?
+Q.. What is DQL statement?
+Q.. What is DCL statement?
+Q.. What is TCL statement?
+Q.. What is CREATE statement?
+Q.. What is syntax to create table?
+Q.. What is syntax to create database?
+Q.. When we create table in which order column get created?
+Q.. What are data types in oracle?
+Q.. What is string data type?
+Q.. What is char data type?
+Q.. What is varchar data type?
+Q.. What is varchar2 data type?
+Q.. What is difference between varchar and varchar2?
+Q.. What is difference between char and varchar?
+Q.. What is number data type?
+Q.. What is precision?
+Q.. What is scale?
+Q.. What is Date data type?
+Q.. What is BLOB data type?
+Q.. What is CLOB data type?
+Q.. What is INSERT statement?
+Q.. What are different form of insert statement?
+Q.. What is null value?
+Q.. What is select statement?
+Q.. What is where clause?
+Q.. What are operator in SQL?
+Q.. What are Arthimatic Operator?
+Q.. What are Comparision Operator? 
+Q.. What is dual in oracle?
+Q.. What is mod() function?
+Q.. suppose i have employee table with column empno,empname,salary.
+	employee table has 10 rows. suppose i execute below queries,what will happen?
+	Q.1. select 1 from employee?
+	Q.2. select 1,2 from emplyee?
+	Q.3. write sql query to disply all employee whose salary is greater than 50000.
+Q.. What are logical operator?
+Q.. what is AND operator?
+Q.. What is "IN" operator?
+Q.. How many values we can specify inside "IN" operator?
+Q.. What is "NOT IN" operator?
+Q.. What is NULL operator?
+Q.. What is difference between NULL,0 and blank?
+Q.. What is "IS NOT NULL" operator?
+Q.. what is "BETWEEN AND " operator?
+Q.. What is "NOT BETWEEN AND" operator?
+Q.. What is "LIKE" operator?
+Q.. write query to disply employee name whose name start with 'A'?
+Q.. write query to disply employee name whose name end with 'A'?
+Q.. write query to display employee whose name contain 'e'?
+Q.. write employee whose name contain only 4 character?
+Q.. What is "UPDATE" statement?
+Q.. What is "DELETE" statement?
+Q.. Create statement need not to commit but insert update delete need to commit,Why?
+Q.. Create table statement can't rollback where as insert update delete statement can rollback?
+Q.. What is "order by" clause?
+Q.. In which statement we can use order by clause?
+Q.. What is aliasing in oracle?
+Q.. Type of functions?
+Q.. what is "lower" function?
+Q.. what is "upper" function ?
+Q.. What is "initcap" function?
+Q.. what is "length" function?
+Q.. What is "concat" function?
+Q.. What is "replace" function?
+Q.. What is "instr" function?
+Q.. What is "lpad" function?
+Q.. What is "rpad" function?
+Q.. What is "Ltrim" function?
+Q.. What is "trim" function?
+Q.. what is "instr" function?
+Q.. What is "ASCII" function?
+Q.. What is "Char" function?
+Q.. What is "translate" function?
+Q.. What is ABS() function?
+Q.. What is CEIL function?
+Q.. What is FLOOR() function?
+Q.. What is Power() function?
+Q.. What is SQRT() function?
+Q.. What is round() function?
+Q.. What is trunc() function?
+Q.. What is mod() function?
+Q.. What is greatest() function?
+Q.. What is least() function?
+Q.. What is sysdate() function?
+Q.. What is systimestamp() function?
+Q.. What is current_date() function?
+Q.. What is crrent_timestamp() function?
+Q.. sysdate function and current_date return today's date why we Oracle introduce 2 function 
+	for same functionality?
+Q.. What is difference between systimestamp and current_timestamp?
+Q.. What is months_between function?
+Q.. What is extract function?
+Q.. What is round() function?
+Q.. What is trunc() function?
+Q.. What is conversion function?
+Q.. What is implicit function?
+Q.. What is explicit function?
+Q.. What is nvl() function?
+Q.. What is nvl2() function?
+Q.. What is difference between nvl() and nvl2() function?
+Q.. What is group function?
+Q.. What is sum() function?
+Q.. What is avg() function?
+Q.. What is max() function?
+Q.. What is min() function?
+Q.. What is count() function?
+Q.. What is different form of count() function?
+Q.. What is count(*) function?
+Q.. What is count(column_name) function?
+Q.. What is count(distinct column_name) function?
+Q.. What is group by clause?
+Q.. What is having clause?
+Q.. Can we use group function in order by caluse?
+Q.. What is mean by constraint?
+Q.. What are different level of constraint?
+Q.. When we apply constraint?
+Q.. Types of constraint?
+Q.. What is primary key?
+Q.. What is unique key?
+Q.. What is not null key?
+Q.. What is  default key?
+Q.. What is check constraint?
+Q.. What is foreign key?
+Q.. Can we apply composite default constraint?
+Q.. Can we apply composite not null costraint?
+Q.. Can we apply default constraint using constraint keyword?
+Q.. How to decide which table primary key or unique key what to refer in another table?
+Q.. Different types of relationships?
+Q.. 

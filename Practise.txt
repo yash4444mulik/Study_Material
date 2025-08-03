@@ -1,0 +1,2253 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+	
+	
+	
+---------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
+=======================================================================================
+									SQL
+=======================================================================================
+
+	where clause:-
+		where clause is used to apply filter the data based on some condition 
+		
+			where clm_name operator value;
+			
+			
+	IN :- if we want to specify multiple value in where clause then we use in operator
+			where in();
+			we can specify 1000 values;
+	
+	not in:- if we want to specify multiple value in where clause then we use not in operator
+			where not in ();
+			
+	is null:- if we want to fetch data from column based on null value then we use null operator
+			where is null();
+				where clm_name is null;
+				
+	is not null:- if we want to fetch data from column based on not null value then we use is not null
+			operator
+			where clm_name is not null;
+			
+	like :- like operator is used to fetch pattern matching value in where clause
+				%-> to match any number of char
+				_-> to match single number of char 
+				
+			where clm_name like ''
+			
+	not like:- used to fetch pattern not matching value in where clause
+				
+				
+	between and :- use to specify range in where clause
+		where clm_name between value1 and value2
+		
+	
+	not between and:- use to specify range 
+		where clm_name not between value1 and value2
+		
+	
+	distinct:- if we want only unique value from table then we use distinct keyword 
+		select distinct(clm_name) from table_name
+		
+	display first name contain 'A' char
+	-> select * from table_name where first_name like(A%);
+	
+	
+	single row function?
+		the function which operator single row nothing but single row function
+		
+	multiple row function?
+		the function which operator multiple row nothing but multiple row function
+		
+	type of single row function
+		char date number conversion general
+		
+	char :- 
+	
+	lower :- this keyword is used to convert all letter of string in lowercase 
+			lower(clm_name);
+			
+	upper:- used to convert all letter into uppercase.
+			upper(clm_name)
+			
+	initcap:- used to conver first letter of evry word in uppercase and other in lowercase
+	
+	length:- used to calculate length of string
+	
+	concat:- used to join two value
+	
+	instr:- used to find numeric position of source char in the source string
+		instr(source_string,target_char)
+	
+	replace:- used to replace perticular word or char in the source_string
+		replace(source_string,target_char,input_char)
+		
+	substr:- used to find sub string in source string
+		substr(source_string,start_index,end_index);
+		
+	lpad:- used to add extra char at left side of string
+		lpad(source_string,N,target_char)
+		
+	trim:- used to trim extra char at left or right side of string
+		trim(target_char from string)
+		
+	ltrim:- used to trim extra char at left side of string
+		ltrim(source_string,target_char)
+		
+	round:- used to round number
+		round(source_number,s)
+		s:- it specify scale how many digit we want to round
+		
+	trunc:- used to trunc numbers 
+		trunc(input_number,s)
+		
+	mod:- used to find remainder 
+		mod(input_number,divisor)
+		
+	
+	what is alising:- provide tempraroy name to column or table 
+	2 ways 
+		1) as 
+		2) double cot 
+	
+	
+	date:-
+	
+	sysdate:- used to find current date 
+		
+		
+	systimestamp:-used to find current date with time 
+	
+	current_date:- 
+	
+	current_timestamp:-
+	
+	local_timestamp:-
+	
+	months_between:- used to find number of month between two dates
+		months_between(first_date,second_date)
+	
+	extract:- used to extract month and year from source date.
+		extract(year from date_value)
+		extract(month from date_value)
+		extract(day from date_value)
+	
+	add_months:- used to add month in source date 
+		add_months(input_date,no_of_months)
+	
+	last_day:- used to return last day of month 
+		last_day(input_date)
+	
+	next_day:- used to return next day form source date 
+		next_day(input_date,weekday)
+	
+	round :- used to round the date 
+		round(input_date,month/year)
+	
+	trunc:- used to trunc the date 
+		trunc(input_date,month/year)
+		
+	
+	
+	conversion:- 
+	
+	to_date():- used to convert string value into date 
+	
+	to_char():- used to convert date,number values into string
+	
+	to_number():- used to convert string value into number 
+	
+	
+	
+	General :- 
+	
+	nvl:- when we fetch data from table some column have null value 
+			if we want to specify alternativ value at null value then we use nvl 
+			
+			nvl(exp1,exp2);
+			if 1st exp is null then it consider 2nd exp
+			if 1st exp is not null then it consider 1st exp
+			
+			
+			
+	nvl2:- nvl2(exp1,exp2,exp3)
+			if 1st exp is null then it consider 3rd exp
+			if 1st exp is not null then it consider 2nd exp 
+			
+			
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+										
+	   
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+=====================================================================================================================================================================================================================================================================================================                                                                                             ==
+==																							   ==
+==																							   ==
+==																							   ==
+==																							   ==
+==																							   ==
+==																							   ==
+==																							   ==
+==																							   ==
+==								       	**PRACTICALLY**										   ==
+==																							   ==
+==																							   ==
+==																							   ==
+==																							   ==
+==																							   ==
+==																							   ==
+==																							   ==
+==																							   ==
+===================================================================================================================================================================================================================================================================================================		
+====================================HTML======================================
+
+heading h1 to h6
+<abbr title="">
+<acronym title="">
+<address>
+<bdo>bio directional override
+<code>
+<kbd>
+<samp>
+<var>
+<p>
+<br>
+<em>
+<i>
+<b>
+<strong>
+<hr>
+<pre>
+<u>
+<del>
+<mark>
+<small>
+<big>
+<sup>
+<sub>
+<ins>
+<ol type="" start="" style=""> <li>
+<ul> <li>
+<dl> <dt><dd>
+<img> src alt width height
+<a href="" target="" title=""></a>
+<table> <th><tr><td>
+<marquee> <direction><height><width>
+Input type="text"
+		   "number"
+           "passward"
+		   "email"
+		   "checkbox"
+		   "file"
+		   "radio"
+		   "submit"
+		   "button"
+		   "search"
+		   "color"
+		   "date"
+		   "datetime-local"
+		   "month"
+		   "week"
+		   "time"
+		   
+		   
+		   "number" max min
+		   "range"
+		   "textarea"
+           "label"
+		   "placeholder"
+		   "size"
+		   "disbled"
+		   "readonly"
+		   "autofocus"
+		   "required"
+		   "value"
+		   "maxlength"
+		   
+           
+<fieldset> <legend>		   
+<select> <option><optgroup name="">
+target="blank"
+       "self"
+	   "parent"
+	   "top"
+	   
+		  
+		  
+		  
+		  div
+		  span
+		  iframe ,src
+		  audio (source src)
+		  video (source src)
+		  iframe, src
+		  embed ,src
+		  object ,data
+		  
+		  
+		  youtube video
+		  google map 
+		  image maping    img (usemap)    map   area
+		  datalist   id 
+		  faviocn
+	
+
+
+What is difference between HTML4 and HTML5?
+- html does not allows drag and drop effect where as html5 allows drag and drop effect.
+- html4 version is less mobile friendly where as html5 is more mobile friendly.
+- html4 does not support audio and video without flash player where as html 5 support audio and video with the use of audio and video tag.
+- in html4 doctype declaration is too long and complicated where as in html 5 doctype declaration is quite simple and easy.
+- in html4 new element are absent like nav,header where as in html5 new element are present like nav,header,footer.
+- in html4 acronym,big,u,center,frameset  tag are present where as in html 5 that tag are decreapted.
+
+
+---------------------------------------------------------------------------------------
+
+
+What are the advantages of HTML?
+	- HTML helps to build structure of web page 
+	- easy to learn 
+	- Every browser support 
+	- HTML is light weight and fast load 
+	- does not require additional software because bydefault it is in every browser.
+
+---------------------------------------------------------------------------------------
+
+	
+What are the disadvantages of HTML?
+	- It can't make dynamic output alone since it's static language.
+	- making the structure of document become tough to understand.
+	- need to write lots of code to create simple web page.
+
+
+---------------------------------------------------------------------------------------
+
+	
+What are the advantages/feature of css?
+	- it is easy to maintain 
+	- it is easy to learn 
+	- it is time saving 
+	- it is faster loading
+	- it's platform is independant 
+
+
+---------------------------------------------------------------------------------------
+
+	
+What are the disadvantages of css?
+	- cross browser issue and browser compability 
+	- there are multiple level which creates confusion for beginners.
+	- some does not able to support responsive ness of web page 
+
+---------------------------------------------------------------------------------------
+
+What are new added element in HTML?
+	- article,aside,datalist,header,footer,audio,nav,source,
+	- input type="color","time","search","number"
+
+---------------------------------------------------------------------------------------
+
+What are the decreapted tag in html?
+	- <acronym>,<big>,<center>,<frameset>,<u>
+
+---------------------------------------------------------------------------------------	
+
+What is difference between == and ===?
+== is used for comparing two variable but it igone datatype of variable where as 
+=== is used for comparing two variable but it consider datatype of variable
+
+---------------------------------------------------------------------------------------
+
+
+What is difference between css2 and css3?
+- css3 support more browser than css2.
+- css3 support border-box property where as css2 does not support border-box property 
+- in css2 rounded border coding was complex where as in css3 rounded border coding is easy.
+- css2 use only web safe font where as css3 use special like google font typecase.
+
+
+----------------------------------------------------------------------------
+
+How to add google font in your web page 
+- download google font file 
+- use @font-face{
+		font-family:google-font;
+		src:url('');
+		}
+		
+- we can specify google font using font-family 
+	for e.g to specify google font for paragraph text 
+	
+		p{
+		font-family:google-font;
+		}
+		
+------------------------------------------------------------------------------
+	
+		  
+
+==================================================================================================================================================================================================
+==================================================================================================================================================================================================
+=================================================================================================
+								CSS
+=================================================================================================
+
+pseudo class selector:- for link 
+							1) Univisted Link -> :link
+							2) Visited Link   -> :visited
+							3) Active Link    -> :active
+							4) Mouse Over     -> :hover
+						for type 
+							1) first-of-type
+							2) last-of-type
+							3) nth-of-type(n)
+							4) nth-of-last-type(n)
+						for child element
+							1) :first-child
+							2) :last-child
+							3) :nth-child(n)
+							4) :nth-child(even)
+							5) :nth-child(odd)
+							6) :nth-child(specify_pattern)
+							7) :nth-last-child(n) Here value can be 0 to n
+							8) :nth-last-child(even)
+							9) :nth-last-child(odd)
+							10) :nth-last-child(pattern)
+						for attribute 	
+							1) Required        -> :required
+							2) enable          -> :enable 
+							3) disabled        -> :disabled
+							4) readonly        -> :read-only
+							5) read and write(editable) -> : read-write
+							6) checked        -> :checked
+							7) focus          -> :focus
+
+
+
+pseudo element:- 
+			   1) ::first-line 
+			   2) ::first-letter
+			   3) ::after 
+			   4) ::before
+			   5) ::selection
+			   6) ::marker
+
+
+ Child selector:- >
+ adjecent selector:- +
+ general sibling selector:- ~
+ descendant selector:- space 
+ 
+ 
+
+1) initial
+2) inherit
+3) we can specify color value in 6 different ways and these areas below.
+1) specify value by predefined color names.
+2) specify value by Hexa decimal code.
+3) specify value by rgb() formula.
+4) specify value by rgba() formula
+5) specify value by hsl() formula
+6) specify value by hsla() formula.
+ 
+ 
+ 
+1) background-color -> To change background color of an element
+2) background-image -> To add an image to background of an element.
+3) background-size  -> To change size(width and height) of an background image.
+4) background-position -> To change the position of background image
+5) background-repeat  -> To change repetation of background image.
+6) background-attachment -> To make background image scrolled or fixed. 
+ 
+ 
+1) border-style  -> Specifies Type of border 
+2) border-color  -> Specifies the color of the border
+3) border-width  -> Specify width(thinkess) of border
+4) border-radius -> Make border coners rounded
+ 
+ 
+ 
+1) margin-top    : Set the Margin to top side only
+2) margin-bottom : Set the margin to bottom side only
+3) margin-left   : Set the margin to left side only
+4) margin-right  : Set the margin to right side only
+5) margin        : This is short hand property.
+ 
+ 
+*** MARGIN COLLAPSE ***
+
+
+1) padding-top    : Set the padding to top side only
+2) padding-bottom : Set the padding to bottom side only
+3) padding-left   : Set the padding to left side only
+4) padding-right  : Set the padding to right side only
+5) padding        : This is short hand property.
+ 
+ 
+ 
+height 
+width 
+max-height 
+max-width 
+min-height
+min-width
+
+
+1) outline-style  : This property specify the type of outline
+2) outline-color  : This property specify the color of outline
+3) outline-width  : This property specify the width(thickness) of outline
+4) outline-offset : This property specify the space between outline and border.
+5) outline        : This is short hand property for outline
+
+ 
+ box-sizing property
+ 
+
+
+box-shadow property
+
+
+
+display is property name and value can be one of the following
+   1) inline  : Display element as inline
+   2) block   : Display element as block
+   3) inline-block : Display element as inline but we can apply width and height.
+   4) none    : Hide and Remove the element from document layout and free the 
+                space occupied by that element.
+
+
+  visibility is property and can have one of the following value.
+   1) visible  : This is default value. The element is visible
+   2) hidden   : The element is hidden but occupy the space on page.
+   3) collapse : This value applicable only for table elements like
+                 <tr> <td> <th> <tbody> <colgroup>
+                 It removes rows and columns from table but does not 
+				 affect the layoutof table.But their space is available 
+				 for other content.
+				 If collapse is used on other elements, it renders as "hidden"
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+position property
+
+
+
+
+
+
+
+Z-Index Property
+
+
+
+
+
+
+
+Overflow
+
+
+
+
+
+# overflow-x and overflow-y 
+
+
+
+
+
+overflow-wrap Property 
+
+
+
+
+
+CSS float property.
+
+
+
+
+
+
+
+
+
+
+
+clear property
+
+
+
+
+
+
+
+
+object-fit property
+
+
+
+
+
+
+
+
+
+
+
+object-position property
+
+
+
+
+
+
+
+
+
+
+
+"opacity" Property.
+
+
+
+
+
+
+
+
+diffrent components of FlexBox?
+
+
+
+
+
+
+
+
+
+
+Q. What are diffrent properties available to Flex container?
+-> Below are the properties related to Flex Container
+   1) display
+   2) flex-direction
+		1) row: Flex item float left to right.
+	   2) row-reverse : Flex item foat right to left.
+	   3) column: Flex item float top to bottom
+	   4) column-reverse : Flex item float bottom to top.
+---------------------------------------------------------
+   3) flex-wrap
+		 1) wrap : flex items will wrap if required.
+		   2) nowrap : flex items will not wrap. This is default value
+		   3) wrap-reverse : flex items will wrap if required but in reverse order
+--------------------------------
+
+   4) flex-flow
+		  flex-flow: flex-direction flex-wrap;
+   
+   5) justify-content
+			1) flex-start : items are placed to the left side of container
+		   2) center     : items are placed at the center of cotainer.
+		   3) flex-end   : items are placed to right of container
+		   4) space-around : add some space before, after and between the items
+		   5) space-between : add some space between the items
+		   6) space-evenly  :  add equal space before,after and between the items
+   
+   6) align-content
+			 1) flex-start  : Flex item are palced at top of container
+			   2) flex-end    : Flex item are placed at bottom of container
+			   3) center      : Flex item are placed at center of container
+			   4) strech      : stretches the flex items to fill the container.
+								This is default default value.
+   
+   7) align-item 
+				 1) flex-start  : Flex lines are palced at top of container
+			   2) flex-end    : Flex lines are placed at bottom of container
+			   3) center      : Flex lines are placed at center of container
+			   4) strech      : stretches the flex lines to fill the container.
+								This is default default value.
+			   5) space-between: Displays the flex lines with equal space between them
+			   6) space-around : Displays the flex lines with space before, between, and after them
+			   
+   
+
+   
+   
+   
+   
+   
+   
+   
+Q. What are diffrent css properties related to Flex item?
+-> Below are the properties related to Flex item.
+   1) order
+   2) flex-grow
+   3) flex-shrink
+   4) flex-basis
+   5) flex
+   6) align-self
+   
+   
+   
+   
+   
+   
+Filter:- 
+	1. blur()
+	2. brightness()
+	3. contrast()
+	4. drop-shadow()
+	5. grayscale()
+	6. hue-rotate()
+	7. opacity()
+	8. saturate()
+
+
+
+
+
+
+
+1. linear gradient
+	2. radial gradient
+
+
+
+
+
+resize:value
+			 values are :- 
+				1. verical
+				2. horizontal
+				3. both 
+				4. none.
+
+
+
+
+
+
+
+
+Transform:- 
+			  move element
+			  rotate element
+			  skew element
+			  scale element				
+   
+   
+   
+
+transition:- 
+		
+		transition-property:- here we can specify any css property like height,width
+		transition-duration:- we can specify in second or milisecond 
+		transition-timing-function:- this is speed curve of transition 
+		transition-delay:- this is delay to transition we can specify in seconds 
+		
+
+
+
+animation:- 
+		@keyframe :- user defined name 
+		animation-name :- use name inside element
+		animation-duration :- duration of animation
+		animation-delay :- delay time in animation
+		animation-iteration-count :- how much times it repeat 
+		animation-direction :- which direction make animation
+		animation-timing-function :- speed curve 
+		
+
+
+
+Grid:- 
+	display 
+	grid-template-columns 
+	grid-template-rows 
+	row-gap 
+	column-gap 
+	gap 
+	
+	
+
+
+---------------------------------------------------------------------------------------
+
+
+What is difference between HTML4 and HTML5?
+- html does not allows drag and drop effect where as html5 allows drag and drop effect.
+- html4 version is less mobile friendly where as html5 is more mobile friendly.
+- html4 does not support audio and video without flash player where as html 5 support audio and video with the use of audio and video tag.
+- in html4 doctype declaration is too long and complicated where as in html 5 doctype declaration is quite simple and easy.
+- in html4 new element are absent like nav,header where as in html5 new element are present like nav,header,footer.
+- in html4 acronym,big,u,center,frameset  tag are present where as in html 5 that tag are decreapted.
+
+
+---------------------------------------------------------------------------------------
+
+
+What are the advantages of HTML?
+	- HTML helps to build structure of web page 
+	- easy to learn 
+	- Every browser support 
+	- HTML is light weight and fast load 
+	- does not require additional software because bydefault it is in every browser.
+
+---------------------------------------------------------------------------------------
+
+	
+What are the disadvantages of HTML?
+	- It can't make dynamic output alone since it's static language.
+	- making the structure of document become tough to understand.
+	- need to write lots of code to create simple web page.
+
+
+---------------------------------------------------------------------------------------
+
+	
+What are the advantages/feature of css?
+	- it is easy to maintain 
+	- it is easy to learn 
+	- it is time saving 
+	- it is faster loading
+	- it's platform is independant 
+
+
+---------------------------------------------------------------------------------------
+
+	
+What are the disadvantages of css?
+	- cross browser issue and browser compability 
+	- there are multiple level which creates confusion for beginners.
+	- some does not able to support responsive ness of web page 
+
+---------------------------------------------------------------------------------------
+
+What are new added element in HTML?
+	- article,aside,datalist,header,footer,audio,nav,source,
+	- input type="color","time","search","number"
+
+---------------------------------------------------------------------------------------
+
+What are the decreapted tag in html?
+	- <acronym>,<big>,<center>,<frameset>,<u>
+
+---------------------------------------------------------------------------------------	
+
+What is difference between == and ===?
+== is used for comparing two variable but it igone datatype of variable where as 
+=== is used for comparing two variable but it consider datatype of variable
+
+---------------------------------------------------------------------------------------
+
+
+What is difference between css2 and css3?
+- css3 support more browser than css2.
+- css3 support border-box property where as css2 does not support border-box property 
+- in css2 rounded border coding was complex where as in css3 rounded border coding is easy.
+- css2 use only web safe font where as css3 use special like google font typecase.
+
+
+----------------------------------------------------------------------------
+
+How to add google font in your web page 
+- download google font file 
+- use @font-face{
+		font-family:google-font;
+		src:url('');
+		}
+		
+- we can specify google font using font-family 
+	for e.g to specify google font for paragraph text 
+	
+		p{
+		font-family:google-font;
+		}
+		
+------------------------------------------------------------------------------
+	- What is default parameter?
+	=> 	-  default parameter value set to the variabole at the time of function defination 
+		
+	
+	- What is slice method in js?
+	=> slice method is used get sub array from source array?
+		- slice method create newArray
+		- it does not modify original array
+		slice(start_index,end_index);
+		
+		
+			let myArray=[1,2,3,4,5,6,7,8,9];
+			console.log(myArray.slice(0))//[1,2,3,4,5,6,7,8,9]
+			console.log(myArray.slice(1))//[2,3,4,5,6,7,8,9]
+			console.log(myArray.slice(2))//[3,4,5,6,7,8,9]
+			console.log(myArray.slice(1,1))//[]
+			console.log(myArray.slice(1,2))//[2]			
+		
+	
+	- What is array destructuring?
+	=> 	- array destructuring is introduced in ES-6 
+		- array destructuring allow you to extract array element and assign them 
+		  to individual variable in single statement 
+		  
+		const fruit=[banana,orange,apple];
+		
+		const[firstFruit,secondFruit,thirdFruit]=fruit;
+		
+		console.log(firstFruit)//output banana;
+	
+	
+	- What is splice method in js?
+	=> splice method is used to add,remove the element from array 
+		- splice method does not create new array.
+		- it modify orignal array.
+		syntax 
+			splice(startIndex,deleteCount,new elements);
+			 startIndex specify the from which element should delete or add 
+			 deleteCount spcify how many element should delete
+			 
+		
+		
+	Q. what is event bubbling?
+	=> 
+		
+	Q. What is event capturing?What is event delegation?
+	=> 	
+	
+	Q. What is event debouncing?
+	=> 	- debouncing is used to improve the perfomance  by controlling the time when
+		  function should be executed.
+		- debouncing accept function and transform it into updated function so that code inside the 
+		  function is executed after some time 
+		- if debounced function is called again within that period the previous timer is reset and 
+		  new timer is started for function call 
+			 
+			 
+				let counter=0
+				function getData(){
+					console.log('change'+counter++);
+				}
+				
+				function myDebounce(functions,delay){
+				
+					let timer;
+					
+					return function (...arg){
+					if(timer){
+						clearTimeout(timer)
+					}
+					
+					setTimeout(()=>{
+						functions();
+					},delay)
+					}
+				
+				}
+				
+				const betterFunction=myDebounce(getData,1000);
+				
+	
+	Q. when we use script tag inside body and head secction?
+	=> if script tag contain event triggering function then we can place inside the head section 
+	   if script tag contain writes contain on page then we can place inside the body section 
+
+	Q.1 What is ECMA?
+	-> ECMA stand for Europion Computer Manufacture Assosiation.
+	   Founded in 1961.headquater in switezerland,Geneva.
+	   It create Standard for technologies.
+	
+	Q.2 What is ECMA-262?
+	-> It is standard released by ECMA.
+	   Contain standard for general purpose scripting language.
+	   
+	Q.3 What is Ecmascript?
+	-> Ecmascript is standard for general scripting language.
+	
+	Q.4 What is Javascript?
+	-> Javascript is general purpose scripting language.
+	   That's follows Ecmascript specification.
+	   Used to add functionality to HTML element.
+	
+	Q.5 History of Javascript?
+	-> Javascript was founded in 1991 by Brendan Eich.
+	   Initially it is developed for netscape.
+	   In 1997 it become to ECMA standard & it released ES-1.
+	   Internet Explorer was the first browser to support Javascript.
+	   Latest version of Javascript is ES-12 released in 2021.
+	   
+	Q.6 What are the feature of Javascript?
+	-> 1. It is light in weight.
+	   2. It is Interpreted Language.
+	   3. It is single threated.
+	   4. It is case-sensative.
+	   6. It is dynamic typed and loosely typed programming language.
+	   7. It is function based language.
+	   8. It is proto-type based programming language.
+	   9. It is object oriented language.
+	  
+	Q. What is meaning of JavaScript is dynamic or loosely typed Programming Language?
+	-> JavaScript is a loosely-typed language, meaning that data type checking is not very strict in JavaScript.
+	
+	
+	Q. what is interpreted language?
+	-> the code is not compile but it directly get execute by interpreter 
+	
+	
+	Q. what is single threated?
+	-> single threded means execute one task at a time 
+	
+	Q. what is function based language?
+	-> use mathamatic operations like addition substraction 
+	
+	Q. proto-type based programming language?
+	-> in proto-type based programming language proto-type is used 
+		- proto-type means already exist 
+		- like cloned,modified,extended
+		
+	
+	Q. what is object oriented language?
+	-> object oriented is style of programming characterized by classes and object. 
+	
+	
+	
+	
+	
+	Q.7 What are the language fundamentals of Javascript?
+	-> 1. Identifier
+	   2. variables
+	   3. Literals 
+	   4. Reserve keyword 
+	   5. Data types
+
+	Q.8 What is Reserve Keyword?
+	-> Reserve keyword have 2 type.
+		1. Reserve word :- Reserve word means those word have pridefined meaning
+		2. Reserve Literals :- Reserve literals have 3 type 
+								true,false :- boolean type 
+								null
+								
+	Q.9 How to Embed Javascript in HTML page?
+	-> We can embed javascript by 2 ways 
+		1. Create external file with .js extension and write code inside file 
+		   link with html page by using script tag and placed inside head 
+		   section or body section.
+		   
+		2. we can write javascript code inside script tag and place that inside
+		   head section or body section 
+		   
+	Q.10 What is Variable in Javascript?
+	-> The thing whose varies value is nothing but Variable.
+	
+	Q.11 How to declare Variable in Javascript?
+	-> We can declare variables in javascript by 3 keyword
+		1. var
+		2. let
+		3. const 
+		
+	Q.12 Rule to Declare variables?
+	-> We can specify Uppercase letter Lowercase letter 
+	   also we can specify Numbers from 0 to 9 
+	   and symbol like underscore and doller 
+	   
+	Q.13 What is the Literals?
+	-> Literals is nothing but any value assigned to variables.
+	   like floating or string
+	   
+	Q.14 What is the operator?
+	-> Operator are used to perform some operation.
+	
+	Q.15 How many operator in javascript?
+	-> 1. Arithmatic Operator
+	   2. Comparison Operator (Relational)
+	   3. Logical Operator
+	   4. Bitwise Operator
+	   5. Assignment Operator
+	   6. Special Operator
+	   
+	Q.16 What is the Arithmatic Operator?How many types?
+	-> 1. Addition +
+	   2. Substraction -
+	   3. Multiplication *
+	   4. Division /
+	   5. Moduls or Remainder %
+	   6. Increment ++ (pre increment,post increment)
+	   7. Decrement -- (pre decrement,post decrement)
+	   
+	Q.17 What is th Comparison (Relational) Operator?
+	-> 1. assignment =
+	   2. is not Equal to !=
+	   3. less than <
+	   4. greater than >
+	   5. less than equal to <=
+	   6. greater than equal to >=
+	   7. identical ==
+	   8. strictly equal to ===
+	   9. is not identical !==
+	   
+	Q.18 What is Logical Operator?
+	-> 1. AND &&
+	   2. OR  ||
+	   3. NOT !
+	
+	
+	Q.20 What is if else statement?
+	-> if else is control flow statement.used for repeatative execution of block 
+	   of code 
+	 
+	- What is default parameter?
+	=> 	- at the time of function defination we set a default value to function nothing but default parameter
+	
+	- What is slice method in js?
+	=> slice method is used get sub array from source array?
+		slice(start_index,end_index);
+		
+	- What is array destructuring?
+	=> 	- array destructuring is introduced in ES-6 
+		- array destructuring allow you to extract array element and assign them 
+		  to individual variable in single statement 
+		  
+		const fruit=[banana,orange,apple];
+		
+		const[firstFruit,secondFruit,thirdFruit]=fruit;
+		
+		console.log(firstFruit)//output banana;
+	
+	
+	- What is splice method in js?
+	=> splice method is used to add,delete and remove the element from array 
+		syntax 
+			splice(startIndex,deleteCount,new elements);
+			 startIndex specify the from which element should delete or add 
+			 deleteCount spcify how many element should delete
+			 
+			 
+	Q. What is event delegation?
+	=> 	event delegation is process where you can add single event on parent element that handle 
+		all child element
+		
+		
+	Q. what is event bubbling?
+	=> 	event bubbling is the process where event triggered on child element that propaget up the DOM tree,
+		triggering event handle on parent 
+		
+	Q. What is event capturing?
+	=> 	event capturing is the process where event handling start from highest-level ancestor and moving 
+		down to the target element
+		
+	Q. What is event debouncing?
+	=> 	- debouncing is used to improve the perfomance by controlling the time when
+		  function should be executed.
+		- debouncing accept function and transform it into updated function so that code inside the 
+		  function is executed after some time 
+		- if debounced function is called again within that period the previous timer is reset and 
+		  new timer is started for function call 
+	
+	   
+	Q.21 condition in if else statement?
+		1) round bracket are mandatory statement
+		2) spelling of if is case-sensative
+		3) curley bracket are optional when we have one executable statement
+		
+	
+	Q.21 What is the use of if statement?
+	-> If statement is used for apply some condition 
+	   
+	Q.22 What are the condition for true and false?
+	-> true = true 
+	   false = false 
+	   any value other than zero = true 
+	   zero = false 
+	   any string enclosed in single & double cot nothing but true 
+	   
+	Q.23 What is else statement?
+	-> else is counter part of if.
+	   we can't use else without if 
+	   
+	Q.25 What is the syntax of if statement?
+	-> 
+	      if(condition)
+		  {
+		  js executable statement
+		  }
+	   
+	Q.26 What is the Switch Statement?
+    -> Switch statement is used to perform different actions based 
+	   on different condition.
+	   
+	Q.27 What is the syntax of Switch statement?
+	->  switch(expression)
+		{
+		case value1:
+		// code block
+		break;
+		case value2:
+		//code block
+		break;
+		case valueN;
+		//code block
+		break;
+		default:
+		//code block
+		}
+		
+	Q.28 How switch statement is work?
+	->	 Switch expression is evaluted once.
+	     The value of the expression is compared with the values of each case.
+		 If there is a match, the associated block of code is executed.
+		 If there is no match, the default block of code is executed.
+
+			
+			
+	Q. what is difference between array and object?	Q. what is difference between spread and rest operator?
+	=> - array is collection of value where as object is collection of key value pair 	=> spread operator is used to expand element from an iterable element such as array,object,string into 
+	   - array is denoted by [] where as object is denoted by {}	   individual elements.
+	   - element in the array is ordered where as element in the object are not ordered	    where as 
+	 		rest operator is used in function parameter to collect all remaining argument in an array.
+	Q. what is higher order function?		
+	=> higher order function take one or more function as an argument or return a function as a result.		Example:-
+				let array=[1,2,3];
+	Q. what is difference between argument and parameter?			console.log(...array);//this is spread operator output is 1,2,3
+	=> parameter are the placeholder defined in the function declaration			
+		where as argument is the actual value that passed to function when it called 			display(1,2,3,4,5,6)//this is display function 
+					function display(first, second, ...restArguments) {
+						console.log(first);
+	Q. What are the event in JS?how event triggered?			console.log(second);
+	=> Event is nothing but change in state of object.			console.log(restArguments[0]); // Third argument
+		event triggering=> 1. user intract with web page and click on event 			console.log(restArguments[1]); // Fourth argument
+							2. then event handler is occure 			console.log(restArguments[2]); // Fifth argument
+							3. then event handler handle the event and event handler function 			console.log(restArguments[3]); // Sixth argument
+								that have block of code 			}
+							4. the page appearance is updated/modified in some way as a result.	
+					
+	Q. what is difference between primitive and non primitive data types?
+	=> primitive data types hold single value where as non primitive data type hold multiple values 
+	Q. What is event object in JS?		primitive data type are immutable where as non primitive data type are mutable
+	=> - whenever event is triggered,the browser automatically creates an event object and passess		primitive data type are simple data type where as non primitive data type are complex data type.
+		it as an argument to the event handler function 		
+	   - the event object contains various properties method that provide information about the 		
+	     event such as the type of event,the element that triggered the event etc.				
+				
+			
+			Q. What is callback in js?
+	Q. What is event delegation/capturing in JS?	=> function which is pass to another function as an argument is nothing but callback 
+	=> event delegation is process where you can add single event on parent element that handle 	   function 
+		all child element	   
+			  
+		Example:- 
+			Q. What is closure in js?
+			=> closure is javascript function in that inner function has access variable and parameter of its outer function 
+			<ul id="myList">	
+						<li>List One</li>		for example
+						<li>List Two</li>			
+						<li>List Three</li>			const parent = (y)=>{
+					</ul>				let name='yashraj';
+									
+				JAVASCRIPT				const child = ()=>{
+							console.log(name);
+					let parentEvent=document.getElementById('myList');				}
+				return child
+					parentEvent.addEventListener("click",handleOnClick);			}
+								const result=parent();
+					function handleOnClick(event)			result();
+					{	   
+						let target=event.target;	
+						console.log("clicked"+target.textContent);	Q. What is setTimeout in js?
+					}	=> setTimeout is used to execute code asynchronously after a delay
+		- syntax:- setTimeout(function,time)
+		- it accept two parameter first is function.second is time in milisecond.
+				- after the execution it return timer id 
+	Q. What is event bubbling in Js?		- setTimeout run once
+	=> event bubbling is the process that event triggered on child that propaget up DOM tree,		
+	   triggering event handle on its parent.		
+	   		
+	   Example		
+					Q. What is setInterval in js?
+				<div id="parent">	=> setInterval is used to execute code asynchronously after a delay 
+					<div id="sparent">		- syntax:- setInterval(function,time)
+						<button id="child">Click Me</button>		- it accept two parameter first is function and second is time in milisecond.
+					</div>		- after the execution it return number 
+				</div>		- setInterval run repeatedly.
+								
+					Q. What is Asynchronous?
+	   	=> Function are running in parallel with other function are called Aysynchrounous.
+				let third=document.getElementById('child');		- good example is setTimeout and setInterval.
+				let second=document.getElementById('sParent');		- in asynchronous one function has to wait for other function (like waiting for 
+				let first=document.getElementById('parent');		  a file to load)
+						
+				second.addEventListener('click',handleOnChange);	Q. What is object?
+				first.addEventListener('click',handleOnChange);	=> group of multiple value together in key-value pairs
+				third.addEventListener('click',handleOnChange);	
+					Q. How to define object?
+				function handleOnChange(event)	=> to define object we use curly bracket{} 
+				{		- let obj_name={
+					console.log("captured id =>" + this.id);						key1:value,
+				}						key2:value2,
+						key3:value3
+	   						}
+	Q. How to stop event propagation and event bubbling in JS?		- key and value is seperated using colon ':'
+	=> event bubbling can stopped by calling stopPropagation() method on event.		- each key and value pair is seperated using comma ','
+						- key name should be unique but value is duplicate.
+				let third=document.getElementById('child');		- if value is string then enclose in single or doubble quote.
+				let second=document.getElementById('sParent');		
+				let first=document.getElementById('parent');	Q. What is JSON?=> read from react file 
+					
+				second.addEventListener('click',handleOnChange);	Q. what is key difference in json and javascript object?
+				first.addEventListener('click',handleOnChange);		- in json key can be inclose in quote but in javascript object key is unquoted.
+				third.addEventListener('click',handleOnChange);		- javascript object have function and other complex data types as values but json 
+						  has a limited set of data types,including strings,numbers,booleans,arrays,object 
+				function handleOnChange(event)		  and null.
+				{		- javascript object are used within a javascript program to structure and organize data 
+					console.log("captured id =>" + this.id);		  but json is used for data interchange between different systems 
+					event.stopPropagation();		- json.stringify() method is used to convert javascript object to json and 
+				}		  json.parse() method is used to convert json into javascript object.
+			  
+	Q. What is event capturing/deligation in JS?	Q. what is mean by Autoboxing?
+	=> event capturing is the process in javascript where event handling starting from parent to target element.	=> automatic conversion of primitive data types(string,boolean,number) to object is
+				let third=document.getElementById('child');	   nothing but Autoboxing.
+				let second=document.getElementById('sParent');	   
+				let first=document.getElementById('parent');	
+					Q. what is mean by Auto-unboxing?
+				second.addEventListener('click',handleOnChange,true);	=> Automatic conversion of object to primitive nothing but Auto-unboxing.
+				first.addEventListener('click',handleOnChange,true);	
+				third.addEventListener('click',handleOnChange,true);	Q. What is Typecasting in javascript?
+					=> Typecasting means changing one data type into another data type.
+				function handleOnChange(event)	   - there are two typecast 
+				{	   - 1. implicit type conversion 
+					console.log("captured id =>" + this.id);			=> conversion occurs automatically during the execution of an operation.
+						     2. explicit type conversion 
+				}			=> the developer explicitly converting a value from one type to another 
+				   using built-in function nothing but explicit type conversion.
+	Q. What is event.preventDefault() in js?			   
+	=> event.preventDefault() method is used to prevent default behaviour of an event and the link click 	Q. What is mean by Synchronous?
+	   will be prevented 	=> synchronous means the code runs in a perticular sequence of intructions given in 
+	   the program.
+	   - each intruction wait for the previous intruction to complete its execution.
+	   
+	Q. What is Asynchronous?
+	=> Function are running in parallel with other function are called Aysynchrounous.
+		- good example is setTimeout and setInterval.
+		- in asynchronous one function has to wait for other function (like waiting for 
+		  a file to load)
+		  
+	Q. What is callback hell?
+	=> nested callback stacked below one another forming pyramid structure.
+		
+	- creat promise name with myPromise?
+	=> 	const myPromise=new Promise((res,rej)=>{});
+	
+	
+	- create promise without using Promise constructor?
+	=> 	we can create promise using async keyword 
+		
+		async function myPromise(){
+			return "Yashraj"
+		}
+		
+		cost result=myPromise();
+	
+	- What is difference between do while() loop and while() loop?
+	=> 	- while loop execute when condition is true where as 
+		  do_while() loop execute at least one time if condition is false 
+		  
+	
+	- what is difference between break and contineu statement?
+	=> 	- break statement is used to terminate the loop where as 
+		  contineu statement is used to skip current iteration of the loop and 
+		  move on to the next iteration 
+		  
+		
+	- What is difference between map() and forEach() method?
+	=> map() method is used to read and itereate an array and it create new array as result 
+		where as forEach() method use to read an array and perform some operation on it without 
+		creating new array
+	
+				 
+
+	Q. What is callback in js?
+	=> function which is pass to another function as an argument is nothing but callback 
+	   function 
+		
+		
+		
+		
+		
+	- What is difference between break,return,contineu?
+	=>	- break keyword is used to terminate the loop whereas 
+		  contineu keyword is used to stop the current execution and move on next execution 
+		  return keyword is used to stop the execution and return the value 
+		  
+		 	Q. What is setTimeout in js?
+	=> setTimeout is used to execute code asynchronously after a delay
+		- syntax:- setTimeout(function,time)
+		- it accept two argument first is function.second is time in milisecond.
+		- after the execution it return timer id 
+		- setTimeout run once
+		
+		
+	Q. What is setInterval in js?
+	=> setInterval is used to execute code asynchronously after a delay 
+		- syntax:- setInterval(function,time)
+		- it accept two parameter first is function and second is time in milisecond.
+		- after the execution it return number 
+		- setInterval run repeatedly.
+		
+	Q. How to stop execution in setInterval?
+	=> 	by using clearTimeout(timeoutId) method.
+		 it accept one input argument i.e timeoutid 
+		
+	Q. What is Asynchronous?
+	=> Function are running in parallel with other function are called Aysynchrounous.
+		- good example is setTimeout and setInterval.
+		- in asynchronous one function has to wait for other function (like waiting for 
+		  a file to load)
+		
+	Q. What is object?
+	=> group of multiple value together in key-value pairs nothing but object.
+	
+	Q. How to define object?
+	=> to define object we use curly bracket{} 
+		- let obj_name={
+						key1:value,
+						key2:value2,
+						key3:value3
+						}
+		- key and value is seperated using colon ':'
+		- each key and value pair is seperated using comma ','
+		- key name should be unique but value is duplicate.
+		- if value is string then enclose in single or doubble quote.
+	
+	
+	Q. how many ways to create object?
+	=> there are three way to create an object 
+		1. Object Literals 
+			syntax:- 	var person={
+								name:'yash',
+								age:23
+								}
+								
+		2. Object Constructor 
+			syntax:- 	var person=new Object()
+						person.name="yash";
+						person.age=23
+						
+		3. Object Create() method 
+			syntax:- 	var person={
+							name:"",
+							age:0
+							}
+						var men=Object.create(person)
+						men.name="yash";
+						men.age=23;
+
+Q. What is mean by Synchronous?
+	=> synchronous means the code runs in a perticular sequence of intructions given in 
+	   the program.
+	   - each intruction wait for the previous intruction to complete its execution.
+	   
+	Q. What is Asynchronous?
+	=> Function are running in parallel with other function are called Aysynchrounous.
+		- good example is setTimeout and setInterval.
+		- in asynchronous one function has to wait for other function (like waiting for 
+		  a file to load)
+		  
+	Q. What is callback hell?
+	=> nested callback stacked below one another forming pyramid structure.
+	
+	Q. what is need of promises?
+	=> with asynchronous we can execute multiple tasks in parallel but 
+	   asynchronous programmes are difficult to write and difficult to debug 
+	   - because of this modern asynchronous javascript methods don't use callbacks.
+	     asynchronous programming problem is solved using promises.
+
+	Q. What is promises in javascript?
+	=> - promise introduced in ES-6 i.e 2015 
+	   - used to handle asynchronous operations effectively.
+	   - promise provide a way to deal with operations that may take some time to 
+	     complete,such as fetching data from server,reading a file,or any other 
+		 asynchronous task.
+	   - Promise has 3 stages 
+			1. pending :- this is initial state means promises neither fullfilled or rejectd.
+			2. fullfilled/resolved :- operation successfully completed and promise resulting 
+									  value
+			3. rejected :- the operation failed and the promise has a reason for the failure.
+	   - promise has 2 properties (state,result)
+	     state can 'pending','fullfilled' or 'reject'
+			if state is pending then result is undefined
+			if state is fullfilled then result is value 
+			if state is reject then result is error object 
+	   - we can't access the properties directly but we can access through method and 
+		 these method as below 
+		 promiseObj.then(),promiseObj.catch(),promiseObj.finally() are method to handle 
+		 the promise.
+	
+	Q. how to create promise?
+	=>  - we can create promise object using promise constructor 
+		- syntax :- 
+					const myPromise=new Promise(executorFunction);
+		
+			
+		  
+		 
+	
+		
+
+	- What is difference between break,return,contineu?
+	=>	- break keyword is used to terminate the loop whereas 
+		  contineu keyword is used to stop the current execution and move on next execution 
+		  return keyword is used to stop the execution and return the value 
+		  
+		  
+	- What is difference between do while() loop and while() loop?
+	=> 	- while loop execute when condition is true where as 
+		  do_while() loop execute at least one time if condition is false 
+		  
+	
+	- what is difference between break and contineu statement?
+	=> 	- break statement is used to terminate the loop where as 
+		  contineu statement is used to skip current iteration of the loop and 
+		  move on to the next iteration 
+	
+		
+		
+		
+	Qustions in interview
+	
+*) what is null?
+=> null is special type of value is difference from 0 or blank space 
+	null means not present 
+	
+*) What is difference between undefined and null?
+=> undefined means value is not defined where as null menas value is not present.
+
+*) what is the type of undefined and null?
+=> undefined is undefined type where as null is object type 
+
+*) what is difference between var and let?
+=> var is introduced at the time of initial where as let keyword is introduced in2015
+   var have global scope where as let have block scope
+   redeclaration is allowed in var keyword where as redeclaration is not allowed in let keyword
+   hosting is allowed in var keyword where as hosting is not allowed in let keyword
+   
+*) javascript is static type or dynamic type language?
+=> dynamic type means data type of variable change at the time of runtime 
+   static type means data type of variable does not change at the runtime
+   
+*) have you used DOM in your project?
+=> yes,iam used dom in our project like when we have form and their are text field then apply validation on 
+   text file when we click on submit button then redirect to that perticular text box.
+
+*) What are the comment in javascript?
+=> there are two way to define comment in js
+	1.single line comment 
+	2.multi line comment
+	single line comment defined using //
+	multi line comment defined using /* */
+	
+*) What is use of Comment?
+=> comment is part that does not read by browser it is used for additional information purpose only 
+   bydefault browser ingoner commented part 
+   
+*) explain == and ===?
+=> == is used to compaire two value where it does not check the data type where as 
+   === is used to compaire two value where it include the data type of variable.
+   
+
+*) 2=="2" and 2==="2"?
+=> for first one value is true. for second one value is false.
+
+*) what is the use of this keyword in javascript?
+=> this is used to refere an object that executing piece of code
+----
+
+*) what is hosting and hashing in the javascript?
+=> hosting means all declaration move to top of current scope 
+
+
+*) what is arrow function?
+=> arrow function is introduced in 2015 i.e ES6 
+	arrow function nothing but function without name and function keyword
+	syntax:-  
+		variable_declartion_keyword variable_name=()=>{}
+
+
+*) How to create a object in javascript?
+=> we can create object using 3 ways 
+	1. using Object Literals 
+		const obj={
+			name:'yashraj',
+			age:24
+		}
+		
+	2. using object constructor 
+		
+		const obj=new Object()
+		obj.name='yashraj'
+		obj.age=24
+		
+	3. using object create method() 
+		object.create() method accept predefined object as input argument and return new object
+			var obj={
+				name:'yashraj',
+				age:24
+			}
+		
+			const newObj=Object.create(obj)
+				
+				newObj.name='yashraj'
+				newObj.age=24		
+
+
+
+	
+			
+
+	Q. what is String?
+	=> string is data type used to store and manipulate data.
+	
+	Q. what is string interpolation?
+	=> To add variable value inside the template literals nothing but 
+	   string interpolation.
+	   Syntax of string interpolution is:-   ${variable_name}
+	   
+		let a="yashraj"
+		let str=`my name is ${a}`;
+		
+			here a variable assign in str variable this process is called 
+			string interpolation		
+		
+	
+	
+	Q. What are the template literals?
+	=> A template literals is introduced in ES-6 
+		- it symbol is backtick ``
+		- it is also know as template string 
+		- it used to store multiline string and string interpolation.
+	
+	
+	
+	   
+	   
+	Q. What is difference between single quote,doubble quote and backticks?
+	=> single quote is used to store the string 
+		doubble quote is used to store the string 
+		backticks is used to template literals with string interpolation  and 
+		   template literals with multiline strings.
+		   
+		   
+		   
+	Q. What is DOM? what is difference between HTML and DOM?
+	=> html is static where as dom is dynamic
+		- html can't change it content when page has been loaded where as dom allows 
+		  user to create interative and responsible web page that can respond to 
+		  user actions or other events 
+	
+	
+	
+	Q. What is selector in JS?
+	=> selector used to select and perform action on element
+		 that may have id,class attribute or element name 
+		 like getElementById,getElementByClassName,getElementByTagName,querySelector,querySelectorAll.
+		 
+	Q. what is difference between getElementById,getElementByClassName,getElementByTagName?
+	=> 
+	
+	
+	Q. what is difference between querySelector() and querySelectorAll()?
+	=> querySelector() use for single element where as querySelectorAll() use for multiple element.
+	
+	Q. what are the method to modify element properties and attributes?
+	=>textContent,innerHTML,setAttribute,removeAttribute,
+	style.property_name,classList.add();
+	
+	Q. what is difference between textContent and innerHTML?
+	=> both innerHTML and textContent is used to add content in html element but 
+		there is difference is 
+		- text-content consider all passed value as plane text where as 
+		  innerHTML is consider all passed value as html element
+		- if we pass <h1>hello</h1> inside the textContent then they return direct 
+		   <h1>hello</h1> they does not update h1 heading to hello 
+		   where as if same to innerHTML  then they reflect only hello and h1 style to hello 
+
+
+	Q. how to add  and remove properties/attribute of HTML element in the DOM usign js?
+	=> to add properties/attribute we use setAttribute('attribute-name','attribute-value')
+	   to remove properties/attribute we use removeAttribute('attribute_value');
+	   
+	   
+	   
+	Q. how to add and remove style using dom ?
+	=> 
+	
+	
+	
+	Q. how many ways to create object?
+	=> there are three way to create an object 
+		1. Object Literals 
+			syntax:- 	var person={
+								name:'yash',
+								age:23
+								}
+								
+		2. Object Constructor 
+			syntax:- 	var person=new Object()
+						person.name="yash";
+						person.age=23
+						
+		3. Object Create() method 
+			syntax:- 	var person={
+							name:"",
+							age:0
+							}
+						var men=Object.create(person)
+						men.name="yash";
+						men.age=23;
+						
+	
+
+
+
+Q. What is Function:- Function is block of code used to perform some task.
+	syntax :- 
+	
+			function function_name(parameters){
+			
+			//block of code 
+			}
+Q. What is global function?
+-> function which call directly without using an object is called global function.
+-> some global function as below 
+	1. isFinite()
+	2. isNan()
+	3. parseInt()
+	4. parseFloat()
+	
+	
+	1. isFinite():- this function is used to check input is finite number or not 
+				  - this function take one input argument 
+				  - syntax:-  isFinite(input);
+				  - return type is true or false 
+				  - if provided input is finite number then it return true otherwise 
+					it return false.
+					
+	2. isNaN():- This function is used to check input is not a number.
+			   - this function take one input argument.
+			   - syntax:- isNaN(input);
+			   - return type is true or false 
+			   - if input is not a number then it return true otherwise it return false.
+			   
+			   
+	3. parseInt():- This function is used to convert string into number.
+				  - this function take one input arguments 
+				  - syntax: parseInt(input);
+				  - if provided input is well defined string number then it return 
+					input number otherwise it return Nan.
+				  
+
+	4. parseFloat():- This function used to convert string into floating value.
+					- this function take one input arguments 
+					- syntax:- parseFloat();
+					- if provided input is well string number then it return float value
+					  otherwise we will get Nan.
+					  
+	
+---------------------------------------------------------------------
+
+Object:- 
+
+	- JS is object based programming.
+	- JS provided predefined object.
+	- every object has some properties and methods 
+	
+	** Common Object ** 
+	- Array Object 
+	- boolean Object
+	- Date Object
+	- Math Object
+	- String Object
+	- Number Object
+	- RegExp Object
+	
+	** Browser Object ** 
+	- Window Object
+	- Navigator Object
+	- Screen Object
+	- History Object
+	- Location Object
+	
+	
+
+## Window Object
+-> Window is top level object and which corresponds to browser window.
+
+1) open() :- This method is used to open new window.
+		   - This method accept one input argument.i.e url 
+		   - syntax 
+				window.open();
+				
+2) print() :- This method is used to print the content available on screen 
+		    - this method does not accept any input argument.
+			- syntax 
+					window.print();
+					
+3) stop():- This method is used to stop the loading window
+		  - this method does not accept any input arguments 
+		  - Syntax:- 
+				window.stop();
+				
+
+## Navigator Object :- 
+	This object have following method 
+	1) appCodeName
+	2) appName
+	3) appVersion
+	4) cookieEnabled
+	5) language 
+	6) javaEnabled
+	
+	1) appCodeName:- this method is used to return code name of browser.
+				   - This method does not take any input argument.
+				   - Syntax 
+						navigator.appCodeName;
+						
+	2) appName:- This method is used to return name of the browser.
+			   - this method is does not take any input argument.
+			   - Syntax
+					navigator.appName
+					
+	3) appVersion:- This method is used to return version of browser.
+				  - This method does not take any input argument.
+				  - Syntax:- 
+						navigator.appVersion;
+						
+	4) language:- This method is used to return language of browser.
+				- This method does not take any input argument
+				- Syntax:- 
+					navigator.language;
+				
+	5) cookieEnabled:- This method is used to check cookie is enabled or not.
+					 - this method does not take any input argument.
+					 - if cookie is enable then it return true 
+					 - if cookie is not enable then it return false.
+					 - Syntax:- 
+						navigator.cookieEnabled;
+						
+    6) javaEnabled:- This method is used to check java is enabled or not.
+					- This method does not take any input argument.
+					- if java is enabled then it return true.
+					- if java is not enabled then it return false.
+					- Syntax:- 
+						navigator.javaEnabled();
+						
+					
+
+
+	
+	
+	
+## screen Object 
+	1) availWidth
+	2) availHeight
+	3) height
+	4) width
+	
+	1) availWidth:- this method is used to return total width of screen.
+				  - It excludes the window task bar 
+				  - syntax:- 
+							screen.availWidth;
+							
+	2) availHeight:- this method is used to return total height of screen.
+				   - it excludes then window task bar.
+				   - syntax:-
+							screen.availHeight;
+							
+    3) width:- this method is used to return width of screen.
+			 - it include window task bar 
+			 - syntax:- 
+						screen.width;
+	
+	4) height:- this method is used to return height of screen.
+	          - it include window task bar 
+
+
+		
+###History Object
+	1) length
+	2) back()
+	3) forward()
+	4) go()
+	
+	1) length:- this method is used to return number of url in history list  
+			  - it does not take any input argument 
+			  - syntax:- 	
+					history.lenth;
+					
+    2) back():- this method is used load previous url in the history list.	
+			- this method does not take any input argument.
+			- syntax:-
+				history.back();
+				
+				
+	3) forward():- this method is used load forward url in the history list.
+				 - this method does not take any input arguments.
+				 - syntax:- 
+						history.forward();
+					
+	4) go():- this method is used to load specific url in from history list.
+			- this method does not take any input arguments 
+			- syntax:- 
+						history.go();
+						
+						
+						
+						
+## location Object:- 
+	- this object contain information related to url.
+	1) hash:- used to return anchor (#) portion of url.
+	2) host:- used to return host name and port number.
+	3) hostname:- used to return hostname only.
+	4) href:- used to return entire url.
+	5) pathname:- used to return path name of url.
+	6) origin :- used to return protocol,hostname,port number.
+	7) port :- used to return port number.
+	8) protocol:- used to return protocol.
+
+------------------------------------------------------------------------------------------------
+	Methods in js 
+	
+	1) charAt() 
+		this method is stand for character at.
+		this method is used to find character at specified position.
+		this method accept one input argument.
+		if index value is present then it return it character 
+		if index value is out of range then it return empty character.
+		syntax:- 
+			string_name.charAt(index);
+			
+	2) charCodeAt()
+		This method return unicode of character at specific index.
+		this method accept one input argument.
+		if index value is present then it return it's unicode.
+		if index value is not present then it return NaN.
+		Syntax:-
+			string.charCodeAt(index);
+			
+	3) startsWith()
+		This method is used to check string is start with specified value or not 
+		if string is start with specified value then it return true otherwise it return false.
+		this method accpet one input argument 
+		syntax:- 
+			string.startsWith("value");
+			
+	4) endsWith()
+		This method is used to check string is end with specified value or not.
+		if string is end with specified value then it return true otherwise it return false.
+		it accept one input argument
+		syntax:- 
+			string.endsWith("value");
+		
+		
+	5) concat()
+		this method is used to join two or more string.
+		this method accept two or more input argument.
+		syntax:-
+			string.concat(string,'new element);
+			
+	
+	6) includes() 
+		this method is used to check string contain specified value or not.
+		this method accept two input argument 
+		inclues("value","start_index");
+		if value is present then it return true otherwise it return false.
+		
+	
+	7) toUpperCase()
+		this method is used to convert all character of string into uppercase.
+		this method does not accept any input argument.
+		Syntax:-
+			string.toUpperCase();
+			
+			
+	8) toLowerCase()
+		this method is used to covert all character of string into lowercase.
+		this method does not accept any input argument.
+		syntax:- 
+			string.toLowerCase();
+			
+			
+	10) indexOf() 
+		this method is used to find value in string if value is present then it retrun it's 
+		first occurance 
+		if value is not present then it return -1.
+		this method accept two input arguments 
+		syntax:-
+			string.indexOf(value,start_index);
+			
+			
+	11) lastIndexOf()
+		this method is used to find value in string and returns it's last occurance from string 
+		if value is not present then it returns -1.
+		this method accept two input argument.
+		syntax:-
+			string.lastIndexOf(search_value,stop_index);
+			
+	12) trimStart()
+		this method is used to trim white/extra space from starting of index.
+		this method does not accept any input argument.
+		syntax:-
+			string.trimStart();
+			
+	13) trimEnd()
+		this method is used to trim extra/white space from ending of index.
+		this method does not accept any input argument.
+		syntax:-
+			string.trimEnd();
+			
+	14) trim();
+		this method is used to remove white/extra space from both side i.e right and left 
+		
+--------------------------------------------------------------------------------------------------------
+Escape Character:-
+
+	\' = insert the single cot 
+	\" = insert the double cot 
+	\\ = insert backward slash
+
+
+
+
+
+
+
+==============================================================
+	
+What debugger can do in in javascript?
+- it is act as breakpoint in js 
+
+
+What is DOM 
+- dom stand for document object model
+- dom is w3c(world wide web consortium) standard	
+- dom is standard object model and programming interface for HTML
+- in dom every element is consider as object 
+- dom provide method to access html element
+- dom provide properties for html element
+- in short html dom is a standard for how to get,change,add or delete HTML element
+
+	
+
+
+
+Finding of HTML element using dom 
+- We can find html element using 
+	1. id attribute value 
+	2. class attribute value 
+	3. tag name 
+	
+    1. finding of html element on the basis of id 
+	- if we want to access html element on the basis of id attribute value then 
+	  method is getElementById()
+	- How to call getElementById()
+	   document.getElementById(id value);
+	- if element is found then getElementById() method return that element.
+	- if element is not found then getElementById() method return null.
+	
+	2. Finding of html element on the basis of tag name.
+	- if we want to find html element on the basis of tag name then method is 
+	  getElementByTagName(tag_name);
+	- How to call getElementByTagName();
+	   document.getElementByTagName(tag_name);
+	- if element is found then this method returns list of element and we can 
+	  access that using index basis 
+	  
+	3. Finding of html element on the basis of class name.
+	- if we want to find html element on the basis of class name then method is 
+	  getElementByClassName(class_name);
+	- if element is found then it return list of element
+		
+	
+-------------------------------------------------	
+	
+what is innerHTML?
+		=>  1) You can use it to get the internal HTML content of any HTML element as an HTML string. 2) You can also use it to set or change elements' innerHTML content.
+		
+
+
+------------------------
+what is the use of querySelector in js?
+-> querySelector select html on the basis of selector and return it.
+
+------------------------
+what is the use of querySelectorAll() in js?
+-> querySelectorAll() select html on the basis of selector and return it 
+
+------------------------
+
+preventDefault():- this method restrict user to submit blank form.
+
+
+	
+
+------------------------------------------
+ 1) write a program to find number is prime or not?
+   2) Print Fibonacci series for number 5?
+   3) Write a program to find max number from two number?
+   4) Write a program to find min number from two number?
+   5) Write a program to find odd number?
+   6) Write a program to find even number?
+   7) Write a program to find number is positive,negative or zero?
+   8) Write a program to find max number from 3 number?
+   9) Write a program to find multiplication of 2 number?
+   10) Write a program to find multiplication of 2 number is even or odd?
+   11) Write a program to find max number from 2 number and it is even or odd?
+   12) Write a program to swap two numbers?
+   13) Write a program to join two string?
+   14) Write a program to find square of two numbers?
+   15) Write a program to print "hello" word 10 times?
+   16) Write a program to print number from 10 to 1?
+   17) Write a program to print number from 1 to 10?
+   18) Write a program to print even number from 1 to 10?
+   19) Write a program to print odd number from 1 to 10?
+   20) Write a program to print 10 input box?
+ 
+------------------------------------------
+
+1.write a regular expression to test input should start with alphabets?/^[A-z]/
+2.write a regular expression to test input should start with only uppercase alphabets?
+3.write a regular expression to test input should start with only lowercase alphabets?
+4.write a regular expression to test input should start with only digit?
+5.write a regular expression to test input should start with special symbols like @#$%&*()=?
+
+
+
+6.write a regular expression to test input does not start with alphabets?/^[^A-z]/
+7.write a regular expression to test input does not start with uppercase alphabets?
+8.write a regular expression to test input does not start with lowercase alphabets?
+9.write a regular expression to test input does not start with digit?
+10.write a regular expression to test input does not start with special symbol like @#$%^&*()=?
+
+
+
+11.write a regular expression to test input ends with alphabets?/[A-z]$/
+12.write a regular expression to test input ends with uppercase alphabets?
+13.write a regular expression to test input ends with lowercase alphabets?
+14.write a regular expression to test input ends with digit?
+15.write a regular expression to test input ends with special symbol like !@#$%^&*()=?
+
+
+
+16.write a regular expression to test input does not end with alphabets?/^[A-z]$/
+17.write a regular expression to test input does not end with upper case alphabets?
+18.write a regular expression to test input does not end with lower case alphabets?
+19.write a regular expression to test input does not end with digit?
+20.write a regular expression to test input does not end with special symbol like !@#$%^&*=?
+
+
+write a regular expression to test input does contains at least two alphabets?/[A-z]{2,0}/
+21.write a regular expression to test input does contains at least one alphabets?/[A-z]/
+22.write a regular expression to test input does contains at least one uppercase alphabets?
+23.write a regular expression to test input does contains at least one lowercase alphabets?
+24.write a regular expression to test input does contains at least one digit?
+25.write a regular expression to test input does contains at least one symbol like !@#$%^&*()_+?><,./\;':"~`?
+
+
+
+26.write a regular expression to test input does not contains any alphabets?/^[^A-z]+$/
+27.write a regular expression to test input does not contains any uppercase alphabets
+28.write a regular expression to test input does not contains any lower case alphabets?
+29.write a regular expression to test input does not contains any digit?
+30.write a regular expression to test input does not contains any special symbol like !@#$%^&*()_+?
+
+
+
+31.write a regular expression to test input contains only alphabets?/^[A-z]+$/
+32.write a regular expression to test input contains only uppercase alphabets?
+33.write a regular expression to test input contains only lowercase alphabets?
+34.write a regular expression to test input contains only digit?
+35.write a regular expression to test input contains only special symbol like !@#$%^&*()_+?
+
+
+
+
+	21) get a user input and check it is divisible by 5 or not.//shradha khapra ep2
+	22) write a code which give grade to students according to their marks 
+	80-100 A
+	70-79 B 
+	50-69 C 
+	below 50 D //shradha khapra 3
+
+
+
+   23) prompt the user to their entire full name.generate a username for them based on input 
+	   start username with @,followed by their full name and ending with full name length ? 
+	   for e.g username="yashmulik"  return=@yashmulik9 //shradha khapra 3
+   24) for given array with marks of students -> [85,97,44,38,76,60]. find the average marks of 
+       entire class //shradha Khapra 4
+   25) for given array with pricing of 5 items ->[250,500,203,400,502] all have an offer with 10% off on them.
+       change the array to store final price after applying offer.//shradha khapra 4 
+   26) create an array to store companies -> "bloomberg","microsoft","uber","idm","google","netflix"
+		a) remove first company from the array 
+		b) remove uber and add ola in its place 
+		c) add amzon at the last //shradha khapra 4
+   27) create a function using "function" keyword that takes a string as an arguments & return 
+		number of vowels in the string.//shradha khapra 5
+   28) create a array/string which store 5 string value and make all uppercase/lowercase/initcap.//shradha khapra 5
+   29) [10,20,23,22,30] print the square of this array?//shradha khapra 5
+   30) [10,20,23,22,30] find gretest number from the array? //shradha khapra 5
+   31) [91,50,94,48,92,93,40,58] find marks greater than 90 //shradha khapra 5.
+   32) take a inpt from user like n,calcualte the sum of 1 to n.//shradha khapra 5.
+ 
+
+

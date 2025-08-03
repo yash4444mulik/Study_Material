@@ -1,0 +1,61 @@
+Date: 11 March 2025
+--------------------
+1. What is the purpose of git commit?
+A) To save changes permanently in the remote repository
+B) To stage changes for commit
+C) To create a snapshot of staged changes in the local repository
+D) To delete changes from the working directory
+--------------------
+2. Which command commits staged changes with a message?
+A) git commit
+B) git commit -m "Commit message"
+C) git add -m "Commit message"
+D) git push -m "Commit message"
+--------------------
+3. What happens if you run git commit without -m?
+A) Git throws an error
+B) Git opens the default text editor for entering a commit message
+C) The commit is created with a default message
+D) It commits all unstaged changes
+---------------------
+4. How do you modify the message of the last commit?
+A) git commit --amend -m "New message"
+B) git commit -m "New message"
+C) git add -m "New message"
+D) git commit --edit
+--------------------
+5. What does git commit --amend do?
+A) Creates a new commit
+B) Modifies the most recent commit by adding new changes or updating the message
+C) Deletes the last commit
+D) Pushes the last commit
+----------------------
+6. How do you commit all tracked changes (modified and deleted files) at once?
+A) git commit -am "Commit message"
+B) git commit -m "Commit message"
+C) git commit --all
+D) Both A and C
+----------------------
+7. What does git commit -a do?
+A) Commits all changes, including untracked files
+B) Stages and commits all tracked files (excluding untracked files)
+C) Commits only new files
+D) Pushes changes to the remote repository
+----------------------
+8. How do you check the history of commits?
+A) git log
+B) git status
+C) git commit --history
+D) git branch -log
+------------------------
+9. What happens if you commit without staging changes first?
+A) Git throws an error
+B) Only previously staged changes are committed
+C) All changes in the working directory are committed
+D) Git automatically stages and commits all changes
+------------------------
+10. Which command allows you to edit a specific previous commit?
+A) git commit --amend
+B) git rebase -i HEAD~n
+C) git commit --edit
+D) git reset --hard

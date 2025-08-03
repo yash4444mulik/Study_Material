@@ -1,0 +1,1650 @@
+============ WELCOME TO SQL =========================
+
+Q.. What is entity?
+==> anything in real world is nothing but entity
+--------------------------
+Q.. What is Attribute?
+==> Property of entity is nothing but Attribute.
+--------------------------
+Q.. What is Data?
+==> any fact related to entity is nothing but data 
+--------------------------
+Q.. What is database?
+==> systematic collection of data is nothing but database 
+	- there are multiple database 
+		1. Relational database
+		2. Heirarchical database 
+		3. centralized database 
+		4. network database 
+		5. distributed database 
+		7. Non relational database.
+--------------------------
+Q.. What is SQL?
+==> SQL stand for structured query language 
+	Structured means fixed format 
+	SQL is not case sensative language 
+	SQL is used to perform operation on realtional database.
+	Relational means data is stored in table format 
+--------------------------	
+Q.. With the help of SQL which activity we can perform?
+		1. we can create database 
+		2. we can delete database 
+		3. we can create table 
+		4. we can drop table 
+		5. we can alter table 
+		6. we can insert data into table 
+		7. we can update existing data 
+		8. we can delete data from table
+		9. we can view data from table 
+--------------------------
+Q.. What is difference between ORACLE and SQL?
+==> SQL is structured query language used to perform operation on relational database
+	where as 
+	ORACLE is relational database 
+--------------------------
+Q.. What is difference between SQL and Mysql?
+==> SQL is structured query language used to perform operation on relational databse 
+	where as 
+	Mysql is realtional database 
+--------------------------	
+Q.. Types of statement in SQL?
+==> All SQL statement is divided into 5 groups 
+	1. DDL 
+	2. DML 
+	3. DQL 
+	4. DCL 
+	5. TCL 
+	
+	1. DDL (Data Defination Language)
+	=> DDL stand for Data Defination Language 
+	=> which include following statement 
+		- create 
+		- alter
+		- drop 
+		- rename 
+		- comment 
+		- truncate 
+	
+	2. DML 
+	=> DML stand for Data Modification Language
+	=> DML include following statements 
+		- insert 
+		- update 
+		- delete 
+	
+	3. DQL 
+	=> DQL stand for Data Query Language
+	=> DQL include following statements 
+		- select 
+		
+	4. DCL 
+	=> DCL stand for Data control Language
+	=> DCL include following statements 
+		- grant 
+		- revoke 
+		
+	5. TCL 
+	=> TCL stand for Transaction control Language
+	=> TCL include following statements 
+		- commit 
+		- rollback 
+		- savepoint 
+--------------------------
+Q.. CREATE Statement?
+==> - CREATE is DDL Statement
+    - with the help of CREATE statement we can do following things 
+	- we can create database 
+	- we can create table 
+	- we can create view 
+	- we can create index 
+	- we can create schema 
+	- we can create procedure 
+	- we can create function 
+	- we can create trigger 
+	- we can create user 
+	- we can create roll 
+	
+	1. Syntax to create database 
+	=> create database database_name
+	
+	2. Syntax to create table 
+	=> - table must have some name 
+	   - table must be belong with database 
+	   - table must atleast one column 
+	   - table can have maximum 1000 columns 
+	   - table can have zero or N number of rows 
+	   - syntax: 
+			create table table_name(clm1_name data_type constraint,clm2_name data_type constraint......N );
+			
+--------------------------
+Q.. When we create table, in which order column get created?
+==> In which order we have specified column names in same order column get created.
+--------------------------
+Q.. Data type in oracle?
+==> Data type means which type of value we want to store in column 
+	Most commonly used data types are 3 and these are 
+	1. string 
+	2. number 
+	3. date 
+--------------------------	
+1. String:- string means sequence of character enclosed in single quote is considered as string 
+			- To define string value we have 3 data type 
+				1. char 
+				2. varchar 
+				3. varchar2
+					
+			1. char data type: 
+				- char stand for character 
+				- char is used to store character type value 
+				- Syntax: 
+					column_name char(size) constriant ; 
+				- size is optional in char data type 
+				- char store 1 to 2000 character 
+				- char is fixed in length 
+				- if you know size in advance then go with char data type.
+				
+			2. varchar data type: 
+				- varchar stand variable length character 
+				- variable length character means size get changed on run time 
+				- Syntax: varchar(size) 
+				- varchar store 1 to 4000 character 
+			
+			3. varchar2 data type: 
+				- varchar2 is same as varchar 
+--------------------------
+Q.. What is difference between varchar and varchar 2 ?
+==> functionality wise varchar and varchar2 is same but there is only difference is 
+	varchar is developed by ANSI and varchar2 is developed by Oracle.
+--------------------------
+Q.. What is difference between char and varchar?
+==> 1. char stand for character where as 
+	   varchar stand for variable length character
+	2. char is fixed in length where as 
+	   varchar is variable in length 
+	3. char store 2000 character where as 
+	   varchar store 400 character 
+	4. If you know size advancly then you can go with char data type where as 
+	   if you don't know size advancly then go with varchar data type 
+	5. with respect to memory utilization char is recommended to use where as 
+	   with respect to memory utilization varchar is not recommended to use 
+--------------------------
+Q.. Number data type?
+==> Number data type is used to store numeric value.
+	Numeric value can be integer or floting 
+	Syntax: number(p,s)
+	Here p stand for precision and s stand for scale 
+	both p and s are optional 
+	Precision means total number of digit in number
+	Scale means number of digit after decimal point 
+	Range of Precision is 1 to 38,precision is optional.if we don't specify precision then bydefault it 38
+	Range of Scale is -84 to 127.Scale is optional,if we don't specify scale then 127
+	if we specify precision and scale value out of range then we will get an error 
+--------------------------
+Q.. Date data type?
+==> Date data type is used to store date type value 
+	Date is store in "DD-MON-YY" format 
+	Range of date is from 01-jan-4712 BC to 31-dec-9999 AD 
+	To convert date data type into string use to_char() function 
+	To convert string type value into date use to_date() function 
+	Date use 7 byte of storage 
+--------------------------
+Q.. BLOB data type?
+==> BLOB stand for Binary Large Object 
+	this data type is used to store unstructured binary data 
+	unstructured means there is no fixed format 
+	example: image,video,audio
+	maximum size is 4GB 
+--------------------------
+Q.. CLOB data type?
+==> CLOB stand for character large object 
+	this data is used to store texual characters 
+	example: pdf,word 
+	maximum size is 4gb 
+--------------------------
+Q.. BFILE data type?
+==> BFILE stand for Binary file 
+	This data type is used to store binary data in external file 
+	maximum size is 4gb 
+--------------------------
+Q.. Insert statement?
+==> Insert is DML statement 
+	Insert is used to insert data into table 
+	Insert has two forms 
+		Form 1: Insert without column name 
+			insert into table_name(clm1_value,clm2_value)
+		
+		Form 2: Inserting value into specific column 
+			insert into table_name(clm1_name,clm2_name,....,N) values(Clm1_value1,Clm2_value2,.....,N)
+--------------------------
+Q.. What is null value?
+==> null is special type of value it is different than 0 or blank.
+	null means not present 
+--------------------------
+Q.. Select statement?
+==> select is DQL statement 
+	select statement is used to fetch data from table 
+	by using select statement we can fetch data from single or multiple table 
+	Syntax: 
+		select clm1_name,clm2_name....N  from table_name where condition;
+		
+--------------------------
+Q.. Where clause?
+==> Where clause is used to apply condition and filter data 
+	Where clause is used in update,delete and select statement
+--------------------------
+Q.. Operator in SQL?
+==> Operator is used to perform some opration
+	there are multiple type of Operator in SQL 
+	1. Arithmatic operator 
+		- Addition +
+		- substraction - 
+		- multiplication *
+		- division  /
+		- modulo division %
+		
+	2. Comparison Opearator
+		- Equal to =
+		- not equal to !=  or <>
+		- less than <
+		- greater than >
+		- less than equal to <=
+		- greater than equal to >=
+		
+--------------------------
+Q.. What is dual in Oracle?
+==> Dual is dummy table in oracle 
+	Dual is used for testing purpose 
+	Dual has one column 
+--------------------------
+Q.. mod() function in oracle?
+==> mod() function is used to find remainder in oracle 
+	mod() function accept two input argument 1. number 2. divisor 
+	
+	for ex. 
+		select mod(10,2) from dual ===> 0
+--------------------------
+Q.. suppose i have employee table with column empno,empname,salary.
+	employee table has 10 rows. suppose i execute below queries,what will happen?
+	
+	1. select 1 from employee?
+	=> 10 rows will return with value 1.
+	
+	2. select 1,2 from emplyee?
+	=> it display two column with name 1 and 2 
+	   it display 10 rows.first column values are as 1 and second column with values 2.
+	
+	3. write sql query to disply all employee whose salary is greater than 50000.
+	=> select * from employee where salary > 50000.
+--------------------------
+Q.. What is logical operator?
+==> there are 3 type of logical operator
+	1. AND 
+	2. OR 
+	3. NOT 
+--------------------------------------
+Q.. What is AND operator?
+==> AND is logical operator 
+	it is used to filter data based on some condition 
+	there are 2 condition 
+	if 1st condition is true and 2nd condition is false then end result is false 
+	if 1st condition is false and 2nd condition is true then end result is false 
+	if 1st condition is true and 2nd condition is true then end result will be true 
+	if both codition is false then end result will false 
+-----------------------------------------
+Q.. What is "IN" operator?
+==> IN operator is used to specify the values in where clause.
+-----------------------------------------
+Q.. How many values we can specify inside "IN" operator?
+==> 1000.
+-----------------------------------------
+Q.. What is "NOT IN" operator?
+==> if we don't want to specify value inside where clause.
+-----------------------------------------
+Q.. What is NULL operator?
+==> NULL operator is used to check column value is null or not 
+	NULL is special type of value 
+	NULL means value is not present 
+	it is not same to numeric 0 or blank space 
+------------------------------------------
+Q.. What is difference between NULL,0 and blank?
+==> Null means not present where as 
+	Zero is numeric value 
+	blank means empty string with no value 
+------------------------------------------	
+Q.. What is "IS NOT NULL" operator?
+==> "IS NOT NULL " is used to check column value is not null.
+------------------------------------------
+Q.. what is "BETWEEN AND " operator?
+==> "BETWEEN AND" operator is used to specify the range 
+	for eg
+		we want to filter salary is between 1k to 2k 		
+------------------------------------------
+Q.. What is "NOT BETWEEN AND" operator?
+==> "NOT BETWEEN AND" operator is used to specify the range is not between 
+	for e.g 
+		if we want employee name whose salary is not between 1k and 2k then 
+		syntax will be like 
+		select empname from employee_table where salary not between 1k and 2k 
+------------------------------------------
+Q.. What is "LIKE" operator?
+==> "LIKE" operator is used to find pattern matching 
+	To generate pattern we use 
+	1. % 
+	2. _ (underscore)
+	
+	% stand for symbol match for any number of character 
+	_ stand for match only one character 
+------------------------------------------
+Q.. write query to disply employee name whose name start with 'A'?
+==> select * from employee where empname like 'A%'
+------------------------------------------
+Q.. write query to disply employee name whose name end with 'A'?
+==> select * from employee where empname like '%A'
+------------------------------------------
+Q.. write query to display employee whose name contain 'e'?
+==> select * from employee where empname like '%e%'
+------------------------------------------
+Q.. write employee whose name contain only 4 character?
+==> select * from employee where empaname like '____'
+------------------------------------------
+Q.. What is "UPDATE" statement?
+==> UPDATE is DML statement 
+	UPDATE statement is used to update exsiting data in table 
+	syntax: 
+		update table_name set column1_name=new_value column2_name=new_value ... N where condition 
+------------------------------------------
+Q.. What is "DELETE" statement?
+==> DELETE is DML statement 
+	DELETE is used to delete exsiting data 
+	Syntax: 
+		delete from table_name where condition 
+------------------------------------------
+Q.. Create statement need not to commit but insert update delete need to commit,Why?
+==> CREATE is DDL statement and DDL statement are auto committed where as 
+	INSERT,UPDATE,DELETE are DML statement and DML statement are not auto
+	committed that why need to commit.
+------------------------------------------
+Q.. Create table statement can't rollback where as insert update delete statement can rollback?
+==> create is DDL statement and DDL statement are auto committed so we can't rollback it.
+	where as insert,update,delete are DML statement and DML statement are not auto committed.
+	so we can rollback DML statement.
+	Once DML statement are committed then we can't rollback it.
+------------------------------------------
+Q.. What is "order by" clause?
+==> If we want to sort data in either in ascending or descending order then 
+	we need to use order by clause.
+	Syntax: 
+		order by ASC|DESC
+------------------------------------------
+Q.. Can we use order by clause to apply sort condition for 2 column?
+==> yes 
+	Syntax: 
+		order by column_name ASC|DESC,column2_name ASC|DESC 
+------------------------------------------
+Q.. Can we use group function in order by clause ?
+==> yes we can 
+------------------------------------------
+Q.. In which statement we can use order by clause?
+==> select statement
+------------------------------------------
+Q.. Position of order by clause? 
+==> at the end of query.
+------------------------------------------
+Q.. What is aliasing in oracle?
+==> aliasing means providing an alternative name to column or table
+	aliasing is applicable only in select statement.
+	
+	To providing aliasing there are 2 ways 
+	1. using "as" keyword.
+		select empname as e from table_name 
+	2. By using double quote.
+		select * from table_name "abc"
+------------------------------------------
+Q.. Type of functions?
+==> There are two type of function 
+	1. single row function 
+		1. character function 
+		2. number function 
+		3. date function 
+		4. conversion function 
+		5. general function
+	2. multi row function 
+------------------------------------------
+Q.. what is "lower" function?
+==> lower function accept one input argument 
+	it convert uppercase character into lowercase character
+	it return character type value 
+------------------------------------------
+Q.. what is "upper" function ?
+==> upper function accept one input argument 
+	it convert all character into uppercase character.
+	it return character type value
+------------------------------------------
+Q.. What is "initcap" function?
+==> initcap function accept one input argument.
+	it is used to convert every word's first character into uppercase.
+------------------------------------------
+Q.. what is "length" function?
+==> length function accpet one input argument.
+	it is used to calculate length of string 
+------------------------------------------
+Q.. What is "concat" function?
+==> concat function is used to join two string.
+	it accpet two input argument.
+	Syntax: 
+		concat(argument1,argument2)
+------------------------------------------
+Q.. What is "replace" function?
+==> replace function is used to replace single character or multiple character from source string 
+	it accept three input argument first input string and 
+	second is source character and third target char
+	Syntax: replace(source_string,source_char,target_char);	
+------------------------------------------
+Q.. What is "substr" function?
+==> substr function is used to find substring from source string 
+	it accept 3 input arguments
+	1. Source string 
+	2. Start index 
+	3. length of resultant string (optional)
+	
+	Syntax: 
+		substr(source_string,start_index,length_of_resultant_string);
+------------------------------------------
+Q.. What is "LPAD" function?
+==> meaning of PAD is to ADD 
+	this function is used to add extra character at left side of source string  
+	this function take 3 input argument
+	Syntax: 
+		LPAD(source_string,N,target_character)
+	
+		value of N should be zero or negative 
+		
+------------------------------------------
+Q.. What is "RPAD" function?
+==> meaning of RPAD is to add 
+	this function is used to add extra character at right side of source string 
+	this function take 3 input argument 
+	Syntax; 
+		RPAD(source_string,N,target_char)
+	value of N should be zero or negative	
+------------------------------------------
+Q.. What is "LTRIM" function?
+==> LTRIM function is used to remove extra character or blank space from left side of source string 
+	this function take 2 input arguments 
+	LTRIM(source_string,target_character)
+------------------------------------------
+Q.. What is "RTRIM" function?
+==> RTRIM function is used to remove extra character or blank space from right side of source string
+	this function take 2 input arguments 
+	RTRIM(source_string,target_character)
+------------------------------------------
+Q.. what is trim function?
+==> trim function is used to remove extra character or blank space from both side of source string 
+------------------------------------------
+Q.. What is instr function?
+==> this function is used to find numeric position of given character in string 
+	this function accept four input arguments 
+	Syntax:
+		instr(sourceString,search_char,startIndex,Occurance)
+	Here startIndex and Occurance are optional 
+	if we don't specify startIndex then bydefault it is consider 1 
+	if we don't specify Occurance then it consider first occurance.	
+------------------------------------------
+Q.. ASCII(char)?
+==> This function return ASCII code of first character.
+	this function accept one input argument of string type
+------------------------------------------
+Q.. Char() function?
+==> This function is used to find corrosponding character for given ASCII code.
+	Char() function accept one input argument of number type
+------------------------------------------
+Q.. translate() function?
+==> this function is used to replace character from source string based on position,
+	not full substring like replace 
+	- translate function accept 3 input arguments 
+		Syntax: 
+			translate(inputString,sourceString,targetString)
+			
+	- For e.g 
+		select translate('abc-xyz','abc-','LMK') from dual;
+	  => OP => LMKxyz
+		here a=> replace with L
+			 b=> replace with M 
+			 c=> replace with K
+			 - => for - no corrosponding character in target string so it get removed.
+
+	- For e.g 
+		select translate('abc-xyz','abc-','LM') from dual;
+	   => OP => LMxyz
+		here a=> replace with L 
+			 b=> replace with M 
+			 c=> for c no corrosponding character in target string so it get removed 
+			 - => for - no corrosponding character in target string so it get removed 
+------------------------------------------
+Q.. ABS(n) function?
+==> ABS stand for absolute.
+	Absolute means positive value 
+	this function accept one input argument of number type 
+	and return absolute value of given number.
+	
+	- for e.g 
+		select ABS(-20) from dual 
+		=> 20 
+------------------------------------------
+Q.. CEIL(n) function?
+==> This function accept one input argument of number type and
+	return smallest integer integer which is provided number 
+	i.e this function round up the given number.
+	
+	- for e.g 
+		select CEIL(123.456) from dual;
+	  OP=> 123
+------------------------------------------
+Q.. FLOOR(n) function?
+==> This function accept one input argument of number type and
+	return larget integer integer which is provided number 
+	i.e this function round down the given number.
+	
+	- for e.g 
+		select FLOOR(123.456) from dual;
+	  OP=> 123
+------------------------------------------
+Q.. Power(m,n) function?
+==> this function accept two input arguments of number type 
+	this function returns power of number 
+	i.e return m raised to power n 
+	
+	- for e.g 
+		select power(2,2) from dual;
+		=> 4
+------------------------------------------
+Q.. SQRT(n) function?
+==> SQRT stand for square root.
+	this function is used to find square root of given number.
+	this function accept one input argument of number type.
+	
+	- for e.g 
+		select SQRT(4) from dual?
+		=> 2
+------------------------------------------
+Q.. round() function?
+==> round() function is used to round the input number
+	this function accept two input arguments 
+	first input argument is number and second input argument is scale 
+	Syntax:- round(input_number,scale)
+	scale is optional in argument.if we don't specify scale then by default it consider 0
+	
+	for e.g 
+		1. select round(123.456) from dual;
+		=> 123
+		
+		2. select round(123.678) from dual;
+		=> 124
+		
+		3. select round(123.456,1) from dual;
+		=> 123.4
+		
+		4. select round(123.678,1) from dual;
+		=> 123.7
+		
+		5. select round(123.456,-1) from dual;
+		=> 120
+		
+		6. select round(123.456,-2) from dual;
+		=> 100 
+		
+		7. select round(4567.234,-1) from dual;
+		=> 4570
+		
+		8. select round(4564.234,-1) from dual;
+		=> 4560
+		
+		9. select round(null,1) from dual;
+		=> null
+------------------------------------------
+Q.. TRUNC() function 
+==> TRUN() function is used to remove part of number without rounding 
+	it can be used on numeric values or dates 
+	Syntax: 
+		TRUNC(input_number,scale)
+		
+	for e.g 
+		1. select trunc(123.456) from dual;
+		=> 123
+		
+		2. select trunc(123.456,1) from dual;
+		=> 123.4
+		
+		3. select trunc(123.456,-1) from dual;
+		=> 120
+------------------------------------------
+Q.. mod() function?
+==> mod() function stand for modulo 
+	it is usd to find remainder.
+	Syntax: 
+		mod(input_number,divisor)
+	this function accept 2 input argument 
+	first is input number 
+	second is divisor.
+------------------------------------------
+Q.. GREATEST(n1,n2,,,,,,) function?
+==> this function return largest value from provided number 
+------------------------------------------
+Q.. LEAST(n1,n2,n3....) function?
+==> this function return smallest value from provided number 
+------------------------------------------
+Q.. Size of Date data type?
+==> it accept 7 character for date 
+	if we enter timestamp then it will accept 11 character 
+------------------------------------------
+Q.. Sysdate() function?
+==> sysdate function stand for system date 
+	sysdate means today's date 
+	sysdate does not accept input from user but it will take input from system 
+	For e.g 
+		select sysdate from dual;
+------------------------------------------
+Q.. systimestamp function?
+==> this function returns today's date and current time 
+	for e.g 
+		select systimestamp from dual;
+------------------------------------------
+Q.. current_date function?
+==> this function return today's date 
+	for e.g 
+		select current_date from dual;
+------------------------------------------
+Q.. current_timestamp function?
+==> this function return today's date and current time 
+	for e.g 
+		select current_timestamp from dual;
+------------------------------------------
+Q.. sysdate function and current_date return today's date why we Oracle introduce 2 function 
+	for same functionality?
+==> In Oracle sysdate and current_date return the current date and time but there is an important 
+	difference related to time zones 
+	-> sysdate return database server's date and time 
+	-> current_date return user session's time zone date 
+	-> based on your requirement you can choose sysdate and current_date function 
+------------------------------------------
+Q.. What is difference between systimestamp and current_timestamp?
+==> systimestamp return database server's date and time 
+	current_timestamp return user session's time zone date and time 
+	Based on your requirement you can choose systimestamp and current_timestamp 
+------------------------------------------
+Q.. Months_between function?
+==> this function return number of months between two date.
+	this function take two input arguments 
+	return type of this function is integer 
+	
+	for e.g 
+		1. select months_between(sysdate,'19-JUN-2024') from dual
+		=> 12
+		
+		2. select months_between(sysdate,null) from dual;
+		=> null
+		
+		3. select months_between('11-07-2000','11-07-2025');
+		=> error 
+------------------------------------------
+Q.. Extract function?
+==> this function month,day or year from provided date.
+	
+	1. To extract year 
+	=> extract (year from sysdate)
+	
+	2. To extract day 
+	=> extract (day from sysdate)
+	
+	3. To extract month 
+	=> extract (month from sysdate)
+------------------------------------------
+Q.. Round() function?
+==> round function is used to round number and date value 
+	round function accept two input argument
+	By using round function we can round month value,year value,day value.
+	Syntax: 
+		round(input_date,month);
+	
+	- if we round month then for 1-15 it will reflect 1 of same month 
+	  and for 16 to 30 it will reflect 1 for next month 
+	- if we round year for jan to june then it will reflect 1 jan of same year 
+	  and for july to dec then it will reflect 1 jan of next year 
+------------------------------------------
+Q.. trunc() function?
+==> we can trunc() year,day,month
+	for year it always return 1 jan of same year 
+	for month it always return 1 date of same month 
+	for day it always return 1 day of week 
+------------------------------------------
+Q.. Conversion functions?
+==> Conversion data type is used to convert one data type into another data type.
+	There are two type of conversion 
+	1. implicit conversion 
+	2. explicit conversion 
+	
+	1. Implicit conversion :
+		Oracle engine automatically convert one data type into another data type 
+		is called Implicit conversion 
+		
+	2. Explicit conversion: 
+		Programmer convert one data type into another is nothing but explicit conversion
+		
+		In explicit conversion we have 3 types 
+		1. Number
+		2. Date 
+		3. String 
+		
+		To convert one data type into another we have 3 functions 
+		1. TO_NUMBER :- Convert string data type value into number 
+		2. TO_CHAR :- Convert date,number type value into string 
+		3. TO_DATE :- Convert strig date type value into date
+------------------------------------------
+Q.. General functions?
+==> 1. NVL()
+	2. NVL2()
+		
+		1. NVL()
+		=> NVL() stand for null value 
+		   nvl() function accept 2 input argument 
+		   nvl(expression1,expression2)
+		   if expression1 is null then consider 2 expression 
+		   if expression 1 is not null then it consider 1st expression
+		   
+		2. nvl2()
+		=> nvl2() function accept 3 input argument 
+		   nvl2(expression1,expression2,expression3)
+		   if expression 1 is null then it consider 3rd expression 
+		   if expression 1 is not null then it consider 2nd expression 
+------------------------------------------
+Q.. What is difference between nvl() and nvl2()?
+==> nvl() accept one input argument where as nvl2() accpet 3 input argument 
+	in nvl() 1st input argument is null then it consider 2nd argument where as
+	in nvl2() 1st input argument is null then it consider 3rd expression 
+	in nvl() 1st input argument is not null then it consider 1st expression where as 
+	in nvl2() 1st input argument is not null then it consider 2nd expression.
+------------------------------------------
+Q.. What is mean by group function?
+==> function which operate on multiple rows or multiple values is nothing but group function.
+	- there are 5 group function 
+		1. min
+		2. max 
+		3. avg 
+		4. sum
+		5. count 
+------------------------------------------
+Q.. What is the position of group function?
+==> group function is used after select statement and after having clause 
+------------------------------------------
+Q.. sum() function?
+==> sum() stand for summission
+	sum() function is used to calculate summission 
+	this funtion accept one input argument of number type 	
+------------------------------------------
+Q.. avg() function?
+==> avg() stand for average 
+	avg() function is used to calculate average 
+	this function accept one input argument of number type 
+------------------------------------------
+Q.. MIN() function?
+==> min() stand for minimum
+	min() function is used to calculate minimum value 
+	this function accept one input argument of character or date or number type 
+------------------------------------------
+Q.. MAX() function?
+==> max()stand for maximum.
+	max() function is used to calculate maximum value 
+	this function accept one input argument of character or date or number type 
+------------------------------------------
+Q.. Count() function?
+==> count function count number of record present in table 
+	count() has 3 form 
+	1. count(*)
+		=> it will display number of record present in table 
+		=> it will display null and duplicate values
+	2. count(column_name)
+		=> it will display number of record present in table 
+		=> it will display duplicate values but does not displys null values 
+	3. count(distinct column_name)
+		=> it will display number of record present in table 
+		=> it does not display duplicate and null values 
+------------------------------------------
+Q.. group by clause?
+==> group by clause is used to group of same values 
+	group by clause used in select statement 
+	we can specify single or multiple columns 
+	position of group by clause 
+		=> if you are using where clause then use group by clause after where clause
+		=> if you are not using where clause then use group by clause after table name 
+		=> if you are using order by clause then use order by clause at the end of query 
+------------------------------------------
+Q.. Having clause?
+==> having clause is used to apply the condition on aggregate result 
+	Syntax: 
+		having group_function_name column_name 
+	
+	- we can't use group function infront of where clause to apply the condition By mistake 
+	  we use where clause group function infrom of where clause then we will get an error 
+	  so to overcome this problem having clause is introduced 
+------------------------------------------
+Q.. Can we use group function in order by clause ?
+==> yes we can 
+------------------------------------------
+Q.. What is mean by constraint?
+==> Constraint means restriction 
+	there are 6 type of constraint 
+	we apply constraint on column not on table 
+	To ensure the accurancy and relibility of data 
+	and to avoid wrong data insertion in table 
+------------------------------------------
+Q.. What are different level of constraint?
+==> 1. column level constraint 
+	=> constraint applied on single column is considered as column level constraint 
+	
+	2. table level constraint
+	=> constraint applied on group of column is considerd as table level constraint.
+------------------------------------------
+Q.. When we apply constraint?
+==> At the time of table creation and after the table creation.
+------------------------------------------
+Q.. Type of contraint?
+==> there 6 type of constraint 
+	1. primary key 
+	2. foreign key 
+	3. unique key 
+	4. not null 
+	5. default 
+	6. check 
+------------------------------------------
+Q.. Primary key?
+==> One table have only one primary key constraint 
+	One table have only one composite primary key 
+	To apply primary key on column we use primary key keyword 
+	primary key column does not allow duplicate values 
+	primary key column does not allow null values 
+	primary key is combination of not null and unique key 
+	we can use primary key as foreign key in other table 
+------------------------------------------
+Q.. Unique key?
+==> One table have one or more unique key constraint 
+	To apply unique key we use unique keyword
+	A table have one or more composite unique key constraint 
+	we can apply constraint at the time of table creation or after table creation 
+	unique key column does not allow duplicate values 
+	unique key column allow null values 
+	
+	Syntax: 
+		1. without constraint keyword 
+				column_name data_type unique 
+				
+		2. with constraint keyword 
+			column_name data_type constraint Name_of_constraint unique 
+			
+		3. composite unique key 
+			column_name data_type,column2_name data_type,column3_name data_type,
+			constraint Name_of_constraint unique(column2_name,column3_name)
+------------------------------------------
+Q.. Not null constraint?
+==> To apply not null constraint we use 'not null' keyword 
+	one table have one or more than one not null constraint 
+	composite not null constraint is not allowed 
+	not null constraint does not allowed null values 
+	not null constraint allows duplicate values 
+	we can apply not null constraint without or with constraint keyword 	
+------------------------------------------
+Q.. default constraint?
+==> while inserting record in table if we don't specify value of column then bydefault 
+	null value assign to that column instead of null if we want to insert some default 
+	value then apply default constraint on that column
+	- one table have one default or more than one default constraint 
+	- To apply default constraint we use default keyword.
+	- we can't apply default constraint with constraint keyword 
+	- composite default constraint is not allowed 
+	- we can apply default constraint on single column and without constraint keyword 
+	- default constraint allows duplicate values 
+	- default constraint allows null values 
+	- by default orcle not assign name to default constraint 
+	- we can't drop default constraint 
+	- we can add other constraint on default constraint column if condition satisfied
+------------------------------------------
+Q.. can we apply default constraint using constraint keyword?
+==> NO 
+------------------------------------------
+Q.. what is the name assigned to default constraint?
+==> Oracle does not assign any name to default constraint.
+------------------------------------------
+Q.. how to view default constraint name?
+==> Oracle does not assign any name to default constraint 
+------------------------------------------
+Q.. can we drop default constraint?
+==> No we can't drop default constraint but we can add other constraint on that 
+	column if condition satisfied
+------------------------------------------
+Q.. How to check default value assigned to column?
+==> we can check in 'ALL_TAB_COLUMNS'
+	for that purpose query will be like 
+		select * from all_tab_columns
+------------------------------------------
+Q.. check constraint?
+==> check constraint is used to check value before insertion or updation 
+	- To define check constraint we use 'check' keyword 
+	- one table have one or more than one check constraint
+	- one table have one or more than one composite constraint keyword
+	- check constraint allows null and duplicate values 
+	- we can apply check constraint without or with constraint keyword 
+------------------------------------------
+Q.. foreign key constraint?
+==> Primary key column or Unique key column of one table is refered in another table 
+	then that column is called foreign key column 
+	- purpose of foreign key is to establish relationship between two tables 
+	
+	Q. How to decide which table primary key or unique key column is refered in 
+	   another table?
+	=> Based on relationship between two tables we need to decide which table 
+	   primary key column or unique key column is refered in another table 
+	   
+	# relations
+	=>  one to one
+		=> in one to one ralation primary key column of one's table is refered in 
+			another table and we need to apply unique constraint on that column 
+			=> using without constraint  
+				create table country(country_code number primary key,country_name varchar(90))
+				=> Table created
+				create table capital(capital_code number primary key,capital_name varchar(90),
+				country_capital_code number references country(country_code),
+				constraint country_uk unique(country_capital_code));
+				=> Table Created 
+			
+			=> using with constraint keyword
+				create table country(country_code number primary key,country_name varchar(90))
+				=> Table created
+				create table capital(capital_code number primary key,
+				capital_name varchar(90),
+				country_capital_code number,
+				constraint cou_cap_code foreign key(country_capital_code) references country(country_code),
+				constraint co_uk unique(country_capital_code))
+				=> Table created 
+				
+			=> using table level constraint 
+				create table person(aadhar_number number,passport_number number,
+				person_name varchar(90),constraint aadhar_pass primary key(aadhar_number,passport_number));
+				=> Table Created
+				create table countrys(country_code number,country_name varchar(90),aadhar_code number,
+				passport_code number,
+				constraint addhar_pass foreign key(aadhar_code,passport_code) references person(aadhar_number,passport_number),
+				constraint unkey unique(aadhar_code,passport_code));
+			
+		one to many 
+		=> for one to many one's table primary key column is refered in many's table  
+				for e.g 
+					create table department(dept_id number primary key,dept_name varchar(90));
+					=> Table Created 
+					create table employee(emp_name varchar(90),
+					dept_code number constraint foreign key(dept_code) references department(dept_id))
+					=> constraint specification not allowed her 
+			=> using column level 
+				create table department(dept_id number primary key,dept_name varchar(90));
+				=> Table Created 
+				create table employee(emp_name varchar(90),dept_code number references department(dept_id))
+				=> Table Created 
+				
+			=> using constraint keyword 
+				create table department(dept_id number primary key,dept_name varchar(90));
+				=> Table Created 
+				create table employee(emp_name varchar(90),dept_code number,
+				constraint dep_fk foreign key(dept_code) references department(dept_id))
+				=> Table created
+
+		many to one 
+		=> for many to one one's table primary key column is refered in many's table 
+			=> using column level 
+				create table department(dept_id number primary key,dept_name varchar(90));
+				=> Table Created 
+				create table employee(emp_name varchar(90),dept_code number references department(dept_id))
+				=> Table Created 
+				
+			=> using constraint keyword 
+				create table department(dept_id number primary key,dept_name varchar(90));
+				=> Table Created 
+				create table employee(emp_name varchar(90),dept_code number,
+				constraint dep_fk foreign key(dept_code) references department(dept_id))
+				=> Table created
+				
+		many to many 
+		=> for many to many both table primary key column is used in third table 
+			which will refere primary key column of both table 
+			=> In many to many column level foreign key constraint is not allowed 
+------------------------------------------
+Q.. ON DELETE CASCADE and ON DELETE SET NULL?
+==> In parent child relationship if we try to delete parent record we will get an error 
+	- So in this case we need to delete child record first then we need to delete parent record 
+	  OR set child record to null then delete parent record 
+	- If parent record is not available in child then we can delete directly 
+	
+	=> ON DELETE CASCADE=> Automatically delete child records when parent record is deleted 
+	=> ON DELETE SET NULL=> Automatically set null value to child record when parent record is deleted 
+	
+	=> ON DELETE CASCADE	
+		=> ON DELETE CASCADE is applied on child table not on parent table this will delete record 
+			from child table when we delete record from parent table 
+			f.g 
+				create table department(dept_id number primary key,dept_name varchar(90))
+				=> Table Created 
+				create table employee(emp_name varchar(90),
+				dept_code number references department(dept_id) ON DELETE CASCADE);
+				=> Table Created
+	
+	=> ON DELETE SET NULL => this will set null values to child table column when we delete record 
+							 from parent table 
+			f.g 
+				create table department(dept_id number primary key,dept_name varchar(90))
+				=> Table Created 
+				create table employee(emp_name varchar(90),
+				dept_code number references department(dept_id) ON DELETE CASCADE);
+				=> Table Created
+------------------------------------------
+Q.. How to find constraint below to perticular table?
+==> To find constraint we have one table USER_CONSTRAINTS 
+	from table we can get constraint name or how many constraint below to perticular table 
+	query for that is 
+		select * from user_constraint where table_name='EMPLOYEE';
+------------------------------------------
+Q.. How to enable constraint?
+==> using alter keyword we can enble or disable constaint 
+	Syntax:- 
+		alter table table_name enable/disable constraint name_of_constraint  
+------------------------------------------
+Q.. How to drop constraint?
+==> using alter keyword we can drop constraint 
+	Syntax:- 
+		alter table table_name drop constraint name_of_constraint
+------------------------------------------
+Q.. How to change table and column properties?
+==> Every table has name and column 
+	every column has either constraint or not constraint 
+	every constraint has name 
+	To change this propoerties we have ALTR statement 
+------------------------------------------
+Q.. what is ALTER statement?
+==> ALTER is DDL statement 
+	it is used to change structure of table 
+	with the help of ALTER statement we can do following things 
+		- we can add new columns 
+		- we can add constraint on existing columns 
+		- we can drop single or multiple columns 
+		- we can drop constraint 
+		- we can change data type of existing column 
+		- we can change size of column 
+		- we can change table name 
+		- we can enable or disable constraint
+		
+	- Options in ALTER statement 
+		- ADD
+		- DROP 
+		- MODIFY 
+		- RENAME 
+		- ENABLE 
+		- DISABLE 
+	
+	- ADD option in ALTER
+		with the help of ADD option we can add following things
+		1. we can add single columns or multiple columns 
+		2. we can add constraint on exsiting columns 
+		
+		1. Adding column or columns 
+		=> Syntax:- 
+			alter table table_name add(column_name1 data_type constraint,column_name2 data_type constraint..N)
+			
+			1. Using without constraint keyword 
+				create table employee(empid number)
+				alter table employee add mobile_no number primary key
+				alter table employee add mobile_no_ number unique
+				alter table employee add mobile_no__ number references department(dept_id)
+				alter table employee add mobile_no___ number not null
+				alter table employee add mobile_no____ number check(mobile_no____>10)
+				alter table employee add mobile_no_1 number default(10)
+				
+			2. Using constraint keyword 
+				=> NOTE . 1. we can't apply default constraint using constraint keyword 
+						  2. we can't apply foreign key constraint using constraint keyword 
+				create table employee(empid number)
+				alter table employee add mobile_no number constraint pkmb primary key
+				alter table employee add mobile_no1 number constraint ukmb unique
+				alter table employee add mobile_no11 number constraint nlmb not null
+				alter table employee add mobile_no111 number constraint chmb check(mobile_no111>10)
+			
+			3. Table level constraint 
+				=> NOTE . 1. we can't apply default table level constraint 
+						  2. we can't apply not null default table level constraint 
+						  3. we can apply table level foreign key constraint without constraint keyword 
+				create table employee(empid number)
+				alter table employee add(mobile number,mob number,constraint pkmb primary key(mobile,mob))
+				alter table employee add(mobile_n number,mob_no number,constraint ukmb unique(mobile_n,mob_no))
+				alter table employee add(mobile_no number,mob_no_ number,constraint chmb check(mobile_no=10 OR mob_no_=11))
+				alter table employee add(mobi number,mobb number,foreign key(mobi,mobb) references department(dept_id,dept_name))
+			
+------------------------------------------
+Q.. If table is not empty then we want to add new column then which constraint we can apply on column?
+==> we can apply all constraint except primary key and not null 
+------------------------------------------
+Q.. Why primary key and not null is not allowed on new column if the table is not empty?
+==> if table contain some data and we try to add new column then new column value bydefault set to null 
+	and primary key column and not null column does not allowed null value thats why we can't apply 
+	primary key and not null constraint on new column if table contain some data 
+------------------------------------------
+Q.. Why oracle does not allow NOT NULL constraint at the table level?
+==> - not null is column attribute in oracle so not null must be defined at 
+	  column level and applies on single column only 
+	- NOT NULL does not create row in USER_CONSTRAINTS like other constraints 
+	  primary key,foreign key,unique and check 
+	- Oracle store NOT NULL constraint reference in 'ALL_TAB_COLUMNS' and 'USER_TAB_COLUMNS' views 
+	
+	- In 'ALL_TAB_COLUMNS' table 
+		Y=> means null values allowed for that column 
+		N=> means null values not allowed for that column 
+------------------------------------------
+Q.. Why oracle does not allow defaut constraint at table level?
+==> - default is column attribute in oracle so default must be defined at column level 
+	  and applies on single column only 
+	- so default does not create row in 'user_constraints' table like other constraints 
+	  unique key,foreign key,check,primary key 
+------------------------------------------
+Q.. create table project(p_id number,p_name varchar(90),duration number).
+==> Q.1 Write an SQL query to apply primary key constraint on p_id column?
+	==> alter table project add constraint p_id_pk primary key(p_id)
+	
+	Q.2 Write an sql query to add check constraint on duration column 
+		duration should be less than 60 days?
+	==> Alter table project constraint duration_ck check(duration<60);
+	
+	Q.3 Write an sql query to add foreign key constraint on dept_id column 
+	==> first we need to add dept_id column 
+		alter table project add dept_id number 
+		
+		apply foreign key on dept_id 
+		alter table project constraint dept_id_fk foreign key (dept_id) references department(dept_id) 
+		on delete cascade 
+------------------------------------------
+Q.. Consider this table and solve below questions 
+	Employee(empno,empaname,duration,dept_id);
+	
+	Q.1 Composite primary key on empname and empno 
+	==> alter table Employee add (constraint empname_empno_pk primary key(empname,empno));
+	Q.2 composite unique key on empname and duration 
+	==> alter table Employee add constraint empname_duration_uk unique(empname,duration)
+	Q.3 Composite check constraint on duration and dept_id 
+	==> alter table Employee add constraint duration_dept_id check(duration>to_date('11-JUN-2000','dd-mon-yyyy') and dept_id>10)
+------------------------------------------
+Q.. If table is non-empty then which of the following constraint we can add using 'add' option?
+==> 1. primary key 
+	2. foreign key
+	3. unique key 
+	4. not null 
+	5. default 
+	6. check 
+	
+	we can add all constraint if table is non-empty except not null and default constraint 
+------------------------------------------
+Q.. if table is non empty then can we add primary key constraint on existing column?
+==> if column does not contain duplicate and null values then we happily we can add primary key constraint 
+	if column constain duplicate or null values then we get an error.
+------------------------------------------
+Q.. If table is non empty can we add unique key constraint on existing column?
+==> If table is non empty and column does not contain duplicate values then we can add unique constraint 
+	if table constain duplicate values then we can't add unique key constraint 
+------------------------------------------
+Q.. If table is non empty can we add foreign key on existing column?
+==> If table is non empty and we need to add foreign key on existing column 
+	then that column must have reference value with parent column then we happily add 
+	foreign key on exsiting column otherwise we will get an error 
+------------------------------------------
+Q.. If table is non empty can we add check constraint on existing column?
+==> If table is non empty and column satisfied check constraint condition then we can add constraint 
+------------------------------------------
+Q.. What is difference between column level constraint and table level constraint?
+==> - Column level constraint defined at the time of column defination where as 
+	  Table level constraint means column defination and constraint defination is seperate.
+	- column level constraint can be applied with or without constraint keyword where as 
+	  Table level constraint can be applied only with constraint keyword 
+	- column level constraint applicable for single column where as 
+	  table level constraint is applcable for multiple column 
+------------------------------------------
+Q.. Alter statement with drop option?
+==> with the help of drop option we can 
+	1. drop constraint
+	2. drop single column or multiple column	
+------------------------------------------
+Q.. Alter table syntax to drop column or columns?
+==> 1. To drop single column syntax 
+	=> alter table table_name drop column column_name 
+	
+	2. To drop multiple column syntax 
+	=> alter table table_name drop(column1,column2,...N);
+------------------------------------------
+Q.. Can we drop all column of table?
+==> No,we can't drop all column of table,table must have atleast one column.
+	if we try to drop all column of table then we will get an error 
+------------------------------------------
+Q.. can we drop primary key or unique key column which is refered in child table as foreign key?
+==> No we can't drop primary key or unique key which is refered in child table as foreign key.
+------------------------------------------
+Q.. How do you drop primary key or unique key column which is refered in child table as foreign key?
+==> If we want to drop primary key or unique key which is refered in child table as foreign key 
+	then we need to 
+		1. drop foreign key constraint or foreign key column from child table 
+		2. drop primary key column 
+------------------------------------------
+Q.. without drop child column or constraint can we drop parent table primary key column?
+==> No there is no any possible way 
+	But we can forecefully drop primary key column or unique key column 
+	Syntax: 
+		alter table table_name drop column column_name cascade constraint 
+------------------------------------------
+Q.. can we drop primary key or unique key column by disableing foreign key constraint?
+==> No we can't drop primary key or unique key column by disableing foreign key constraint.
+------------------------------------------
+Q.. How to drop constraint using alter table syntax?
+==> syntax:- 
+		alter table employee drop constraint constraint_name 
+		
+	using drop option we can drop single constraint at a time.
+	if we try to delete multiple constraint then we will get an error 
+------------------------------------------
+Q.. What is difference between drop option and drop statement?
+==> with the help drop option we can drop only constraint and column where as 
+	with the help of drop statement we can drop database,table,view,sequence,index
+------------------------------------------
+Q.. Alter table statement with rename option?
+==> with the help of rename option we can rename following things 
+		- rename table 
+		- rename column 
+		- rename constraint 
+------------------------------------------
+Q.. Syntax to rename table?
+==> alter table old_table_name rename to new_table_name
+------------------------------------------
+Q.. syntax to rename column?
+==> alter table table_name rename column old_column_name to new_column_name 
+------------------------------------------
+Q.. Syntax to rename constraint?
+==> alter table table_name rename constraint old_constraint_name to new_constraint_name 
+------------------------------------------
+Q.. Can we change parent table name if it is refered in another table?
+==> yes we can change parent table name.oracle engine automatically update foreign key reference in child table 
+------------------------------------------
+Q.. Can we change parent table primary key or unique column if it is refered in child table?
+==> yes we can change primary key column.oracle engine automatically update foreign key reference 
+	in child table 
+------------------------------------------
+Q.. can we change parent table primary key constraint name if it is reflected in child table?
+==> yes we can change constraint name if it is refered in child table.oracle engine 
+	automatically update foreign key reference 
+------------------------------------------
+Q.. can we disable primary key constraint if it is refered in child table?
+==> No we can't disable primary key constraint if it is refered in child table 
+	we are getting an error
+------------------------------------------
+Q.. How do you disable parent table primary key constraint which is refered in child table?
+==> first we need to disable foreign key constraint then we need to disable primary key constraint 
+------------------------------------------
+Q.. In parent child relationship can we enable foreign key if primary key disabled?
+==> No if primary key is disabled then we can't enable foreign key constraint 
+	if primary key constraint is enbled then we can enable foreign key constraint 
+------------------------------------------
+Q.. Which of the following constraint we can enable or disable?
+==> 1. primary key 
+	2. foreign key 
+	3. check 
+	4. unique 
+	5. not null 
+	
+	we can't enable or disable default key constraint 
+------------------------------------------
+Q.. If table is empty then which of the following constraint we can enable or disable?
+==> 1. primary key 
+	2. foreign key 
+	3. check 
+	4. unique 
+	5. not null 
+	
+	we can't enable or disable default key constraint
+------------------------------------------
+Q.. If table is non-empty then which of the following constraint can we enble?
+==> 1. primary key 
+	2. foreign key 
+	3. check 
+	4. unique 
+	5. not null 
+	
+	except default we can enble all constraint if column satisfy constraint condition.
+------------------------------------------
+Q.. Alter table statement with MODIFY option?
+==> With the help of modify option we can perform below operation on table 
+	1. we can add not null constraint on column 
+	2. we can add default constraint on column 
+	3. we can change data type of column 
+	4. we can change size of column 
+------------------------------------------
+Q.. How to add not null constraint on column?
+==> Syntax:
+		Alter table table_name modify (column_name not null);
+		Alter table table_name modify (column_name constraint name_of_constraint not null)
+------------------------------------------
+Q.. How to add default constraint on column?
+==> Syntax:
+		Alter table table_name modify (column_name default(value))
+------------------------------------------
+Q.. Why we can't define table level not null constraint?
+==> we can't define table level not null constraint because not null constraint is column level 
+	property not a table level logical rule 
+------------------------------------------
+Q.. Why we can't define composit not null constraint?
+==> we can't define composit not null constraint because not null constraint is column level 
+	property not a table level logical rule 
+------------------------------------------
+Q.. If we want to add not null constraint on multiple column then what is alternative rule?
+==> we can achive this condition using check constraint 
+	=>	constraint name_of_constraint check(clm1_name is not null,clm2_name is not null);
+		
+	=>alter table table_name add constraint name_of_constraint check(clm1_name is not null,clm2_name is not null)
+------------------------------------------
+Q.. How to add default constraint on column?
+==> alter table table_name modify(column1_name default(value),column2_name default(value));
+------------------------------------------
+Q.. How to drop default constraint?
+==> alter table table_name modify column_name default(null);
+------------------------------------------
+Q.. Why we can't apply table level default constraint?
+==> we can't apply table level default constraint because default constraint is column level property
+	not a table level logical rule 
+------------------------------------------
+Q.. Why composite default constraint is not allowed?
+==> composite default constraint is not allowed because default constraint is column level property
+	not a table level logical rule 
+------------------------------------------
+Q.. How to apply composite default constraint?
+==> To apply composite default constraint we need to use trigger 
+------------------------------------------
+Q.. How to change data type of column?
+==> alter table table_name modify column_name data_type 
+------------------------------------------
+Q.. Write sql query to change data type of empno from number to varchar?
+==> alter table table_name modify empno varchar(90)
+------------------------------------------
+Q.. Can we change data type if column has some data?
+==> No we can't change data type if column contain data 
+------------------------------------------
+Q.. Which of the following are valid constraint in oracle?
+	1. Primary key 
+	2. Unique key 
+	3. foreign key 
+	4. check 
+	5. not null 
+	6. default 
+==> All of the above 	
+------------------------------------------
+Q.. Which of the following constraints are column level constraint?
+	1. Primary key 
+	2. Unique key 
+	3. foreign key 
+	4. check 
+	5. not null 
+	6. default 
+==> All constraint are column level 
+------------------------------------------
+Q.. Which of the following constraint are table level constraint?
+	1. Primary key 
+	2. Unique key 
+	3. foreign key 
+	4. check 
+	5. not null 
+	6. default 
+==> Except default and not null all other constraints are table level 	
+------------------------------------------
+Q.. Which of the following constraits can be applied at the column level without constraint keyword?
+	1. Primary key 
+	2. Unique key 
+	3. foreign key 
+	4. check 
+	5. not null 
+	6. default
+==> all constraints are allowed 	
+------------------------------------------
+Q.. Which of the following constraints can be applied at the column level with constraint keyword?
+	1. Primary key 
+	2. Unique key 
+	3. foreign key 
+	4. check 
+	5. not null 
+	6. default
+==> Except default we can apply all other constraints 
+------------------------------------------
+Q.. For which of the following constraints we can give user defined name?
+	1. Primary key 
+	2. Unique key 
+	3. foreign key 
+	4. check 
+	5. not null 
+	6. default
+==> except default we can apply name for all other constraint 
+------------------------------------------
+Q.. For which of the following constraints we get system generated name 
+	if we are not providing?
+	1. Primary key 
+	2. Unique key 
+	3. foreign key 
+	4. check 
+	5. not null 
+	6. default
+==> except default for all other constraint we get system generated name 
+------------------------------------------
+Q.. Which of the following constraints are composite constraints?
+	1. Primary key 
+	2. Unique key 
+	3. foreign key 
+	4. check 
+	5. not null 
+	6. default
+==> except not null and default all others are composite constraints 
+------------------------------------------
+Q.. Which of the folowing constraints can't be enabled or disabled 
+	by using 'alter table table_name enable|disable constraint constraint_name' syntax?
+	1. Primary key 
+	2. Unique key 
+	3. foreign key 
+	4. check 
+	5. not null 
+	6. default
+==>	Except default all other constrains can enabled or disabled.
+------------------------------------------
+Q.. Which of the following constraints can be dropped using
+	'alter table table_name drop constraint constraint_name' syntax?
+	1. Primary key 
+	2. Unique key 
+	3. foreign key 
+	4. check 
+	5. not null 
+	6. default
+==> except default all other constraints can be droped using syntax
+------------------------------------------
+Q.. How will you disable default constraint?
+==> To disable default constraint syntax is 
+	alter table table_name modify clm_name default null;
+------------------------------------------
+Q.. How to enabled default constraint?
+==> To enable default constraint syntax is 
+	alter table table_name modify clm_name default value;
+------------------------------------------
+Q.. How will you drop default constraint?
+==> To drop default constraint use below syntax 
+	alter table table_name modify clm_name default null;
+------------------------------------------
+Q.. Which of the following constraints can be added with ADD option of 
+	Alter table statement?	
+	1. Primary key 
+	2. Unique key 
+	3. foreign key 
+	4. check 
+	5. not null 
+	6. default
+==> except default and not null we can add all other constraints 	
+------------------------------------------
+Q.. Which of the following constraints can be added with modify option of 
+	alter table statement?
+	1. Primary key 
+	2. Unique key 
+	3. foreign key 
+	4. check 
+	5. not null 
+	6. default
+==> only not null and default 	
+------------------------------------------
+Q.. What is sequence?
+==> sequence is database object 
+	used to generate unique integer number.
+	Syntx:
+		create sequence sequence_name 
+		start with N
+		increment by N
+		maxValue|minValue 
+		cycle|NoCycle 
+		cache|NoCache 
+		Order|NoOrder
+	
+	here all parameter are optional.
+------------------------------------------
+Q.. What is default behaviour of sequence?
+==> - if we don't specify start with then default value is 1 
+	- if we don't specify increment by then default value is 1
+	- if we don't specify min value then
+		1. for ascending sequence min value is 1 
+		2. for descending sequnce min value is "10 rest to 27 -1"
+	- if we don't specify max value then 
+		1. for ascending sequence max value is "10 rest to 27 -1"
+		2. for descending sequence max value is 1 
+	- if we don't specify cycle|NoCycle then default value is NoCycle
+	- if we don't specify cache|NoCache then default value is cache 
+	- if we don't specify order|NoOrder then default value is NoOrder
+------------------------------------------
+Q.. How to cross check sequence value?
+==> To check sequence value we have one view named as "user_sequences"
+	query is like 
+		select * from user_sequences where sequence_name="sequence_name"
+------------------------------------------
+Q.. About sequence?
+==> - if we specify min value 10 then default start with value is 10 if we try to start with 9 then 
+	  we will get an error like 
+		create sequence sequence_name
+		start with 9
+		minValue 10 
+	
+	- if we don't specify min value then
+		1. for ascending sequence min value is 1 
+		2. for descending sequnce min value is "10 rest to 27 -1"
+		
+	- if we don't specify max value then 
+		1. for ascending sequence max value is "10 rest to 27 -1"
+		2. for descending sequence max value is 1 
+	
+	- if we don't specify cycle|NoCycle then bydefault NoCycle is enabled.
+		if we specify cycle option then we need to specify upper limit 
+		1. for ascending sequence we need to specify MAXVALUE
+		2. for descending sequence we need to specify MINVALUE 
+------------------------------------------
+Q.. What is the use of cycle option in sequence?
+==> - cycle option is used to restart sequence automatically when it reaches to its upper limit 
+		if sequence reches to it's upper limit then it restart from it lower value 
+		it don't start with start with parameter.start with parameter use only one time throughout sequence life 
+	- When we specify cycle option for ascending then
+		1. bydefault lower limit is 1 but we need to specify upper limit
+		2. lower limit is min value 
+		3. upper limit is max value 
+	- When we specify cycle option for descending then 
+		1. we need to specify lower limit and upper limit 
+		2. lower limit is maxvalue 
+		3. upper limit is minvalue 
+------------------------------------------
+Q.. What is use of NoCycle option in sequence?
+==> - NoCycle option don't restart sequence when it reches to it's upper limit value 
+------------------------------------------
+Q.. What is cache|NoCache option in sequence?
+==> - if we don't specify cache|NoCache option then bydefault cache is enabled and it's value is 20.
+	- cache means how many sequence number create by oracle in advance and keep it into memory
+	- we can explicitly specify cache value.cache value should not be zero or negative.
+	- if we need to specify cache then it value is greater then or equal to 2.we can specify value 1
+	  but 1 is not recommended to use 
+------------------------------------------
+Q.. what is NoCache option in sequence?
+==> NoCache means oracle does not create number in advance it get created when required 
+------------------------------------------
+Q.. What is Order|NoOrder parameter in sequence?
+==> - if we don't specify order|NoOrder then bydefault NoOrder is enabled.
+	- use of Order parameter is ensure that sequence number are generated in the exact order
+	  in which they are requested.
+	- if multiple sessions are involved then use Order parameter.
+	- NoOrder parameter don't ensure sequence numbers 
+------------------------------------------
+Q.. How to view sequence meta data?
+==> To view sequence metadata some tables are there 
+	1. user_sequences ==> accesible for all users 
+	2. dba_sequences ==> accesible for DBA person
+	3. all_sequences ==> accesible for all users
+------------------------------------------
+Q.. How to access sequence?
+==> to access sequence oracle provide 2 keywords (pseudo columns)
+	1. currval => which represent sequence current value 
+	2. nextval => which represent sequence next value 
+	
+	sequence_name.currVal 
+	sequence_name.nextval
+------------------------------------------
+Q.. How to use sequence in insert statement?
+==> To use sequence in insert statement oracle provide 2 keyword 
+	1. currentVal => represent current value of sequence
+	2. nextVal => represent next value of sequence 
+	
+	To use in insert statement syntax is 
+	
+	insert into table_name(clm1_name,clm2_name...N) values(sequence_name.nextval,clm2_value...N);
+------------------------------------------
+Q.. How to alter sequence?
+==> - To alter sequence syntax is 
+		alter sequence sequence_name
+		start with N 
+		increment by N 
+		cycle|NoCycle
+		maxValue|minValue
+		cache|NoCache
+		order|NoOrder
+	- we can't alter start value of sequence
+	- we can't alter min value if sequence number is less than min value 
+	- we can't alter max value if sequence number is greater then max value 
+------------------------------------------
+Q.. How to drop sequence?
+==> - To drop sequence we have syntax is 
+		drop sequence sequence_name
+------------------------------------------
+Q.. Why sequence?What is advantages of sequence?
+==> - sequence generate unique interger automatically
+	  No need to check manually or calculate next value 
+	
+	- sequence is independant 
+	  sequence is not tied to any table directly so we can reuse across multiple tables 
+	
+	- support multi user environment 
+	  Two user not get same value even if they accessing sequence at same time 
+	
+	- safe against rollback
+	  Ones value is retrived via nextval it won't be resued even if transaction is rolled back or fail 
+	
+	- flexible configuration 
+	  we can alter the sequence after creation
+------------------------------------------
+Q.. 
+------------------------------------------
+------------------------------------------
+------------------------------------------
+------------------------------------------
+------------------------------------------
+------------------------------------------
+------------------------------------------
