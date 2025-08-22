@@ -1,0 +1,171 @@
+Q. State the following statements are valid or invalid
+1. One database can have two tables with same name
+==> Invalid. one databasee can't allow duplicate table name 
+
+2. A table can have zero number of columns.
+==> Invalid. one table have atleast one column 
+
+3. A table can have maximum 127 columns
+==> Invalid. one table have maximum 1000 columns 
+
+3. A table can have two columns with same name.
+==> Invalid. Table don't have duplicate column name 
+
+4. A table can have zero number of rows
+==> Invalid. one table have aleast one row 
+
+5. Table name should start with digit or special symbols
+==> Invalid. Table name should not start with digit or special 
+	it only start with uppercase or lowercase letters 
+
+6. Column name should start with digit or special symbols.
+==> Invalid.column name start with uppercase or lowercase letter.
+
+7. Any special symbol is allowed in column name.
+=> Invalid. Only '_' , '$' , '#' allow in column name 
+
+8. Blank space is allowed in table name and column name.
+==> Invalid. Blank space is not allow in table name and column name 
+
+9. Reserved words like Select Drop are allowed in table name and column name.
+==> Invalid. reserve words not allow to give name to table or column 
+
+10. Table name should be 30 characters long
+==> Valid.
+
+11. Every SQL statements should be terminated with comma
+==> Invalid. statement terminate with semicolon ';'
+
+12. In Insert statement String type value should be enclosed in double quote
+==> Invalid. string type value enclosed in single if we use double quote then we will get an error 
+
+13. Zero Length column is allowed in oracle.
+==> Invalid. column atleast have one letter.
+
+14. Create table 123Student(sno number,sname varchar(100));
+==> Invalid. Table don't start with number 
+
+15. Create table Student(sno number,sname varchar(0));
+==> Invalid. size of varchar data type is between 1 to 4000.
+
+16. Create table Student@123(sno number,sname varchar(100));
+==> Invalid. table name does not allow '@' symbol. only _ $ # symbols are allow for table name.
+
+17. Create table Student();
+==> Invalid. One table have atleast one column 
+
+18. Create table Student(sno number(39),sname char);
+==> Invalid. number data type have limit upto 38 
+
+19. Create table Student(sno number(39),sname char(0));
+==> Invalid. number data type have limit upto 38 and char have size between 1 to 2000
+
+20. If we don't specify size of char data type then default is 0
+==> Invalid. it's 1 
+
+21. If we don't specify size of varchar data type then default is 1
+==> Invalid query will give error 
+
+22. Char data type can hold maximum 4000 characters.
+==> Invalid. char store 1 to 2000 character
+
+23. Varchar data type can hold maximum 2000 character.
+==> Invalid. varchar store upto 4000 charcter 
+
+24. Insert INTO Student(rollno,sname)values(101,"Robin");
+==> valid 
+
+25. Insert INTO student(101,"Robin");
+==> Invalid. values keyword is missing after table name 
+
+26. Char data type is variable in lenght.
+==> Invalid. char is fixed in length where as varchar is variable in length 
+
+27. Varchar data type is fixed in lenght.
+==> Invalid. varchar is variable in length 
+
+28. One table can have one or more primary key columns.
+==> Valid. One table have only one primary key but we can specify primary key on multiple column 
+	using composite primary key 
+
+29. One table can have only one Unique key columns.
+==> Invalid. One table can have one or more than one unique key columns 
+
+30. composite NOT NULL constraints is allowed.
+==> Invalid. Composite not null is not allowed due to not null is column level constraint 
+			 not null constraint does not create row in user_constraint that's why can't apply composite not null constraint
+			 Orcle store not null constraint reference at all_tab_columns 
+			 
+31. composite DEFAULT constraints is allowed.
+==> Invalid. DEFAULT constraint is not allowed on table level 
+			 default constraint is column level constraint 
+			 default constraint does not store it reference in user_constraint table like other constraint
+			 that's why default composite default constraint is not allowed 
+
+32. composite Foreign Key constraints is allowed?
+==> Valid.In many to many we can't apply composite foreign key 
+
+33. We can apply table level NOT NULL constraint.
+==> Invalid.
+
+34. We can apply table level DEFAULT constraint.
+==> Invalid. 
+
+35. Every constraint can have either system generated name or user defined name.
+==> Invalid. Except default constraint all other constraint have name eith system generated or user defined 
+
+36. We can disable and enable DEFAULT constraint using ENABLE and DISABLE option of Alter table statement?
+==> Invalid. we can't enable default constraint.
+
+37. We can add every constraint using ADD option of alter table statement.
+==> Invalid. except default and not null we can add all other constraint using ADD option
+
+38. We can drop every constraint using DROP option of alter table statement.
+==> except default constraint we can drop other all constraint using DROP option.
+
+39. Foreign Key Constraint column allows null and duplicate values.
+==> Valid.
+
+40. One table can one or many foreign key columns.
+==> Valid
+
+41. We can disable Parent table primary key constraint.
+==> Invalid. If primary key constraint is refered in child table 
+	then we can't disable primary key directly but 
+	if we disable foreign key first then we can disable primary key happily 
+
+42. Usage of ON DELETE SET NULL is to drop Child table
+    foreign key column automatically when we drop parent
+	table primary key column.
+==> Invalid. if we specify ON DELETE SET NULL then when we delete 
+	parent key column values then automatically foreign key column values will be set to null.
+	
+43. ON DELETE SET NULL and ON DELETE CASCADE are used with Primary
+    Key constraints only.
+==> Invalid. ON DELETE SET NULL and ON DELETE CASCADE CONSTRAINT used with foreign key column 	
+	
+44. Alter table statement is used to alter the table structure.
+==> Valid.
+
+45. We can table name if it is refered in another table.
+==> 
+
+46. We can drop table which refered in another table.
+==> Invalid. we can't drop table directly but there 2 ways to drop table 
+	1. using cascade constraint 
+	2. first drop child table column or disable foreign key constraint then happily drop parent table 
+	
+47. We can change data type of non-empty column.
+==> Invalid.
+
+48. For non-empty table We can add Primary Key and NOT NULL contraints.
+==> Valid.
+	=> For primary key : if column does not contain duplicate and null values then we can add happily.
+	=> For Not null : If column does not contain null values then we can add happily.
+	
+49. We can use "Unique Key" keyword to define Unique Key Constraint.
+==> Invalid. we use unique keyword to define unique key constraint
+
+50. We use REFERENCES keyword to define column level Foreign Key Constraint.
+==> Valid.
+	

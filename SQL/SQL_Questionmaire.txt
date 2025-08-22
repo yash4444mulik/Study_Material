@@ -80,7 +80,7 @@ Q.. What is "Ltrim" function?
 Q.. What is "trim" function?
 Q.. what is "instr" function?
 Q.. What is "ASCII" function?
-Q.. What is "Char" function?
+Q.. What is "Chr" function?
 Q.. What is "translate" function?
 Q.. What is ABS() function?
 Q.. What is CEIL function?

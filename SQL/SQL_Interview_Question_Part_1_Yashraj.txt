@@ -25,57 +25,190 @@ Q.. State the Examples of Relational Databases?
 ==> oracle,mysql,IBM DB2
 
 Q.. What is difference between SQL and Oracle?
-==> 
+==> Oracle is relational database where as SQL is structured query language to intract with relational database
 
 Q.. What is difference between SQL and MySQL?
-==>
+==> MySQL is relational database where as SQL is structured query language to intract with relational database
 
 Q.. With the help of SQL Which operations we can perform on database?
+==> with the help of sql we can 
+	1. create table 
+	2. delete table 
+	3. create database 
+	4. delete database 
+	5. insert data into table 
+	6. delete data from table 
+	7. update data in table 
+
 Q.. What is use of desc command?
+==> to view structure of table we use desc command 
+	Syntax: 
+		desc table_name 
+
 Q.. Which three special symbols are allowed for table name?
+==> underscrore '_' , doller '$' , hashtag '#' 
+
 Q.. I am trying to insert data into table but I am getting an error
    "too many values". What is wrong with insert statement?
+==> if number of values is greater than number of columns then we will get this type of error 
+
 Q.. I am trying to insert data into table but I am getting an error
    "not enough values". What is wrong with insert statement
+==> if number of values is less than number of columns then we will get this type of error 
+
 Q.. What is syntax of "INSERT INTO" statement?
+==> inset into table_name(clm1,clm2...N) values(clm1_value,clm2_value.....N);
+
 Q.. I am trying to insert data into table but I am getting an error 
    "table or view does not exist" What is wrong with insert statement?
+==> that means table is present in database or provided table name is wrong 
+   
 Q.. What is SELECT statement syntax ?
+==> select statement is used to fetch data from table 
+	syntax 
+		select clm1,clm2 ...N from table_name 
+
 Q.. What is mean by String in Oracle?
+==> String is data type it is used to store string type value
+	To define string there are 3 different data type 
+	1. char 
+	2. varchar
+	3. varchar2 
+
 Q.. To define String type value which data types are used in Oracle?
+==> To define string there are 3 different data type 
+	1. char 
+	2. varchar
+	3. varchar2 
+
 Q.. What is the minimum and maximum capacity of the CHAR data type?
+==> minimum capacity of CHAR is 1 and maximum is 2000.
+
 Q.. What is the minimum and maximum capacity of the VARCHAR data type?
+==> minimum capacity of varchar is 1 and maximum is 4000.
+
 Q.. What is difference between char and varchar data type?
+==> char stand for character where as varchar stand for variable length character
+	char store 2000 character where as varchar store 4000 character 
+	char is static where as varchar is dyanmic 
+	if you know size advancly then you can go with char data type 
+	if you don't know size advancly then you can go with varchar data type.
+	with respect to memory utilzation char is not recommended to use where as 
+	with respect to memory utilzation varchr is recommended to use 
+	with respect to performance char is recommended to use where as 
+	with respect to performance varachar is not recommended to use 
+
 Q.. What is difference between varchar and varchar2 data types?
+==> varchar is introduced by ANSI where as varchar2 is introduced by oracle 
+	there is no any difference between varchar and varchar2.functionality wise 
+	both are same 
+
 Q.. What is mean by precision in number data type?
+==> precision mean how many numbers we can store in number data type 
+	precision store 1 to 38 number 
+
 Q.. What is mean by scale in number data type?
+==> scale means how many digit value will be store in number data type.
+	scale store -84 to 127 digit 
+
 Q.. What is range of precision?
+==> 1 to 38
+
 Q.. What is range of scale?
+==> -84 to 127
+
 Q.. If we don't specify a precision value, what is its default?
+==> 38 
+
 Q.. If we don't specify a scale value, what is its default?
+==> zero 
+
 Q.. What is dual table in Oracle?
+==> dual is dummy table in oracle used to dummy practise perpose 
+	dual table has 1 row and 1 column 
+
 Q.. What is default date format in Oracle?
+==> default data format is 'dd-mon-yy'
+	default size of date format is 7 
+
 Q.. What is use of BLOB data type in Oracle?
+==> BLOB stand for binary large object used to store 
+	binary file means files whose structure is not defined 
+	for.e.g 
+		images,video,audio 
+	maximum size is 4gb 
+
 Q.. What is use of CLOB data type?
+==> CLOB stand character large object 
+	this file is used to store texual character
+	for e.g 
+		pdf,word 
+
 Q.. What is use of BFILE data type?
+==> BFILE stand for binary files 
+	this data type is used to store binary data in external files 
+	size 4gb 
+
 Q.. What is use of IN clause?
+==> IN operator is used to filter multiple values in where clause 
+	we can specify upto 1000 values 
+
 Q.. How many values we can specify in "IN" clause?
+==> 1000 values 
+
 Q.. What is difference between NULL,Zero and Blank Space.
+==> null is special type of value in oracle it is different than zero and blank space null means not present 
+	zero is numeric value 
+	blank space means empty string with no value 
+
 Q.. What is use of Between .. AND operator?
+==> Between .. AND operator is used to apply the condition and filter based on range 
+
 Q.. What is use of LIKE operator in Oracle?
+==> LIKE operator is used to apply the condition and filter the data based on pattern matching condition
+	% used to find multiple character 
+	_ used to find match for single character
+
 Q.. What is update statement syntax?
-Q.. While updating records if we don't specify where clause,what will
-   happen?
+==> update is used to update data in the table 
+	syntax 
+		update table table_name set clm_name=value where condition
+
+Q.. While updating records if we don't specify where clause,what will happen?
+==> then it will update all columns values 
+   
 Q.. What is delete statement syntax?
-Q.. While deleting records if we don't specify where clause,what will
-   happen?
+==> delete from table_name where condition
+
+Q.. While deleting records if we don't specify where clause,what will happen?
+==> it will delete all record from table 
+
 Q.. If wrong record is inserted,how will you correct it?
+==> if wrong record is inserted then we will rollback using rollback keyword 
+	rollback is TCL statement 
+	- we can update again using update keyword
+
 Q.. If wrong record is updated,how will you correct it?
+==> we can rollback it and we can agin update it 
+
 Q.. If wrong record is deleted,how will you restore it?
+==> then we can rollback it 
+
 Q.. Which statements come under DDL?
+==> alter,create,rename,drop,truncate,comment 
+
 Q.. Which statements come under DML?
+==> insert,update,delete
+
 Q.. Which statements come under DQL?
+==> select
+
 Q.. Which statements come under DCL?
+==> grant and revoke 
+
 Q.. Which statements come under TCL?
-Q.. We can rollback insert,update ,delete but can't rollback create table
-   statement,Why?
+==> commit,rollback,savepoint 
+
+Q.. We can rollback insert,update ,delete but can't rollback create table statement,Why?
+==> insert update delete are DML statement and all dml statements are not auto commitable 
+	where as create is DDL statement and all DDL statements are autom commitable.

@@ -217,6 +217,7 @@ Q.. How to define function?
 	2. using function expression 
 		variable_delcaration_keyword variable_name = function (){
 																//function body
+																}
 	3. arrow function 
 		Arrow function introduced in ES-6 i.e in 2015
 		An anonymus function is know as arrow function 

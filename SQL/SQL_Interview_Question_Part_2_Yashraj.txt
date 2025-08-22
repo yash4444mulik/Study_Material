@@ -1,65 +1,261 @@
 Q.. What is mean by Contrainst?
+==> Constraint means restriction 
+	constraint avoid wrong data insertion in table 
+	
 Q.. Why we apply constraint on column?
+==> To avoid wrong data insertion in table we apply constraint on column 
+
 Q.. What are different types of Constraints?
+==> 1. primary key 
+	2. foreign key 
+	3. unique key 
+	4. not null 
+	5. default 
+	6. check 
+
 Q.. What are different Levels of Constraint?
+==> 1. Column level constraint 
+	1. Table level constraint 
+
 Q.. What is mean by Column Level Constraint? 
+==> constraint applied on single column is nothing but column level constraint 
+	we can column level constraint using with constraint keyword or without constraint keyword
+
 Q.. What is mean by Table Level Constraint?
+==> Table level constraint means constraint applied on group of column is nothing but table level constraint
+	we can Table level constraint applied using only constraint keyword.
+
 Q.. What will happen when we don't use Constraint keyword to define Constraint?
+==> then that constraint will column level constraint and internally one name assign to that constraint
+	if constraint is default then no name assign to that constraint 
+
 Q.. What will happen when we use Constraint keyword to define Constraint? 
+==> if we constraint keyword to define constaint then we can happyly provide name to constraint 
+
 Q.. What is mean by Composite Constraint?
+==> constraint applied on mulitple columns is consider as composite constraint 
+	
+
 Q.. Which Constraints do we use at column level without Constraint keyword?
+==> we can use all constraint at column level without constraint keyword
+
 Q.. Which Constraints do we use at column level using Constraint keyword?
+==> we can add all constraint using constraint keyword except default constraint 
+
 Q.. What are Propeties of Primary Key Constraint? 
+==> one table have only one primary key 
+	primary key column does not allow duplicate values 
+	primary key column does not allow null values 
+	to apply primary key we use primary key keyword 
+	we can apply primary key on column level without or with constraint keyword 
+	we can apply composite primary key constriant 
+	we can refere primary key in another table as foreign key 
+
 Q.. What are Propeties of Unique Key Constraint?
+==> one table have one or more than one unique key constaint 
+	unique key column allow null values 
+	unique key column does not allow duplicate values 
+	to apply unique key we use unique key keyword
+	we can apply unique key on column level using with or wihtout constraint keyword 
+	we can apply composite unique key constriant 
+	we can refere unique key constriant in another table as foreign key 
+
 Q.. What are Propeties of Foreign Key Constraint?
+==> one table have one or more than one foreign key constraint 
+	To apply foreign key we use foreign key or reference keyword 
+	foreign key column allow null values 
+	foreign key column allow duplicate values
+	we can apply foreign key on column level using without constraint keyword 
+	we can apply composite foreign key 
+
 Q.. What are Propeties of NOT NULL Constraint?
+==> one table have one or more than one not null constraint 
+	not null column does not allow null values 
+	not null column allow duplicate values 
+	to apply not null constraint we use not null keyword
+	we can apply column level not null constraint using with or without constraint keyword 
+	we can't  apply composite not null constraint 
+
 Q.. What are Propeties of Default Constraint?
+==> one table have one or more than one default constraint
+	default key constraint column allow duplicate values 
+	default key constraint column allow null values
+	to apply default key constraint we use default keywrod 
+	we can't apply column level default key constraint using constraint keyword 
+	we can apply default key constraint at column level without constraint keyword 
+	we can't apply table level default constraint key 
+	we can't provide name to default constraint 
+	oracle does not assign any name to default constraint 
+	we can't drop directly default key constraint 
+
 Q.. What are Propeties of Check Constraint?
+==> one table have one or more than one check constraint
+	check constraint column  allow duplicate values 
+	check constraint  column allow null values 
+	to apply check constraint we use check keyword 
+	we can apply column level check constraint without or with constraint keyword 
+	we can apply table level check constraint 
+
 Q.. What is difference between Primary Key and Foreign Key? 
+==> - one table have only one primary key where as 
+	  one table have more than one foreign key 
+	- primary key column does not allow duplicate values where as 
+	  foreign key column allow duplicate values
+	- primary key column does not allow null values where as 
+	  foreign key column allow null values 
+	- to apply primary key we use primary key keyword where as 
+	  to apply foreign key we use foreign key keyword 
+	- we can apply column level primary key using constaint keyword where as 
+	  we can't apply column level foreign key using constraint keyword 
+
 Q.. What is difference between Primary Key and Unique Key?
+==> - one table have only one primary key column where as 
+	  one table have multiple unique key columns 
+	- primary key column does not allow null values where as unique key column allow null values 
+	- to apply primary key we use primary key keyword where as 
+	  to apply unique key we use unique keyword 
+	
 Q.. What is difference between Unique Key and Foreign Key?
-Q.. If we don't know the Constraint name,how do you find constraint
-   name?
+==> - unique key column does not allow duplicate values where as 
+	  foreign key column allow duplicate values 
+	- to apply unique key we use unique key keyword where as 
+	  to apply foreign key we use foreign key or references keyword 
+	- we can apply column level unique using without or with constraint keyword where as 
+	  we can't apply column level foreign key using constraint keyword 
+
+Q.. If we don't know the Constraint name,how do you find constraint name?
+==> To find constraint we have table all_constraints,user_constraints,dba_constraints 
+	inside table constraint name is store 
+	syntax to find constraint name is 
+		select * from all_constraints where table_name='table_name'
+
 Q.. How do you find which column has which constraint?
+==> To find which column has which constraint then there are 3 tables 
+	1. user_constraints
+	2. all_constraints
+	3. dba_constraints
+	to find constraint type we have syntax 
+	select * from user_constraints where table_name='table_name'
+
 Q.. How will you Drop constraint?
+==> to drop constraint we have syntax 
+	alter table table_name drop constraint constraint_name 
+
 Q.. How will you disable Constraint?
+==> To disable constraint we have syntax
+	alter table table_name disable constraint constraint_name
+
 Q.. How will you enable Constraint?
+==> alter table table_name enable constraint constraint_name
+
 Q.. In Parent-Child Relationship, what is table creation order?
+==> first need to create parent table then create child table 
+
 Q.. In Parent-Child Relationship,what is data insertion order?
+==> first we need to insert data in parent table then we need to insert in child table 
+
 Q.. In Parent-Child Relationship,what is data deletion order?
+==> first we need to delete child table data then we need to delete parent table data.
+
 Q.. In Parent-Child Relationship, what is table deletion order?
+==> first we need to delete child table then we need to delete parent table 
+
 Q.. In Parent-Child Relationship, we can't delete Parent table directly,
    first we need to delete child table and then delete parent table,
    can we delete Parent table without deleting child table?How? 
+==> yes we can delete parent table forcefully using "cascade constraint" keyword
+	syntax
+		drop table table_name cascade constraint
+
 Q.. What are different types of relations?
-Q.. If relation is one to one then which table's primary key is refered in which 
-   table as foreign key?
-Q.. If relation is one to Many then which table's primary key is refered 
-   in which table as foreign key?
-Q.. If relation is Many to One then which table's primary key is refered 
-   in which table as foreign key?
-Q.. If relation is Many to Many then which table's primary key is refered 
-   in which table as foreign key?
+==> one to many 
+	many to one 
+	many to many 
+	one to one 
+
+Q.. If relation is one to one then which table's primary key is refered in which table as foreign key?
+==> one's primary key if refere in another table as foreign key but we need to apply 
+	unique key constraint on that column 
+
+Q.. If relation is one to Many then which table's primary key is refered in which table as foreign key?
+==> if relation is one to many then one's primary key refer in many's table as foreign key 
+
+Q.. If relation is Many to One then which table's primary key is refered in which table as foreign key?
+==> if relation is many to one then one's primary key is refer in many's keyword as foreign key 
+
+Q.. If relation is Many to Many then which table's primary key is refered in which table as foreign key?
+==> in many to many relation both table primary key refer in third table as foreign key 
+
 Q.. What is impact of Foreign Key Constraint table structure?
+==> 
+
 Q.. Write a syntax to add new columns or columns
+==> alter table table_name add (clm_name data_type constraint,....N);
+
 Q.. Write a syntax to add Below Constraint on constraint on column
    1) Primary Key.
+   => alter table table_name add clm_name data_type primary key 
+	  alter table table_name add clm_name data_type constraint name_of_constraint primary key
+	  
    2) Foreign Key 
+   => alter table table_name add clm_name data_type references table_name(clm_name);
+   
    3) Unique Key.
+   => alter table table_name add clm_name data_type unique
+      alter table table_name add clm_name data_type constraint name_of_constraint unique
+	  
    4) Not null
+   => alter table table_name modify clm_name data_type not null 
+   
    5) Check
+   => alter table table_name add clm_name data_type check(value);
+   
    6) Default
+   => alter table table_name modify clm_name data_type default(value)
+
+
 Q.. Write a syntax to change the data type of columns
+==> alter table table_name modify clm_name data_type
+
 Q.. Write a syntax to change column size.
+==> alter table table_name modify clm_name data_type
+
 Q.. Wrtie a syntax to enable constraint
+==> alter table table_name enable constraint name_of_constraint
+
 Q.. Write a Syntax to disable constraint.
+==> alter table table_name disable constraint name_of_constraint
+
 Q.. Write a syntax to drop table.
+==> drop table table_name
+
 Q.. Write a syntax to drop columns
+==> alter table table_name drop column column_name  
+
 Q.. Write a syntax to drop constraint.
+==> alter table table_name drop constraint name_of_constraint
+
 Q.. Write a syntax to rename table.
+==> alter table table_name rename to new_table_name 
+
 Q.. Write a syntax to rename constraint
+==> alter table table_name rename constraint old_constraint_name to new_constraint_name 
+
 Q.. Write a syntax to rename column.
+==> alter table table_name rename column old_clm_name to new_clm_name
+
 Q.. Can we drop table which refered in child table?
+==> we can't drop parent table directly but we have another ways to drop parent table 
+	1. using cascade constraint
+	2. drop child table foreign key column first then drop parent table 
+
 Q.. Can we drop a column which is refered in child table?
+==> we can't drop column directly but we have another ways to drop column 
+	1. drop child column first then drop parent column 
+	2. using cascade constraint 
+
 Q.. Can we drop constraint which is refered in child table?
+==> we can't drop constraint directly but we have another ways to drop constraint 
+	1. drop child constraint first then drop parent constraint 
+	2. using cascade constraint 
 ---------------------------------

@@ -494,9 +494,9 @@ Q.. ASCII(char)?
 ==> This function return ASCII code of first character.
 	this function accept one input argument of string type
 ------------------------------------------
-Q.. Char() function?
+Q.. Chr() function?
 ==> This function is used to find corrosponding character for given ASCII code.
-	Char() function accept one input argument of number type
+	Chr() function accept one input argument of number type
 ------------------------------------------
 Q.. translate() function?
 ==> this function is used to replace character from source string based on position,
@@ -890,7 +890,8 @@ Q.. Not null constraint?
 	composite not null constraint is not allowed 
 	not null constraint does not allowed null values 
 	not null constraint allows duplicate values 
-	we can apply not null constraint without or with constraint keyword 	
+	we can apply not null constraint without or with constraint keyword
+	we can't apply table level not null constraint 
 ------------------------------------------
 Q.. default constraint?
 ==> while inserting record in table if we don't specify value of column then bydefault 
@@ -1624,7 +1625,7 @@ Q.. How to drop sequence?
 ==> - To drop sequence we have syntax is 
 		drop sequence sequence_name
 ------------------------------------------
-Q.. Why sequence?What is advantages of sequence?
+Q.. Why sequence? What is advantages of sequence?
 ==> - sequence generate unique interger automatically
 	  No need to check manually or calculate next value 
 	
@@ -1640,10 +1641,269 @@ Q.. Why sequence?What is advantages of sequence?
 	- flexible configuration 
 	  we can alter the sequence after creation
 ------------------------------------------
-Q.. 
+Q.. What are the limitation of sequence?
+==> - it generate only integer value.
+	  we can't generate character type values like A,b,c directly
+	  we can't generate float type values like 0.2,0.3,6.5 directly
+	  we can't generate alpha numeric values like emp11,emp30 directly
+	- sequence is gap friendly,not gap free.Gap may occurs.
+		if we insert some statement in table using sequence and we rollback it then 
+		sequence value is not rollback.there is gap in sequence values 
+	- we can access only one value at a time using nextval.
+	- we can't change start with value of sequence onces it created 
+	- we can't rollback sequence
 ------------------------------------------
+Q.. can sequence generate duplicate values?
+==> if sequence is properly defined then it can't generate duplicate values 
+	but we can generate duplicate values using cycle parameter and using alter the sequence
 ------------------------------------------
+Q.. can we rollback sequence values?
+==> No we can't rollback sequence values.
 ------------------------------------------
+Q.. What is the use of sequence?
+	a) store large text data 
+	b) automatically generate unique numeric values 
+	c) manage user sessions 
+	d) encrept data 
+==> b) automatically generate unique numeric values 
+------------------------------------------
+Q.. Which of the following is not valid keyword in sequence creation?
+	a) start with 
+	b) increment by 
+	c) auto_increment
+	d) maxvalue
+==> c) auto_increment
+------------------------------------------
+Q.. What does the CYCLE option do in a sequence?
+	A) Deletes sequence values
+	B) Causes the sequence to restart after reaching MAXVALUE
+	C) Pauses the sequence
+	D) Doubles the increment value
+==> B) Causes the sequence to restart after reaching MAXVALUE
+------------------------------------------
+Q.. What is the default caching behavior in Oracle sequences?
+	A) NOCACHE
+	B) CACHE 1
+	C) CACHE 20
+	D) CACHE 10
+==> C) CACHE 20
+------------------------------------------
+Q.. What will happen if a sequence with NOCYCLE reaches its MAXVALUE?
+	A) It restarts from MINVALUE
+	B) It throws an error
+	C) It deletes old values
+	D) It continues with negative values
+==> B) It throws an error
+------------------------------------------
+Q.. Which pseudo column is used to get the next value from a sequence?
+	A) NEWVAL
+	B) NEXTID
+	C) NEXTVAL
+	D) INCREMENT
+==> C) NEXTVAL	
+------------------------------------------
+Q.. Can Oracle sequences generate alphabetic values like A, B, C...?
+	A) Yes, directly
+	B) Only with ALPHAVAL keyword
+	C) No, only numeric values are supported
+	D) Only using TO_CHAR function
+==> C) No, only numeric values are supported.
+------------------------------------------
+Q.. Which statement retrieves the current value of a sequence?
+	A) SELECT CURRVAL FROM dual;
+	B) SELECT sequence_name.CURRVAL FROM dual;
+	C) SELECT LASTVAL FROM dual;
+	D) SELECT VALUE FROM sequence;
+==> B) select sequence_name.currentVal from dual;
+------------------------------------------
+Q.. What is the effect of NOCACHE on a sequence?
+	A) Prevents gaps between values
+	B) Increases performance
+	C) Disables the sequence
+	D) Decreases performance (slightly)
+==> D) Decreases performance (slightly)
+------------------------------------------
+Q.. Which command is used to remove a sequence?
+	A) DELETE SEQUENCE sequence_name;
+	B) DROP SEQUENCE sequence_name;
+	C) REMOVE SEQUENCE sequence_name;
+	D) TRUNCATE SEQUENCE sequence_name;
+==> B) drop sequence sequence_name	
+------------------------------------------
+Q.. Which of the following statements is TRUE about CURRVAL?
+	A) CURRVAL can be selected before NEXTVAL is used
+	B) CURRVAL returns the last value generated by any sequence
+	C) CURRVAL returns the last value generated by your session for a specific sequence
+	D) CURRVAL resets the sequence to its starting value
+==> C) CURRVAL returns the last value generated by your session for a specific sequence	
+------------------------------------------
+Q.. CREATE SEQUENCE test_seq START WITH 100 INCREMENT BY -10 MINVALUE 0 MAXVALUE 100 CYCLE;
+	What will be the third value generated?
+==> 80
+------------------------------------------
+Q.. Which clause in sequence creation affects the performance during high-volume inserts?
+	A) CYCLE
+	B) NOCYCLE
+	C) CACHE
+	D) MAXVALUE
+==> C) CACHE
+------------------------------------------
+Q.. What happens if a session uses NEXTVAL, but is terminated before commit?
+	A) Sequence rolls back
+	B) Value is not consumed
+	C) Value is lost and may cause a gap
+	D) Sequence is dropped
+==> C) Value is lost and may cause a gap
+------------------------------------------
+Q.. How can you restart a sequence from a new number?
+	A) ALTER SEQUENCE … RESTART WITH
+	B) Use DBMS_SEQ.RESTART
+	C) DROP and RE-CREATE the sequence
+	D) RENAME sequence and CREATE a new one
+==> C) DROP and RE-CREATE the sequence
+------------------------------------------
+Q.. How will you generate character type values like A,B,C,D.. through sequence?
+==> we can use 'CHR' function this function will return corrosponding character by using ascii code 
+	for e.g 
+		select CHR(sequence_name.currval) from dual;
+------------------------------------------
+Q.. How will you generate float type values like 1.0,1.1.1.2.. through sequence?
+==>	we can generate float type number by using below query 
+	syntax 
+		select sequence_name.nextval/10 from dual 
+------------------------------------------
+Q.. How will you generate alphanumeric values like EMP-100,EMP-101 through sequence?
+==> we can use concat function this function join two values 
+	for e.g 
+		select concat('EMP-',sequence_name.currentVal) from dual 
+------------------------------------------
+Q.. What is Index?
+==> Index is database object.
+	Index is used to speed up data retrival operation 
+	
+	Syntax: 
+		create index Index_name ON Table_name (clm1_name,clm2_name....N);
+		
+	Once Index created it meta data stored in 3 different views 
+		1. DBA_INDEX 
+		2. ALL_INDEXES 
+		3. USER_INDEXES 
+------------------------------------------
+Q.. What are different type of Index?
+==> 1. B-tree index 
+	2. Bitmap index 
+	3. unique vs non-unique index 
+	4. composit index 
+	5. function based index 
+	6. reverse key index 
+	7. domain index 
+	8. invisible index 
+	9. global and local partitioned index  
+	10. index organized table 
+------------------------------------------
+Q.. What is B-tree Index?
+==> B-tree Index stand for Balanced tree Index.
+	it is most commonly used index type.it is default index 
+	if don't specify index type then bydefault B-tree index is created.
+	when we define PRIMARY key constraint or UNIQUE key constraint oracle automatically
+	create unique B-tree index on specified column.
+	
+	Syntax: 
+		create index index_name ON table_name(clm1_name,clm2_name...N);
+------------------------------------------
+Q.. When we should go with B tree index?
+==> if column have many unique values then we should go with B tree index.	
+------------------------------------------
+Q.. What is Rowid?
+==> Rowid is unique identifier that represent physical location of row. 
+	Rowid is Base 64 encoded string 
+	Every row has Rowid and Rowid is created when we insert data into table 
+	Rowid is not created due to index but index use Rowid for searching data 
+------------------------------------------
+Q.. What is Bitmap index?
+==> - Bitmap is special type of index which uses bits(0s and 1s) to represent 
+	  presence or absence 
+	- It store bitmap for each distinct value in a row 
+	- 1 represent present 0 represent absent 
+	- Syntax
+		create BITMAP index index_name ON Table_name(clm1_name,clm2_name....N);
+------------------------------------------
+Q.. When we should go with Bitmap index?
+==> if column has few distinct values then we should go with Bitmap index.
+------------------------------------------
+Q.. Unique index?
+==> - Unique index is sub type of b-tree index 
+	- when we define primary key or unique key on column then internally 
+	  oracle engine creates unique b-tree index 
+	- if we want to create unique b-tree index manully then syntax is 
+		create unique index index_name on table_name (clm1_name,clm2_name...N);
+	- unique index column does not allow duplicate values so if column contain 
+	  duplicate values then then we can't define unique index on that column.
+	  By mistake if try to define unique index on that column then we will get an error 
+	- if column is unique index column then we can't insert duplicate values in column 
+	  if we try to insert duplicate values then we will get an error.
+------------------------------------------
+Q.. Non-Unique index?
+==> - Non-Unique index is sub type of b-tree index.
+	- when we create b-tree index by default it is Non-Unique index.
+	- there is no any special syntax to create Non-Unique index. 
+------------------------------------------
+Q.. Composite index?
+==> - index created on two or more column then that index consider as composite index. 
+	- composit index can be b-tree,unique,bitmap index. 
+------------------------------------------
+Q.. function based index?
+==> - In the index defination if we are using single row function then it consider function 
+	  based index. 
+	- syntax: 
+		create index index_name ON Table_name(function_name(clm1_name));
+    - for e.g 
+		create index index_name ON Table_name(upper(empanme))
+------------------------------------------
+Q.. Reversed key index?
+==> - In revered key index column value will be reversed before storing.
+	- syntax to create reversed index 
+		create index index_name ON Table_name(clm1_name,clm2_name...N) reverse
+------------------------------------------
+Q.. Invisible index?
+==> - invisible index introduced in oracle 11G(Grid).
+	- bydefault index is visible.
+	- Invisible index is index that exist in database but ingnored by optimizer during query execution.
+	- Syntax to Invisible index.
+		=> alter index index_name INVISIBLE;
+------------------------------------------
+Q.. Syntax to make index invisible?
+==> Alter index index_name invisible;
+------------------------------------------
+Q.. What is the purpose to make index INVISIBLE?
+==> 1. test the effect of removing an index without actually dropping it 
+	2. Temporary disable an index without affecting DML integrity.
+------------------------------------------
+Q.. Syntax to make visible index?
+==> Alter index index_name visible;
+------------------------------------------
+Q.. What is Normalization?
+==> Breaking the larger table into smaller ones is nothing and linking them using relationship
+	is nothing but normalization.
+------------------------------------------
+Q.. Why we use Normalization?
+==> To reduce data redundancy(data duplicate)
+	To ensure data integrity(validness and correctness of data)
+	To ensure data consistence(before updation and after updation data should in valid state)
+	Easy to maintain.
+------------------------------------------
+Q.. What are different types(forms) of normalization?
+==> 1. First Normal Form(1NF)
+	2. Second Normal Form (2NF)
+	3. Third Noraml Form (3NF)
+	4. BCNF(Boyce Codd Noraml Form)
+	
+------------------------------------------
+Q.. Rule for First Noraml Form.
+==> Each table cell must have atomic value(automic means single value)
+	Each record should be unique 
+	
+	i.e First normal form removes multi-valued attributes and removes duplicate rows 
 ------------------------------------------
 ------------------------------------------
 ------------------------------------------

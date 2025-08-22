@@ -1,0 +1,35 @@
+TABLE CREATION QUERIES
+
+
+1.. Department and Employee.
+==> create table department(deptno number constraint deptnoPK primary key,
+							deptname varchar(90),location varchar(90));
+	
+	create table employee(empno number,empname varchar(90),salary number check(salary>0),
+						  commission number,designation varchar(90),
+						  dept_number number,constraint dept_FK foreign key(dept_number) 
+						  references department(deptno) ON DELETE SET NULL);
+
+2.. Movie and Actor
+==> create table Movie(mvno number constraint mvnoPK primary key,mvname varchar(90),
+						release_year number check(release_year>0))
+	
+	create table Actor(actno number,actname varchar(90),mv_number number,
+			constraint mv_number_FK foreign key(mv_number) references Movie(mvno) on DELETE SET NULL)
+
+
+3.. Employee and Project 
+==> 
+	create table employee_project(empno number constraint empno_PK primary key,
+	empname varchar(90),city varchar(90),deptname varchar(90));
+	
+	create table project()
+
+
+
+
+
+
+
+
+
