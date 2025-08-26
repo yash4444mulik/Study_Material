@@ -1895,16 +1895,150 @@ Q.. Why we use Normalization?
 Q.. What are different types(forms) of normalization?
 ==> 1. First Normal Form(1NF)
 	2. Second Normal Form (2NF)
-	3. Third Noraml Form (3NF)
-	4. BCNF(Boyce Codd Noraml Form)
+	3. Third Normal Form (3NF)
+	4. BCNF(Boyce Codd Normal Form)
 	
 ------------------------------------------
-Q.. Rule for First Noraml Form.
+Q.. Rule for First Normal Form.
 ==> Each table cell must have atomic value(automic means single value)
 	Each record should be unique 
 	
 	i.e First normal form removes multi-valued attributes and removes duplicate rows 
 ------------------------------------------
+Q.. Rule for Second Normal Form.
+==> Table must be in First Normal Form.
+	No partial dependancy
+	(Partial dependancy means non key columns are depends on part of composite key.
+	 In second normal form we have to remove partial dependancy.
+	 No partial dependancy means non key attributes fully depends on whole key)
 ------------------------------------------
+Q.. Rule of Third Noramal Form.
+==> Table must be in Second Normal Form.
+	No Transitive Dependancy.
+	
+	Transitive dependancy means A is depends on B and B is depends on C
+	Non-key columns depends on another non-key columns 
+	In third normal form we have to remove this transitive dependancy
 ------------------------------------------
+Q.. What is mean by super key?
+==> Any set of columns which uniquely identify the records.
+	one table can have multiple super keys 
+	for e.g mail id,mobile number etc 
 ------------------------------------------
+Q.. What is candidate key?
+==> minimal set of columns which uniquely identify the records 
+	super key contains extra columns but candidate key does not contain extra columns 
+	One table can have multiple candidate key one of them become primary key 
+	
+	
+	Note: super key and candidate key are not constraints or keyword in SQL 
+		  super key and candidate key are the therotical concept used on database design and normalization
+------------------------------------------
+Q.. Rule for BCNF?
+==> BCNF is stricter version than 3NF or BCNF is advanced version of 3NF.
+	after third normal form if some anomalies exist then apply BCNF.
+	1. Table must be in 3NF 
+	2. Every deterrminant is super key 
+	Any column or set of column which uniquely identify the record is called deterrminant.
+------------------------------------------
+Q.. What is difference between 3NF and BCNF?
+==> IN 3NF all non key columns fully depends on key column 
+	IN BCNF The column which uniquely identify record must it key itself.
+------------------------------------------
+Q.. What is the main purpose of normalization?
+	A. To increase data redundancy
+	B. To remove data anomalies and redundancy
+	C. To improve indexing
+	D. To reduce the number of tables
+==> B. To remove data anomalies and redundancy
+------------------------------------------
+Q.. Which of the following is not a type of data anomaly?
+	A. Insertion anomaly
+	B. Deletion anomaly
+	C. Modification anomaly
+	D. Execution anomaly
+==> D. Execution anomaly
+------------------------------------------
+Q.. A table is in First Normal Form (1NF) if:
+	A. All non-key attributes depend on the primary key
+	B. It contains atomic (indivisible) values
+	C. It has no transitive dependencies
+	D. It has a composite key
+==> B. It contains atomic (indivisible) values
+------------------------------------------
+Q.. Which normal form removes partial dependencies?
+	A. 1NF
+	B. 2NF
+	C. 3NF
+	D. BCNF
+==> B. 2NF
+------------------------------------------
+Q.. A table in 2NF may still have which kind of dependency?
+	A. Composite dependency
+	B. Functional dependency
+	C. Transitive dependency
+	D. Partial dependency
+==> C. Transitive dependency
+------------------------------------------
+Q.. A table is in Third Normal Form (3NF) when:
+	A. It is in 2NF and has no partial dependencies
+	B. It is in 2NF and every non-key attribute is non-transitively dependent on the primary key
+	C. It is in 1NF and has only one candidate key
+	D. It has no NULL values
+==> B. It is in 2NF and every non-key attribute is non-transitively dependent on the primary key
+----------------------------------------------	
+Q.. Which normal form addresses issues caused by overlapping candidate keys?
+	A. 2NF
+	B. 3NF
+	C. BCNF
+	D. 4NF
+==> C. BCNF	
+----------------------------------------------
+Q.. Which of the following is a violation of BCNF?
+	A. A non-prime attribute depends on another non-prime attribute
+	B. A candidate key determines another column
+	C. A non-super key determines another column
+	D. A table has multiple candidate keys	
+==> C. A non-super key determines another column
+----------------------------------------------
+Q.. What is a transitive dependency?
+	A. When an attribute is dependent on part of the primary key
+	B. When a non-key attribute depends on another non-key attribute
+	C. When an attribute is dependent on a foreign key
+	D. When an attribute is dependent on a composite key	
+==> B. When a non-key attribute depends on another non-key attribute
+----------------------------------------------	
+Q.. Which normal form eliminates multi-valued attributes?
+	A. 2NF
+	B. 3NF
+	C. BCNF
+	D. 1NF
+==> D. 1NF
+----------------------------------------------
+Q.. What is JOIN in sql?
+==> fetching data from two or more table based on related column is nothing but join 	
+----------------------------------------------	
+Q.. What is the use of join?
+==> To fetch data from two or more table.
+----------------------------------------------	
+Q.. What are different type of joins?
+==> there are near 10 types of joins and all joins are classified into two categories 
+----------------------------------------------	
+----------------------------------------------	
+----------------------------------------------	
+----------------------------------------------	
+----------------------------------------------	
+----------------------------------------------	
+----------------------------------------------	
+----------------------------------------------	
+----------------------------------------------	
+----------------------------------------------	
+----------------------------------------------	
+----------------------------------------------	
+----------------------------------------------	
+----------------------------------------------	
+----------------------------------------------	
+----------------------------------------------	
+----------------------------------------------	
+----------------------------------------------	
+----------------------------------------------	
