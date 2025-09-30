@@ -23,7 +23,39 @@ TABLE CREATION QUERIES
 	create table employee_project(empno number constraint empno_PK primary key,
 	empname varchar(90),city varchar(90),deptname varchar(90));
 	
-	create table project()
+	create table project(pno number constraint pnoPK primary key,pname varchar(90),status)
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 

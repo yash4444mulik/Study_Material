@@ -1,0 +1,148 @@
+============ C-Language ==================
+
+Q.. What is C-Language?
+==> C-Language is most popular and widely used programming language 
+	C introduced in 1972 by Denis Ritchic at Bell lab in USA.
+	we use turbo c compiler to compile C-Language
+	
+	
+Q.. What is int?
+==> int is used to store number;
+	int size is 2 byte in turbo c means 2byte=16bits 2^16-1
+	
+
+Q.. what is float variable?
+==> it is variable used to store floating numbers.
+	float size is 4 byte in turbo c means 4byte=32bits 2*32-1
+	
+
+Q.. What is char variable?
+==> char is used to store character type value 
+	default size of char is 1
+	
+	
+Q.. What is #include <stdio.h>
+==> it is preprocessor that told to compiler to include standard input output 
+	header file before compiling program.
+	- As per ANSI this is not mandatarto to use while return the program
+	
+Q.. what is void main?
+==> void main is function which is said that it is start of our function 
+	{} inside curly bracker we write our statements 
+
+Q.. What is printf()?
+==> printf is command in C-Language which help us to disply some content on screen 
+
+Q.. What is getch()?
+==> getch() stand for get character. it store execution of program untill we doesn't 
+	provide any character to it.
+	
+Q.. what is comment in c-language?
+==> comment is non-executable part in c-language.
+	commented part is ingore by compiler while executation of code 
+	there are 2 type of comment in c-language
+	1. single line comment => //
+	2. multi line comment => /* -------- */
+	
+Q.. what are different types of operator?
+==> 1. arthimatic operator 
+	2. logical operator 
+	3. comparison operator 
+	4. bitwise operator 
+	5. assignment operator
+	
+Q.. what are arithmatic operator?
+==> Arithmatic operator are those operand which perform arthimatic operations 
+	like 
+		+ addition
+		- substraction 
+		/ division 
+		* multiplication 
+		% modulo 
+	   ++ increment 
+		-- decrement 
+		
+Q.. What is token in c-language?
+==> token is building block of c-language.
+	token is smallest unit of code that can compiler recognize and understand.
+	there are different type of compiler in c-language
+		1. indentifier 
+		2. keywords 
+		3. constants 
+		4. strings 
+		5. operator 
+		6. symbols 
+		
+Q.. What are type of control flow statement?
+==> 1. if statement 
+	2. if else statement 
+	3. switch statement 
+	4. loop (for,while,do-while)
+	
+Q.. what is if statement?
+==> if is constrol flow statement used to execute block of block of code repetatively 
+
+	if(condition)
+	{
+	
+	}
+
+Q.. what is if else statement?
+==> if else is constrol flow statement used to execute block of block of code repetatively
+	Syntax: 
+		if(condition){
+			//block of code 
+		}
+		else{
+			//block of code 
+		}
+		
+		
+Q.. what is switch statement?
+==> switch statement is used to perform different action based on different condition.
+	switch statement evalute once 
+	if value of expression is match then execute perticular block of code 
+	if there is no match then it execute default block of code 
+	
+	switch (condition){
+		case value: 
+		//block of code 
+		break;
+		case value 2: 
+		//block of code 
+		break;
+		default 
+		//block of code 	
+	}
+	
+Q.. loops (for,while,do-while)?
+==> 
+	1. for loop?
+	==> for loop is control flow statement used to excute block of code repetatively.
+	syntax: 
+		for(expression1;expression2;expression3)
+		{
+		//block of code
+		}
+		
+		expression1 stand for declaration and initilization.
+		expression2 stand for loop counter.
+		expression3 stand for increment and decrement.
+		
+	2. while loop?
+	==> while loop is control flow statment used to execute perticular block of code 
+	
+		while(condition){
+		//block of code
+		
+		}
+		
+	3. do while loop?
+	==> do while is control flow statment used to execute perticular block of code 
+	
+		do{
+		//block of code 
+		}
+		while (condition){
+		//block of code 
+		}

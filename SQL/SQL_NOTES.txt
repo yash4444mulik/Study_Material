@@ -11,14 +11,76 @@ Q.. What is Data?
 --------------------------
 Q.. What is database?
 ==> systematic collection of data is nothing but database 
-	- there are multiple database 
-		1. Relational database
-		2. Heirarchical database 
-		3. centralized database 
-		4. network database 
-		5. distributed database 
-		7. Non relational database.
 --------------------------
+Q.. Classification of database based on How data arrange?
+==> 1. Heirarchical database- there is parent child relationship
+	2. network database - one entity is associated with many entities 
+	3. distributed database - same data stored at mulitiple places 
+	4. centralized database - whole data stored at one place.
+--------------------------
+Q.. Classification of database based on structure of data?
+==> 1. Relational database - data store in table format 
+	2. Non-relational database - data not stored in table format,it is store in some other format 
+	3. object oriented database - data store in object format 
+--------------------------
+Q.. Example of Relational database?
+==> oracle 
+	IBM DB 2 
+	mysql 
+	ms acess 
+	ms sql server 
+--------------------------
+Q.. Example of Non-relational database?
+==> MongoDB 
+	CouchDB 
+--------------------------
+Q.. Example of object oriented database?
+==> Postgre SQL 
+--------------------------
+Q.. Difference between DBMS and RDBMS?
+==> - DBMS stand for database management system where as RDBMS stand for relational database management system 
+	- DBMS is old one where as RDBMS is extention of DBMS 
+	- In DBMS data is stored in file format where as in RDBMS data is store in table format 
+	- DBMS does not support normalization where as RDBMS support normalization.
+	- DBMS does not support Relation where as RDBMS support Relations like one to many etc ...
+	- DBMS does not support distributed database where as RDBMS support distributed database 
+	- DBMS may or may not follow ACID propoerties where as RDBMS strictly follow ACID properties 
+--------------------------
+Q.. ACID Properties?
+==> ACID confirm that transaction should completely reliable in database
+	ACID stand for 
+	A=> Atomicity
+	C=> Consistency
+	I=> Isolation 
+	D=> Durability
+----------------------------------------------
+Q.. What is Atomicity?
+==> Atomicity means all or nothing 
+	- Either all operation within transaction are successfully completed 
+	  and committed to the database or none of them are.If anyone operation fails then 
+	  entire transaction is rolled back and data is restored to its original state.
+	- To achive this Oracle uses Rollback,Savepoint,commit.
+	- Example:
+		sending money online : Either money is deducted from your account and added to the receiver's 
+		account or whole transaction is fails - no in between 
+----------------------------------------------
+Q.. What is consistency?
+==> Consistency means database must be consistent state before and after the transaction.
+	- To achieve this oracle use PK,FK,Triggers
+	- If a transaction voilet database rule or constraints,it should be rejected,ensuring that 
+	  consistent data exists after the transaction.
+	- Example: You can't transfer money more than you have.
+----------------------------------------------
+Q.. What is Isolation?
+==> Multiple transaction can run at the same time without affecting each other's result 
+	- oracle uses lock and isolation levels to to isolate the transaction.
+	- Oracle feature used: isolation levels (read committed)
+----------------------------------------------
+Q.. What is Durability?
+==> Once a transaction is committed the changes are permanent-even if there is system crash or power failure.
+	- Once you send a message and see "delivered" , it say delivered even if your phone dies 
+	- Oracle feature used : Redo logs,flashback,Datafiles
+----------------------------------------------
 Q.. What is SQL?
 ==> SQL stand for structured query language 
 	Structured means fixed format 
@@ -120,12 +182,73 @@ Q.. CREATE Statement?
 Q.. When we create table, in which order column get created?
 ==> In which order we have specified column names in same order column get created.
 --------------------------
+Q.. Tell me table naming rules?
+==> 1. table name can be combination of upper case character(A-Z),lower case character(a-z),
+	   digit(0-9) and special symbols #,$ and underscore
+	2. Table name should not start with digit or special symbol. it should be start with 
+	   either upper case letter or lower case letter.
+	3. Blank space is not allowed.
+	4. Maximum 30 character allowed for table name 
+	5. Keywords not allowed for table name 
+	6. within same database two table can't have same name 
+--------------------------
+Q.. Tell me rule to define column name?
+==> 1. column should be contain uppercase letter,lowercase letter,digit
+	   or special symbols like $,# and underscore.
+	2. column name should not start with digit and special symbols 
+	3. column name should not be same with reserve keyword 
+	4. blank space is not allowed 
+	5. maximum 30 character allowed for column name 
+	6. within 1 table two column does not have same name.
+--------------------------
+Q.. What are table properties?
+==> Table must have atleast one column 
+	- Every table have unique name 
+	- Table can have 0 or N number of records 
+	- Table can have minimum 1 and maximum 1000 columns 
+--------------------------
+Q.. Which symbols are allowed in table name and column name?
+==> Table name and column name can be combination of uppercase letter,lowecase letter,
+	digit,special symbols like $,# and underscore.
+--------------------------
+Q.. what is length of column and table name?
+==> 30 
+--------------------------
+Q.. What is maximumn and minimum number of column allowed in 1 table?
+==> min 1 and maximumn 1000.
+--------------------------
+Q.. While creating table i'm getting error like "name is used by existing object",what is meaning 
+	of that error and how you resolve it?
+==> Meaning=> table name is already exist 
+	Reason=> Within same database 2 table can't have same name 
+	solution=> provide alternate name to new table.
+--------------------------
+Q.. Where created tables meta data is available?
+==> user created tables meta data is available below view 
+	1. user_tables
+	2. all_tables
+	3. dba_tables
+	all these are data dictionary views 	
+--------------------------
+Q.. What is difference between user_tables,all_tables,dba_tables?
+==> 1. user_tables => show only tables created by current user 
+	2. all_tables => show all tables accessible to current user.(owned+granted)
+	3. dba_tables => show all tables present in database 
+					this view is accessible to only dba person.
+--------------------------
+Q.. What is syntax to create database?
+==> create database database_name;
+--------------------------
 Q.. Data type in oracle?
 ==> Data type means which type of value we want to store in column 
 	Most commonly used data types are 3 and these are 
 	1. string 
 	2. number 
-	3. date 
+	3. date
+	4. timestamp
+	5. blob 
+	6. clob 
+	7. bfile
 --------------------------	
 1. String:- string means sequence of character enclosed in single quote is considered as string 
 			- To define string value we have 3 data type 
@@ -152,6 +275,18 @@ Q.. Data type in oracle?
 			3. varchar2 data type: 
 				- varchar2 is same as varchar 
 --------------------------
+Q.. what is mean by fixed in length?
+==> fixed in legth means length of data type is fixed not depend on actual length.
+--------------------------
+Q.. What is mean by variable in length?
+==> length of data type is defined on actual length of value stored.
+--------------------------
+Q.. When shoud we go with char data type?
+==> if you know size advancly then go with char data type.
+--------------------------
+Q.. when should we go with varchar data type?
+==> if you don't know size advancly then go with varchar data type.
+--------------------------
 Q.. What is difference between varchar and varchar 2 ?
 ==> functionality wise varchar and varchar2 is same but there is only difference is 
 	varchar is developed by ANSI and varchar2 is developed by Oracle.
@@ -177,8 +312,14 @@ Q.. Number data type?
 	Precision means total number of digit in number
 	Scale means number of digit after decimal point 
 	Range of Precision is 1 to 38,precision is optional.if we don't specify precision then bydefault it 38
-	Range of Scale is -84 to 127.Scale is optional,if we don't specify scale then 127
-	if we specify precision and scale value out of range then we will get an error 
+	Range of Scale is -84 to 127.Scale is optional,if we don't specify scale then 0
+--------------------------
+Q.. What happen if we try to insert value that exceeds precision defined in number(p,s)?
+==> we will get an error 
+--------------------------
+Q.. what happen if we try to insert value that exceeds scale defined in number(p,s)?
+==> We don't get an error.Oracle engine automatically roundup the scale value to satisfied
+	scale value.
 --------------------------
 Q.. Date data type?
 ==> Date data type is used to store date type value 
@@ -187,6 +328,45 @@ Q.. Date data type?
 	To convert date data type into string use to_char() function 
 	To convert string type value into date use to_date() function 
 	Date use 7 byte of storage 
+--------------------------
+Q.. Suppose I execute below statement 
+	insert into employee(empno,empname,dob) values(1,'yash,'01-july-24');
+	What date value is insert 1925 or 2025?
+==> 2025 is inserted if oracle use RR 
+	1925 is inserted if oracle use YY 
+--------------------------
+Q.. What is default data format in oracle?
+==> Date data type store date in oracle 
+	- default display format depends on the NLS_DATE_FORMAT of database.
+	- NLS stand for national language support 
+	- In most oracle installation the default date format is 'dd-mon-rr'
+	- To check default format we have syntax 
+		select * from nls_session_parameters where parameter='NLS_DATE_FORMAT'
+	- We can change default date format 
+		alter table nls_session_parameters set NLS_DATE_FORMAT='dd-mon-yyyy'
+--------------------------
+Q.. What is range of date data type?
+==> 1 january 4712 BC to 31 December 9999 AD 
+	BC stand for before christ 
+	AD stand for anno domini
+--------------------------
+Q.. Century handling rule?
+==> 1. century determination with RR 
+	-> If we have RR format then oracle tries to guess century based on current year 
+		if year is 00-49 : oracle interprets as 2000 to 2049 
+		if year is 50-99 : oracle interprets as 1950 to 1999
+	
+	2. Century determination with YY 
+	-> If we have YY format then oracle interprets two digit year as 20th century 
+	   i.e 19XX
+--------------------------
+Q.. Conversion function to convert DATE data type into STRING and STRING into DATE?
+==> TO_CHAR: convert date type value into STRING it accpet two input argument 
+			 first is date value and second is date format 
+			 TO_CHAR(date_value,'date_format')
+	
+	TO_DATE: convert STRING type value into date 
+		Syntax: TO_DATE('dd-mon-yy')
 --------------------------
 Q.. BLOB data type?
 ==> BLOB stand for Binary Large Object 
@@ -203,7 +383,8 @@ Q.. CLOB data type?
 --------------------------
 Q.. BFILE data type?
 ==> BFILE stand for Binary file 
-	This data type is used to store binary data in external file 
+	This data type is used to store locator of external file 
+	The actual file stored in OS file system,not inside database.The databse store only pointer of file 
 	maximum size is 4gb 
 --------------------------
 Q.. Insert statement?
@@ -216,16 +397,40 @@ Q.. Insert statement?
 		Form 2: Inserting value into specific column 
 			insert into table_name(clm1_name,clm2_name,....,N) values(Clm1_value1,Clm2_value2,.....,N)
 --------------------------
+Q.. How many records can we insert at a time using insert into statement?
+==> only one 
+--------------------------
+Q.. If we want to insert 100 statement then how many insert statement we need to write?
+==> 100
+--------------------------
 Q.. What is null value?
 ==> null is special type of value it is different than 0 or blank.
 	null means not present 
+--------------------------
+Q.. What is difference between null and 'null'?
+==> firt null is consider as special value where as 
+	seocond null is consider as string value 
+--------------------------
+Q.. if two user working on same table. 1 user inserting data into table another is selecting data from table 
+	but 2nd user not able to view data inserted by 1st user,what is the problem?
+==> 1st user is not committed data in table that's why 2nd user not able to view the data 	
+--------------------------
+Q.. how to copy data from one table and insert into another table?
+==> insert into Table_name(clm1_name,clm2_name...N)select clm1_name,clm2_name....N from source_table_name
+--------------------------
+Q.. how to copy structure of table without copying its data in oracle?
+==> create table new_table_name as select * from old_table_name where 1=0; 
+--------------------------
+Q.. how to create new table from old table in oracle?
+==> create table new_table_name as select * from old_table_name;
 --------------------------
 Q.. Select statement?
 ==> select is DQL statement 
 	select statement is used to fetch data from table 
 	by using select statement we can fetch data from single or multiple table 
 	Syntax: 
-		select clm1_name,clm2_name....N  from table_name where condition;
+		select clm1_name,clm2_name....N  from table_name where condition group by column_name 
+		having group_function column_name condition order by column_name ;
 		
 --------------------------
 Q.. Where clause?
@@ -254,7 +459,21 @@ Q.. Operator in SQL?
 Q.. What is dual in Oracle?
 ==> Dual is dummy table in oracle 
 	Dual is used for testing purpose 
-	Dual has one column 
+	Dual has one column and zero row 
+--------------------------
+Q.. What is use of Commit?
+==> commit is used to commit the change or save the changes in database.
+	Commit the changes permanently in the database.
+--------------------------
+Q.. Which statement need to commit and why?
+==> DML statements need to commit because DML statements are not auto commit.
+--------------------------
+Q.. What is Rollback?
+==> Rollback means to undo the changes or move changes to its previous stage.
+	DML statement need to Rollback.
+--------------------------
+Q.. We can Rollback DML statement but we can't Rollback DDL statement Why?
+==> DDL statement are auto committed where DML Statements are not auto committed.
 --------------------------
 Q.. mod() function in oracle?
 ==> mod() function is used to find remainder in oracle 
@@ -291,6 +510,12 @@ Q.. What is AND operator?
 	if 1st condition is true and 2nd condition is true then end result will be true 
 	if both codition is false then end result will false 
 -----------------------------------------
+Q.. What is single row comparision operator?
+==> The operator which oprate on single row is nothing but single row operator.
+-----------------------------------------
+Q.. What is multi row comparision operator?
+==> The operator which operate on multiple row is nothing but multiple row operator.
+-----------------------------------------
 Q.. What is "IN" operator?
 ==> IN operator is used to specify the values in where clause.
 -----------------------------------------
@@ -300,8 +525,8 @@ Q.. How many values we can specify inside "IN" operator?
 Q.. What is "NOT IN" operator?
 ==> if we don't want to specify value inside where clause.
 -----------------------------------------
-Q.. What is NULL operator?
-==> NULL operator is used to check column value is null or not 
+Q.. What 'IS NULL' operator?
+==> IS NULL operator is used to check column value is null or not 
 	NULL is special type of value 
 	NULL means value is not present 
 	it is not same to numeric 0 or blank space 
@@ -376,6 +601,48 @@ Q.. What is "order by" clause?
 	Syntax: 
 		order by ASC|DESC
 ------------------------------------------
+Q.. What is purpose of Order by clause?
+==> To sort the result in ascending or descending order 
+------------------------------------------
+Q.. Order by clause is optional or manadatory in select statement?
+==> It is an optional
+------------------------------------------
+Q.. If we are not using order by clause then in which order records get displayed?
+==> If we are not providing order by clause then in which order we insert the 
+	data into the table in that same order data will get reflect.
+------------------------------------------
+Q.. In select statement,what is the position of ORDER BY clause?
+==> At the end of SELECT statement 
+------------------------------------------
+Q.. Syntax to sort the result set based on two columns?
+==> ORDER BY column1_name ASC|DESC,column_2_name ASC|DESC
+------------------------------------------
+Q.. What is precedence order of sorting in Order by clause for the following things?
+	1. Special symbols 
+	2. Upper case character 
+	3. Lower case character 
+	4. Digit 
+==> sorting is based on ASCII code value of character 
+	Precedence order in ASCII
+	1. special symbol 
+	2. digits 
+	3. upper case character 
+	4. lower case character 
+------------------------------------------
+Q.. How the date value are sorted in order by clause?
+==> Date values are not sorted as strings - they are sorted based on 
+	their internal date-time representation.
+	- When we use ORDER BY on a date column 
+		ASC=> earlist date first,latest date last 
+		DESC=> latest date first,earlist date last 
+	- So when we sort by a DATE column 
+		first SQL compare the year 
+		if year is the same -> compares the month 
+		if month is the same -> compares the day.
+		if day is the same -> compares the hours 
+		then minutes
+		then seconds 
+------------------------------------------
 Q.. Can we use order by clause to apply sort condition for 2 column?
 ==> yes 
 	Syntax: 
@@ -400,15 +667,23 @@ Q.. What is aliasing in oracle?
 	2. By using double quote.
 		select * from table_name "abc"
 ------------------------------------------
-Q.. Type of functions?
-==> There are two type of function 
-	1. single row function 
-		1. character function 
-		2. number function 
-		3. date function 
-		4. conversion function 
-		5. general function
-	2. multi row function 
+Q.. what is mean by predefined functions?
+==> the functions which are provided by SQL is nothing but predefined functions
+------------------------------------------
+Q.. Types of Predefined functions?
+==> 1. Single row functions 
+	2. Multi row functions or group functions or aggregate functions
+	3. Analytical functions or window functions
+------------------------------------------
+Q.. What is single row functions?
+==> the functions which are operator on single row is nothing but single row functions
+------------------------------------------
+Q.. What is multi row functions?
+==> The functions which are operate on multiple row or group of rows is nothing but multi row functions.	
+------------------------------------------
+Q.. What is aggregate functions?
+==> The functions which perform calculation across the set of rows related to current row 
+	without collapsing into groups is called Analytical function or window function.
 ------------------------------------------
 Q.. what is "lower" function?
 ==> lower function accept one input argument 
@@ -824,7 +1099,7 @@ Q.. Having clause?
 		having group_function_name column_name 
 	
 	- we can't use group function infront of where clause to apply the condition By mistake 
-	  we use where clause group function infrom of where clause then we will get an error 
+	  we use group function infront of where clause then we will get an error 
 	  so to overcome this problem having clause is introduced 
 ------------------------------------------
 Q.. Can we use group function in order by clause ?
@@ -1078,16 +1353,16 @@ Q.. what is ALTER statement?
 		- we can change size of column 
 		- we can change table name 
 		- we can enable or disable constraint
-		
-	- Options in ALTER statement 
-		- ADD
+------------------------------------------		
+Q.. What are the different options in ALTER statement 
+==>		- ADD
 		- DROP 
 		- MODIFY 
 		- RENAME 
 		- ENABLE 
 		- DISABLE 
-	
-	- ADD option in ALTER
+------------------------------------------	
+Q.. What is ADD option in ALTER?
 		with the help of ADD option we can add following things
 		1. we can add single columns or multiple columns 
 		2. we can add constraint on exsiting columns 
@@ -1117,7 +1392,6 @@ Q.. what is ALTER statement?
 			3. Table level constraint 
 				=> NOTE . 1. we can't apply default table level constraint 
 						  2. we can't apply not null default table level constraint 
-						  3. we can apply table level foreign key constraint without constraint keyword 
 				create table employee(empid number)
 				alter table employee add(mobile number,mob number,constraint pkmb primary key(mobile,mob))
 				alter table employee add(mobile_n number,mob_no number,constraint ukmb unique(mobile_n,mob_no))
@@ -1156,14 +1430,14 @@ Q.. create table project(p_id number,p_name varchar(90),duration number).
 	
 	Q.2 Write an sql query to add check constraint on duration column 
 		duration should be less than 60 days?
-	==> Alter table project constraint duration_ck check(duration<60);
+	==> Alter table project add constraint duration_ck check(duration<60);
 	
 	Q.3 Write an sql query to add foreign key constraint on dept_id column 
 	==> first we need to add dept_id column 
 		alter table project add dept_id number 
 		
 		apply foreign key on dept_id 
-		alter table project constraint dept_id_fk foreign key (dept_id) references department(dept_id) 
+		alter table project add constraint dept_id_fk foreign key (dept_id) references department(dept_id) 
 		on delete cascade 
 ------------------------------------------
 Q.. Consider this table and solve below questions 
@@ -1184,11 +1458,11 @@ Q.. If table is non-empty then which of the following constraint we can add usin
 	5. default 
 	6. check 
 	
-	we can add all constraint if table is non-empty except not null and default constraint 
+	we can add all constraint if table columns satisfy constraint condition
 ------------------------------------------
 Q.. if table is non empty then can we add primary key constraint on existing column?
 ==> if column does not contain duplicate and null values then we happily we can add primary key constraint 
-	if column constain duplicate or null values then we get an error.
+	if column contain duplicate or null values then we get an error.
 ------------------------------------------
 Q.. If table is non empty can we add unique key constraint on existing column?
 ==> If table is non empty and column does not contain duplicate values then we can add unique constraint 
@@ -1204,13 +1478,13 @@ Q.. If table is non empty can we add check constraint on existing column?
 ------------------------------------------
 Q.. What is difference between column level constraint and table level constraint?
 ==> - Column level constraint defined at the time of column defination where as 
-	  Table level constraint means column defination and constraint defination is seperate.
+	  In Table level constraint column defination and constraint defination is seperate.
 	- column level constraint can be applied with or without constraint keyword where as 
 	  Table level constraint can be applied only with constraint keyword 
 	- column level constraint applicable for single column where as 
 	  table level constraint is applcable for multiple column 
 ------------------------------------------
-Q.. Alter statement with drop option?
+Q.. What is the use of drop option in Alter statement?
 ==> with the help of drop option we can 
 	1. drop constraint
 	2. drop single column or multiple column	
@@ -1543,7 +1817,7 @@ Q.. About sequence?
 		1. for ascending sequence min value is 1 
 		2. for descending sequnce min value is "10 rest to 27 -1"
 		
-	- if we don't specify max value then 
+	- if we don't specify max value then  
 		1. for ascending sequence max value is "10 rest to 27 -1"
 		2. for descending sequence max value is 1 
 	
@@ -1905,14 +2179,14 @@ Q.. Rule for First Normal Form.
 	
 	i.e First normal form removes multi-valued attributes and removes duplicate rows 
 ------------------------------------------
-Q.. Rule for Second Normal Form.
+Q.. Rule for Second Normal Form. (foreign key)
 ==> Table must be in First Normal Form.
 	No partial dependancy
 	(Partial dependancy means non key columns are depends on part of composite key.
 	 In second normal form we have to remove partial dependancy.
 	 No partial dependancy means non key attributes fully depends on whole key)
 ------------------------------------------
-Q.. Rule of Third Noramal Form.
+Q.. Rule of Third Noramal Form.(many to many foreign key)
 ==> Table must be in Second Normal Form.
 	No Transitive Dependancy.
 	
@@ -2023,22 +2297,1312 @@ Q.. What is the use of join?
 ----------------------------------------------	
 Q.. What are different type of joins?
 ==> there are near 10 types of joins and all joins are classified into two categories 
+	1. Based on syntax or relationship 
+	2. Based on condition type
+	
+	1. Based on syntax of relationship 
+		- inner join 
+		- left outer join 
+		- right outer join 
+		- full outer join 
+		- self join 
+		- cross join 
+		- natural join 
+		- using clause join 
+		
+	2. Classification based on codition type 
+		- Equi join 
+		- Non Equi join 
+----------------------------------------------
+Q.. What is inner join 
+			In inner join it fetch common data from both the table 
+----------------------------------------------			
+Q.. What is left outer join 
+			- In left outer join it fetch all data from left side table
+			  and only common data from right side table 
+			- If we want all data from left table and 
+			  only common data from right table then we go with left outer join 
+----------------------------------------------
+Q.. Which join type can be used to find rows present in one table but not in another?
+==> Left outer join with IS NULL /Right outer join with IS NULL 
+
+	SELECT a.*
+	FROM table_a a
+	LEFT JOIN table_b b ON a.id = b.id
+	WHERE b.id IS NULL;
+	
+	The LEFT JOIN keeps all rows from table_a, even if there's no match in table_b.
+	The WHERE b.id IS NULL filters for rows where no match was found in table_b.
+	
+	SELECT a.*
+	FROM table_a a
+	RIGHT JOIN table_b b ON a.id = b.id
+	WHERE a.id IS NULL;	
+----------------------------------------------
+
+Q.. What is right outer join 
+			- In right outer join it fetch all data from right side table 
+			  and only common data from left side table
+			- if we want all data from right table and 
+			  only common data from left table then we go with right outer join  
+----------------------------------------------			
+Q.. What is full outer join 
+			- In full outer join it fetch non matching and matching data from both tables  
+			- if we want all data from both table then we go with full outer join 
+			- non-matching rows from left table returns null 
+			- non-matching rows from right table returns null 
+----------------------------------------------			
+Q.. What is self join ?
+			- A table joined itself is nothing but self join.
+			- self join is not keyword like inner join,left outer join,right outer join
+			- in self join we using aliasing to differentiate table 
+			- self join can be 
+				- inner join 
+				- left join 
+				- right join 
+				- full outer join 
+----------------------------------------------
+Q.. Can we generate Right outer join result using left outer join?
+==> Yes,by interchanging position of table.	
+----------------------------------------------
+Q.. Can we generate left outer join result using right outer join?
+==> yes, by interchanging position of table 	
 ----------------------------------------------	
+Q.. Suppose I have two tables Department and Employee, 
+	Department table has 5 rows and Employee table has 10 rows, 
+	each department has exactly 2 employees, 
+	4 Employees from Employee table are not working in any department then
+
+1. If we apply Inner Join then in the result how many rows get selected?
+=> 6
+
+2. If we apply Left Outer Join then in the result how many rows get selected?
+   (Consider Department as Left table)
+=> 8
+
+3. If we apply Right Outer Join then in the result how many rows get selected?
+   (Right table is Employee)
+=> 10
+
+4. If we apply Full Outer Join then in the result how many rows get selected?
+=> 12
+
 ----------------------------------------------	
+Q.. What is natural join 
+==> - it is type of join that automatically joins two or more tables based on same column 
+	- oracle engine automatically detect same column name and compare.
+	- In normal join (inner,left,right,full) we use ON clause but 
+	  In natural join we don't use ON clause compare column
+	- syntax: 
+		select column_list from table_1 natual join table2 
+	- In real time/production we avoid to use natural join 
+		=> Why 
+			1. No control 
+				- we can't tell column to database to fetch data 
+				- database decide itself column 
+				
+			2. Hard to debugg 
+				- if something going wrong then it is hard to difficult which column caused problem 
+			
+			3. Not easy to understand 
+				- when someone read natural join they don't know which column used.
+			
+			4. Wrong data or missing data
+				- natural join will join on all columns with same name 
 ----------------------------------------------	
+Q.. What is Cross join?
+==> - cross join is also called cartesian product.
+	- In cross join each row from first table is combined with each row from second table 
+	- if first table contains n rows and second table contains m rows then in result we will get total m*n rows 
+	- syntax for cross join  
+		select column_list from table_1 cross join table_2
+	- syntax for cartesian product
+		select column_list from table_1,table_";
+	- we use cross join or cartesian product for 
+		1. To generate possible combination 
+		2. To generate test data
 ----------------------------------------------	
+Q.. What is difference between cross join cartesian product?
+==> - Functionality wise cross join and cartesian product are same but syntax wise there is difference 
+	- In cross join we seperate table using cross join keyword but In cartesian production we seperate 
+	  table using comma.
+	- syntax for cross join 
+		select clm_list from table_1 cross join table_2 
+	- syntax for cartesian production 
+		select clm_list from table_1,table_2 
 ----------------------------------------------	
+Q.. What is USING clause join?
+==> - if we are joining two table where both tables column name are same then instead of using 
+	  ON clause we use USING clause.
+	- USING clause is used with different types join like inner,left,right,full outer join.
+	- Noraml syntax 
+		select column_list from table_1 inner join table_2 on table_1.clmName=table_2.clmName
+	- USING clause 
+		select column_list from table_2 inner join table_2 using(clmName)	
 ----------------------------------------------	
+Q.. What is Equi join?
+==> - Equi join is type of join that combine two or more row based on equal to operator 
+	- Equi join used equal to operator (=)
+	- Equi join can be 
+		1. inner join 
+		2. left join 
+		3. right join 
+		4. full outer join 
+	- Equi join is conceptual,technically it is part of INNER JOIN or OUTER JOIN. 
+	
 ----------------------------------------------	
+Q.. What is Non-Equi join?
+==> In Equi join we use equal to operator to compare the rows 
+	if we are using other operator like <,>,BETWEEN,LIKE then it become equi join 
 ----------------------------------------------	
+Q.. null column  behavior in joins?
+==> - in inner join null column will be ignored.
+	- in left outer join null column from left table only will be display 
+	- in right outer join null column from right table only will be display 
+	- in full outer join both table null values will be display 
 ----------------------------------------------	
+1. Which of the following best describes an INNER JOIN?
+A) Returns all rows from both tables, matching or not
+B) Returns only rows where there is a match in both tables
+C) Returns all rows from the left table, plus matches from the right
+D) Returns all rows from the right table, plus matches from the left
+-> B) Returns only rows where there is a match in both tables
+
+----------------------------------------------
+
+2. Which JOIN type will return all rows from the left table, even if there are no matches in the right table
+A) INNER JOIN
+B) FULL OUTER JOIN
+C) RIGHT JOIN
+D) LEFT JOIN
+-> D) LEFT JOIN
+
+----------------------------------------------
+
+3. If table A has 100 rows and table B has 200 rows, a CROSS JOIN will return:
+A) 100 rows
+B) 200 rows
+C) 20,000 rows
+D) Depends on join condition
+-> C) 20,000 rows
+
+----------------------------------------------
+
+4. Which of these joins may use the USING clause in Oracle?
+A) INNER JOIN
+B) NATURAL JOIN
+C) EQUI JOIN
+D) Both A and C
+-> D) Both A and C
+
+----------------------------------------------
+
+5. In Oracle, NULL values in the join column will:
+A) Always match each other
+B) Never match each other in INNER JOIN
+C) Always be ignored in LEFT JOIN
+D) Cause an error
+-> B) Never match each other in INNER JOIN
+
+----------------------------------------------
+
+6. Which join type can be used to find rows present in one table but not in another?
+A) CROSS JOIN
+B) LEFT JOIN with IS NULL filter
+C) INNER JOIN
+D) NATURAL JOIN
+-> B) LEFT JOIN with IS NULL filter
+
+----------------------------------------------
+
+7. In a SELF JOIN, we must:
+A) Use different schemas
+B) Use different databases
+C) Use table aliases
+D) Have different table structures
+-> C) Use table aliases
+
+----------------------------------------------
+
+8. Which of the following is true for FULL OUTER JOIN?
+A) Returns only matching rows
+B) Returns all rows from both tables
+C) Returns only unmatched rows
+D) Equivalent to INNER JOIN
+-> B) Returns all rows from both tables
+
+----------------------------------------------
+
+9. A NON-EQUI JOIN in Oracle is performed using:
+A) = operator
+B) <, >, BETWEEN, or other inequality operators
+C) LIKE operator only
+D) No condition at all
+-> B) <, >, BETWEEN, or other inequality operators
+
+----------------------------------------------
+
+10. If you forget the join condition in an INNER JOIN, Oracle will:
+A) Return no rows
+B) Return only NULLs
+C) Return a Cartesian product (same as CROSS JOIN)
+D) Throw an error
+-> C) Return a Cartesian product (same as CROSS JOIN)
+
 ----------------------------------------------	
+Q.. Which join returns only rows where there is match in both tables?
+==> Inner join 
 ----------------------------------------------	
+Q.. In oracle which join keyword is us for retrieving matching rows only?
+==> Inner join 
 ----------------------------------------------	
+Q.. Which join type return all rows from left table and the matching rows from right table?
+==> Left join 
 ----------------------------------------------	
+Q.. Which join return all rows from right table and the matching rows from the left table?
+==> right join 
 ----------------------------------------------	
+Q.. Full outer join returns?
+==> all rows from both tables.
 ----------------------------------------------	
+Q.. cross join return?
+==> cartesian product of both tables 
 ----------------------------------------------	
+Q.. A natural join in oracle?
+==> matches row based on same column with same name and data type 
+----------------------------------------------
+Q.. In inner join if join column contain null?
+==> That row ingonred 
 ----------------------------------------------	
+Q.. In left join if join column contain null in left table?
+==> The row is included with null values from right table.
+----------------------------------------------
+Q.. To find rows present in one table but not in another we can use?
+==> Left join + where right column is null
 ----------------------------------------------	
+Q.. What is SET operator?
+==> SET operator is used to combine result of two or more select select statement into single.
+	- There are 4 tyep of SET operator.
+		1. UNION 
+		2. UNION ALL 
+		3. INTERSECT
+		4. MINUS
+		
+	- In SET operator below points are mandatory
+		1. column count 
+			- in both select statement column count must be equal 
+		2. data type 
+			- first column of first select statement must be compatable with 
+			  first column of second select statement ...SO ON 
+		3. column name 
+			- column names for result are always from first select statement.
+----------------------------------------------		
+Q.. What is UNION?
+-> UNION operator return distinct value from two or more select statement 
+	Syntax: 
+		select statement1 from table_name union select statement2 from table_name;
+	
+	Note: if there are multiple columns then how uniqueness is decided?
+	=> if there are multiple columns then column value are combined and compared 
+	   if same combined value is exist then it is considered as duplicate 
+	   otherwise it is considered as unique.	
+----------------------------------------------
+Q.. What is UNION ALL ?
+==> It return all row from first select statement and all row from second select statement 
+	including duplicates.
+	- in UNION ALL sorting is not performed so it is faster then UNION ALL.
 ----------------------------------------------	
+Q.. Write sql query to display every employee 2 times?
+==> select * from employee_detais union all select * from employee_details 
+----------------------------------------------
+Q.. What is INTERSECT?
+==> INTERSECT return common data from two select statement.
+	- Duplicate value consider only one time.
+----------------------------------------------	
+Q.. What is difference between INTERSECT and INNER JOIN?
+==> INTERSECT work on select statement where as Inner Join work on table level.
+	Intersect does not count duplicate where as inner join count duplicate 
+----------------------------------------------
+Q.. What is MINUS?
+==> MINUS is special operator in oracle.it support only in oracle 
+	- minus return unique row from first select statement but not present in second select statement. 
+----------------------------------------------	
+Q.. Order by caluse in SET operator?
+==> Syntax: 
+		select column_list from table_1 SET OPERATOR select column_list from table_2 order by column_name;
+	- order by 1 means first column from first select statement
+	- order by 2 means second column from first select statement.
+	
+----------------------------------------------
+Q.. What is difference between SET and JOIN?
+==> SET work on select statement while join works on table level 
+	- set operator combines result of two or more select statement where as 
+	  join combine data of two more table 
+	- In set operator condition is not required where as 
+	  In join condition is manadatory otherwise it become cross join 
+	- In set operator vertical merging but In join horizontal merging 
+	- In set operator number of column must be same where In join no any restriction for column 
+	- We have set operator like (union,union all,intersect,minus) where as 
+	  we have joins like(inner join,left join,right join,full outer join,cross join)
+----------------------------------------------	
+Q.. Which set operator remove duplicate from result?
+==> UNION.
+----------------------------------------------
+Q.. For using set operators What must be true for all select statement?
+==> same column name,data type must be same,column count.
+----------------------------------------------	
+Q.. Which set operator return common rows from both select statement?
+==> INTERSECT
+----------------------------------------------
+Q.. What happen if you use union all on two quries with 10 matching rows each?
+==> 20 rows will display.
+----------------------------------------------	
+Q.. Which operator return rows from first query that are NOT in second query?
+==> MINUS
+----------------------------------------------
+Q.. Which operator is fast in database?
+==> UNION ALL
+----------------------------------------------	
+Q.. Which set operator not support in Mysql?
+==> minus (Mysql use except)
+----------------------------------------------	
+Q.. What is view?
+==> view is virtual table it is view is replica of one or more table.
+	- Type of view 
+		1. simple view 
+		2. complex view 
+		3. inline view 
+		4. materialized view 
+----------------------------------------------
+Q.. What is simple view?
+==> View created on single table or view created without using DISTINCT,
+    HAVING,JOINS,SET OPERATOR OR GROUP BY function is nothing but simple view 
+	- in simple view we allows DML operation.
+	Syntax: 
+		create view view_name as select clm1_name,clm2_name...N from table_name
+	- if we insert data into view then same data will insert into the in real table. 
+	- if we update data into view then same reflection will update in real table.
+	- if we delete data from view then same data will be delete from real table.
+	
+----------------------------------------------
+Q.. Where view data will store?
+==> there are 3 tables to store view data.
+	1. DBA_VIEWS
+		==> Accesible only to DBA person.
+		==> It show all meta about view created in database.
+		
+	2. ALL_VIEWS
+		==> Accesible to every one. 
+		==> it show meta data of all view which is accessible to you.
+		
+	3. USER_VIEWS
+		==> Accesible to every one.
+		==> it show meta data of all view which is created by you.
+----------------------------------------------
+Q.. What is complex view?
+==> view created on multiple tables or view created with distinct,group by,
+	having clause,joins,set operator is nothing but complex view.
+	- Syntax.
+		create view view_name as select clm1_name,clm2_name..N from table_name
+	- In complex view DML operations are not allowed.
+----------------------------------------------
+Q.. What is difference between simple view and complex view?
+==> - simple view is defined on single table where as complex view defined on multiple table.
+	- simple view does not contain distinct keyword where as
+		complex view contain distinct keyword 
+	- simple view does not contain group function where as 
+		complex view contain group function.
+	- simple view does not contain join where as 
+		complex view contain join 
+	- simple view does not contain set operator where as 
+		complex view cotains join 
+	- simple view does not contain having clause where as 
+		complex view contains having clause 
+	- simple view contain dml operation but complex view does not contain DML operation.
+----------------------------------------------
+Q.. How to create view read only?How to prevent DML opration on simple view?
+==> create view view_name as select * from table_name read only.
+----------------------------------------------
+Q.. What is CHECK option in simple view?
+==> CHECK option is optional in simple view 
+	it ensure that while doing insert and update operation condition must be satisfied.
+	if condition not satisfied then we will get an error.
+----------------------------------------------
+Q.. What is Inline view?
+==> Inline view is subquery in the FORM clause of sql statement.
+	- example	
+		select empname,empno,doj from (select * from employee);
+----------------------------------------------
+1. Which of the following is TRUE about a View?
+A. A View stores data physically.
+B. A View is always up to date with base tables.
+C. A View cannot have WHERE clause.
+D. A View cannot be created on multiple tables.
+==> B. A view is always up to date with base tables.
+----------------------------------------------
+2.Which of the following is true about a view in Oracle?
+A) A view stores data physically like a table
+B) A view is always read-only
+C) A view is a virtual table based on a query
+D) A view cannot be created on joins
+==> A view is a virtual table based on a query.
+----------------------------------------------
+3.Which clause makes a view non-updatable?
+A) WITH CHECK OPTION
+B) WITH READ ONLY
+C) FORCE VIEW
+D) NO DML OPTION
+==> with read only.
+----------------------------------------------
+4.Which of the following statements about WITH CHECK OPTION is correct?
+A) It prevents all DML on the view
+B) It ensures that inserted/updated rows satisfy the view’s WHERE condition
+C) It automatically creates a CHECK constraint on the base table
+D) It only applies to DELETE operations
+==> B) It ensures that inserted/updated rows satisfy the view’s WHERE condition
+----------------------------------------------
+5. Can you apply WITH CHECK OPTION and WITH READ ONLY together in a view?
+A) Yes, but only in Oracle 19c and later
+B) Yes, but only on simple views
+C) No, they cannot be combined
+D) Yes, but only if FORCE VIEW is used
+==> C) No, they cannot be combined
+----------------------------------------------
+6.Which of the following is not true about views?
+A) Views can be created on multiple tables using joins
+B) Views can have an ORDER BY clause without restrictions
+C) A view does not store data, only the query
+D) A view can be created with or without a WHERE condition
+==> B) Views can have an ORDER BY clause without restrictions
+----------------------------------------------
+7. Which of the following commands is valid?
+A) CREATE OR REPLACE VIEW v1 AS SELECT * FROM emp WITH CHECK OPTION;
+B) CREATE VIEW v2 AS SELECT * FROM emp WHERE deptno=10 WITH CHECK OPTION;
+C) CREATE VIEW v3 AS SELECT * FROM emp WITH READ ONLY;
+D) All of the above
+==> D) All of the above
+----------------------------------------------
+8. What will happen if you try to insert into a view with WITH CHECK OPTION that doesn’t satisfy the WHERE condition?
+A) The row will be inserted in base table but hidden from the view
+B) The row will be rejected with an error
+C) The row will be inserted and condition ignored
+D) The row will be inserted with NULL values
+==> B) The row will be rejected with an error
+----------------------------------------------
+9. Which of the following best describes a simple view?
+A) A view created on one table without any functions, joins, or group by
+B) A view created on multiple tables with joins
+C) A view created only with aggregate functions
+D) A view that cannot be updated
+==> A) A view created on one table without any functions, joins, or group by
+----------------------------------------------
+10. Which of the following operations are usually allowed on a simple view?
+A) SELECT only
+B) SELECT, INSERT, UPDATE, DELETE (if no restrictions)
+C) SELECT and UPDATE only
+D) SELECT and DELETE only
+==> B) SELECT, INSERT, UPDATE, DELETE (if no restrictions)
+----------------------------------------------
+11. Which of the following is NOT allowed in a Simple View?
+A. JOIN
+B. GROUP BY
+C. DISTINCT
+D. All of the above
+==> All of the above .
+----------------------------------------------
+12. Which clause ensures that only rows satisfying the view condition can be modified through the view?
+A. WITH CHECK OPTION
+B. WITH READ ONLY
+C. FORCE
+D. NO FORCE
+=> A. WITH CHECK OPTION.
+----------------------------------------------
+13. Which clause prevents DML operations on a view?
+A. WITH CHECK OPTION
+B. WITH READ ONLY
+C. NO FORCE
+D. None of the above
+=> WITH READ ONLY.
+----------------------------------------------
+14. Which statement is INVALID?
+A. CREATE OR REPLACE VIEW
+B. DROP VIEW
+C. ALTER VIEW
+D. REPLACE VIEW
+=> D. REPLACE VIEW.
+----------------------------------------------
+15. Which data dictionary view shows all the views accessible to the current user?
+A. DBA_VIEWS
+B. USER_VIEWS
+C. ALL_VIEWS
+D. Both B and C
+=> B. USER_VIEWS 
+----------------------------------------------
+16.Which of the following is generally not possible on a complex view?
+A) Insert through the view
+B) Select from the view
+C) Create the view with WHERE condition
+D) Use the view in a query
+=> A) Insert through the view.
+----------------------------------------------
+17.What is an inline view?
+A) A permanent view stored in the database
+B) A subquery in the FROM clause, treated as a temporary view for that query
+C) A view created with WITH READ ONLY
+D) A synonym for a materialized view
+=> 
+----------------------------------------------
+18.Which of the following statements about inline views is true?
+A) They must be created with CREATE VIEW
+B) They exist only during query execution
+C) They can be indexed directly
+D) They store data permanently
+=> 
+----------------------------------------------
+Q.. What is subquery?
+==> query within query is called as subquery.
+	Subquery also called inner qury or nested query.
+	- Subquery are classified into 5 different types. 
+		1. single row subquery
+		2. multi row subquery
+		3. multi-column subquery
+		4. inline view
+		5. correlated subquery
+	
+----------------------------------------------
+Q.. Single row subquery?
+==> The query which return single row and single column is called single row subquery.
+	- in single row subquery we use single row comparison operator like =,>,<,>=,=<,!=
+	- if inner query return multiple row and in outer query we have used single comparison 
+	  operator then we will get an error 
+----------------------------------------------
+Q.. Display employee details whose salary is greater than that of 101 empno?
+----------------------------------------------
+Q.. Disply employee details whose salary is greater than 101 and department is 
+	same as that of Nayantara?	
+----------------------------------------------
+Q.. display employee whose job is same as employee 110.
+----------------------------------------------
+Q.. Multi row subquery?
+==> - The query which return multiple row ans single column is called multi row subquery.
+	- If inner query return multiple row then in outer query we need to use muti row 
+	  comparison operator like IN,ANY,ALL.
+----------------------------------------------
+Q.. Disaply employee details whose city is same as that employee whose name start with 'R'?
+----------------------------------------------
+Q.. Multi-column subquery?
+==> - query which return multiple columns and multiple row is called as multi-column subquery.
+	- In multi-column subquery is used to compare multiple row at a time.
+	- Operators used in multi-column subquery IN,=,EXISTS
+----------------------------------------------
+Q.. write a query to display all employee who belong to same department and city as employee 
+	working in mumbai.	
+----------------------------------------------
+Q.. write a sql query to display employee details whose department id and city as same as Ajay?
+----------------------------------------------
+Q.. write a sql query to display employee details whose designation id and city as same as Ajay?
+----------------------------------------------
+Q.. What is difference between muli-row subquery and multi-column subquery?
+==> - multi-row subquery return multiple row with single column where as 
+	  multi-column subquery return multiple row and multiple column 
+	- multi-row subquery use comparison operator like IN,ANY,ALL where as 
+	  multi-column subquery use comparison operator like IN,=,EXISTS
+----------------------------------------------
+Q.. What is Inline view?
+==> Inline view is subquery in the FORM clause of sql statement.
+	- example	
+		select empname,empno,doj from (select * from employee);
+----------------------------------------------
+Q.. What is correlated query?
+==> A correlated query is type of subquery which is depend on outer query
+	and run once for each row of outer query.
+	- operator used in correlated query is : IN,ANY,ALL,EXIST.
+----------------------------------------------
+Q.. How to create table from existing table?
+==> To create new table using existing table syntax: 
+	create table new_table_name as select query;
+	
+----------------------------------------------	
+Q..	How to copy structure of table?
+==> create table new_table_name as select query where 1=0;
+
+----------------------------------------------
+Q.. How to copy structure with required data?
+==> create table new_table_name as select query where condition;
+----------------------------------------------
+Q.. What are the single row comparison operator?
+==> Single row operator compaire single value at a time 
+	single row operator are 
+		1. equal to = 
+		2. not equal to !=
+		3. greater than > 
+		4. less than < 
+		5. greater than equal to >=
+		6. less than equal to <= 
+		7. Not equal to  <> , !=
+----------------------------------------------
+Q.. Multi row comparison operator?
+==> Multi row operator compaire multi values at a time 
+	Multi row operator are IN,ANY,ALL/SOME,EXIST 
+----------------------------------------------
+Q.. Multi row operator 'IN'? 
+==> In operator is used to specify multiple values in where clause.
+	Syntax: 
+		select * from employee where emp id IN(1,2,3,4)
+	- IN clause allow up to 1000 values 
+----------------------------------------------
+Q.. What is ALL operator?
+==> - it is multi row operator 
+	- it is used with single row comparison operator 
+	- it compare value from outer value with all values returned by inner query 
+		and it return true if all values are matched.
+	- Syntax: 
+		select clm1,clm2 from table_name where column_name single row operator ALL(inner query)
+	- e.g 
+		display empno,empname,salary of those employees whose salary greater than 
+		every employee in department 4 
+		=> select empno,empname,salary from employee 
+		   where salary > ALL(select * from employee where department=4 )
+----------------------------------------------
+Q.. What is ANY operator?
+==> - ANY operator is multi row operator 
+	- it is used single row comparison operator 
+	- it compare value from outer query with all values returned by inner query 
+	  and returns true if any value is matched in inner query.
+	- Syntax: 
+		select clm_name from table_name where clm_name single_row_operator ANY(inner query)
+	- e.g : display empno,empname,salary of those employee whose salary greater than 
+	  any one employee in department 4. 
+	  
+	  select empno,empname,salary from employee 
+	  where salary > ANY(select salary from employee where deptId=4)
+	  
+	  select empno,empname,salary from employee 
+	  where salary> SOME (select salary from employee where deptId=4)
+----------------------------------------------
+Q.. What is difference between ALL and ANY?
+==> ALL return all value is condition is true where as ANY return true if one match is found.
+----------------------------------------------
+Q.. What is EXISTS operator?
+==> - EXISTS is boolean operator
+	- it is used to check row is exists or not.
+	- if sub query return one or more rows then it return true 
+	- if sub query return no rows then it return false 
+	- This operator is used with correlated sub query because it is more powerful for row-by-row 
+	  comparison but we can also use with non-correlated query.
+	- for example 
+		write query to display empno from employee_details but those whose department is exist.
+	 => select empno from employee_details where EXIST(select 1 from department d where e.dept_no=d.deptno)
+----------------------------------------------
+Q.. What is difference between IN and EXISTS?
+==> IN operator is used to check value where as EXISTS is used to check only existance of row 
+----------------------------------------------
+Q.. Between subquery and join which is best? Why?
+==> Between subquery and join join is best 
+	performance wise inner query is slow.inner query execute first and then its result is used in outer query.
+	- joins are recommended to use 
+----------------------------------------------
+Q.. What is null in oracle?
+==> - null is special type of value it is different than zero or blank.null means not present/absent 
+	- null handling is most confusing part in oracle because some operator conside null but some ignore 
+	
+	1. Any arithmatic operator with null
+		- select 100+null => null 
+		- select 100-null => null 
+	
+	2. null with single row operator
+		- null=null => false 
+		- 1=null => false 
+		- 'a'=null => false 
+		- select * from employee where dept_id=null => no data found (wrong way to find null value)
+		- select * from employee where dept_id IS NULL => (THIS IS CORRECT WAY)
+		- select * from employee where dept_id != null => no data found(wrong way to find null values)
+		- select * from employee where dept_id IS NOT NULL.
+	
+	3. NULL in multi row comparison operator?
+		1. EXISTS: ingnore null check only existance of row 
+		
+		2. IN : In operator ignore null values 
+			select * from employee where empno IN(100,101,null) oracle convert this query into as below 
+			select * from employee where empno IN(100,101)
+			
+		3. NOT IN: NOT IN operator consider null values 
+			NOT IN=>Total condition fails=> return no rows 
+			
+			select * from employee where dept_id NOT IN(100,101,null)
+			
+		4. ANY or ALL consider the NULL values 	
+----------------------------------------------
+Q.. Which of the following best defines a subquery?
+A) A query that retrieves rows from multiple tables
+B) A query nested inside another SQL statement
+C) A query that always uses GROUP BY
+D) A query that only runs independently
+==> B) A query nested inside another SQL statement
+----------------------------------------------
+Q.. Where can a subquery be placed in Oracle SQL?
+A) WHERE clause
+B) FROM clause
+C) HAVING clause
+D) All of the above
+==> D) All of the above
+----------------------------------------------
+Q.. A subquery that returns exactly one value is called?
+A) Multi-row subquery
+B) Correlated subquery
+C) Single-row subquery
+D) Inline view
+==> C) Single-row subquery
+----------------------------------------------
+Q.. Which operators are used with single-row subqueries?
+A) =, <, >, <=, >=, !=
+B) IN, ANY, ALL
+C) EXISTS, NOT EXISTS
+D) BETWEEN, LIKE
+==>A) =, <, >, <=, >=, !=
+----------------------------------------------
+Q.. Which operators are used with multi-row subqueries?
+A) IN, ANY, ALL
+B) =, <, >
+C) BETWEEN, LIKE
+D) None
+==> A) IN, ANY, ALL
+----------------------------------------------
+Q.. Which of the following is NOT true about subqueries?
+A) Subquery must be enclosed in parentheses
+B) Subquery can return multiple columns always
+C) Subquery can be nested inside SELECT, WHERE, HAVING
+D) Subquery executes before the outer query (except correlated subquery)
+==> B) Subquery can return multiple columns always
+----------------------------------------------
+Q.. A subquery in the FROM clause is called:
+A) Inline view
+B) Multi-column subquery
+C) Correlated subquery
+D) Join
+==> A) Inline view
+----------------------------------------------
+Q.. A correlated subquery is:
+A) Independent of outer query
+B) Executes once for the outer query
+C) Executes once for each row of the outer query
+D) Same as inline view
+==> C) Executes once for each row of the outer query
+----------------------------------------------
+Q.. Which keyword is used to check if a value returned by subquery exists?
+A) ALL
+B) ANY
+C) EXISTS
+D) UNION
+==> C) EXISTS
+----------------------------------------------
+Q.. What will happen if a single-row subquery returns multiple rows?
+A) Oracle automatically picks the first row
+B) Error: ORA-01427: single-row subquery returns more than one row
+C) Oracle ignores extra rows
+D) Query executes successfully
+==> B) Error: ORA-01427: single-row subquery returns more than one row
+----------------------------------------------
+Q.. What happens if a multi-row subquery returns no rows?
+A) Outer query fails
+B) Outer query returns no rows if operator is IN
+C) Oracle throws error
+D) Query result is NULL
+==> B)Outer query returns no rows if operator is IN
+----------------------------------------------
+Q.. Which operator returns TRUE if the comparison is true for at least one value returned by subquery?
+A) ALL
+B) ANY/SOME
+C) EXISTS
+D) IN
+==> B) ANY/SOME
+----------------------------------------------
+Q.. Which operator returns TRUE only if the comparison is true for all values returned by subquery?
+A) ALL
+B) ANY/SOME
+C) EXISTS
+D) IN
+==> A) ALL
+----------------------------------------------
+Q.. Which subquery type can return multiple columns?
+A) Inline view
+B) Multi-column subquery
+C) Single-row subquery
+D) EXISTS subquery
+==> B) Multi-column subquery
+----------------------------------------------
+Q.. What is the main advantage of using subqueries over joins?
+A) Always faster
+B) Always easier to optimize
+C) Easier to write and understand for filtering with aggregates
+D) Required in every query
+==> C) Easier to write and understand for filtering with aggregates
+----------------------------------------------
+Q.. In a correlated subquery, the inner query:
+A) Runs once before outer query
+B) Runs once for each row in the outer query
+C) Runs only if outer query fails
+D) Runs after the outer query completes
+==> B) Runs once for each row in the outer query
+----------------------------------------------
+Q.. What is the difference between IN and EXISTS in subqueries?
+A) IN checks for values; EXISTS checks for existence of rows
+B) IN is faster always; EXISTS is slower always
+C) Both are same internally
+D) EXISTS cannot be used in Oracle
+==> A) IN checks for values; EXISTS checks for existence of rows
+----------------------------------------------
+Q.. Which of the following is true for inline views?
+A) They are temporary views defined in FROM clause
+B) They can be used like a table in joins
+C) They vanish once query execution is complete
+D) All of the above
+→ **D) All of the above**
+----------------------------------------------
+**19. Which type of subquery is used in this query?
+SELECT ename FROM employee e WHERE EXISTS (SELECT 1 FROM dept d WHERE d.deptno = e.deptno);
+A) Inline view
+B) Multi-row subquery
+C) Correlated subquery
+D) Multi-column subquery
+→ **C) Correlated subquery**
+----------------------------------------------
+Q.. What is CASE EXPRESSION ?
+==> CASE is not function it it expression 
+	it is used to add conditional logic in sql query.
+	CASE expression is used in where,order by,having,group by clause 
+	Syntax: 
+		CASE expression 
+			WHEN value 1 THEN result 1
+			WHEN value 2 THEN result 2 
+			.
+			.
+			.
+			ELSE resultN
+		END
+	- expression is compared with provided list of values 
+	- if expression and value 1 matched then it return result 1,if expression and value 2 matched 
+	  then it return result 2 returned and so on 
+	  if expression and provided value is not matched then it return ELSE 
+	- ELSE is optional part if we don't provide ELSE part then bydefault it is null.
+----------------------------------------------
+### **1. What is the purpose of the CASE expression in SQL?**
+
+A) To create new tables in the database
+B) To perform conditional logic and return different values based on conditions
+C) To join multiple tables together
+D) To enforce constraints on columns
+**→ B) To perform conditional logic and return different values based on conditions**
+
+----------------------------------------------
+
+### **2. Which of the following is true about the CASE expression?**
+
+A) It can only be used in the WHERE clause
+B) It is a control-of-flow structure used to repeat a query multiple times
+C) It evaluates conditions and returns values like an IF-THEN-ELSE structure
+D) It always requires an ELSE statement
+**→ C) It evaluates conditions and returns values like an IF-THEN-ELSE structure**
+
+----------------------------------------------
+
+### **3. Given this query:**
+
+```sql
+SELECT ename,  
+       CASE WHEN salary > 5000 THEN 'High'  
+            ELSE 'Low'  
+       END AS salary_category  
+FROM Employee;
+```
+
+**What will be the output for an employee with a salary of 3000?**
+A) High
+B) Low
+C) NULL
+D) Error
+**→ B) Low**
+
+----------------------------------------------
+
+### **4. Where can the CASE expression be used?**
+
+A) SELECT, WHERE, GROUP BY, ORDER BY clauses
+B) Only in SELECT clause
+C) Only inside functions
+D) It cannot be used in SQL queries
+**→ A) SELECT, WHERE, GROUP BY, ORDER BY clauses**
+
+----------------------------------------------
+
+### **5. What will this query return if no condition matches and there is no ELSE clause?**
+
+```sql
+SELECT ename,  
+       CASE WHEN salary > 10000 THEN 'High'  
+       END AS salary_category  
+FROM Employee;
+```
+
+A) It will throw an error
+B) It will return 'High' for all rows
+C) It will return NULL for rows where the condition is not met
+D) It will skip rows where the condition is not met
+**→ C) It will return NULL for rows where the condition is not met**
+----------------------------------------------
+Q.. What is decode function in oracle?
+==> Decode is predefined function in oracle.
+	It is simplified version of Case expression.
+	Syntax: 
+		DECODE(expression,search1,result1,search2,result2.....default) 
+	default is optional value 
+	expression may be column name or value 
+	for decode 3 input argument compulsary required 
+	1.expression 2. search 3. result otherwise we will get an error 
+----------------------------------------------
+Q.. write sql query to display empname,empno,gender,gender_desc in gender_desc M=>Male F=>Female?
+----------------------------------------------
+Q.. write sql query to categorizes employees into three groups based on their salary 
+	'high' if the salary is greater than 30000
+	'medium' if the salary is between 20k to 30k 
+	'low' if the salary is less than 10k 
+----------------------------------------------
+Q.. Limitation of Decode?
+==> It is oracle specific for other detabase it is not supported.
+	we can't use logical conditions like salary>30k,salary between 20k to 30k in decode 
+----------------------------------------------
+Q.. What is difference between Case and Decode?
+==> Case is widely supported where as decode is oracle specific.
+	Case support wide range of conditions but decode support only equality condition
+	For more complex or more conditions Case is recommended to use where as Decode is not recommended to use 
+----------------------------------------------
+Q.. What is Rollup function?
+==> Rollup is extention of group by clause 
+	with the help of Rollup function we can find sub total and grant total 
+	it create sub total and grant total in heirarchical manner 
+	Syntax: 
+		group by rollup(clm1,clm2,...N)
+	Execution of Rollup 
+		-> Grouping 
+		-> sub Total 
+		-> Grant Total 
+		-> Null represent sub total and grant total 
+		-> If we have n columns in Rollup we have n+1 combinations 
+----------------------------------------------
+Q.. What is CUBE function?
+==> CUBE is extention of group by clause. 
+	It calculate sub total and grant total for all possible combinations 
+	Syntax: 
+		group by cube(clm1,clm2....N)
+	If we have N columns in CUBE we have N^2 combinations 
+----------------------------------------------
+### **1. What does the ROLLUP operator do in Oracle SQL?**
+A) Calculates subtotals for all possible combinations of columns
+**B) Calculates hierarchical subtotals from leftmost column to rightmost ✅**
+C) Sorts the data in ascending order
+D) Eliminates duplicate rows
+----------------------------------------------
+### **2. Which of the following statements is true? (Given GROUP BY ROLLUP(dept,job))**
+A) You get subtotals for each dept and each job separately
+B) You get only the grand total
+**C) You get subtotal for each dept and the grand total ✅**
+D) You get all combinations of dept and job
+----------------------------------------------
+### **3. How do you identify subtotal or grand total rows in a ROLLUP query?**
+A) Using the SUM() function
+**B) Using the GROUPING() function ✅**
+C) Using DISTINCT keyword
+D) Using ORDER BY clause
+----------------------------------------------
+### **4. What will the following query return?**
+```sql
+SELECT dept, job, SUM(salary)
+FROM Employee_Test
+GROUP BY ROLLUP(dept, job);
+```
+A) Only total salary for each department
+B) Salary for each employee
+**C) Salary by dept, salary by dept+job, and grand total ✅**
+D) All possible combinations of dept and job with subtotals
+----------------------------------------------
+### **5. Difference between ROLLUP and CUBE is:**
+A) ROLLUP generates all possible subtotals; CUBE generates hierarchical subtotals
+**B) ROLLUP generates hierarchical subtotals; CUBE generates all possible subtotals ✅**
+C) Both are the same
+D) ROLLUP cannot be used with aggregate functions
+----------------------------------------------
+### **6. What is the purpose of the CUBE operator in SQL?**
+A) It computes only grand totals
+B) It creates hierarchical subtotals
+**C) It generates all possible combinations of subtotals and totals for specified columns ✅**
+D) It filters out NULL values from the result
+----------------------------------------------
+### **7. For GROUP BY CUBE(dept, job), how many grouping sets will be generated?**
+A) 2
+B) 3
+C) 4
+**D) 4 ✅**
+----------------------------------------------
+### **8. What is the difference between ROLLUP(dept, job) and CUBE(dept, job)?**
+A) ROLLUP generates all combinations, CUBE generates only hierarchical subtotals
+**B) ROLLUP generates hierarchical subtotals, CUBE generates all combinations of grouping columns ✅**
+C) There is no difference
+D) CUBE can only be used with numeric columns
+----------------------------------------------
+### **9. Given the following query:**
+```sql
+SELECT dept, job, SUM(salary)
+FROM Employee_Test
+GROUP BY CUBE(dept, job);
+```
+**Which of the following rows will not appear?**
+A) Grouped by both dept and job
+B) Grouped by dept only
+C) Grouped by job only
+D) Grouped by neither dept nor job (grand total)
+**-> All are correct ✅**
+----------------------------------------------
+### **10. You can use the GROUPING() function with CUBE to:**
+A) Identify rows that are duplicates
+**B) Distinguish between detail rows and subtotal/grand total rows ✅**
+C) Sort the output in ascending order
+D) Create indexes automatically
+----------------------------------------------
+### **11. For GROUP BY CUBE(dept, job, location), how many grouping sets will be created?**
+A) 3
+B) 6
+C) 7
+**D) 8 ✅**
+----------------------------------------------
+### **12. Which use case best fits the use of CUBE?**
+A) Generating simple totals by one column
+B) **Producing multidimensional reports across several attributes ✅**
+C) Filtering results based on specific conditions
+D) Encrypting sensitive data
+----------------------------------------------
+### **13. Which statement is true when you use CUBE?**
+A) It only works with numeric columns
+B) It automatically sorts data in ascending order
+**C) It calculates aggregate values at all levels of specified columns ✅**
+D) It removes all rows with NULL values
+----------------------------------------------
+Q.. What is analytical function?
+==> - The function which perform calculation across the set of rows related to current rows 
+	  without collapsing into groups is called analytical function.
+	- they operate over window of row defined by over clause.
+	- Ranking analytical function 
+		1. rank()
+		2. dense_rank()
+		3. row_number()
+		
+	- Aggeregate analytical function 
+		1. avg()
+		2. min()
+		3. max()
+		4. count()
+		5. sum()
+	
+	- Syntax of aggregate function 
+		Aggeregate_function() over(partition by column_name order by column asc/desc
+----------------------------------------------
+Q.. RANK() analytical function?
+==> This function assign rank to each row within partition but skip subsequent rank when there is tie.
+	- Rank() function does't accept argument.
+----------------------------------------------
+Q.. Assign rank to each employee based on their salary in desending order?
+==> select empno,empname,salary,rank() over(order by salary desc)as salary_descending from employee
+----------------------------------------------
+Q.. Assign department wise rank to each employee based on their salary in ascending order?
+==> select empno,empname,salary,rank() over(partition by dept_id order by salary asc) from employee.
+----------------------------------------------
+Q.. Dense_rank() analytical function?
+==> Dense_rank function assign rank to each row but don't skip if there is subsequent tie
+	Syntax : 
+		Dense_rank() over(partition by column_name order by column_name asc/desc)
+	
+	Dense_rank does't accept input argument 
+----------------------------------------------
+Q.. assign rank to employee based on their salary in descending order?
+==> select empno,empname,salary,dense_rank() over(order by salary desc) from employee
+----------------------------------------------
+Q.. assing rank to employee bases on department wise and salary in descending order?
+==> select empno,empname,salary,dense_rank() over(partition by dept_id order by salary desc) from employee
+----------------------------------------------
+Q.. What is difference between Rank() and dense_rank()?
+==> Rank() is use to rank row but if their is subsequent then it tie where as 
+	dense_rank() is use to rank row but they doesn’t tie if there is subsequent 
+----------------------------------------------
+Q.. Row_number() analytical function?
+==> It assing rank to row but it assign unique number to row 
+----------------------------------------------
+Q.. Write sql query to disply highest salary employee details like empno,empname?
+==> there are two way to display highest salary 
+	1. using subquery 
+		select * from employee where salary =(select max(salary) from employee)
+		
+	2. using analytical function 
+		select * from(select empno,empname,salary,dense_rank() 
+		over(order by salary desc)as rank from employee) where rank=1
+----------------------------------------------
+Q.. write sql query to display department wise highest salary of employee?
+==> select * from (select empno,empname,salary,dept_id,
+	dense_rank() over(partition by dept_id order by salary desc)as rank from employee)where rank=1
+----------------------------------------------
+Q.. write sql query to display second highest salary of employee?
+==> select * from(select empno,empname,salary,dept_id,
+	dense_rank()over(order by salary desc)as rank )where rank=2
+----------------------------------------------
+Q.. Write sql query to display department wise 3 highest salary?
+==> select * from (select empno,empname,salary,dept_name,
+	dense_rank() over(partition by dept_id order by salary desc)as rank from employeee) where rank=3
+----------------------------------------------
+Q.. display top 3 highest salary employee?
+==> select * from (select empno,empname,salary,
+	dense_rank() over(order by salary desc) from employee)where rank<=3
+----------------------------------------------
+Q.. what is analytical aggregate function?
+==> there are 5 aggregate function 
+	1. min
+	2. max 
+	3. sum
+	4. avg 
+	5. count 
+	- syntax of aggregate analytical function is 
+		select clm1,clm2....analytical_function(clm_name) 
+		over(partition by clm_name order by clm_name window_frame_clause) from table_name 
+		
+	- partition by => used to divide data into subset 
+	- order by => used to sort data 
+	- window_frame_clause => to specify row range 
+----------------------------------------------
+Q.. Precedence order for partition by,order by,window_frame_clause?
+==> 1. partition by 
+	2. order by 
+	3. window_frame_clause
+----------------------------------------------
+Q.. what is mean by running value?
+==> running value means current value plus next row or previous row value 
+----------------------------------------------
+Q.. calculate sum of salary from current row to next 1 row?
+==> select empno,empname,salary,sum(salary)
+	over(order by salary desc ROWS BETWEEN CURRENT ROW AND 1 FOLLOWING) from 
+----------------------------------------------
+Q.. calculate sum of salary from current row to next 2 row?
+==> select empno,empname,salary,sum(salary)
+	over(order by salary desc ROWS BETWEEN CURRENT ROW AND 3 FOLLOWING)AS RANK from employee
+----------------------------------------------
+Q.. calculate sum of salary from current row to next all rows?
+==> select empno,empname,salary,
+	sum(salary) over(order by salary desc rows between current row and unbounded following)as rank 
+	from employee;
+----------------------------------------------
+Q.. calculate sum of salary from current row to 1 preceding?
+==> select empno,empname,salary,
+	sum(salary) over(order by salary desc rows between 1 preceding to current row)as rank 
+	from employee;
+----------------------------------------------
+Q.. Calculate sum of salary with 2 preceding row?
+==> select empno,empname,salary,
+	sum(salary) over(order by desc rows between 2 preceding and current row)as rank 
+	from employee;
+----------------------------------------------
+Q.. Calculate sum of salary with all preceding row?
+==> select empno,empname,salary,
+	sum(salary) over(order by salary desc rows between unbounded preceding and current row)as rank 
+	from employee;
+----------------------------------------------
+Q.. calculate sum of salary with all preceding row and all following rows?
+==> select empno,empname,salary,
+	sum(salary) over(order by salary desc rows between 
+	unbounded preceding and unbounded following)as rank 
+	from employee
+	
+----------------------------------------------
+Q.. What is difference between aggregate function and analytical aggregate function?
+==> - Noramal aggregate function group similar type of values and return one result as per group 
+	  where as
+	  analytical aggregate function perform calculation across the set of rows related 
+	  to current row without collapsing it into group 
+	- aggregate function use with group by clause where as analytical aggregate function use over clause 
+	- if we want grant total or group wise total then go with aggregate function where as 
+	  if we want group wise running total then we can go with analytical aggregate function.
+----------------------------------------------
+Q.. What is mean by Transaction?
+==> - A group of operation executed together as one unit.
+	- Operation may be read,insert,update or delete.
+	- All operation must be succeed or fail together.if anyone operation fails then total 
+	  Transaction is rolled back.
+	- To maintain data integrity,RDBMS ensure that each transaction should follow the ACID Properties 
+	- Integrity means data is correct,valid and reliable
+----------------------------------------------
+Q.. ACID Properties?
+==> ACID stand for 
+	A=> Atomicity
+	C=> Consistency
+	I=> Isolation 
+	D=> Durability
+----------------------------------------------
+Q.. What is Atomicity?
+==> Atomicity means all or nothing 
+	- Either all operation within transaction are successfully completed 
+	  and committed to the database or none of them are.If anyone operation fails then 
+	  entire transaction is rolled back and data is restored to its original state.
+	- To achive this Oracle uses Rollback,Savepoint,commit.
+	- Example:
+		sending money online : Either money is deducted from your account and added to the receiver's 
+		account or whole transaction is fails - no in between 
+----------------------------------------------
+Q.. What is consistency?
+==> Consistency means database must be consistent state before and after the transaction.
+	- To achieve this oracle use PK,FK,Triggers
+	- If a transaction voilet database rule or constraints,it should be rejected,ensuring that 
+	  consistent data exists after the transaction.
+	- Example: You can't transfer money more than you have.
+----------------------------------------------
+Q.. What is Isolation?
+==> Multiple transaction can run at the same time without affecting each other's result 
+	- oracle uses lock and isolation levels to to isolate the transaction.
+	- Oracle feature used: isolation levels (read committed)
+----------------------------------------------
+Q.. What is Durability?
+==> Once a transaction is committed the changes are permanent-even if there is system crash or power failure.
+	- Once you send a message and see "delivered" , it say delivered even if your phone dies 
+	- Oracle feature used : Redo logs,flashback,Datafiles
+----------------------------------------------
+Q.. How to check oracle version?
+==> select * from v$version;
+----------------------------------------------
+Q.. What is v$version in oracle?
+==> v$version is dyanamic performance view in oracle database.
+	it display version information for the oracle database and its components 
+----------------------------------------------
+Q.. How do you connect database?
+==> we use sql developer to connect database.
+----------------------------------------------
+Q.. Tell me steps to connect database?
+==> 1. open sql developer tool.
+	2. click on "create connection"
+	3. fill connection details like user name,password,hostname 
+	4. Click on test connection 
+	5. click on connect 
+----------------------------------------------
+
+----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
