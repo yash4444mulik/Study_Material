@@ -47,7 +47,7 @@ Q.. What happen if we try to insert value that exceeds precision defined in numb
 Q.. what happen if we try to insert value that exceeds scale defined in number(p,s)?
 Q.. What is Date data type?
 Q.. Suppose I execute below statement 
-	insert into employee(empno,empname,dob) values(1,'yash,'01-july-24');
+	insert into employee(empno,empname,dob) values(1,'yash,'01-jul-25');
 	What date value is insert 1925 or 2025?
 Q.. What is default data format in oracle?
 Q.. What is range of date data type?
@@ -111,9 +111,16 @@ Q.. How the date value are sorted in order by clause?
 Q.. Can we use order by clause to apply sort condition for 2 column?
 Q.. Can we use group function in order by clause ?
 Q.. In which statement we can use order by clause?
-Q.. Position of order by clause? 
+Q.. Position of order by clause in? 
 Q.. What is aliasing in oracle?
 Q.. Type of functions?
+Q.. what is mean by predefined functions?
+Q.. Types of Predefined functions?
+Q.. What is single row functions?
+Q.. What is multi row functions?
+Q.. What is aggregate functions?
+Q.. Classification of single row function?
+Q.. List out single row character function?
 Q.. what is "lower" function?
 Q.. what is "upper" function ?
 Q.. What is "initcap" function?
@@ -123,12 +130,14 @@ Q.. What is "replace" function?
 Q.. What is "instr" function?
 Q.. What is "lpad" function?
 Q.. What is "rpad" function?
+Q.. What is "Rtrim" function?
 Q.. What is "Ltrim" function?
 Q.. What is "trim" function?
 Q.. what is "instr" function?
 Q.. What is "ASCII" function?
 Q.. What is "Chr" function?
 Q.. What is "translate" function?
+Q.. List out single row number function?
 Q.. What is ABS() function?
 Q.. What is CEIL function?
 Q.. What is FLOOR() function?

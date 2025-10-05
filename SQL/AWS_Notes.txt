@@ -1,0 +1,90 @@
+===========AWS==========
+
+Q.. What is Cloud computing?
+==> Using IT services or resources over the internet instead of buying and maintaining yourself.
+------------------------------------------------
+Q.. What is Cloud infrastructure?
+==> The complete set of Hardware and Software resources used to deliver services over the internate
+------------------------------------------------
+Q.. What are cloud services model?
+==> Cloud services model defines which kind of services offered by service provider to customer
+	- we have 3 service model 
+		1. IaaS
+		2. PaaS
+		3. SaaS
+		
+	1. IaaS
+		- IaaS stand for Infrastructure as a service
+		- It provides virtualized computing resources like server,storage and Networking
+		- Instead of buying hardware we rent them from service provider 
+		- customer is responsible to maintain the infrastructure
+		- Exmple : AWS EC2(Elastic Compute Cloud),Azure VM(Virtual Machine),Google Compute Engine(GCE)
+		
+	2. PaaS
+		- PaaS stand for Platform as a service 
+		- Provides platform for building,testing and deploying application.
+		- Infrastructure + some tools 
+		- Provider providing infrastructure and maintaining that infrastructure
+		- Being customer we develope our application and deploy.
+		  provider will handle O.S patch,load balancing and monitoring
+		- Exmple: Google app Engine,AWS Beanstalk,Microsoft Azure app service.
+		
+	3. SaaS
+		- Saas stand for Software as a system 
+		- It provides full ready to use application
+		- Exmple: Gmail,office 365,dropbox,jira,service now
+
+------------------------------------------------
+Q.. Cloud deployment model?
+==> Cloud deployement model defines who owns server,who manage the server and which can access that services 
+	
+	- There are 4 deployement models 
+		1. Public Cloud 
+		2. Private Cloud
+		3. Hybrid Cloud
+		4. Multi Cloud
+		
+	1. Public Cloud: Owned and managed by service provider but accessible to every one.
+	
+	2. Private Cloud: Owned and managed by Organization and accessible to organization users.
+	
+	3. Hybrid Cloud: It is combination of Public and Private cloud.
+	
+	4. Multi Cloud: using different service provider service at a time 
+------------------------------------------------
+Q.. Key benifits of Cloud Computing?
+==> 1. Cost Saving
+	2. On demand self services 
+	3. Scalability: we can increase or decrease resources as per requirement
+	4. pay-as-you-go: No need to pay advance,pay only for usage.
+	5. Accibility: We can access from anywhere and any time
+------------------------------------------------
+Q.. List of Cloud service provider?
+==> 1. AWS (amazon web services)
+	2. Microsoft Azure
+	3. GCP (Google Cloud Platform)
+	4. Oracle Cloud
+	5. IBM cloud
+	6. Alibaba Cloud
+	7. salesforce
+	8. VMWare cloud
+------------------------------------------------
+Q.. What is AWS?
+==> AWS stand for amazon web services 
+	AWS is cloud service provider,providing IT related services over the internate
+	- AWS was launched in 2006 as first public cloud services 
+	- Provider with S3 and EC2 services 
+	- S3 stand for Simple storage service 
+	- EC2 stand for Elastic Cloud Computing
+	- Nowdays AWS offer 200+ fully managed services
+	- Across the globe AWS has 38+ regions and Each region has multiple availability zones 
+		regions= Geographic Areas(cities)
+		Availability zones=Data centers
+	- In India we have 2 regions Asia Pacific(mumbai) and Asia Pacific(Hydrabad).
+	  Mumbai region launched in 2016 and it has 3 availability zones 
+	  Hydrabad region launched in 2022 and it has 3 availability zones 
+	- AWS is market leader 
+------------------------------------------------
+Q.. Whose uses AWS?
+==> Zomato,swiggy,Netflix,Airbnb,NASA,BMW,SBI,AXIX
+------------------------------------------------

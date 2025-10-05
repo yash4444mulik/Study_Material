@@ -50,3 +50,35 @@ Q.. What is deep copy?
 Q.. What is shallow copy?
 Q.. What is difference between deep copy and shallow copy?
 Q.. What is difference between primitive and non-primitive data type?
+Q.. What is Array?
+Q.. How to access array element?
+Q.. How to calculate length of Array?
+Q.. List out Methods to access Array element?
+Q.. What is toString() method?
+Q.. What is join() method?
+Q.. What is shift() method?
+Q.. What is unshift() method?
+Q.. What is pop() method?
+Q.. What is push() method?
+Q.. What is concat() method?
+Q.. What is flat() method?
+Q.. What is splice() method?
+Q.. What is splice() method?
+Q.. What is sort() method?
+Q.. What is reverse() method?
+Q.. What is forEach() method?
+Q.. What is every() method?
+Q.. What is some() method?
+Q.. What is map() method?
+Q.. What is difference between spread operator and rest operator?
+Q.. What is difference between array and object?
+Q.. What is array destructuring?
+Q.. What is object destructuring?
+Q.. What is default parameter?
+Q.. What is difference between Paramter and Argument?
+Q.. what is callback function or higher order function?
+Q.. What is callback hell?
+Q.. What is popup box or dialogue box in javascript?
+Q.. What is alert box?
+Q.. What is confirm box?
+Q.. What is prompt box?

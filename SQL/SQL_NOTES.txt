@@ -343,7 +343,8 @@ Q.. What is default data format in oracle?
 	- To check default format we have syntax 
 		select * from nls_session_parameters where parameter='NLS_DATE_FORMAT'
 	- We can change default date format 
-		alter table nls_session_parameters set NLS_DATE_FORMAT='dd-mon-yyyy'
+		alter session set NLS_DATE_FORMAT='dd-mon-yyyy';
+		this query will only change format for current session.
 --------------------------
 Q.. What is range of date data type?
 ==> 1 january 4712 BC to 31 December 9999 AD 
@@ -667,6 +668,10 @@ Q.. What is aliasing in oracle?
 	2. By using double quote.
 		select * from table_name "abc"
 ------------------------------------------
+Q.. What are the Type of functions?
+==> 1. Predefined function 
+	2. User defined function
+------------------------------------------
 Q.. what is mean by predefined functions?
 ==> the functions which are provided by SQL is nothing but predefined functions
 ------------------------------------------
@@ -684,6 +689,23 @@ Q.. What is multi row functions?
 Q.. What is aggregate functions?
 ==> The functions which perform calculation across the set of rows related to current row 
 	without collapsing into groups is called Analytical function or window function.
+------------------------------------------
+Q.. Classification of single row function?
+==> 1. character function: Operate on character type values 
+	2. number function : Operate on number type values 
+	3. Date function : Operate on date type values 
+	4. Conversion function: Convert one data type value into another 
+	5. General function: used for general purpose.
+------------------------------------------
+Q.. List out single row character function?
+==> 1.lower		2.upper
+	3.initcap 	4.length 
+	5.concat 	6.replace
+	7.substr 	8.LPAD
+	9.RPAD		10.LTRIM
+	11.RTRIM	12.Trim
+	13.INSTR	14.ASCII
+	15.chr 		16.Translate
 ------------------------------------------
 Q.. what is "lower" function?
 ==> lower function accept one input argument 
@@ -796,6 +818,12 @@ Q.. translate() function?
 			 c=> for c no corrosponding character in target string so it get removed 
 			 - => for - no corrosponding character in target string so it get removed 
 ------------------------------------------
+Q.. List out single row number function?
+==> 1.ABS() 	2.CEIL() 	3.FLOOR()
+	4.POWER() 	5.SQRT() 	6.ROUND()
+	7.TRUNC() 	8.MOD()		9.GREATEST()
+	10.LEAST()
+------------------------------------------
 Q.. ABS(n) function?
 ==> ABS stand for absolute.
 	Absolute means positive value 
@@ -807,17 +835,20 @@ Q.. ABS(n) function?
 		=> 20 
 ------------------------------------------
 Q.. CEIL(n) function?
-==> This function accept one input argument of number type and
-	return smallest integer integer which is provided number 
-	i.e this function round up the given number.
+==> - CEIL(n) function is used to round up given number value and return number which is 
+	  less than or greater than given number.
+	- This function accept one input argument of number type 
+	 
+		i.e this function round up the given number.
 	
 	- for e.g 
 		select CEIL(123.456) from dual;
-	  OP=> 123
+	    OP=> 123
 ------------------------------------------
 Q.. FLOOR(n) function?
-==> This function accept one input argument of number type and
-	return larget integer integer which is provided number 
+==> - This function used to round down given number and return number which is 
+	  less than or equal to given number.
+	- This function accept one input argument of number type
 	i.e this function round down the given number.
 	
 	- for e.g 
@@ -825,8 +856,9 @@ Q.. FLOOR(n) function?
 	  OP=> 123
 ------------------------------------------
 Q.. Power(m,n) function?
-==> this function accept two input arguments of number type 
-	this function returns power of number 
+==> this function returns power of number 
+	this function accept two input arguments of number type 
+	
 	i.e return m raised to power n 
 	
 	- for e.g 
@@ -843,7 +875,7 @@ Q.. SQRT(n) function?
 		=> 2
 ------------------------------------------
 Q.. round() function?
-==> round() function is used to round the input number
+==> round() function is used to round number upto specified scale value.
 	this function accept two input arguments 
 	first input argument is number and second input argument is scale 
 	Syntax:- round(input_number,scale)
@@ -857,7 +889,7 @@ Q.. round() function?
 		=> 124
 		
 		3. select round(123.456,1) from dual;
-		=> 123.4
+		=> 123.5
 		
 		4. select round(123.678,1) from dual;
 		=> 123.7
@@ -3586,7 +3618,44 @@ Q.. Tell me steps to connect database?
 	4. Click on test connection 
 	5. click on connect 
 ----------------------------------------------
-
+Q.. select LOWER('TEST') from dual;
+==> test
+----------------------------------------------
+Q.. select LOWER('TEST','sql') from dual;
+==> we will get an error "invalid number of argument"
+----------------------------------------------
+Q.. select LOWER(empname) from dual;
+==> we will get an error because string is not enclosed in single quote
+----------------------------------------------
+Q.. select LOWER() from dual;
+==> we will get an error 
+----------------------------------------------
+Q.. select LOWER(null) from dual;
+==> null (- null is special type value )
+----------------------------------------------
+Q.. select LOWER('NULL') from dual;
+==> null (null in smallcase not special value - )
+----------------------------------------------
+Q.. select length('empname') from employee;
+==> it return all rows from employee with 7 length
+----------------------------------------------
+Q.. select concat('test',null) from dual
+==> test
+----------------------------------------------
+Q.. select concat(null,null) from dual;
+==> null
+----------------------------------------------
+Q.. select replace('TESTING','T',null) from dual;
+==> ESTING
+----------------------------------------------
+Q.. select lpad('TESTING',-5,'*') from dual;
+==> null
+----------------------------------------------
+Q.. select lpad('TESTING',15,null) from dual;
+==> null
+----------------------------------------------
+Q.. select ltrim('##testing',null) from dual;
+----------------------------------------------
 ----------------------------------------------
 
 
@@ -3602,7 +3671,4 @@ Q.. Tell me steps to connect database?
 
 
 
-
-
-
-
+ 

@@ -3,39 +3,23 @@
 <script src="./external.js">
 </script>
 <script>
-		/*
-		
-		How to check propoerties exist in Object?
-		1. using in operator  
-		2. using undefined keyword 
-		3. using hasOwnProperty method  
-		
-		*/
-		
-		let Obj={
-				name:'Yashraj',
-				age:25,
-				address:{
-						Taluka:'Phaltan',
-						District:'Satara'
-						},
-				Mobile:'vivo'
-				}
-		
-		let deepCopy = JSON.parse(JSON.stringify(Obj));
-		console.log(`deepCopy =>`, deepCopy)
-		
-		let shallowCopy={...Obj}
-		console.log(`shallowCopy`,shallowCopy)
-		
-		Obj.address.Taluka='solapur'
+	
+	/*
+	spread operator is used to expand element from iterable element such as array,object where as 
+	rest operator is used to get remaining argument from an array.
+	
+	*/
+	
+   //array destructuring introduced in ES-6 i.e in 2015
+   // array destructuring allow you to extract array element and assign them into individual variable 
+   // syntax: let [variable1,variable2...N]=array_name; 
+   
+   // default parameter mean value assigned to variable at the time of function declaration .
+   
+   		
+				
+				
 
-		
-		
-	
-		
-		
-	
 		
 </script>
 </head>

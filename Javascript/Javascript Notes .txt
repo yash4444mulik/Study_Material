@@ -187,6 +187,7 @@ Q.. What is mean by Hoisting?
 	const=> for const hoisting is not allowed 
 			if we try to access variable before it's delcaration in const keyword we will get an error 
 			because javascript move const keyword in temporal dead zone (TDZ)
+			temporal dead zone is the time between variable declaration and initilization.
 			it space is created but that variable move to TDZ
 	
 	let => for let hoisting is not allowed 
@@ -542,7 +543,7 @@ Q.. How to access properties of object?
 		Object.values(obj).forEach((item)=>{console.log(`${item}`)})//yashraj 23
 ---------------------	
 Q.. How to check properties exist in object?
-==> there are 3 ways 
+==> there are 2 ways 
 	1. using 'in' operator
 	2. using 'hasOwnProperty' method 
 	
@@ -565,28 +566,33 @@ Q.. How to copy object?
 		spread operator expand the element from iterable element such as object,array,function 
 		spread oprator denoted using triple dot ...
 		
-		let newObj={...oldObj}
+		let newObj={...Old_Object_name}
 	
-	2. using deep copy 
-		let newObj=JSON.parse(JSON.stringify(person));
-	
-	3. using shallow copy 
-		let newObj=Object.assign({},person)
+	2. using shallow copy 
+		let newObj=Object.assign({},Old_Object_name)
 		
+	3. using deep copy 
+		let newObj=JSON.parse(JSON.stringify(Old_Object_name));
+	
+	
 ---------------------
 Q.. What is deep copy?
-==> - deep copy means creating new copy of object or array including all nested data 
+==> - deep copy means creating new copy of old object or array including all nested data 
 	- To make deep copy of object syntax is 
 		let newObj=JSON.parse(JSON.stringify(Obj))
 ---------------------
+Q.. What is shallow copy?
+==> - Shallow copy means creating new copy of old object or array 
+	- To make shallow copy syntax is 
+		let newObj=Object.assign({},old_obj_name);
 ---------------------
 Q.. What is difference between deep copy and shallow copy?
 ==> - In shallow copy if we change nested object value then same correction update in original object 
 	  where as 
 	  In deep copy if we change nested object value then same correction not update in original object 
 	- In shallow copy, nested data is not safe. Where as In deep copy, all data is safe
-	- to make shallow copy of object we use spread operator or Object.assign({},obj_name) method 
-	  where as 
+	- to make shallow copy of object we use spread operator[...old_obj_name] or 
+	  Object.assign({},obj_name) method where as 
 	  To make deep copy of object we use JSON.parse(JSON.stringify(obj_name)) method 
 ---------------------
 Q.  What is difference between primitive and non primitive data type?
@@ -606,10 +612,19 @@ Q.. What is Array?
 		variable_delcaration_keyword Array_name =[value1,valu2,value3...N]
 ----------------------
 Q.. How to access Array element?
-==> document.write(array_name[array_index]);
+==> console.log(array_name[array_index]);
 ----------------------
 Q.. How to calculate length of array?
-==> document.write(array.length);
+==> console.log(array.length);
+-----------------------
+Q.. Method to access array element?
+==> 1. toString() 	2. join() 	3. shift()
+	4. unshift()	5. pop()  	6. push() 
+	7. concat() 	8. flat() 	9. splice() 
+	10. slice() 	11. sort() 	12. reverse() 
+	13. forEach() 	14. every() 15. some() 
+	16. map() 		17. filter() 18. reduce() 
+	19. indexOf() 	20. lastIndexOf()
 -----------------------
 Q.. Method to access array element?
 ==> 1) toString()
@@ -618,34 +633,34 @@ Q.. Method to access array element?
 		this method create new array 
 		Syntax: 
 			const new_array=old_array.toString()
-		
-	2) pop()
-		pop() method is used to remove last element from array 
-		this method does not create new array.
-		this method modify the original array.
-		Syntax: 
-			array_name.pop();		
-		
-	3) join()
+			
+	2) join()
 		join() method is used to convert array element into string and add user defined divider
 		This method does not modify original array 
 		this method create new array.
 		Syntax: 
 			const new_array=array_name.join('divider')
 			
-	4) shift()
+	3) shift()
 		shift() method is used to remove begining index of array.
 		this method does not create new array 
 		this method modify original array.
 		Syntax: 
 			array_name.shift();
 		
-	5) unshift()
+	4) unshift()
 		unshift() method is used to add element in the begining of array.
 		this method does not create new array this method modify original array.
 		Syntax: 
 			array_name.unshift('value1','value2',value3')
-		
+	
+	5) pop()
+		pop() method is used to remove last element from array 
+		this method does not create new array.
+		this method modify the original array.
+		Syntax: 
+			array_name.pop();	
+			
 	6) push()
 		push() method is used to add element in end of array.
 		this method does not create new array this method modify original array.
@@ -710,33 +725,32 @@ Q.. Method to access array element?
 			array_name.every(callback_function);
 					
 		
-	15) map()
-		map() method is used to access array element one by one and do some operation on it 
+	15) some()
+		some() method is used to check some value of array satisfying given condition or not 
+		if some value satisfying given condition then it return true otherwise it return false 
+		this method accept callback_function as an input argument 
+		Syntax: 
+			array_name.some(callback_function)map()
+		
+			
+	16) map() method is used to access array element one by one and do some operation on it 
 		this method create new array 
 		this method accept callback function as input argument 
 		Syntax: 
 		array_name.map(callback_function)
-			
-	16) filter()
-		filter() method is used to filter the array element based on some condition.
+		
+		
+	17) filter() method is used to filter the array element based on some condition.
 		This method does not modify original array this method create new array.
 		this method accept callback_function as an input argument 
 		Syntax: 
 			array_name.filter(callback_function)
 		
-	17) reduce ()
-		redcue() method is used to read array element one by one and do summation of all that
+	18) redcue() method is used to read array element one by one and do summation of all that
 		this method does not modify original array this method create new array.
 		this method accept one input argument i.e callback_function
 		Syntax: 
 			array_name.reduce(callback_function);
-		
-	18) some()
-		some() method is used to check some value of array satisfying given condition or not 
-		if some value satisfying given condition then it return true otherwise it return false 
-		this method accept callback_function as an input argument 
-		Syntax: 
-			array_name.some(callback_function)
 		
 	19) indexOf()
 		indexOf() method is search element in given array if value is present then it return its 
@@ -747,6 +761,7 @@ Q.. Method to access array element?
 			
 			if startIndex is <0 then it start calulationg from right side of array.
 			if there are same element then it return it's first occurance position
+			if value is not found then it return -1 as result 
 		
 	20) lastIndexOf()
 		lastIndexOf() method is used to search element in array if value is present then it return 
@@ -757,8 +772,6 @@ Q.. Method to access array element?
 			if given element is present then it return it's last occurance 
 			if given element is not present then it return -1 as result 
 						
-		
-	
 -------------------------
 Q.. what is difference between spread and rest operator?
 ==> Spread operator is used to expand element from an iterable element such array,object into individual element
@@ -787,67 +800,35 @@ Q.. what is difference between spread and rest operator?
 						}
 			console.log(newObj);
 	
-	
-	Rest Operator Example
-			function getRestOperator(a,b,c,...others){
-			console.log(others)
-			let otherSum=others.reduce((ab,bc)=> ab+bc)
-				return a+b+c+otherSum;
-			}
-			
-			const getResult=getRestOperator(1,2,3,4,5,6,7,8,9,10)
-			console.log(getResult)
-	
-	Rest Operator with object: 
-			const Obj={
-					   name: 'yash',
-					   age: 18,
-					   hobbies: ['cricket','kabbadi']
-					   }
-			let {...newElements}=Obj
-			console.log(newElements);
-			
-	
-		
--------------------------
-Q.. What is Object?
-==> Object is collection of key value pair 
-	object is denoted using {}
-	syntax of object 
-		const obj={
-					key:value,
-					key:value,
-					N
-					}
-					
--------------------------
-Q.. How to create Object?
-==> we can create object using 3 different ways 
-	1. Object Literals.
-			var obj={
-				name:'yashraj',
-				age:23
-					}
-			console.log(obj);
-			
-	2. Object Constructor.
-			var obj=new Object()
-			obj.name='yashraj'
-			obj.age=12
-			console.log(obj);
-	
-	3. Object.create() method.
-			let person={name:'yashraj',
-				age:122
-				}
-				
-			var obj=Object.create(person)
-			obj.name='yashraj'
-			obj.age=0
-			console.log(obj);
+	Rest Operator with Array: 
+		let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+		// Take first two elements, rest goes in "remaining"
+		let [first, second, ...remaining] = arr;
+
+		console.log(first);      // 1
+		console.log(second);     // 2
+		console.log(remaining);  // [3,4,5,6,7,8,9]
+
+
+	Rest Operator with Object
+		let obj = {
+		  name: 'yashraj',
+		  age: 25,
+		  add: 'phaltan',
+		  laptop: 1
+		};
+
+		// Take name and age, rest goes in "other"
+		let { name, age, ...other } = obj;
+
+		console.log(name);   // yashraj
+		console.log(age);    // 25
+		console.log(other);  // { add: 'phaltan', laptop: 1 }
+
 ---------------------------------------
 Q.. what is difference between array and object?
-==> Array is collection of indexed homogeneous and heterogeneous value where as Object is collection key value pair 
+==> Array is collection of indexed homogeneous and heterogeneous value where as 
+	Object is collection key value pair 
     Array is denoted using [] where as object is denoted using {}
 	element in the array is ordered where as element in the object is not ordered 	
 -------------------------
@@ -864,8 +845,8 @@ Q.. What is array destructuring?
 		console.log(color1)//red
 		console.log(color2)//green
 		
-		let [,,,color4]=AllColors
-		console.log(color4)//white
+		let [,,,color3]=AllColors
+		console.log(color3)//white
 		let {4:color4}=AllColors  // if we want to 4th color then use this 
 	
 	
@@ -896,8 +877,12 @@ Q.. What is array destructuring?
 							}
 				}
 				
-		let {name,age}=Obj
+		let {name,age}=Obj;
+		console.log(name);
+		
 		let {name:userName,age:userAge}=Obj //for user defined age 
+		console.log(userName);
+		
 		let {address:{city}}=Obj
 		
 	
@@ -933,23 +918,6 @@ Q.. What is array destructuring?
 -------------------------	
 Q.. What is Default paramter?
 ==> Default parameter means value set to the variable at the time of function defination
-	----------
-	
-	function Multiply(a,b)
-	{
-		console.log(a*b)
-	}
-
-	Multiply(2,5)//10 
-	-----------
-	
-	function Multiply(a,b)
-	{
-		console.log(a*b)
-	}
-	
-	Multiply(2)//NaN
-	------------
 	
 	function Multiply(a,b=1)//this is default parameter 
 	{
@@ -958,8 +926,6 @@ Q.. What is Default paramter?
 	
 	Multiply(2)//2
 	------------
-	
-	
 	function Multiply(a,b=1){
 		console.log(a*b)
 	}
@@ -977,12 +943,11 @@ Q.. What is Default paramter?
 	}
 	
 	Multiply(2,'')//0  because null consider as falsy values 
-	
-	
+
 -------------------------	
 Q.. what is difference between argument and parameter?
-==> Parameter is placeholder defined at the time of function delcaration
-	Argument is actual value passes to function when it is called
+==> Parameter means variable declared at the time of function delcaration
+	Argument is actual value passes to variable of function when it is called
 -------------------------
 Q.. What is callback function/Higher order function?
 ==> Callback function is function which is passed to another function as an input argument nothing but
@@ -1057,6 +1022,8 @@ Q.. What is popup/dialogue box in javascript?
 		if user click on cancle button prompt function return null.
 		Syntax: 
 			window.prompt('please enter');
+		
+		use: used to get information from user.
 ---------------------------------------
 Q.. What is event?
 ==> an action performed by user on webpage is called event 
