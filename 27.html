@@ -1,29 +1,20 @@
 <html>
-<head> 
-<script src="./external.js">
-</script>
-<script>
-	
-	/*
-	spread operator is used to expand element from iterable element such as array,object where as 
-	rest operator is used to get remaining argument from an array.
-	
-	*/
-	
-   //array destructuring introduced in ES-6 i.e in 2015
-   // array destructuring allow you to extract array element and assign them into individual variable 
-   // syntax: let [variable1,variable2...N]=array_name; 
-   
-   // default parameter mean value assigned to variable at the time of function declaration .
-   
-   		
-				
-				
-
-		
-</script>
-</head>
+<head></head>
 <body>
-<h1>this is my html</h1>
+    <button id="btn">BTN</button>
+
+    <script>
+        let b = document.getElementById('btn');
+        b.addEventListener('mouseout', handleOnMouseAction);
+		b.addEventListener('mouseover',handleOnMouseOver);
+		
+		function handleOnMouseOver(){
+			console.log('mouser over action performed');
+		}
+		
+        function handleOnMouseAction() {
+            console.log('Mouse is over the button!');
+        }
+    </script>
 </body>
 </html>

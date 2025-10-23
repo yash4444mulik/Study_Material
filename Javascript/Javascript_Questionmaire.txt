@@ -82,3 +82,6 @@ Q.. What is popup box or dialogue box in javascript?
 Q.. What is alert box?
 Q.. What is confirm box?
 Q.. What is prompt box?
+Q.. What is event?
+Q.. What is event handling?
+Q.. What is the error and exception handling in javascript?

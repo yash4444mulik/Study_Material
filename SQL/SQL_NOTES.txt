@@ -910,7 +910,7 @@ Q.. round() function?
 		=> null
 ------------------------------------------
 Q.. TRUNC() function 
-==> TRUN() function is used to remove part of number without rounding 
+==> TRUN() function is used to trunc the given number upto specified scale value without rounding
 	it can be used on numeric values or dates 
 	Syntax: 
 		TRUNC(input_number,scale)
@@ -935,10 +935,22 @@ Q.. mod() function?
 	second is divisor.
 ------------------------------------------
 Q.. GREATEST(n1,n2,,,,,,) function?
-==> this function return largest value from provided number 
+==> this function take 1 to N number of input arguments 
+	this function return maximum value from list 
 ------------------------------------------
 Q.. LEAST(n1,n2,n3....) function?
-==> this function return smallest value from provided number 
+==> this function take 1 to N number of input arguments 
+	this function return smallest value from list
+------------------------------------------
+Q.. List out Date functions?
+==> 1. SYSDATE
+	2. SYSTIMESTAMP
+	3. CURRENT_DATE
+	4. CURRENT_TIMESTAMP 
+	5. MONTHS_BETWEEN 
+	6. EXTRACT 
+	7. ROUND 
+	8. TRUNC 
 ------------------------------------------
 Q.. Size of Date data type?
 ==> it accept 7 character for date 
@@ -946,23 +958,28 @@ Q.. Size of Date data type?
 ------------------------------------------
 Q.. Sysdate() function?
 ==> sysdate function stand for system date 
-	sysdate means today's date 
+	sysdate means system date 
 	sysdate does not accept input from user but it will take input from system 
 	For e.g 
 		select sysdate from dual;
 ------------------------------------------
 Q.. systimestamp function?
-==> this function returns today's date and current time 
+==> this function returns system today's date and current time
+	this function does not accept any input argument from user 
+	
 	for e.g 
 		select systimestamp from dual;
 ------------------------------------------
 Q.. current_date function?
 ==> this function return today's date 
+	this function don't accpet input from user 
+	
 	for e.g 
 		select current_date from dual;
 ------------------------------------------
 Q.. current_timestamp function?
 ==> this function return today's date and current time 
+	This function don't accept input from user 
 	for e.g 
 		select current_timestamp from dual;
 ------------------------------------------
@@ -970,7 +987,7 @@ Q.. sysdate function and current_date return today's date why we Oracle introduc
 	for same functionality?
 ==> In Oracle sysdate and current_date return the current date and time but there is an important 
 	difference related to time zones 
-	-> sysdate return database server's date and time 
+	-> sysdate return system's database server's date and time 
 	-> current_date return user session's time zone date 
 	-> based on your requirement you can choose sysdate and current_date function 
 ------------------------------------------
@@ -995,8 +1012,8 @@ Q.. Months_between function?
 		=> error 
 ------------------------------------------
 Q.. Extract function?
-==> this function month,day or year from provided date.
-	
+==> this function is used to extract month,day or year from given date.
+	- date value should be date data type 
 	1. To extract year 
 	=> extract (year from sysdate)
 	
@@ -1007,7 +1024,7 @@ Q.. Extract function?
 	=> extract (month from sysdate)
 ------------------------------------------
 Q.. Round() function?
-==> round function is used to round number and date value 
+==> round function is used to round year,month and date value 
 	round function accept two input argument
 	By using round function we can round month value,year value,day value.
 	Syntax: 
@@ -1024,18 +1041,25 @@ Q.. trunc() function?
 	for month it always return 1 date of same month 
 	for day it always return 1 day of week 
 ------------------------------------------
-Q.. Conversion functions?
-==> Conversion data type is used to convert one data type into another data type.
-	There are two type of conversion 
+Q.. List out conversion functions?
+==> 1. TO_NUMBER
+	2. TO_DATE
+	3. TO_CHAR 
+------------------------------------------
+Q.. Types of conversion functions?
+==> there are 2 types of conversion functions 
 	1. implicit conversion 
 	2. explicit conversion 
-	
-	1. Implicit conversion :
-		Oracle engine automatically convert one data type into another data type 
-		is called Implicit conversion 
-		
-	2. Explicit conversion: 
-		Programmer convert one data type into another is nothing but explicit conversion
+------------------------------------------
+Q.. What is Implicit conversion function?
+==> - Oracle engine automatically convert one data type into another data type is called implicit conversion 
+	- For implicit conversion oracle use below functions 
+		1. TO_CHAR
+		2. TO_DATE
+		3. TO_NUMBER
+------------------------------------------
+Q.. Explicit conversion: 
+==> Programmer convert one data type into another is nothing but explicit conversion
 		
 		In explicit conversion we have 3 types 
 		1. Number
@@ -1043,26 +1067,63 @@ Q.. Conversion functions?
 		3. String 
 		
 		To convert one data type into another we have 3 functions 
-		1. TO_NUMBER :- Convert string data type value into number 
-		2. TO_CHAR :- Convert date,number type value into string 
-		3. TO_DATE :- Convert strig date type value into date
+		1. TO_NUMBER(inputNumberinString)
+		=> - it accept one input argument of string type 
+     	   - it convert string data type value into number
+		   - For example 
+				TO_NUMBER('10') => o.p 10 
+		   - we can't convert date type value into number we will get an error 
+		   
+		2. TO_CHAR() :- 
+			- This function convert date data type value into string and number data type value into string 
+			- To convert DATE data type into string it accept 2 input argument 
+				- TO_CHAR(date_value,date_format)
+			- To convert Number data type into string it accept 1 input argument of number type 
+				- TO_CHAR(number_value)
+				
+		3. TO_DATE :- 
+			- This function accept two input argument
+			- This function Convert strig date type value into date
+			- First input argument is date value of string type 
+			- Second input argument is date format
+			- TO_DATE(date_value,date_format)
+			- Second input argument is optional,if we don't provide argument then it will choose bydefault
+			  (DD-MON-RR)
+			- date data type always get displayed in default date format,even if we provide date format
+			- if you want to display date value in expected format then use TO_CHAR function 
+------------------------------------------
+Q.. select TO_CHAR(sysdate,'dd-mon-rr');
+==> 20-oct-25
+------------------------------------------
+Q.. select TO_CHAR(sysdate,'dd-MON-rr') from dual;
+==> 20-OCT-25
+------------------------------------------
+Q.. select TO_CHAR(sysdate,'dd-Mon-rr') from dual;
+==> 20-Oct-25
+------------------------------------------
+Q.. select TO_CHAR(sysdate,'dd-mm-yy') from dual;
+==> 20-10-25
+------------------------------------------
+Q.. select TO_CHAR(sysdate,'dd-Month-yy') from dual;
 ------------------------------------------
 Q.. General functions?
 ==> 1. NVL()
+	- NVL stand for null 
+	- It is used to provide alternate value if column name is null.
+	- NVL accept 2 input argument
+	- Syntax: NVL(expression1,expression2)
+	- In NVL if expression1 is null then it consider expression 2 
+	- If expression1 is not null then it consider expression 1 
+	- for example if email column contain some null values so to provide alternate value for that 
+	  column we can use nvl function 
+	  Syntax: 
+			select nvl(email,'dummy@gmail.com') from dual;
+				
 	2. NVL2()
-		
-		1. NVL()
-		=> NVL() stand for null value 
-		   nvl() function accept 2 input argument 
-		   nvl(expression1,expression2)
-		   if expression1 is null then consider 2 expression 
-		   if expression 1 is not null then it consider 1st expression
-		   
-		2. nvl2()
-		=> nvl2() function accept 3 input argument 
-		   nvl2(expression1,expression2,expression3)
-		   if expression 1 is null then it consider 3rd expression 
-		   if expression 1 is not null then it consider 2nd expression 
+	=> nvl2() function accept 3 input argument 
+	   nvl2(expression1,expression2,expression3)
+	   if expression 1 is null then it consider 3rd expression 
+	   if expression 1 is not null then it consider 2nd expression
 ------------------------------------------
 Q.. What is difference between nvl() and nvl2()?
 ==> nvl() accept one input argument where as nvl2() accpet 3 input argument 
@@ -1072,7 +1133,8 @@ Q.. What is difference between nvl() and nvl2()?
 	in nvl2() 1st input argument is not null then it consider 2nd expression.
 ------------------------------------------
 Q.. What is mean by group function?
-==> function which operate on multiple rows or multiple values is nothing but group function.
+==> Function which group multiple value nothing but group function
+	function which operate on multiple rows or multiple values is nothing but group function.
 	- there are 5 group function 
 		1. min
 		2. max 
@@ -1133,6 +1195,21 @@ Q.. Having clause?
 	- we can't use group function infront of where clause to apply the condition By mistake 
 	  we use group function infront of where clause then we will get an error 
 	  so to overcome this problem having clause is introduced 
+	- position of having clause is after the group by clause 
+------------------------------------------
+Q.. Why having clause is introduced?
+==> we can't use group by function in front of where clause to filter the data 
+	so to over come that problem having clause is introduced.
+------------------------------------------
+Q.. if we want to user WHERE clause,HAVING clause and GROUP BY clause 
+	then what is the order in select statement?
+==> WHERE=>GROUP BY=>HAVING
+------------------------------------------
+Q.. What is difference between WHERE and HAVING clause?
+==>	1. WHERE clause is used to filter the individual rows where as 
+	   HAVING clause is used to filter the aggregate result 
+	2. We can't use group function in front of WHERE clause where as 
+	   We can use group function in front of HAVING clause 
 ------------------------------------------
 Q.. Can we use group function in order by clause ?
 ==> yes we can 
@@ -1147,9 +1224,16 @@ Q.. What is mean by constraint?
 Q.. What are different level of constraint?
 ==> 1. column level constraint 
 	=> constraint applied on single column is considered as column level constraint 
-	
+	   - column level constraint can be defined with or without constraint keyword 
+	   - syntax: 
+			1. column_name data_type constraint 
+			2. column_name data_type constraint name_of_constraint type_of_constraint
+	   
 	2. table level constraint
 	=> constraint applied on group of column is considerd as table level constraint.
+	   - Table level constraint must be defined with constraint keyword 
+	   - syntax: 
+			constraint name_of_constraint type_of_constraint(column1,column2....N)
 ------------------------------------------
 Q.. When we apply constraint?
 ==> At the time of table creation and after the table creation.
@@ -1171,14 +1255,17 @@ Q.. Primary key?
 	primary key column does not allow null values 
 	primary key is combination of not null and unique key 
 	we can use primary key as foreign key in other table 
+	we can apply primary key using constraint keyword or without constraint keyword 
+	primary key constraint is combination of unique key and not null.
 ------------------------------------------
 Q.. Unique key?
 ==> One table have one or more unique key constraint 
 	To apply unique key we use unique keyword
 	A table have one or more composite unique key constraint 
-	we can apply constraint at the time of table creation or after table creation 
 	unique key column does not allow duplicate values 
 	unique key column allow null values 
+	Unique key constraint can be table level or column level 
+	We can define unique key constraint with or without constraint keyword 
 	
 	Syntax: 
 		1. without constraint keyword 
@@ -1199,6 +1286,7 @@ Q.. Not null constraint?
 	not null constraint allows duplicate values 
 	we can apply not null constraint without or with constraint keyword
 	we can't apply table level not null constraint 
+	not null constraint not allowed null values but allowed duplicate values
 ------------------------------------------
 Q.. default constraint?
 ==> while inserting record in table if we don't specify value of column then bydefault 
@@ -1240,6 +1328,7 @@ Q.. check constraint?
 	- one table have one or more than one composite constraint keyword
 	- check constraint allows null and duplicate values 
 	- we can apply check constraint without or with constraint keyword 
+	- we can apply check constraint at table level and column level 
 ------------------------------------------
 Q.. foreign key constraint?
 ==> Primary key column or Unique key column of one table is refered in another table 
@@ -1322,6 +1411,21 @@ Q.. foreign key constraint?
 		=> for many to many both table primary key column is used in third table 
 			which will refere primary key column of both table 
 			=> In many to many column level foreign key constraint is not allowed 
+------------------------------------------
+Q.. which constraint allow duplicate values?
+==> Except primary key and unique key all other constraint allowed duplicate values
+------------------------------------------
+Q.. Which constraint do not allowed duplicate?
+==> Primary key and unique key constraint not allowed duplicate 
+------------------------------------------
+Q.. Which constraint do not allowed null values?
+==> Primary key and not null 
+------------------------------------------
+Q.. Which constraint defined at column level only?
+==> not null and default
+------------------------------------------
+Q.. which constraint can not defined with constraint keyword?
+==> Default 
 ------------------------------------------
 Q.. ON DELETE CASCADE and ON DELETE SET NULL?
 ==> In parent child relationship if we try to delete parent record we will get an error 
@@ -3310,23 +3414,45 @@ Q.. What is difference between Case and Decode?
 ----------------------------------------------
 Q.. What is Rollup function?
 ==> Rollup is extention of group by clause 
-	with the help of Rollup function we can find sub total and grant total 
-	it create sub total and grant total in heirarchical manner 
+	with the help of Rollup function we can find sub total and grant total in heirarchical manner
+	
 	Syntax: 
-		group by rollup(clm1,clm2,...N)
+		select column1,column2,..,group_function(column_name)
+		from table_name where [condition] group by Rollup(clm1,clm2,...N)
+		having group_function column_name order by column_name asc/desc
+		
+		here=> where condition is optional
+			=> having clause is optional 
+			=> order by clause is optional 
+			=> Rollup(clm1,clm2,...N) is used to create sub total and grant total 
+			=> group function can be max,min,avg,sum,count.
+			
 	Execution of Rollup 
 		-> Grouping 
 		-> sub Total 
 		-> Grant Total 
-		-> Null represent sub total and grant total 
+		-> Null column represent grant total 
 		-> If we have n columns in Rollup we have n+1 combinations 
 ----------------------------------------------
 Q.. What is CUBE function?
 ==> CUBE is extention of group by clause. 
 	It calculate sub total and grant total for all possible combinations 
 	Syntax: 
-		group by cube(clm1,clm2....N)
-	If we have N columns in CUBE we have N^2 combinations 
+		Select clm1,clm2,...,groupFunction(column_name) 
+		from Table_name Where [condition] group by CUBE(clm1,clm2....N)
+		Having Order by column_name
+		
+	Execution of CUBE
+		-> Grouping 
+		-> sub Total 
+		-> Grant Total
+		-> If we have N columns in CUBE we have N^2 combinations 
+----------------------------------------------
+Q.. What is difference between Rollup and Cube?
+==> - Rollup generate subtotal and grant total in heirarchical manner where as 
+	  Cube generate subtotal and grant total for all possible combination 
+	- In Rollup for given N column there N+1 combinations where as 
+	  In Cube for given N column there N^2 combinations 
 ----------------------------------------------
 ### **1. What does the ROLLUP operator do in Oracle SQL?**
 A) Calculates subtotals for all possible combinations of columns
@@ -3426,6 +3552,13 @@ Q.. What is analytical function?
 		1. rank()
 		2. dense_rank()
 		3. row_number()
+		- Syntax: 
+			Ranking_Analytical_Function() over(Partition by clm_name order by clm_name)
+		- Ranking analytical function does not accept any input argument 
+		- In Ranking analytical function window frame clause is not allowed 
+		  If we specify window frame clause then we will get an error 
+		- In ranking analytical function order by clause is manadatory 
+		  if we don't specify then we will get error
 		
 	- Aggeregate analytical function 
 		1. avg()
@@ -3435,7 +3568,7 @@ Q.. What is analytical function?
 		5. sum()
 	
 	- Syntax of aggregate function 
-		Aggeregate_function() over(partition by column_name order by column asc/desc
+		Aggeregate_function(column) over(partition by column_name order by column asc/desc)
 ----------------------------------------------
 Q.. RANK() analytical function?
 ==> This function assign rank to each row within partition but skip subsequent rank when there is tie.
@@ -3449,6 +3582,7 @@ Q.. Assign department wise rank to each employee based on their salary in ascend
 ----------------------------------------------
 Q.. Dense_rank() analytical function?
 ==> Dense_rank function assign rank to each row but don't skip if there is subsequent tie
+	- Dense_rank don't accept any input argument 
 	Syntax : 
 		Dense_rank() over(partition by column_name order by column_name asc/desc)
 	
@@ -3466,6 +3600,7 @@ Q.. What is difference between Rank() and dense_rank()?
 ----------------------------------------------
 Q.. Row_number() analytical function?
 ==> It assing rank to row but it assign unique number to row 
+	- it does not accept any input argument 
 ----------------------------------------------
 Q.. Write sql query to disply highest salary employee details like empno,empname?
 ==> there are two way to display highest salary 
@@ -3492,7 +3627,7 @@ Q.. display top 3 highest salary employee?
 ==> select * from (select empno,empname,salary,
 	dense_rank() over(order by salary desc) from employee)where rank<=3
 ----------------------------------------------
-Q.. what is analytical aggregate function?
+Q.. what is aggregate analytical function?
 ==> there are 5 aggregate function 
 	1. min
 	2. max 
@@ -3500,17 +3635,38 @@ Q.. what is analytical aggregate function?
 	4. avg 
 	5. count 
 	- syntax of aggregate analytical function is 
-		select clm1,clm2....analytical_function(clm_name) 
-		over(partition by clm_name order by clm_name window_frame_clause) from table_name 
+		analytical_function(clm_name) over(partition by clm_name order by clm_name window_frame_clause) 
 		
 	- partition by => used to divide data into subset 
 	- order by => used to sort data 
 	- window_frame_clause => to specify row range 
+	- we can specify single partition by or order by clause but we can't specify window_frame_clause
+	- window_frame_clause always come with order by clause.
 ----------------------------------------------
 Q.. Precedence order for partition by,order by,window_frame_clause?
 ==> 1. partition by 
 	2. order by 
 	3. window_frame_clause
+----------------------------------------------
+Q.. What is execution order of partition by,order by,window_frame_clause?
+==> Execution order is 
+	=> Partition by => order by => window frame clause 
+	- first rows are grouped and then rows are sorted within the partition and 
+	  then window_frame_clause is applied 
+----------------------------------------------
+Q.. What is default value of partition by,order by,window frame clause?
+==> Partition by = No partition (all rows are treated as same) 
+	Order by = Ascending order 
+	window frame clause 
+		=> if order by specified then default value is 
+			rows between unbounded preceding and current row 
+----------------------------------------------
+Q.. Different values for window frame clause?
+==> 1. rows between current row and N following 
+	2. rows between current row and unbounded following 
+	3. rows between N preceding and current row 
+	4. rows between unbounded preceding and current row 
+	5. rows between unbounded preceding and unbounded following 
 ----------------------------------------------
 Q.. what is mean by running value?
 ==> running value means current value plus next row or previous row value 

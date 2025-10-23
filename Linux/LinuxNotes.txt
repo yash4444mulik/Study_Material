@@ -1,0 +1,200 @@
+===========Linux================
+
+Q.. What is mean by Operating system?
+==> Any kind of software is used to communicate with Hardware component is nothing but OS.
+	for e.g windows,mac,Linux
+------------------------------------------------
+Q.. What is Unix?
+==> - Unix is Operating system developed in 1960.
+	- It is used to communicate with Hardware component
+	- with lot of extentions and improvement to base version several flavours 
+	  introduced by Unix like Ubantu,Kali,Redhat,CentOS etc.
+	- All these flavours have lot of similarity,hence if we are perfect in any one 
+	  flavour then we can work with another flavour easily.
+------------------------------------------------
+Q.. What is difference between Linux and Unix?
+==> Unix is base version developed in 1960 where as Linux is flavour of Unix.
+------------------------------------------------
+Q.. Features of Unix?
+==> - It is free software
+	- It is open source software 
+	- It is multitasking operating system 
+	- It is multi user operating system 
+	- It is user friendly and provide both GUI and CLI
+	- It is more powerful than windows 
+	- It is more secure than windows 
+------------------------------------------------
+Q.. Flavour of Unix?
+==> Linux,centOS,Kali,Redhat
+------------------------------------------------
+Q.. Components of Unix?
+==> - there are 2 component of Unix.
+	- 1. Shell 2. Kernel 
+------------------------------------------------
+Q.. What is shell?
+==> - Shell is outer layer of Unix Operating System.
+	- It read command and check validness and correctness of command 
+	    - if command is valid and correct then shell convert it into 
+		  kernal understable format and handover to kernal 
+		- If command is not valid or correct then it will give an error.
+		- validness means command is available or not 
+		- correctness means command is used in proper format or not 
+	- It act as interface between user command and kernal.
+------------------------------------------------
+Q.. What is Kernel?
+==> - It is core component of Unix Operating system
+	- It is responsible to execute our command 
+	- It communicate with hardware components
+	- It acts as interface between shell and hardware component 
+	- Memory allocation and process allocation will take care by Kernel
+------------------------------------------------
+Q.. What happen when we type command and press enter in background?
+==> - When user type command and press enter then shell check valiness and correctness of command 
+	  If command is valid and correct then sheel convert that command into kernal understable format 
+	  Then kernal communicate with Hardware component and display result on terminal 
+	  If command is not valid and correct then it display error message and terminal is ready to 
+	  execute next command
+------------------------------------------------
+Q.. Types of user in Linux?
+==> There are 2 type of user in Linux
+		1. Normal user ($)
+		2. Root user (#) 
+------------------------------------------------
+Q.. What is the use of 'pwd' command?
+==> pwd stand for Print Workind Directory
+	this command display current working directory path 
+------------------------------------------------
+Q.. Linux file navigation system?
+==> To navigate from one directory to another linux use 'cd' command.
+	- 'cd' stand for change directory.
+	1. if we want to navigate forward 
+		cd A1 
+	2. if we want to move forward with specified path 
+		cd a/b/c 
+	3. If we want to move backword step by step 
+		cd .. => one step back 
+		cd ../.. => two step back 
+		cd ../../.. => three step back 
+	4. Navigate to home directory 
+		cd ~
+	5. Navigate to previous working directory 
+		cd - 
+------------------------------------------------
+Q.. Types of file in Linux?
+==> In linux there is no drive concept like window 
+	Everything is treated as file in linux 
+	All these file are divided into 3 types 
+	
+	1. Normal file 
+	2. Directory file 
+	3. Device file 
+------------------------------------------------
+Q.. Normal file?
+==> - These file contain text,binary and videos 
+	- In linux file extention is not important based on content file type is decided 
+	- To check file type we have command 'file'
+		file file_name
+------------------------------------------------
+Q.. Directory file?
+==> - These file represent directories 
+	- In window we use folder terminology but in linux we use directory terminology
+	- Directory can contain file and sub directories.
+------------------------------------------------
+Q.. Device file?
+==> - In linux every device treated as file 
+	- By using this file we can communicate with device 
+	- to check terminal type we have command tty
+	- just type tty and press enter key 
+------------------------------------------------
+Q.. How to check file type ?
+==> - In Ubuntu,blue color file represent directories,white color file represent normal files
+	  This color convetion varied from flavour to flavour.hence this is not standard way to check file type.
+	- To check file type we have "file" command or we use "ls -l" command.
+	- drwxr-xr-x 1 root root  512 Mar 27 2023 ABC
+		
+		First character represent type of file 
+		1. d -> Directory file 
+		2. - -> Normal file 
+		3. l -> link file 
+		4. c -> character file 
+		5. b -> binary file 
+		6. s -> socket file 
+------------------------------------------------
+Q.. Linux file system heirarchy 
+==> - Linux file system has tree like structure 
+	- It start with / 
+	- / is topmost directory 
+	- this root directory contain sub directory likes 
+		bin,sbin,etc,home,media,tmp,sys 
+------------------------------------------------
+Q.. bin directory?
+==> bin means binary. bin directory contains normal user related binary executable files 
+------------------------------------------------
+Q.. sbin directory?
+==> sbin stand for system bin. sbin directory contain super user related binary executable files 
+	- root user or super user can access bin directory's files or sbin directory's files but 
+	  normal user can't access sbin directory's files 
+------------------------------------------------
+Q.. What is difference between bin directory and sbin directory?
+==> bin directory contain normal user related binary executable files where as 
+	sbin directory contain super user related binary executable files
+------------------------------------------------
+Q.. etc directory?
+==> - This directory contains system configuration related files 
+	- these configuration files used to customize behaviour of linux 
+	- Example 
+		1. All user information available in passwd file(/etc/passwd)
+		2. All group related information available in group file (/etc/group)
+		3. Host information (ip address and DNS name) available in host(/etc/host) file.
+		   here DNS stand for Domain naming system 
+------------------------------------------------
+Q.. tmp directory?
+==> tmp means temporary 
+	- these directory contains all temporary files created in current session
+	- If any file required for current session then create that file inside temp directory.
+	- these file automatically delete at the time of system shutdown 
+	- If any file required permanently then it is not recommended to create inside tmp directory.
+------------------------------------------------
+Q.. dev directory?
+==> - dev means device
+	- In linux everything is consider as file including device i.e every device treated as file 
+	  By using these files we can communicate with the device.
+	- all device related information store inside dev directory 
+	- Example: 
+		tty: Terminal related files 
+		fd: Floppy drive related files 
+		hd: Hard Disk related files 
+		ram: RAM(Random access memory) related files 
+		stdin: Standard input device files 
+		stdout: Standard output device files 
+		stderr: Standard error device files 
+------------------------------------------------
+Q.. mnt directory?
+==> - mnt stand for mounting 
+	- if you want to access file from external device like pen drive,cd,external hd then 
+	  we need to connect that external device to linux file system.
+	  Then only we can access those files,this attachment is called mounting
+	- In old operating system mounting is manual but in recent operating system mounting is automatic
+	- the file of manual mounting will be placed inside mnt directory.
+------------------------------------------------
+Q.. media directory?
+==> The files of automatic mounting will be placed inside media directory.
+------------------------------------------------
+Q.. What is difference between media and mnt directory?
+==> mnt directory contains manual mounting files where as 
+	media directory contains automatic mounting files 
+------------------------------------------------
+Q.. opt directory?
+==> opt means optional 
+	This directory contains all third party installation files 
+	Example: if we install goggle chrome then all corresponding file stored at opt directory 
+------------------------------------------------
+Q.. lib directory?
+==> lib stand for library.
+	It contains Linux OS libraries which are required to run commands and an application.
+------------------------------------------------
+Q.. var directory?
+==> var stand for variable data.
+	If any data which is keep on changing such type of data will be stored in var directory.
+	Example: log files will be stored inside var directory .
+------------------------------------------------

@@ -1,0 +1,184 @@
+===========AWS==========
+
+Q.. What is Cloud computing?
+==> Using IT services or resources over the internet instead of buying and maintaining yourself.
+------------------------------------------------
+Q.. What is Cloud infrastructure?
+==> The complete set of Hardware and Software resources used to deliver services over the internate
+------------------------------------------------
+Q.. What are cloud services model?
+==> Cloud services model defines which kind of services offered by service provider to customer
+	- we have 3 service model 
+		1. IaaS
+		2. PaaS
+		3. SaaS
+		
+	1. IaaS
+		- IaaS stand for Infrastructure as a service
+		- It provides virtualized computing resources like server,storage and Networking
+		- Instead of buying hardware we rent them from service provider 
+		- customer is responsible to maintain the infrastructure
+		- Exmple : AWS EC2(Elastic Compute Cloud),Azure VM(Virtual Machine),Google Compute Engine(GCE)
+		
+	2. PaaS
+		- PaaS stand for Platform as a service 
+		- Provides platform for building,testing and deploying application.
+		- Infrastructure + some tools 
+		- Provider providing infrastructure and maintaining that infrastructure
+		- Being customer we develope our application and deploy.
+		  provider will handle O.S patch,load balancing and monitoring
+		- Exmple: Google app Engine,AWS Beanstalk,Microsoft Azure app service.
+		
+	3. SaaS
+		- Saas stand for Software as a system 
+		- It provides full ready to use application
+		- Exmple: Gmail,office 365,dropbox,jira,service now
+
+------------------------------------------------
+Q.. Cloud deployment model?
+==> Cloud deployement model defines who owns server,who manage the server and which can access that services 
+	
+	- There are 4 deployement models 
+		1. Public Cloud 
+		2. Private Cloud
+		3. Hybrid Cloud
+		4. Multi Cloud
+		
+	1. Public Cloud: Owned and managed by service provider but accessible to every one.
+	
+	2. Private Cloud: Owned and managed by Organization and accessible to organization users.
+	
+	3. Hybrid Cloud: It is combination of Public and Private cloud.
+	
+	4. Multi Cloud: using different service provider service at a time 
+------------------------------------------------
+Q.. Key benifits of Cloud Computing?
+==> 1. Cost Saving
+	2. On demand self services 
+	3. Scalability: we can increase or decrease resources as per requirement
+	4. pay-as-you-go: No need to pay advance,pay only for usage.
+	5. Accibility: We can access from anywhere and any time
+------------------------------------------------
+Q.. List of Cloud service provider?
+==> 1. AWS (amazon web services)
+	2. Microsoft Azure
+	3. GCP (Google Cloud Platform)
+	4. Oracle Cloud
+	5. IBM cloud
+	6. Alibaba Cloud
+	7. salesforce
+	8. VMWare cloud
+------------------------------------------------
+Q.. What is AWS?
+==> AWS stand for amazon web services 
+	AWS is cloud service provider,providing IT related services over the internate
+	- AWS was launched in 2006 as first public cloud services 
+	- Provider with S3 and EC2 services 
+	- S3 stand for Simple storage service 
+	- EC2 stand for Elastic Cloud Computing
+	- Nowdays AWS offer 200+ fully managed services
+	- Across the globe AWS has 38+ regions and Each region has multiple availability zones 
+		regions= Geographic Areas(cities)
+		Availability zones=Data centers
+	- In India we have 2 regions Asia Pacific(mumbai) and Asia Pacific(Hydrabad).
+	  Mumbai region launched in 2016 and it has 3 availability zones 
+	  Hydrabad region launched in 2022 and it has 3 availability zones 
+	- AWS is market leader 
+------------------------------------------------
+Q.. Whose uses AWS?
+==> Zomato,swiggy,Netflix,Airbnb,NASA,BMW,SBI,AXIX
+------------------------------------------------
+Q.. What is mean by Network?
+==> Two or more devices connect with each other with or without wire.
+	Devices in a network are called as nodes (e.g PC,server,printer)
+	They communicate using protocols like(TCP/IP)
+	Types of network are-LAN,WAN,MAN,PAN
+	LAN=> Local Area Network 
+	WAN=> Wide Area Network 
+	MAN=> Metropolitan Area Network 
+	PAN=> Personal Area Network 
+------------------------------------------------
+Q.. LAN network?
+==> LAN stand for Local Area Network 
+	Area Covered: Within a building or campus
+	Example: Office or Home wifi 
+------------------------------------------------
+Q.. WAN network?
+==> Wide Area Network 
+	Area Covered: Country or Continent level 
+	Example: Internet 
+------------------------------------------------
+Q.. MAN network?
+==> MAN Stand for Metropolitan Area Network 
+	Area covered : City or Large area 
+	Example: city-wide cable network
+------------------------------------------------
+Q.. PAN network?
+==> PAN stand for Personal Area Network
+	Area Covered: A few meter 
+	Example: Blutooth,hotspot 
+------------------------------------------------
+Q.. What is IP address?
+==> IP address stand for Internet Protocol address
+	Unique number assigned to every device connected to network.
+------------------------------------------------
+Q.. Types of IP address?
+==> - Based on scope(usage)	
+		1. Public IP 
+		2. Private IP 
+	
+	- Based on allocation 
+		1. Static IP 
+		2. Dynamic IP 
+		
+	- Based on Version
+		1. IPv4 (Internet Protocol Version 4)
+		2. IPv6 (Internet Protocol Version 6)
+------------------------------------------------
+Q.. Public IP?
+==> - Assigned by ISP(Internet Service Provider)
+	- Public IP is the global identity of your network on the internet assigned by ISP 
+	- Public IP means other devices anywhere in the world can reach you using this IP 
+	- Home wifi router have public IP address like 122.176.54.23
+------------------------------------------------
+Q.. Private IP?
+==> - Defined by IANA (Internet Assigned Number Authority) for internal use 
+	- Assigned by Router/DHCP inside the network
+	- A private IP is the IP address assigned to devices inside local/private network.
+	- It is not routable on the internet directly work within the internal network.
+	- Router,Laptop,Mobile,Printer get Private IPs
+	- A Private IP is used inside local network and cannot be accessed directly from the internet.
+	- For Example 1 apartment have unique flat number but not unique inside whole city 
+------------------------------------------------
+Q.. What is Difference between Private IP and Public IP?
+==> - Public IP assigned by ISP where as Private IP are assigned by Router/DHCP inside the network 
+	- Public IP work globally but Private IP work locally 
+	- Public IPs are globally unique but Private IPs are not globally unique can repeat across 
+	  different network
+	- Public IPs are accessible from anywhere on the internet where as 
+	  Private IPs not accessible from outside.
+------------------------------------------------
+Q.. What is Static IP?
+==> -> Does not change over time
+	-> manually assigned to device 
+	-> useful for: servers,printers,routers
+	-> static IPs are permanant ideal for hosting services 
+------------------------------------------------
+Q.. What is Dynamic IP?
+==> -> change each time when device reconnect to network
+	-> Automatically assigned by DHCP(Dynamic host configuration protocol)
+	-> Dynamic IPs are temporary,cheaper and sutaible for everyday users 
+------------------------------------------------
+Q.. What is difference between Static IPs and Dynamic IPs?
+==> Static IPs are manually assigned to device where as dynamic IPs automatically assigned by DHCP 
+	- Static IPs does not change over the time where as 
+	  Dynamic IP changes each time the device reconnect to the network
+------------------------------------------------
+Q.. What is IPv4 address?
+==> IPv4 stand for Internet protocol version 4 
+	- It is 32 bit number 
+	- 32 bit divided into 8 octact  
+	- each octact contain 8 bit 
+	- One octact is seperated from another octact by using dot 
+	- IP address decimal form => 192.168.1.0
+	

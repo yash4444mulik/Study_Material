@@ -1040,7 +1040,7 @@ Q.. What is event handling?
 					  1. First Approch is using 'addEventListener' function.
 						 - addEventListener function accept two input arguments 
 						 - first argument is event listner name,event listner always in lowercase
-						 - event listner always enclose in quote
+						   event listner name always enclose in quote
 						 - second argument is event handler function 
 						   addEventListener('eventListner','eventHandlerFunction');
 						 - for example 
@@ -1057,7 +1057,7 @@ Q.. What is event handling?
 							</script>
 							</body>
 							
-					  2. Second Approch is using adding event listner as attribute to event source 
+					  2. using attribute 
 						 - adding event listner in html tag as attribute so syntax is 
 						 - <htmlTag eventName={functionName()}>content</htmlTag>
 						 - <body>
