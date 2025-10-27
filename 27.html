@@ -1,20 +1,28 @@
-<html>
-<head></head>
 <body>
-    <button id="btn">BTN</button>
+	<div>
+		<input placeholder="type something" oninput="pressInput()" />
+		
+		<button id="resolve-btn">resolve button</button>
+		<button id="reject-btn">reject button</button>
+	</div>
+	<script>
+		
+	function setInvervalFunction(counter){
+	
+		let timer=setInterval(()=>{
+		console.log(counter++);
+			if(counter==11){
+				clearInterval(timer);
+				console.log('interval stopped');
+			}
+		},100);
+		
+		
+	
+	}
 
-    <script>
-        let b = document.getElementById('btn');
-        b.addEventListener('mouseout', handleOnMouseAction);
-		b.addEventListener('mouseover',handleOnMouseOver);
+	setInvervalFunction(1);
 		
-		function handleOnMouseOver(){
-			console.log('mouser over action performed');
-		}
 		
-        function handleOnMouseAction() {
-            console.log('Mouse is over the button!');
-        }
-    </script>
+	</script>
 </body>
-</html>

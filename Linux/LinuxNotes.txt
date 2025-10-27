@@ -198,3 +198,27 @@ Q.. var directory?
 	If any data which is keep on changing such type of data will be stored in var directory.
 	Example: log files will be stored inside var directory .
 ------------------------------------------------
+Q.. proc directory?
+==> - proc means process.
+	- Linux is multitasking operating system i.e multiple task are running simultaneously 
+	- For every process there is unique ID will be generated which is know as PID(process id).
+	- The data related to current runnig process is stored inside proc directory.
+	- For every process there is seperate directory created inside proc directory.
+	  The name of directory same as PID
+------------------------------------------------
+Q.. home directory?
+==> - Linux is multi user Operating system i.e multiple user can work at a time.
+	- For every user there is seperate directory will be created inside home directory
+	  and these directory store specific data like images,audio,video
+------------------------------------------------
+Q.. root directory?
+==> - it is home directory for root user/admin user/super user.
+------------------------------------------------
+Q.. What is difference between / and root directory?
+==> / is root directory for linux file system.it is top most directory of linux file system.
+	where as 
+	root is sub directory of / and it act as home directory for root user/super user/admin user.
+------------------------------------------------
+Q.. usr directory?
+==> usr stand for user 
+	this directory contain all user related software.

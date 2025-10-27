@@ -1,184 +1,456 @@
-===========AWS==========
-
-Q.. What is Cloud computing?
-==> Using IT services or resources over the internet instead of buying and maintaining yourself.
-------------------------------------------------
-Q.. What is Cloud infrastructure?
-==> The complete set of Hardware and Software resources used to deliver services over the internate
-------------------------------------------------
-Q.. What are cloud services model?
-==> Cloud services model defines which kind of services offered by service provider to customer
-	- we have 3 service model 
-		1. IaaS
+===========================AWS===============================
+Q.. What is cloud?
+==> Server on internet is nothing but Cloud.
+-----------------------------------------------
+Q.. What is computing?
+==> using cloud server to store and process the work.
+-----------------------------------------------
+Q.. What is cloud computing?
+==> Using IT services and resources over the internet instead of buying and maintaining yourself.
+-----------------------------------------------
+Q.. What is the example of cloud computing?
+==> 1. Netflix
+	2. google drive 
+	3. zoom 
+	4. zomato 
+-----------------------------------------------
+Q.. What is mean by cloud infrastructure?
+==> the complete set of hardware and software resources used to deliver the services over the internet.
+-----------------------------------------------
+Q.. What is cloud service model?
+==> The services offered by service provide to customer is nothing but cloud service model.
+	- We have 3 type of cloud service model
+		1. IaaS 
 		2. PaaS
 		3. SaaS
-		
-	1. IaaS
-		- IaaS stand for Infrastructure as a service
-		- It provides virtualized computing resources like server,storage and Networking
-		- Instead of buying hardware we rent them from service provider 
-		- customer is responsible to maintain the infrastructure
-		- Exmple : AWS EC2(Elastic Compute Cloud),Azure VM(Virtual Machine),Google Compute Engine(GCE)
-		
-	2. PaaS
-		- PaaS stand for Platform as a service 
-		- Provides platform for building,testing and deploying application.
-		- Infrastructure + some tools 
-		- Provider providing infrastructure and maintaining that infrastructure
-		- Being customer we develope our application and deploy.
-		  provider will handle O.S patch,load balancing and monitoring
-		- Exmple: Google app Engine,AWS Beanstalk,Microsoft Azure app service.
-		
-	3. SaaS
-		- Saas stand for Software as a system 
-		- It provides full ready to use application
-		- Exmple: Gmail,office 365,dropbox,jira,service now
-
-------------------------------------------------
-Q.. Cloud deployment model?
-==> Cloud deployement model defines who owns server,who manage the server and which can access that services 
 	
-	- There are 4 deployement models 
-		1. Public Cloud 
-		2. Private Cloud
-		3. Hybrid Cloud
-		4. Multi Cloud
+	1. IaaS: 
+		- IaaS stand for infrastructure as a service.
+		- It provides virtulized computing resources like server,storage and networking
+		- Insted of buying hardware,we rent them from service provider 
+		- Customer is responsible for maintain Infrastructure.
+		- Example: AWS EC2(Elastic compute compute),Azure VM(Virtual Machine),Google Compute Engine(GCE)
 		
-	1. Public Cloud: Owned and managed by service provider but accessible to every one.
+	2. PaaS: 
+		- PaaS stand Platform as a service.
+		- It Provide platform for building,testing and deploying an application 
+		- Service provider provides infrastructure and maintaining that infrastructure
+		- Being customer we need to develope and deploy our application provider will handle O.S patch,
+		  load balancing and monitoring
+		- Example: Google App Engine,AWS Beanstalk,Microsoft Azure App service.
 	
-	2. Private Cloud: Owned and managed by Organization and accessible to organization users.
+	3. SaaS:
+		- SaaS stand for Software as a Service.
+		- It provide full ready to use application.
+		- For Example: microsoft 365,Dropbox,JIRA,service now etc 
+-----------------------------------------------
+Q.. What is Cloud deployement models?
+==> how cloud services models are available to user and who control them is nothing but Cloud deployement model.
+	- There are 4 deployment models 
+		1. Public cloud 
+		2. Private cloud
+		3. Hybrid cloud
+		4. Multi cloud 
+		
+	1. Public cloud: 
+		- Public cloud is owned and managed by owner but accessible to everyone.
 	
-	3. Hybrid Cloud: It is combination of Public and Private cloud.
+	2. Private Cloud: 
+		- Private cloud is owned and managed by Perticular oraganization and accessible 
+		  only for oraganization users 
 	
-	4. Multi Cloud: using different service provider service at a time 
-------------------------------------------------
-Q.. Key benifits of Cloud Computing?
-==> 1. Cost Saving
-	2. On demand self services 
-	3. Scalability: we can increase or decrease resources as per requirement
-	4. pay-as-you-go: No need to pay advance,pay only for usage.
-	5. Accibility: We can access from anywhere and any time
-------------------------------------------------
-Q.. List of Cloud service provider?
-==> 1. AWS (amazon web services)
-	2. Microsoft Azure
-	3. GCP (Google Cloud Platform)
-	4. Oracle Cloud
-	5. IBM cloud
-	6. Alibaba Cloud
-	7. salesforce
-	8. VMWare cloud
-------------------------------------------------
+	3. Hybrid Cloud:
+		- It is combination of Public and Private cloud
+	
+	4. Multi Cloud: 
+		- Using different service provider service at a time.
+-----------------------------------------------
+Q.. What is benefit of Cloud computing?
+==> 1. cost saving
+	2. on demand self service 
+	3. Scalability
+	4. Pay-as-you-go: No need to pay advance,pay only for usage
+	5. Accesibility: you can access from any where and any time.
+-----------------------------------------------
+Q.. List out different cloud service provider?
+==> 1. Amazon(aws)
+	2. Google(GCP)
+	3. Microsoft(Azure)
+	4. Oracle cloud 
+	5. IBM cloud 
+	6. Alibaba cloud 
+-----------------------------------------------
 Q.. What is AWS?
-==> AWS stand for amazon web services 
-	AWS is cloud service provider,providing IT related services over the internate
-	- AWS was launched in 2006 as first public cloud services 
-	- Provider with S3 and EC2 services 
-	- S3 stand for Simple storage service 
-	- EC2 stand for Elastic Cloud Computing
-	- Nowdays AWS offer 200+ fully managed services
-	- Across the globe AWS has 38+ regions and Each region has multiple availability zones 
-		regions= Geographic Areas(cities)
-		Availability zones=Data centers
-	- In India we have 2 regions Asia Pacific(mumbai) and Asia Pacific(Hydrabad).
-	  Mumbai region launched in 2016 and it has 3 availability zones 
-	  Hydrabad region launched in 2022 and it has 3 availability zones 
-	- AWS is market leader 
-------------------------------------------------
-Q.. Whose uses AWS?
-==> Zomato,swiggy,Netflix,Airbnb,NASA,BMW,SBI,AXIX
-------------------------------------------------
-Q.. What is mean by Network?
-==> Two or more devices connect with each other with or without wire.
-	Devices in a network are called as nodes (e.g PC,server,printer)
-	They communicate using protocols like(TCP/IP)
-	Types of network are-LAN,WAN,MAN,PAN
-	LAN=> Local Area Network 
-	WAN=> Wide Area Network 
-	MAN=> Metropolitan Area Network 
-	PAN=> Personal Area Network 
-------------------------------------------------
-Q.. LAN network?
-==> LAN stand for Local Area Network 
-	Area Covered: Within a building or campus
-	Example: Office or Home wifi 
-------------------------------------------------
-Q.. WAN network?
-==> Wide Area Network 
-	Area Covered: Country or Continent level 
-	Example: Internet 
-------------------------------------------------
-Q.. MAN network?
-==> MAN Stand for Metropolitan Area Network 
-	Area covered : City or Large area 
-	Example: city-wide cable network
-------------------------------------------------
-Q.. PAN network?
-==> PAN stand for Personal Area Network
-	Area Covered: A few meter 
-	Example: Blutooth,hotspot 
-------------------------------------------------
-Q.. What is IP address?
-==> IP address stand for Internet Protocol address
-	Unique number assigned to every device connected to network.
-------------------------------------------------
-Q.. Types of IP address?
-==> - Based on scope(usage)	
-		1. Public IP 
-		2. Private IP 
+==> AWS stand for Amazon web service.
+	- AWS is colud service provider,providing IT services over the Internet.
+	- AWS was launched in 2006 as First public cloud service provider with S3 and EC2 services.
+	  S3 stand for Simple Storage Service 
+	  EC2 stand for Elastic compute cloud 
+	- Nowdays AWS offers 200+ fully managed services.
+	- Across the global AWS has 30+ region and each region has multiple Availability zones 
+		regions=> Georaphical area 
+		availability zones => data center
+	- In India we have 2 regions Asia Pacific(Mumbai),Asia Pacific(Hydrabad).
+	- Mumbai region launched in 2006 and it has 3 availability zones.
+	- Hydrabad region launched in 2022 and it has 2 availability zones.
+	- AWS is market leader.
+-----------------------------------------------
+Q.. who uses AWS?
+==> zomato,swiggy,Netflix,NASA,BMW,SBI.
+-----------------------------------------------
+Q.. What is Network?
+==> - Two or more devices interconnected with each other with or without wire is nothing but Network.
+	- Devices in a network are called nodes(e.g PC,printer,server)
+	- They are communicate using protocol like TCP/IP.
+	- Types of Network- LAN,WAN,MAN,PAN
+		LAN: Local Area Network 
+		WAN: Wide Area Network 
+		MAN: Metropolitan Area Network
+		PAN: Personal Area Network 
+-----------------------------------------------
+Q.. Types of network based on Area and Size covered?
+==> LAN: Local Area Network 
+		Area covered: within building or campus
+		example: office or home WiFi
 	
-	- Based on allocation 
-		1. Static IP 
-		2. Dynamic IP 
+	WAN: Wide Area Network
+		Area covered: Country or continent 
+		example: Internet 
 		
-	- Based on Version
-		1. IPv4 (Internet Protocol Version 4)
-		2. IPv6 (Internet Protocol Version 6)
-------------------------------------------------
-Q.. Public IP?
-==> - Assigned by ISP(Internet Service Provider)
-	- Public IP is the global identity of your network on the internet assigned by ISP 
-	- Public IP means other devices anywhere in the world can reach you using this IP 
-	- Home wifi router have public IP address like 122.176.54.23
-------------------------------------------------
-Q.. Private IP?
-==> - Defined by IANA (Internet Assigned Number Authority) for internal use 
-	- Assigned by Router/DHCP inside the network
-	- A private IP is the IP address assigned to devices inside local/private network.
-	- It is not routable on the internet directly work within the internal network.
-	- Router,Laptop,Mobile,Printer get Private IPs
-	- A Private IP is used inside local network and cannot be accessed directly from the internet.
-	- For Example 1 apartment have unique flat number but not unique inside whole city 
-------------------------------------------------
-Q.. What is Difference between Private IP and Public IP?
-==> - Public IP assigned by ISP where as Private IP are assigned by Router/DHCP inside the network 
-	- Public IP work globally but Private IP work locally 
-	- Public IPs are globally unique but Private IPs are not globally unique can repeat across 
-	  different network
-	- Public IPs are accessible from anywhere on the internet where as 
-	  Private IPs not accessible from outside.
-------------------------------------------------
-Q.. What is Static IP?
-==> -> Does not change over time
-	-> manually assigned to device 
-	-> useful for: servers,printers,routers
-	-> static IPs are permanant ideal for hosting services 
-------------------------------------------------
-Q.. What is Dynamic IP?
-==> -> change each time when device reconnect to network
-	-> Automatically assigned by DHCP(Dynamic host configuration protocol)
-	-> Dynamic IPs are temporary,cheaper and sutaible for everyday users 
-------------------------------------------------
+	MAN: Metropolitan Area Network 
+		Area covered: city or large area 
+		example: city-wide cable network 
+		
+	PAN: Personal Area Network 
+		Area covered: A few meter
+		Example: bluetooth,hotspot
+-----------------------------------------------
+Q.. What is IP address?
+==> - IP address stand for Internet Protocol Address.
+	- It is an unique number assigned to every device connected to internet.
+	Types of IP address
+		- Based on scope 
+			1. Public IP 
+			2. Private IP 
+		
+		- Based on allocation
+			1. Static IP 
+			2. Dynamic IP 
+		
+		- Based on Version
+			1. IPv4(Internet Protocol Version 4)
+			2. IPv6(Internet Protocol Version 6)
+-----------------------------------------------
+Q.. Public IP address?
+==> - Assigned by ISP(Internet service provider)
+	- it is unique across the entire internet 
+	- Public means other devices in the world can reach you using this IP.
+-----------------------------------------------
+Q.. Private IP address?
+==> - Defined by IANA(Internet Assigned Numbers Authority) for internal use 
+	- Assigned by Router/DHCP inside the network.
+	- A private IP is the IP address assigned to devices inside a local/private network.
+	- It is not routable on internet directly only work within the internal network.
+	- A private IP is used inside local networks and cannot be accessed directly from the internet.
+-----------------------------------------------
+Q.. What is difference between Public and Private IP address?
+==> - Public IP are assigned by ISP where as Private IP assigned by Router/DHCP
+	- Public IP work globally where as Private IP work locally.
+	- Public IPs are globally unique where as Private IPs are not globally unique 
+	- Public IPs are Accessible from anywhere on Internet where as Private IPs not accessible from anywhere 
+-----------------------------------------------
+Q.. Static IP?
+==> - Does not change over the time.
+	- Manually assigned to a device.
+	- Useful for Servers,Printer,router
+	- Static IPs are not permanent and ideal for hosting services 
+-----------------------------------------------
+Q.. Dynamic IPs?
+==> Change each time the device reconnects to the network.
+	- Automatically assigned by DHCP(Dynamic Host Configuration Protocol)
+	- Dynamic IPs are temporary,cheaper and suitable for everyday users.
+-----------------------------------------------
 Q.. What is difference between Static IPs and Dynamic IPs?
-==> Static IPs are manually assigned to device where as dynamic IPs automatically assigned by DHCP 
-	- Static IPs does not change over the time where as 
-	  Dynamic IP changes each time the device reconnect to the network
-------------------------------------------------
-Q.. What is IPv4 address?
-==> IPv4 stand for Internet protocol version 4 
-	- It is 32 bit number 
-	- 32 bit divided into 8 octact  
-	- each octact contain 8 bit 
-	- One octact is seperated from another octact by using dot 
-	- IP address decimal form => 192.168.1.0
+==> Static IPs are manually assigned by device where as Dynamic IPs are automatically assigned by DHCP.
+	- Static IP does not change over the time but dynamic IP changes each time the device reconnect to network.
+-----------------------------------------------
+Q.. IPv4 address?
+==> - IPv4 is 32 bit address
+	- these 32 bits are divided into 4 octect
+	- Each octect has 8 bits 
+	- IPv4 in decimal form 183.33.23.3
+	- IPv4 in binary form 111111111.00000001.00000100.00000000
+	- Min value for IPv4 address for each octect is 0 and max value is 255.
+	- All 4.3 billion IPv4 address are classified into 5 classes 
+	  class A,class B,class C,class D.
+	  
+	- Rule for class A: 
+		- first octect first bit is zero 
+		- 01111111 equivalent decimal number is 127 
+		- range of class A IP address is 0 to 127 
+		- default subnet mask is 255.0.0.0
+		
+	- Rule for class B: 
+		- first octect second bit is zero.
+		- 10111111 equivalent decimal number is 191
+		- range of class B IP address is 128 to 191
+		- default subnet mask 255.255.0.0 
+		
+	- Rule for class C: 
+		- first octect third bit is zero 
+		- 11011111 equivalent decimal number is 223
+		- range of class C IP address is 192 to 223
+		- default subnet mask 255.255.255.0 
 	
+	- Rule for class D
+		- first octect fourth bit is zero 
+		- 11101111 equivalent decimal number is 239
+		- range of class D IP address is 224 to 239
+		- class D don't have default subnet mask 
+	
+	- Rule for class E
+		- first octect fifth bit is zero 
+		- 11110111 equivalent decimal number is 255
+		- range of class E IP address is 240 to 255.
+		- Class E don't have default subnet mask.
+-----------------------------------------------
+Q.. What is IPv6 address?
+==> - IPv6 stand for Internet Protocol Version 6 
+	- it is 128 bit address
+	- Around 340 undecillion address
+	- format is hexadecimal groups 
+	- Example: 2001:0d03:38f3:0000:0000:8a2e:0370:7334
+	- Decimals are seperated by : 
+	- Provide huge address space 
+-----------------------------------------------
+Q.. What is difference between IPv4 and IPv6 address?
+==> - IPv4 is 32 bit where as IPv6 is 128 bit 
+	- In IPv4 decimal is seperated using dot where as in IPv6 decimal is seperated using : 
+	- In IPv4 address are 4.3 billion where as in IPv6 has huge address space
+	- In IPv4 header size is 20-60 bytes where as in IPv6 header size is fixed 40 bytes
+-----------------------------------------------
+Q.. What is MAC address?
+==> - MAC sand for media access control 
+	- It is unique hardware identifier assigned to a network interface card (NIC) by manufacturer
+	- Every device's NIC has globally unique MAC.
+	- It is 48 bit (6 bytes) usally written in hexadecimal e.g 00:1A:2B:3C:4D:5E
+-----------------------------------------------
+Q.. What is difference between MAC and IP address?
+==> - MAC stand for Media Access control where as IP stand for Internet protocol address.
+	- MAC address identify device on local network where as 
+	  IP address identifies device across different network 
+	- MAC address operates at the Data Link Layer (Layer 2) of OSI model where as 
+	  IP address operates at the Network Layer (Layer 3)
+	- MAC address is Hardware based and generally permanent where as IP address is software based address
+	- MAC address is 48 bits or 65 bit where as IPv4 is 32bit and IPv6 is 128 bit
+-----------------------------------------------
+Q.. Decimal number system?
+==> - Decimal means 10 
+	- Base is 10 
+	- Base 10 means 10 number of symbols are available 
+	- symbols are 0,1,2,3,4,5,6,7,8,9
+	- Decimal number system is human readable number system
+-----------------------------------------------
+Q.. Binary number system?
+==> - Binary means 2 
+	- Base means 2.
+	- 2 symbols available in Binary 
+	- symbols 0 and 1 
+	- computer and machine understandable number system.
+-----------------------------------------------
+Q.. Octal number system?
+==> - Octal means 8
+	- Base is 8 meand 8 symbols are available 
+	- symbols 0,1,2,3,4,5,6,7
+	- Computer and machine understandable number system.
+-----------------------------------------------
+Q.. Hexadecimal number system?
+==> - Hexadecimal means 16 
+	- Base is 16 means 16 symbols are available 
+	- symbols 0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F
+	- Computer and machine understandable number system.
+-----------------------------------------------
+Q.. IPv4 address?
+==> - IPv4 is 32 bit address
+	- these 32 bits are divided into 4 octect
+	- Each octect has 8 bits 
+	- IPv4 in decimal form 183.33.23.3
+	- IPv4 in binary form 111111111.00000001.00000100.00000000
+	- Min value for IPv4 address for octect is 0 and max value in IPv4 for octect is 255.
+	- All 4.3 billion IPv4 address are classified into 5 classes 
+	  class A,class B,class C,class D.
+	  
+	- Rule for class A: 
+		- first octect first bit is zero 
+		- 01111111 equivalent decimal number is 127 
+		- range of class A IP address is 0 to 127 
+		- default subnet mask is 255.0.0.0
+		
+	- Rule for class B: 
+		- first octect second bit is zero.
+		- 10111111 equivalent decimal number is 191
+		- range of class B IP address is 128 to 191
+		- default subnet mask 255.255.0.0 
+		
+	- Rule for class C: 
+		- first octect third bit is zero 
+		- 11011111 equivalent decimal number is 223
+		- range of class C IP address is 192 to 223
+		- default subnet mask 255.255.255.0 
+	
+	- Rule for class D
+		- first octect fourth bit is zero 
+		- 11101111 equivalent decimal number is 239
+		- range of class D IP address is 224 to 239
+		- class D don't have default subnet mask 
+	
+	- Rule for class E
+		- first octect fifth bit is zero 
+		- 11110111 equivalent decimal number is 255
+		- range of class E IP address is 240 to 255.
+		- Class E don't have default subnet mask.
+-----------------------------------------------
+Q.. Why class D and class E don't have default subnet mask?
+==> We don't use class D and class E IP address for Network.
+-----------------------------------------------
+Q.. What is subnet?
+==> - subnet stand for sub network.
+	- It is smaller segment of larger network
+	- It is created by dividing a bigger network into multiple smaller networks 
+	- subnet are defined by subnet mask or CIDR notation.
+-----------------------------------------------
+Q.. What is subnet mask?
+==> subnet mask is 32 bit number that defines which portion of IP address 
+    refers to the Network and which portion refers to Host.
+	- It is seperate network part and host part of IP address.
+	- subnet mask use 1s to represent network portion and 0s to represent host portion.
+	
+	Example 255.0.0.0
+	=> here first 8 bit refer to network portion 1s
+			last 24 bit refer to host portion 0s
+-----------------------------------------------
+Q.. What is CIDR?
+==> CIDR stand for classless Inter domain Routing.
+	- It is method used to allocate and specify IP addresses and their associated routing prefix in 
+	  a more flexible way than a old clas-based system
+	- It is written as : IP Address/Prefix 
+	- Prefix length tells how many bits are used for the network 
+	- remaining bits are the host address 
+-----------------------------------------------
+Q.. How many IP address are possible in a network?
+==> 
+	1. 192.168.1.0/24
+	=> number of network bit 24 
+	   number of host bit 8
+	   
+	   Total IPs  = 2^ hotst bit 
+				  = 2^8
+				  = 2*2*2*2*2*2*2*2 
+				  = 256
+	   
+	   Usable IPs = Total IPs - 2 
+				  = 256-2 
+				  = 254
+				 
+-----------------------------------------------
+Q.. How to calculate number of hosts?
+==> The number of hosts means total number of devices we can connect to network.
+	
+	Total Devices = 2^H-2 
+		here H stand for host bits 
+		2 is substracted because 
+		One address is reserved for the network address
+		One address is reserved for the broadcast address
+-----------------------------------------------
+Q.. How to find Network ID and Broadcast ID?
+==> - To get Network ID we need to convert all host bits into 0 
+	  192.168.1.0=> 11000000.10101000.00000001.00000000
+	  Convert all host bit into 0 
+	  => 11000000.10101000.00000001.00000000
+	  => convert binary into decimal 192.168.1.0
+	  => this is your Network ID 192.168.1.0
+	  
+	- To get Broadcast ID set all hots bits are to 1 
+		192.168.1.0=> 11000000.10101000.00000001.00000000
+		- convert all host bit into 1 
+		=> 11000000.10101000.00000001.11111111
+		=> convert binary to decimal 192.168.1.255
+		=> this is your Broadcast ID 192.168.1.255
+-----------------------------------------------
+Q.. find below requirement for 192.168.1.0/24?
+==> 1. Number of network bit 
+	2. Number of Host bit 
+	3. Total usable IPs
+	4. Network ID 
+	5. Broadcast ID 
+	6. Subnet mask 
+	7. Range of IPs 
+	8. Usable IP Range is 
+	
+	=> 192.168.1.0/24 
+		number of network bits 24 
+		
+		number of host bits 8 
+		
+		Total usable IPs => 2^host bit => 256 
+		
+		Network ID => 
+			192.168.1.0=> 11000000.10101000.00000001.00000000
+			Convert host bit into 0
+			11000000.10101000.00000001.00000000
+			198.168.1.0 => this is Network ID 
+		
+		Broadcast ID 
+			192.168.1.0=> 11000000.10101000.00000001.00000000
+			convert host bit into 1 
+			11000000.10101000.00000001.11111111
+			198.168.1.255 => this is Broadcast ID 
+		
+		Subnet Mask => 255.255.255.0
+		
+		Range of IPs => 198.168.1.0 to 198.168.1.255
+		
+		Usable IP range is => 198.168.1.1 to 198.168.1.254						
+-----------------------------------------------
+Q.. find below requirement for 192.168.1.10/24?
+==> 1. Number of network bit 
+	2. Number of Host bit 
+	3. Total usable IPs
+	4. Network ID 
+	5. Broadcast ID 
+	6. Subnet mask 
+	7. Range of IPs 
+	8. Usable IP Range is 
+		
+		1. Number of network bit=> 24 
+		
+		2. Number of Host bit => 8
+		
+		3. Total usable IPs=> 2^8=> 256 
+		
+		4. Network ID 
+			198.168.1.10=> 11000000.10101000.00000001.00001010
+			convert all host bit into 0 
+			11000000.10101000.00000001.00000000
+			198.168.1.0=> this is network ID 
+			
+		5. Broadcast ID 
+			198.168.1.10=> 11000000.10101000.00000001.00001010
+			convert all host bit into 0 
+			11000000.10101000.00000001.11111111
+			198.168.1.255=> this is Broadcast ID
+			
+		6. Subnet mask => 255.255.255.0
+			
+		7. Range of IPs => 198.168.1.0 To 198.168.1.255
+			
+		8. Usable IP Range is => 198.168.1.1 to 198.168.1.254
+-----------------------------------------------
+-----------------------------------------------
+-----------------------------------------------
+-----------------------------------------------
+-----------------------------------------------
+-----------------------------------------------
+-----------------------------------------------
+-----------------------------------------------
+-----------------------------------------------

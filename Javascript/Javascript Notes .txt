@@ -1071,7 +1071,7 @@ Q.. What is event handling?
 						- Event handler name should be in lowercase it is not mandatary
 						- Event handler name is enclosed in quote 
 						- Event handler should be followed parenthesis 
-						- If we don't specify the parenthesis the we don't get any changes 
+						- If we don't specify the parenthesis then we don't get any changes 
 --------------------------------------------
 #  Most commonly used events.
    1. Mouse Event 
@@ -1201,11 +1201,6 @@ Q.. Default Exeception handling in JS?
 -> If exception is occured then program execution is stoped then JS engine create an Exeception
    Object and that object is thrown by printing information on console like error name error 
    description.
--> catch block execute if and only if there is an exception.if there is no exception 
-   in try then catch block not executed.
--> finally block execute either exception is occured or not.
--> there may be chance of getting error inside try,catch and finally block.like:- 
-   printing undefined variable.
 ---------------------------------------
 Q.. What is event object?
 ==> whenever event is triggered then browser internally create an event object 
@@ -1214,7 +1209,7 @@ Q.. What is event object?
 	event such as the type of event,the element that triggered the event etc.
 ---------------------------------------
 Q.. what is event bubbling?
-==> Event bubbling is the process where single event is added on child that propagate 
+==> Event bubbling is the process where event is added on child that propagate 
     up to top most parent.
 		<body>
 			<div id='yash'>
@@ -1239,8 +1234,9 @@ Q.. what is event bubbling?
 		</script>
 		</body>
 ---------------------------------------		
-Q.. What is event capturing?What is event delegation?
-==> Event delegation is the process where you add single event on parent element that handle all child element.
+Q.. What is event capturing?
+==> Event capturing is the process where an event travels from Parent element down to the target element 
+	- To achieve event capturing we need to pass 3 argument to addEventListener.
 	
 		<body>
 			<div id='yash'>
@@ -1264,6 +1260,42 @@ Q.. What is event capturing?What is event delegation?
 			
 		</script>
 		</body>
+---------------------------------------	
+Q.. What is event delegation?
+==> event delegation in javascript is the process where you attach single event handler on parent element 
+	to handle event on its all child element.
+	
+				<body>
+				  
+				  <ul id="parent">
+				  <li>one</li>
+				  <li>two</li>
+				  <li>three</li>  
+				  </ul>
+				  
+				  
+				  
+				  <script>
+				   
+					let parentList=document.getElementById('parent');
+					
+					parentList.addEventListener('click',handleOnClick)
+					
+					
+					function handleOnClick(e){
+						console.log(e.target.textContent);
+					}
+				   
+				   
+				  </script>
+				</body>
+---------------------------------------	
+Q.. What is event Propagation?
+==> Event Propagation is the process that define how event travel through the DOM when it occurs 
+	- Event Propagation divided into 3 part 
+		1. event capturing => window->document->parent->child
+		2. target =>event reaches to target element 
+		3. event bubbling=> child->parent->document->window
 ---------------------------------------	
 Q.. How to stop event propagation?
 ==> To stop event propagation simply use event.stopPropagation() in event handler function.
@@ -1295,9 +1327,9 @@ Q.. How to stop event propagation?
 		
 ---------------------------------------
 Q.. What is Immediate Stop Propagation?
-==> Stop Propagation is the process where event triggered on child that not propagate up to the parent 
-	To stop Propagation we have event.stopPropagation() method is their 
-	but if we want to trigger 2 event on single event source and also they don't want to propagate 
+==> we use stopPropagation() method to stop propagation 
+	means event triggered on child that not propagate up to the parent 
+	but if we trigger 2 event on same element and also they don't want to propagate 
 	for that purpose we use event.stopImmediatePropagation() method.
 	
 		<body>
@@ -1319,6 +1351,11 @@ Q.. What is Immediate Stop Propagation?
 					event.stopImmediatePropagation();
 					console.log('button clicked 1')
 					})
+					
+	// this line will not execute by stopImmediatePropagation() 
+			button.addEventListener('click',()=>{
+				console.log('button clicked2')
+			})
 
 			let jay=document.getElementById('jay')
 			
@@ -1330,12 +1367,14 @@ Q.. What is Immediate Stop Propagation?
 			
 		</script>
 		</body>
-		
-		
+---------------------------------------
+Q.. What is difference between stopPropagation() and stopImmediatePropagation()?
+==> - stopPropagation() stop event bubbling to parent but other listner still run where as 
+      stopImmediatePropagation() stop event bubbling and also stops other listners on the same element
 ---------------------------------------
 Q.. How to prevent default behaviour of event source?
 ==> To prevent default behaviour we have preventDefault() method 
-	suppose we have anchor tag and anchor tag contain url of another 
+	suppose we have anchor tag and anchor tag contain url  
 	but if we want to click only on anchor tag and not open url mention in that case 
 	we can go through with preventDefault() method.
 	
@@ -1358,59 +1397,56 @@ Q.. How to prevent default behaviour of event source?
 
 ----------------------------------------
 Q.. What is event debouncing?
-==> 
-
+==> Event debouncing is the programming technique that ensures a function is not called to repeatedly.
+	- It allow the function to run only after certain amount of time has passed since last event was triggered.
+	
 		<body>
-			<div id='yash'>
-			<div id='jay'>
-			<input type="serach" oninput="perfectFunction()"/>
+			<div>
+				<input placeholder="type something" oninput="pressInput()" />
 			</div>
-			</div>
-			
-		<script>
-
-			
-		let counter=0;
-			function getData(){
-			
-				console.log('clicked',counter++)
-			}
-			
-			function debouncingFunction(callbackfunc,timeSec){
-			
-				let timer
-				return function(...args){
-					if (timer)clearTimeout(timer)
-					
-					setTimeout(()=>{
-						callbackfunc();
-					},timeSec)
+			<script>
+				let counter=0;
+				function getData(){
+					console.log('input printed',counter++)
 				}
-			
-			}
-			
-			let perfectFunction=debouncingFunction(getData,1000)
-
-		</script>
+				
+				function debouncing(callbackfunction,timeSec){
+					let timer;
+					
+					return function(...args){
+					
+						if(timer)clearTimeout(timer);
+						
+						timer=setTimeout(()=>{
+							callbackfunction.apply(this,args)
+						},timeSec)
+					}		
+				}
+				
+				let pressInput=debouncing(getData,1000);
+			</script>
 		</body>
 ---------------------------------------
+Q.. Benefit of event debouncing?
+==> - reduce unnecessary function calls 
+	- improve performance 
+---------------------------------------
 Q.. What is event loop?
-==> Javascript is single threaded language means javascript perform single task at a time 
-	if there is perticular task which consume more time to execute like 10 to 15 sec then 
-	there may be delay to execute other task to overcome this problem event loop come in picture.
-	Event loop is machanism in javascript that handle Asynchronous operations and ensuring that 
-	non-blocking tasks are executed efficiently 
-	Event loop helps to manage multiple tasks without blocking main thread.
-	The event loop acts as a bridge between the two, 
-	moving tasks from the queue to the stack when the stack is empty.
+==> - Javascript is single threaded language means javascript perform single task at a time 
+	  if there is perticular task which consume more time to execute like 10 to 15 sec then 
+	  there may be delay to execute other task to overcome this problem event loop come in picture.
+	- The event loop acts as a bridge between the CALL STACK and CALLBACK QUEUE.
+	- Event loop is machanism that monitor both CALL STACK and CALLBACK QUEUE
+	- When call stack empty then event loop move pending callback from queue to the callstack for execution.
+	- This ensure non-blocking task run effectively without freezing the UI.
 ---------------------------------------
 Q.. What is call Stack?
-==> Call Stack is data structure that keep track of the functions that are currently being executed.
+==> Call Stack is data structure that keep track the functions that are currently being executed.
 	call stack ensures that functions are executed in the correct order.
 	Simple steps of the call stack:-
-		1. When function is called:- it is added to the stack 
-		2. When function finished:- it is removed from stack 
-		3. The process Repeat :- untill there are no function in the stack 
+		1. When function is called then it is added to the call stack 
+		2. When function finished then it is removed from call stack 
+		3. The process Repeat untill there are no function in the call stack  
 	
 	
 		function first() {
@@ -1461,21 +1497,20 @@ Q.. What is call Stack?
 
 	Exmple of setTimeout()=> 
 		setTimeout(()=>console.log('2000'),2000)
-		setTimeout(()=>console.log('100'),100)
+		setTimeout(()=>console.log('100'),1000)
 		console.log('script End')
 	==> first setTimeout is go to call stack  then it move to WEB API's
-		Then secondTimeout is go to call stack  then it move to WEB API's 
+		Then second setTimeout is go to call stack  then it move to WEB API's 
 		Then console.log('script End') goes to call stack  then it execute console.log('script End')
-		Then WEB API's reminder for secondTimeout because 100 milisecond completed then it move to TASK QUEUE 
-		then event loop move that secondTimeout to call stack then secondTimeout get executed
-		Then WEB API's remider for firstTimeout because 2000 milisecond completed then it move to TASK QUEUE
-		then event loop move that firstTimeout to call stack then firstTimeout get executed
+		Then WEB API's reminder for second setTimeout because 1000 milisecond completed then it move to TASK QUEUE 
+		then event loop move that second setTimeout to call stack then second setTimeout get executed
+		Then WEB API's remider for first setTimeout because 2000 milisecond completed then it move to TASK QUEUE
+		then event loop move that first setTimeout to call stack then first setTimeout get executed
 	
 (REFERED BY KG CODING VIDEO)
 ---------------------------------------
 Q.. What is callback Queue/TASK QUEUE?
-==> callback Queue/TASK QUEUE is part of event loop mechanism which manage execution of code. 
-	callback Queue/TASK QUEUE is queue which hold task waiting to execute.
+==> callback Queue/TASK QUEUE is queue that store callback functions to execute after call stack empty.
 	
 	Exmple of Callback Queue/TASK QUEUE()=> 
 		setTimeout(()=>console.log('2000'),2000)
@@ -1490,9 +1525,10 @@ Q.. What is callback Queue/TASK QUEUE?
 		then event loop move that firstTimeout to call stack then firstTimeout get executed
 ---------------------------------------
 Q.. What is Microtask Queue?
-==> Microtask Queue is part of event loop mechanism which manage execution of code.
-	Microtask Queue is another queue in the runtime with a higher priority than the TASK QUEUE.
-	This Queue is specially dedicated to PROMISES,AWAIT
+==> - Microtask Queue is special queue that store microtask these are callbacks that should be executed
+	  after the current task finishes,before the next task in the callback queue runs 
+	- Microtask Queue is queue with a higher priority than the TASK QUEUE.
+	- This Queue is specially dedicated to PROMISES,AWAIT
 	
 	Example of Microtask Queue?
 		fetch('https://api.site.com/posts')
@@ -1528,20 +1564,7 @@ Q.. Function declaration in javascript?
 						}
 		square(4);
 		
--------------------------------------------		
-Q.. What is Explicit/Implicit return?
-==> 1. Explicit return : Explicit return means we need to specify return keyword in function 
-						 for returning value from function 
-						For e.g
-						 function square(num){
-							return num*num
-						 }
-						 
-    2. Implicite return : Implicit return means we don't need to specify return keyword in function 
-						  to return value from function 
-						For e.g 
-						  const square=(num)=> num*num;
--------------------------------------------		
+-------------------------------------------	
 Q.. What is Arrow function?
 ==> Arrow function introduced in ES-6 i.e in 2015
 	An anonymus function is know as arrow function 
@@ -1566,14 +1589,14 @@ Q.. What is Arrow function?
 		
 ---------------------------------------
 Q.. What is difference between Normal function and arrow function?
-==> Normal function is function with function keyward where as 
-	Arrow function is function without function keyward 
-	Noraml function is old one where as 
-	Arrow function is introduced in ES-6 i.e in 2015
-	In Arrow function return keyward is not manadatary if it contain single statement where as 
-	In Normal function return keyward is manadatary if it contain single statement.
-	Syntax of Normal function is function function_name(){function_body}
-	Syntax of Arrow function is ()=>{function_body}
+==> - Normal function is function with function keyward where as 
+	  Arrow function is function without function keyward 
+	- Noraml function is old one where as 
+	  Arrow function is introduced in ES-6 i.e in 2015
+	- In Arrow function return keyward is not manadatary if it contain single statement where as 
+	  In Normal function return keyward is manadatary if it contain single statement.
+	- Syntax of Normal function is function function_name(){function_body}
+	  Syntax of Arrow function is ()=>{function_body}
 ---------------------------------------
 Q.. What is Synchronous?
 ==> Synchronous means code run in perticular sequence of instruction given in the program.
@@ -1616,16 +1639,16 @@ Q.. What is promises?
 	used to handle Asynchronous operation effectively 
 	Promises provide way to deal with Asynchronous operation that may take some time to complete
 	such as fetching data from server,reading a file or any other Asynchronous task.
-	- Promises has 3 stage 
-		1. pending : this is initial stage in this stage promise neither fullfilled or rejected.
-		2. fullfilled/resolved: operation successfully completed and promise resulting value.
-		3. Rejected: operation failed and the promise has a reason for the failure.
 	- Promise has 2 Properties
 		1. state 
 		2. result
 		if state is pending then result will be undefined
 		if state is fullfilled then result will be value 
-		if state is rejected then result will be error object 
+		if state is rejected then result will be error object
+	- Promises has 3 state 
+		1. pending : this is initial stage in this stage promise neither fullfilled or rejected.
+		2. fullfilled/resolved: operation successfully completed and promise resulting value.
+		3. Rejected: operation failed and the promise has a reason for the failure. 
 		
 	- we can't access the properties directly but we can access through method and these 
 	  method as below 
@@ -1633,65 +1656,66 @@ Q.. What is promises?
 	  promiseObj.catch()
 	  promiseObj.finally()
 	  
-	- To create promises there are 2 ways 
-		1. using promise constructor 
+	
+	- create promis using promise constructor 
 			const promiseObj=new Promise(executorFunction)
 			
-			=> Exmple 1: To console array or error message
+		=> Exmple 1: To console array or error message
+		
+				const PromiseObj=new Promise(myFunction)
+				function myFunction(res,rej){
+					setTimeout(()=>{
+						let rollNo=[1,2,3,4,5,6,7,9]
+						res(rollNo)
+						rej('error while communicating')
+					},3000)
+				}
+				PromiseObj.then((res)=>{
+					console.log(res)
+				}).catch((rej)=>console.log(rej))
+		
+		=> Exmple 2: To console perticular roll number information 
+				
+			let newPromise=new Promise((resolve,reject)=>{
+				setTimeout(()=>{
+								let rollNo=[1,2,3,4,5,6,7,8]
+								resolve(rollNo)
+								
+							},2000)
+				})
+		
 			
-					const PromiseObj=new Promise(myFunction)
-					function myFunction(res,rej){
-						setTimeout(()=>{
-							let rollNo=[1,2,3,4,5,6,7,9]
-							res(rollNo)
-							rej('error while communicating')
-						},3000)
-					}
-					PromiseObj.then((rollNumbers)=>{
-						console.log(rollNumbers)
-					}).catch((errorMsg)=>console.log(errorMsg))
 			
-			=> Exmple 2: To console perticular roll number information 
+			let newFunction=(indexValue)=>{
+				return new Promise((res,rej)=>{
+				setTimeout((indexValue)=>{
+					let data={
+							name:'yashraj',
+							age:24
+							}
+					res(`My name is ${data.name}.i'am ${data.age} year old and my roll number is ${indexValue}`)
 					
-					let promiseObj=new Promise((resolved,rejected)=>{
-	
-						setTimeout(()=>{
-							let rollNo=[1,2,3,4,5,6,7,8]
-							resolved(rollNo)
-							rejected('error getting in array')
-						},2000)
-					})
-					
-					let getRollNumberInformation=(indexNumber)=>{
-					
-						return new Promise((res,rej)=>{
-						setTimeout((indexNumber)=>{
-							let data={
-									name:'yashraj',
-									age:24
-									}
-							res(`My name is ${data.name}.i'am ${data.age} year old and my roll number is ${indexNumber}`)
-							rej(`data not found`)
-						},2000,indexNumber)
-						}
-						)
-					
-					}	
-					
-					promiseObj.then((rollNumber)=>{
-						console.log(rollNumber)
-						return getRollNumberInformation(rollNumber[1])
-					}).then((kuchBhi)=>{
-							console.log(kuchBhi)
-						})
+				},2000,indexValue)
+				}
+				)
+			}
+			
+			newPromise.then((resolve)=>{
+				console.log(resolve);
+				return newFunction(resolve[1])
+			}).then((finalData)=>{
+				console.log(finalData)
+			})
 			
 ---------------------------------------	
 Q.. What is async and await?
-==> - async keyword is used to write asynchronous function.
-	- a word before function means one simple thing a function always return promise.
-	  so rather then return value directly from function tell them to return promise.
+==> - async and await is introduced in E.S 8 i.e in 2017
+	- async keyword is used to write asynchronous function.
+	- async keyword is used before function declartion that make it asynchronous function
+	- An async function always return promise.
+	
 	- await can be used inside async functions.it pauses execution of async function.
-	- it pause the execution untill promise is getting resolved or rejectd.
+	- it wait for promise to resolve .
 	
 	- creating promise using async and await.
 			async function getData(){
@@ -1703,16 +1727,56 @@ Q.. What is async and await?
 			let data= await promiseObj
 			console.log(data)
 			}
+			
 			getData()
+			
+			
+	- Example with functions 
+		function student(){
+		return new Promise((resolve,reject)=>{
+				setTimeout(()=>{
+					let rollNo=[1,2,3,4,5,6,7,8,9];
+					resolve(rollNo)			
+				},2000)
+		})};
+		
+		
+		function student_Data(indexValue){
+		
+			return new Promise((resolve,rej)=>{
+				
+				let data={
+						1:{name:'yashraj',age:25}
+						}
+				
+				let rollNo=data[indexValue];
+				
+				rollNo ? resolve(`My name is ${rollNo.name}.I'm ${rollNo.age} year old`):rej('no data found');
+				
+			})
+		
+		}
+		
+		
+		async function newFunction(){
+		
+			let student_result=await student();
+			console.log(student_result)
+			
+			let student_full_detail=await student_Data(1);
+			console.log(student_full_detail)
+		
+		}
+		
+		newFunction();
 ------------------------------------------
 Q.. What is difference between break,return and continue?
-==> break is used to terminate the loop 
-	return is used to return the value where as 
+==> break is used to exit from current loop 
+	return is used to exit function and return the value 
 	continue is used to stop current execution and move on next loop.
 ------------------------------------------
 Q.. What is setTimeout?
-==> - setTimeout is asynchronous function which is used to execute code asynchronouslly 
-	  after some delay.
+==> - setTimeout is asynchronous function which is used to execute code asynchronously after some delay.
 	- setTimeout execute onces
 	- after execution it returns timer id 
 	- Syntax:
@@ -1721,8 +1785,7 @@ Q.. What is setTimeout?
 	 second argument is delay time 
 ------------------------------------------
 Q.. What is setInterval?
-==> - setInterval is asynchronous function which is used to execute code asynchronouslly
-	  after some delay 
+==> - setInterval is asynchronous function which is used to execute code asynchronouslly after some delay 
 	- setInterval run repeatedly
 	- syntax: 
 		setInterval(callbackFunction,time)
@@ -1730,9 +1793,10 @@ Q.. What is setInterval?
 	- after execution it return number 
 ------------------------------------------
 Q.. How to stop execution in setTimeout and setInterval?
-==> To stop execution in setTimeout and in setInterval is using 
-	clearTimeout(timerid)
+==> To stop execution in setTimeout using clearTimeout(timerid)
 	- clearTimeout accept one input argument i.e timerId
+	To stop execution in setInterval using clearInterval(timerid)
+	- clearInterval accept one input argument i.e timerId
 ------------------------------------------
 Q.. What is null?
 ==> null is special type of value it is totally different than zero and blank 
