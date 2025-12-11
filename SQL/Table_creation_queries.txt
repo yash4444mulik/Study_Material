@@ -1,67 +1,677 @@
 TABLE CREATION QUERIES
 
 
-1.. Department and Employee.
-==> create table department(deptno number constraint deptnoPK primary key,
+1.. Consider the following Entities and Relationships?
+	Employee(empno,empname,salary,commission,designation)
+	Department(deptno,deptname,location)
+	Relationship between Employee and Department is many to one 
+	
+==> 
+	We have two entities Emplyee and Department
+	Relation between Department and Employee is one to many 
+	We consider parent table Department and child is table Employee 
+	
+	# Parent table Department creation queries  
+	case 1. using without constraint keyword 
+	create table department(deptno number primary key,
 							deptname varchar(90),location varchar(90));
 	
-	create table employee(empno number,empname varchar(90),salary number check(salary>0),
+	case 2. using with constraint keyword
+	create table department(deptno number constraint deptnoPK primary key,
+							deptname varchar(90),location varchar(90));
+	
+	case 3. Table level constraint
+	create table department(deptno number,deptname varchar(90),location varchar(90)
+							constraint deptnoPK primary key);
+		
+		INSERT INTO department VALUES (10, 'Computer', 'Pune');
+		INSERT INTO department VALUES (20, 'HR', 'Mumbai');
+		INSERT INTO department VALUES (30, 'Finance', 'Delhi');
+		INSERT INTO department VALUES (40, 'Sales', 'Pune');
+		
+	
+	# child table Employee Table creation queries
+	
+	case 1. without using constraint keyword
+		create table employee(empno number primary key,empname varchar(90),salary number check(salary>0),
 						  commission number,designation varchar(90),
+						  dept_number number references by Department(deptno) ON DELETE SET NULL);
+						  
+	case 2. using constraint keyword 
+		create table employee(empno number constraint empnoPK primary key(empno),
+						  empname varchar(90),salary number check(salary>0),
+						  commission number,designation varchar(90),
+						  dept_number number constraint dept_FK foreign key(dept_number) 
+						  references department(deptno) ON DELETE SET NULL);
+	
+	case 3. Table level constraint 
+		create table employee(empno number,empname varchar(90),salary number check(salary>0),
+						  commission number,designation varchar(90),
+						  constraint empnoPK primary key(empno),
 						  dept_number number,constraint dept_FK foreign key(dept_number) 
 						  references department(deptno) ON DELETE SET NULL);
+		
+		INSERT INTO employee VALUES (101, 'Yashraj', 30000, 2000, 'Manager', 10);
+		INSERT INTO employee VALUES (102, 'Jay', 18000, 1000, 'Developer', 10);
+		INSERT INTO employee VALUES (103, 'Om', 25000, 1500, 'Accountant', 30);
+		INSERT INTO employee VALUES (104, 'Sagar', 22000, 1200, 'HR Executive', 20);
+		INSERT INTO employee VALUES (105, 'Rohit', 27000, 2000, 'Manager', 40);
+		INSERT INTO employee VALUES (106, 'Tejas', 19000, 1000, 'Developer', 10);
+		INSERT INTO employee VALUES (107, 'Kiran', 21000, 1500, 'Sales Rep', 40);
+		INSERT INTO employee VALUES (108, 'Nikhil', 32000, 2500, 'Manager', 30);
+		INSERT INTO employee VALUES (109, 'Akash', 15000, 800, 'HR Assistant', 20);
+		INSERT INTO employee VALUES (110, 'Pratik', 28000, 2000, 'Developer', 10);
 
-2.. Movie and Actor
-==> create table Movie(mvno number constraint mvnoPK primary key,mvname varchar(90),
-						release_year number check(release_year>0))
+
+	Q. Display all details of employees who are workind at 'Pune' location?
+		select e.*,d.* from employee e join department d on d.deptno=e.dept_number where d.location='Pune';
+		
+	Q. Display department name wise list of Employees?
+		select d.deptname,e.empname from employee e inner join department d 
+		on e.dept_number=d.deptno
+		
+	Q. Count the number of employees who are working in 'Computer' department?
+		select count(e.empname) from employee e inner join department d 
+		on e.dept_number=d.deptno where deptname='Computer'
 	
-	create table Actor(actno number,actname varchar(90),mv_number number,
-			constraint mv_number_FK foreign key(mv_number) references Movie(mvno) on DELETE SET NULL)
-
-
-3.. Employee and Project 
+	Q. Display maximum salary of every department
+		select max(e.salary),d.deptname from employee e inner join department d 
+		on e.dept_number=d.deptno group by deptname;
+		
+	Q. Display average salary for every designation?
+		select avg(salary),designation from employee group by designation;
+	
+	Q. Update commission for every employee by 5% for all department?
+		update employee set commission=(commission+(commistion*5/100));
+		
+	Q. List details of employee who belong to 'Computer' department and salary>20000?
+		select e.* from employee e inner join department d on 
+		e.dept_number=d.deptno where e.salary>20000 and d.deptname='Computer'
+	
+	Q. Display all employees details whoes designation is manager and salary >25000?
+		select * from employee  
+		where designation='Manager' and salary >25000;
+		
+----------------------------------------------------
+2.. Consider the following Entities and Relationships?
+	Movie(mvno,mvname,releaseYear)
+	Actor(actno,actname)
+	Relationship between Movie and Actor is many to one 
+	constraint : primary key,relaseYear should be > 0
 ==> 
-	create table employee_project(empno number constraint empno_PK primary key,
-	empname varchar(90),city varchar(90),deptname varchar(90));
+	Here we have 2 entities Movie and Actor 
+	relation between Actor and Movie is One to Many 
+	So parent table is Actor and Child table is Movie.
 	
-	create table project(pno number constraint pnoPK primary key,pname varchar(90),status)
-	
-	
-	
-	
-	
-	
+	# Parent table Actor creation queries
+	case 1: create table Actor(actno number primary key,actname varchar(90));
+	case 2: Create table Actor(actno number constraint actno_pk primary key,actname varchar(90));
+	case 3: create table Actor(actno number,actname varchar(90),constraint actno_pk primary key(actno));
 	
 	
+		INSERT INTO Actor VALUES (1, 'Hrithik Roshan');
+		INSERT INTO Actor VALUES (2, 'Abhishek Bachchan');
+		INSERT INTO Actor VALUES (3, 'Aamir Khan');
+		INSERT INTO Actor VALUES (4, 'Salman Khan');
+		INSERT INTO Actor VALUES (5, 'Shah Rukh Khan');
+		INSERT INTO Actor VALUES (6, 'Akshay Kumar');
+		INSERT INTO Actor VALUES (7, 'Ranbir Kapoor');
+		INSERT INTO Actor VALUES (8, 'Ajay Devgn');
+		INSERT INTO Actor VALUES (9, 'Tiger Shroff');
+		INSERT INTO Actor VALUES (10, 'Varun Dhawan');
+
+	# child table Movie creation queries
+	case 1:
+		create table Movie(mvno number primary key,mvname varchar(90),relaseYear number check(relaseYear>0),
+		actno number references Actor(actno));
+		
+	case 2: 
+	create table Movie(mvno number constraint mvnoPK primary key,mvname varchar(90),
+			releaseYear number constraint relaseYearCK check(releaseYear>0),
+			actno number constraint actnoFK references Actor(actno));
+			
+	case 3: 
+	create table Movie(mvno number,mvname varchar(90),releaseYear number check(releaseYear>0),actno number,
+				constraint actnoFK foreign key(actno) references Actor(actno));
+				
+		INSERT INTO Movie VALUES (101, 'Kaho Naa Pyaar Hai', 2000, 1);
+		INSERT INTO Movie VALUES (102, 'Dhoom', 2004, 2);
+		INSERT INTO Movie VALUES (103, 'Taare Zameen Par', 2007, 3);
+		INSERT INTO Movie VALUES (104, 'Kick', 2014, 4);
+		INSERT INTO Movie VALUES (105, 'Chennai Express', 2013, 5);
+		INSERT INTO Movie VALUES (106, 'Hera Pheri', 2000, 6);
+		INSERT INTO Movie VALUES (107, 'Yeh Jawaani Hai Deewani', 2013, 7);
+		INSERT INTO Movie VALUES (108, 'Singham', 2011, 8);
+		INSERT INTO Movie VALUES (109, 'War', 2019, 9);
+		INSERT INTO Movie VALUES (110, 'Badrinath Ki Dulhania', 2017, 10);
+
+	
+Q. count all movie names released in the year 2000?
+select count(mvno) from movie where releaseYear='2000';
+
+Q. Display all actor details of movie 'Dhoom'?
+select a.* from Actor a inner join Movie m on a.actno=m.actno where m.mvname='Dhoom'
+
+Q. Display actor wise movie names?
+select a.actname,m.mvname from Actor a inner join Movie m on a.actno=m.actno group by a.actname,m.mvname
+
+Q. Display all movies of 'Abhishek'?
+select a.actname,m.mvname from Actor a inner join Movie m on a.actno=m.actno where a.actname='Abhishek Bachchan'
+
+Q. Display all the movies released after 2000?
+select mvname,releaseYear from Movie where releaseYear>2000
+
+Q. Count the number of movies in which 'Hrithik' has acted?
+select count(m.mvname) from Movie m inner join Actor a on m.actno=a.actno where actname='Hrithik Roshan' group by actname
+
+Q. Display all the movie names order by released year in ascending order?
+select mvname,releaseYear from Movie order by releaseYear asc
+
+Q. Display movie names released between year 2000 to 2008?
+select mvname,releaseYear from Movie where releaseYear between 2000 and 2008
+
+----------------------------------------------------
+3.. Consider the following Entities and Relationships?
+	Employee(empno,empname,city,deptname)
+	Project(pno,pname,status)
+	
+	Employee and Project are related with many to many relationship with 
+	descriptive attribute no_of_days employee worked on that project.
+	
+	Constraint: Primary key,
+	Project Status Constraint:C-completed,P-Progressive,I-Incomplete.
+==> 
+	- Here 2 Entities Employee and Project 
+	- Relation between Emplyee and Project is many to many 
+	- so both Employee and Project are the parent table and we need to create third table as child 
+	- child table name is emp_project_table 
+	
+	# Emplyee table creation queries
+	
+	case 1: 
+		create table employee_project(empno number primary key,
+		empname varchar(90),city varchar(90),deptname varchar(90));
+	
+	case 2: 
+		create table employee_project(empno number constraint empno_PK primary key,
+		empname varchar(90),city varchar(90),deptname varchar(90));
+		
+	case 3: 
+		create table employee_project(empno number,
+		empname varchar(90),city varchar(90),deptname varchar(90),
+		constraint empno_PK primary key(empno));
+	
+	INSERT INTO employee_project VALUES (101, 'Yashraj', 'Pune', 'IT');
+	INSERT INTO employee_project VALUES (102, 'Jay', 'Mumbai', 'Finance');
+	INSERT INTO employee_project VALUES (103, 'Om', 'Delhi', 'HR');
+	INSERT INTO employee_project VALUES (104, 'Rohit', 'Pune', 'IT');
+	INSERT INTO employee_project VALUES (105, 'Sagar', 'Nagpur', 'Sales');
+	INSERT INTO employee_project VALUES (106, 'Kiran', 'Pune', 'Finance');
+	INSERT INTO employee_project VALUES (107, 'Tejas', 'Chennai', 'HR');
+	INSERT INTO employee_project VALUES (108, 'Akash', 'Mumbai', 'IT');
+	INSERT INTO employee_project VALUES (109, 'Pratik', 'Delhi', 'Sales');
+	INSERT INTO employee_project VALUES (110, 'Nikhil', 'Pune', 'Finance');
+
+	
+	# Project table creation queries
+	
+	case 1: 
+		create table project(pno number primary key,pname varchar(90),
+		status varchar(1) check(status IN('C','P','I')))
+	
+	case 2: 
+		create table project(pno number constraint pnoPK primary key,pname varchar(90),
+		status varchar(1) constraint statusCK check(status IN('C','P','I')))
+
+	case 3: 
+		create table project(pno number,pname varchar(90),
+		status varchar(1),
+		constraint pnoPK primary key(pno),
+		constraint statusCK check(status IN('C','P','I')))
+	
+	INSERT INTO project VALUES (201, 'Payroll System', 'C');
+	INSERT INTO project VALUES (202, 'Inventory Management', 'P');
+	INSERT INTO project VALUES (203, 'E-Commerce Website', 'I');
+	INSERT INTO project VALUES (204, 'CRM Portal', 'C');
+	INSERT INTO project VALUES (205, 'Banking Application', 'I');
+
+	
+	# child table emp_project_table creation queries
+	
+	case 1:
+		create table emp_project_table(empno number references employee_project(empno),
+				pno number references project(pno),no_of_days number);
+	
+	case 2:
+		create table emp_project_table(empno number constraint empnoFK references employee_project(empno),
+				pno number,no_of_days number constraint pnoFK references project(pno));
+		
+	case 3:
+	create table emp_project_table(empno number,pno number,no_of_days number,
+					constraint empnoFK foreign key(empno) references employee_project(empno),
+					constraint pnoFK foreign key(pno) references project(pno));
+					
+	INSERT INTO emp_project_table VALUES (101, 201, 15);
+	INSERT INTO emp_project_table VALUES (102, 203, 25);
+	INSERT INTO emp_project_table VALUES (103, 202, 18);
+	INSERT INTO emp_project_table VALUES (104, 203, 30);
+	INSERT INTO emp_project_table VALUES (105, 205, 12);
+	INSERT INTO emp_project_table VALUES (106, 205, 28);
+	INSERT INTO emp_project_table VALUES (107, 202, 10);
+	INSERT INTO emp_project_table VALUES (108, 204, 22);
+	INSERT INTO emp_project_table VALUES (109, 203, 17);
+	INSERT INTO emp_project_table VALUES (110, 205, 26);
+
+Q. List the names of employees working on projects having status "Incomplete"?
+select e.empname,p.status from employee_project e inner join emp_project_table ep on e.empno=ep.empno 
+inner join project p on ep.pno=p.pno where p.status='I'
+select e.empname,p.pname from employee inner 
+
+Q. Display all project names and total number of employees who are working on that project?
+select p.pname,count(e.empname)"number of employee" from employee_project e inner join emp_project_table ep on e.empno=ep.empno
+inner join project p on ep.pno=p.pno group by p.pname
+
+Q. List the names of the emplyees who are working on project for more than 20 days?
+select e.empname,p.pname,no_of_days from employee e inner join emp_project_table ep on e.empno=ep.empno
+inner join project p on ep.pno=p.pno where no_of_days>20;
+
+Q. Display project wise Emplyee details?
+select p.pname as project_name, e.empname, e.city, e.deptname
+from project p inner join emp_project_table ep on p.pno = ep.pno
+inner join employee_project e on ep.empno = e.empno
+----------------------------------------------------
+4. Consider the following Entities and Relationship
+	Doctor(dno,dname,city)
+	Hospital(hno,hname,hcity)
+   
+	The relation between Doctor and Hospital is many to many 
+	Constraint : Primary key,city should not be null
+  
+==> 
+	Here 2 entities Doctor and Hospital 
+	Relation between Doctor and Hospital is Many to many 
+	So both table Doctor and Hospital are the Parent and we need to create child table 
+	we create Doctor_Hospital table as child 
+	
+	# Doctor table creation queries
+	
+	case 1: 
+		create table Doctor(dno number primary key,dname varchar(90),city varchar(90) not null);
+		
+	case 2: 
+		create table Doctor(dno number constraint dno_pk primary key,
+		dname varchar(90),city varchar(90) not null);
+		
+	case 3: 
+	create table Doctor(dno number,dname varchar(90),city varchar(90) not null,
+	constraint dno_pk primary key(dno));
+
+		INSERT INTO Doctor VALUES (1, 'Dr. Apte', 'Pune');
+		INSERT INTO Doctor VALUES (2, 'Dr. Patil', 'Mumbai');
+		INSERT INTO Doctor VALUES (3, 'Dr. Joshi', 'Pune');
+		INSERT INTO Doctor VALUES (4, 'Dr. Deshmukh', 'Nashik');
+		INSERT INTO Doctor VALUES (5, 'Dr. Rao', 'Nagpur');
+		INSERT INTO Doctor VALUES (6, 'Dr. Kulkarni', 'Pune');
+		INSERT INTO Doctor VALUES (7, 'Dr. Mehta', 'Mumbai');
+		INSERT INTO Doctor VALUES (8, 'Dr. Shinde', 'Pune');
+		INSERT INTO Doctor VALUES (9, 'Dr. Naik', 'Kolhapur');
+		INSERT INTO Doctor VALUES (10, 'Dr. Bhosale', 'Pune');
+
+	# Hospital Table creation queries
+	
+	case 1: 
+		create table Hospital(hno number primary key,hname varchar(90),hcity varchar(90));
+		
+	case 2: 
+		create table Hospital(hno number constraint hno_pk primary key,hname varchar(90),hcity varchar(90));
+		
+	case 3: 
+		create table Hospital(hno number,hname varchar(90),hcity varchar(90),constraint hno_pk primary key(hno));
+		
+		INSERT INTO Hospital VALUES (101, 'KEM Hospital', 'Pune');
+		INSERT INTO Hospital VALUES (102, 'Sahyadri Hospital', 'Pune');
+		INSERT INTO Hospital VALUES (103, 'Ruby Hall Clinic', 'Pune');
+		INSERT INTO Hospital VALUES (104, 'Apollo Hospital', 'Mumbai');
+		INSERT INTO Hospital VALUES (105, 'Fortis Hospital', 'Delhi');
+		INSERT INTO Hospital VALUES (106, 'Sanjeevani Hospital', 'Nagpur');
+		INSERT INTO Hospital VALUES (107, 'City Care Hospital', 'Nashik');
+		INSERT INTO Hospital VALUES (108, 'Global Hospital', 'Pune');
+		INSERT INTO Hospital VALUES (109, 'Shatayu Hospital', 'Kolhapur');
+		INSERT INTO Hospital VALUES (110, 'Sunrise Hospital', 'Mumbai');
+
+	# Doctor_Hospital table creation queries 
+	
+	case 1: 
+		create table Doctor_Hospital(dno number references Doctor(dno),hno number references Doctor(dno));
+		
+	case 2: 
+		create table Doctor_Hospital(dno number constraint dnoFK references Doctor(dno),
+		hno number constraint hnoFK references Hospital(hno));
+				
+	case 3: 
+		create table Doctor_Hospital(dno number,hno number,
+		constraint dnoFK foreign key(dno) references Doctor(dno),
+		constraint hnoFK foreign key(hno) references Hospital(hno));
+				
+				
+			INSERT INTO Doctor_Hospital VALUES (1, 101);
+			INSERT INTO Doctor_Hospital VALUES (1, 102);
+			INSERT INTO Doctor_Hospital VALUES (2, 104);
+			INSERT INTO Doctor_Hospital VALUES (3, 103);
+			INSERT INTO Doctor_Hospital VALUES (4, 107);
+			INSERT INTO Doctor_Hospital VALUES (5, 106);
+			INSERT INTO Doctor_Hospital VALUES (6, 108);
+			INSERT INTO Doctor_Hospital VALUES (7, 110);
+			INSERT INTO Doctor_Hospital VALUES (8, 102);
+			INSERT INTO Doctor_Hospital VALUES (10, 101);
+
+Q. Disaply all the details of hospitals located in 'Pune' city?
+select * from hospital where hcity='Pune';
+
+Q. Disaply hospital wise doctor's details?
+select h.hname,d.dname,d.city from doctor d inner join doctor_hospital dh on d.dno=dh.dno
+inner join hospital h on dh.hno=h.hno
+
+Q. Count the number of doctors who are visiting to 'KEM' Hospital?
+select count(d.dname),h.hname from doctor d inner join doctor_hospital dh on d.dno=dh.dno
+inner join hospital h on dh.hno=h.hno where h.hname='KEM Hospital' group by hname
+
+Q. Disaply the hospital names whose first character is 'S'?
+select * from hospital where hname like 'S%';
+
+Q. Display doctor wise hospital details?
+select d.dname,h.hname,h.hcity from doctor d inner join doctor_hospital dh on d.dno=dh.dno
+inner join hospital h on dh.hno=h.hno
+
+Q. Display the doctor details that are living in 'Pune' city?
+select * from doctor where city='Pune'
+
+Q. Count the number of hospitals to which 'Dr. Apte' is visiting?
+select d.dname,count(h.hname) from doctor d inner join doctor_hospital dh on d.dno=dh.dno
+inner join hospital h on dh.hno=h.hno where d.dname='Dr. Apte' group by d.dname
+
+Q. Disaply all the details of hospitals not located in 'Pune' city?
+select * from hospital where hcity!='Pune';
+----------------------------------------------------
+5. Conside the following Entities and Relationship
+	Student(rollno,name,marks,class)
+	Teacher(tno,tname)
+	The relation between Student and Teacher is many to many with subject as discriptive attribute
+	Constriant: Primary key,class has to be FY,SY or TY.
+==> 
+	Here 2 entities Student and Teacher 
+	Relation between Student and Teacher is many to many
+	Both Student and Teacher are the parent table so we need to create third table as child 
+	we create Student_Teacher as a child table.
+	
+	# Student table creation queries:
+	
+	case 1: 
+		create table Student(rollno number primary key,
+		name varchar(90),marks number,class varchar(2) check(class IN('FY','SY','TY')));
+	
+	case 2: 
+		create table Student(rollno number constraint rollnoPk primary key,
+		name varchar(90),marks number,
+		class varchar(2) constraint classCK check(class IN('FY','SY','TY')));
+		
+	case 3: 
+		create table Student(rollno number,name varchar(90),marks number,class varchar(2),
+		constraint rollnoPk primary key(rollno),
+		constraint classCK check(class IN('FY','SY','TY')));
+	
+	INSERT INTO Student VALUES (1, 'Amar', 78, 'FY');
+	INSERT INTO Student VALUES (2, 'Sagar', 82, 'SY');
+	INSERT INTO Student VALUES (3, 'Neha', 91, 'TY');
+	INSERT INTO Student VALUES (4, 'Pooja', 69, 'FY');
+	INSERT INTO Student VALUES (5, 'Rohit', 75, 'SY');
 	
 	
+	# Teacher table creation queries
 	
+	case 1: 
+		create table Teacher(tno number primary key,tname varchar(90));
+		
+	case 2: 
+		create table Teacher(tno number constraint tnoPk primary key,tname varchar(90));
+		
+	case 3: 
+		create table Teacher(tno number,tname varchar(90),
+		constraint tnoPk primary key(tno));
 	
+	INSERT INTO Teacher VALUES (101, 'Mr. Patil');
+	INSERT INTO Teacher VALUES (102, 'Ms. Sharma');
+	INSERT INTO Teacher VALUES (103, 'Mr. Kulkarni');
+	INSERT INTO Teacher VALUES (104, 'Ms. Desai');
+	INSERT INTO Teacher VALUES (105, 'Mr. Joshi');
+
 	
+	# Student_Teacher table creation queries
 	
+	case 1: 
+	create table Student_Teacher(rollno number references Student(rollno),
+	tno number references Teacher(tno),subject varchar(20));
 	
+	case 2: 
+	create table Student_Teacher(rollno number constraint rollnoFK references Student(rollno),
+	tno number constraint tnoFK references Teacher(tno),subject varchar(20));
 	
+	case 3: 
+	create table Student_Teacher(rollno number,tno number,subject varchar(20),
+					constraint rollnoFK foreign key(rollno) references Student(rollno),
+					constraint tnoFK foreign key(tno) references Teacher(tno));
+					
+	INSERT INTO Student_Teacher VALUES (1, 101, 'C');
+	INSERT INTO Student_Teacher VALUES (1, 102, 'DBMS');
+	INSERT INTO Student_Teacher VALUES (2, 102, 'DBMS');
+	INSERT INTO Student_Teacher VALUES (2, 103, 'Java');
+	INSERT INTO Student_Teacher VALUES (3, 104, 'Python');
+	INSERT INTO Student_Teacher VALUES (3, 105, 'AI');
+	INSERT INTO Student_Teacher VALUES (4, 101, 'C');
+	INSERT INTO Student_Teacher VALUES (4, 103, 'Java');
+	INSERT INTO Student_Teacher VALUES (5, 104, 'DBMS');
+	INSERT INTO Student_Teacher VALUES (5, 105, 'AI');
+
+				
+Q. Count the number of teachers who are teaching subject 'C'?
+select count(t.tname)as teacher_count,st.subject from teacher t inner join student_teacher st 
+on t.tno=st.tno where subject='C' group by subject
+
+Q. Display all details of teachers who is teaching subject 'DBMS'?
+select t.* from teacher t inner join student_teacher st 
+on t.tno=st.tno where subject='DBMS';
+
+Q. Disaply class wise number of students?
+select class,count(name) from student group by class
+
+Q. List the teacher names who are teaching to student 'Amar'?
+select s.name,t.tname from student s inner join student_teacher st on s.rollno=st.rollno
+inner join teacher t on st.tno=t.tno where s.name='Amar'	
+----------------------------------------------------
+6. Consider the following entities and relationships
+	Student(sno,sname,city,class) 
+	Subject(sub_no,sub_name)
+	Student and subjects are related with many-to-many with attribute marks.
+	Constraints: Primary key constraints and sname not null.
+				 class has to be FY,SY or TY.
+
+==> Here 2 entities Student and Subject.
+	Relation between Student and Subject is many to many.
+	Both Student and Subject are the Parent table.
+	So we need to create third table as a child 
+	we create Student_Subject as a child 
 	
+	# Student table creation queries
+	case 1: 
+	create table Student_1(sno number primary key,
+	sname varchar(20),city varchar(20),class varchar(2) check(class IN('FY','SY','TY')));
 	
+	case 2: 
+	create table Student_1(sno number constraint snoPk primary key,
+	sname varchar(20),city varchar(20),
+	class varchar(2) constraint classCK check(class IN('FY','SY','TY')));
 	
+	case 3: 
+	create table Student_1(sno number,sname varchar(20),
+	city varchar(20),class varchar(2),
+	constraint snoPK primary key(sno),
+	constraint classCK check(class IN('FY','SY','TY')));
 	
+	INSERT INTO Student_1 VALUES (1, 'Amar', 'Pune', 'FY');
+	INSERT INTO Student_1 VALUES (2, 'Ravi', 'Mumbai', 'SY');
+	INSERT INTO Student_1 VALUES (3, 'Sneha', 'Nagpur', 'TY');
+	INSERT INTO Student_1 VALUES (4, 'Rohit', 'Pune', 'SY');
+	INSERT INTO Student_1 VALUES (5, 'Kiran', 'Nashik', 'FY');
+	INSERT INTO Student_1 VALUES (6, 'Priya', 'Aurangabad', 'TY');
+	INSERT INTO Student_1 VALUES (7, 'Vikas', 'Pune', 'SY');
+	INSERT INTO Student_1 VALUES (8, 'Meena', 'Nagpur', 'FY');
+	INSERT INTO Student_1 VALUES (9, 'Amit', 'Mumbai', 'TY');
+	INSERT INTO Student_1 VALUES (10, 'Sonal', 'Pune', 'FY');
 
 	
 	
+	# Subject table creation queries
+	case 1: 
+	create table Subject(sub_no number primary key,sub_name varchar(90));
+	
+	case 2: 
+	create table Subject(sub_no number constraint sub_noPK primary key,sub_name varchar(90));
+	
+	case 3: 
+	create table Subject(sub_no number,sub_name varchar(90),
+	constraint sub_noPK primary key(sub_no));
+	
+	INSERT INTO Subject VALUES (101, 'DBMS');
+	INSERT INTO Subject VALUES (102, 'Operating Systems');
+	INSERT INTO Subject VALUES (103, 'Computer Networks');
+	INSERT INTO Subject VALUES (104, 'Java Programming');
+	INSERT INTO Subject VALUES (105, 'Data Structures');
+
 	
 	
+	# Student_Subject table creation queries
+	case 1: 
+	create table Student_Subject(sno number references Student(sno),
+	sub_no number references Subject(sub_no),mark number);
 	
+	case 2: 
+	create table Student_Subject(sno number constraint snoFK references Student(sno),
+	sub_no number Constraint sub_noFK references Subject(sub_no),mark number);
 	
+	case 3: 
+	create table Student_Subject(sno number,sub_no number,mark number,
+	constraint snoFK foreign key(sno) references Student(sno),
+	Constraint sub_noFK foreign key(sub_no) references Subject(sub_no));
 	
+	INSERT INTO Student_Subject VALUES (1, 101, 75);
+	INSERT INTO Student_Subject VALUES (2, 102, 68);
+	INSERT INTO Student_Subject VALUES (3, 101, 82);
+	INSERT INTO Student_Subject VALUES (4, 103, 59);
+	INSERT INTO Student_Subject VALUES (5, 105, 62);
+	INSERT INTO Student_Subject VALUES (6, 104, 85);
+	INSERT INTO Student_Subject VALUES (7, 101, 60);
+	INSERT INTO Student_Subject VALUES (8, 102, 55);
+	INSERT INTO Student_Subject VALUES (9, 104, 39);
+	INSERT INTO Student_Subject VALUES (10, 105, 70);
+
+
+Q. Count the number of students for each class?
+Q. Display the name of all students who studying in class 'TY'?
+Q. Display student wise name of all students?
+Q. Display the students from 'Pune' city?
+Q. Count the number of studnets studying in 'FY' having marks between 60 to 70?
+Q. Display student wise subject details?
+Q. Display the details of all students who are studying 'DBMS' subject?
+Q. Update the marks of studnets to 40 who have scored marks 39?
+Q. Disaply the city wise studnet's details?
+Q. Find maximum marks scored in subject 'DBMS'?
+Q. Display all the details of students who have scored marks less than 60?
+Q. Display studnets who are studying in class 'SY' and living in the city 'Nagpur'?
+----------------------------------------------------
+7. consider following entities and relationships
+	Book(bno,bname,pubname)
+	Author(ano,aname)
+	The relation between Book and Author is many to many.
+==> Here 2 enities are there Book and author 
+	Relation between Book and Author is many to many
+	Both Book and Author are the Parent table  
+	so we need to create third table as a child 
+	we create Book_Author as a child table
 	
+	# Book table creation queries
+	case 1: 
+	create table Book(bno number primary key,bname varchar(90) not null,
+	pubname varchar(90) not null);
 	
+	case 2: 
+	create table Book(bno number constraint bnoPk primary key,
+	bname varchar(90) not null,pubname varchar(90) not null);
 	
+	case 3:
+	create table Book(bno number,bname varchar(90) not null,pubname varchar(90) not null,
+	constraint bnoPk primary key(bno));
 	
+	INSERT INTO Book VALUES (1, 'Let Us C', 'BPB');
+	INSERT INTO Book VALUES (2, 'Data Structures in C', 'McGraw Hill');
+	INSERT INTO Book VALUES (3, 'Operating System Concepts', 'Wiley');
+	INSERT INTO Book VALUES (4, 'DBMS Concepts', 'McGraw Hill');
+	INSERT INTO Book VALUES (5, 'Computer Networks', 'Pearson');
+	INSERT INTO Book VALUES (6, 'Java Programming', 'BPB');
+	INSERT INTO Book VALUES (7, 'Python Made Easy', 'TechPress');
+	INSERT INTO Book VALUES (8, 'SQL for Beginners', 'Pearson');
+	INSERT INTO Book VALUES (9, 'System Design Basics', 'Wiley');
+	INSERT INTO Book VALUES (10, 'C++ Primer', 'BPB');
 
+	
+	# Author table creation queries
+	case 1: 
+	create table Author(ano number primary key,aname varchar(90));
+	
+	case 2: 
+	create table Author(ano number constraint anoPK primary key,aname varchar(90));
+	
+	case 3: 
+	create table Author(ano number,aname varchar(90),constraint anoPK primary key(ano));
+	
+	INSERT INTO Author VALUES (101, 'Kanetkar');
+	INSERT INTO Author VALUES (102, 'Galvin');
+	INSERT INTO Author VALUES (103, 'Korth');
+	INSERT INTO Author VALUES (104, 'Tanenbaum');
+	INSERT INTO Author VALUES (105, 'Herbert Schildt');
+	INSERT INTO Author VALUES (106, 'Guido van Rossum');
+	INSERT INTO Author VALUES (107, 'Silberschatz');
+	INSERT INTO Author VALUES (108, 'Ritchie');
+	INSERT INTO Author VALUES (109, 'James Gosling');
+	INSERT INTO Author VALUES (110, 'Mark Lutz');
 
+	#Book_Author table creation queries
+	case 1: 
+	create table Book_Author(bno number references Book(bno),
+	ano number references Author(ano));
+			
+	case 2: 
+	create table Book_Author(bno number constraint bnoFK references Book(bno),
+	ano number constraint anoFK references Author(ano));
+			
+	case 3: 
+	create table Book_Author(bno number,ano number,
+	constraint bnoFK foreign key(bno) references Book(bno),
+	constraint anoFK foreign key(ano) references Author(ano));
+	
+	INSERT INTO Book_Author VALUES (1, 101); 
+	INSERT INTO Book_Author VALUES (2, 101); 
+	INSERT INTO Book_Author VALUES (3, 102); 
+	INSERT INTO Book_Author VALUES (4, 103); 
+	INSERT INTO Book_Author VALUES (5, 104); 
+	INSERT INTO Book_Author VALUES (6, 109); 
+	INSERT INTO Book_Author VALUES (7, 106); 
+	INSERT INTO Book_Author VALUES (8, 103); 
+	INSERT INTO Book_Author VALUES (9, 104); 
+	INSERT INTO Book_Author VALUES (10, 105);
 
-
-
-
-
-
-
+			
+Q. Count number of books of each publisher?
+Q. Display all details of the book written by 'Kanetkar'?
+Q. Display Author-wise list of books?
+Q. Display the book-name whose author-name is 'Korth' and publisher name is 'BPB'			
+----------------------------------------------------			

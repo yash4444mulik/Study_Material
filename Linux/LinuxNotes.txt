@@ -222,3 +222,544 @@ Q.. What is difference between / and root directory?
 Q.. usr directory?
 ==> usr stand for user 
 	this directory contain all user related software.
+------------------------------------------------
+Q.. ls command?
+==> - ls stand for list.
+	- This command is used to listout current all files and directory from current location or 
+	  from specific location
+	- Syntax: 
+		ls [option] [path]
+	    Here option and path are the optional 
+	- case 1: if we don't spcify option and path then ls command return all files and directory from current 
+	  location in alphabetical order 
+	
+	- case 2: Listout all files and directory from another location then syntax is 
+		Syntax: 
+			ls [path]
+			
+	- various option of ls command
+		ls -r: It will display all files and directory in reverse of alphabetical order. 
+		
+		ls -l: It will display long information of files and directory 
+			ls -l command output divided into 7 columns 
+			 -rw-r--r-- 1 yashrajmulik yashrajmulik 17 Nov  5 13:05 yash.txt
+			
+			column 1: -rw-r--r--
+				- there are 10 character. first character indicate file type.
+				- Remaining 9 character give information about file permission.
+				- these 9 character again divided into 3 group each group contain 3 character 
+				- first group tells file permission 'rw-'
+				- second group tells group permission 'r--'
+				- third group tells user permission 'r--'
+				
+			
+			column 2: number of links
+			
+			column 3: file owner 
+			
+			column 4: group name 
+			
+			column 5: file size 
+			
+			column 6: file creation and modification date 
+			
+			column 7: file or directory name
+			
+	- ls -t => used to display all files based on last modified date and time.
+				most recent is top and old are bottom 
+				
+	- ls -rt => used to display all files based on last modified date and time in reverse order.
+	
+	- ls -lrt => used to display all files long information based on last modified date and time 
+				 in reverse order.
+				 
+	- ls -a => here -a means all 
+			- It display all files including hidden files 
+			
+	- ls -A => here -A means almost all 
+			- it does not include hidden files 
+			
+	- ls -F => it display all files with file type 
+			- 1) / => directory 
+			- 2) * => executable file 
+			- 3) @ => link file 
+			
+	- ls -i => i means inode number 
+			- It display all files including inode number 
+			- inode number store metadata of file 
+			- inode number store 
+				1. size of file 
+				2. number of link 
+				3. owner of file 
+				4. group of file 
+				5. creation time 
+				6. last modified time 
+				7. last accessed time 
+				
+	- ls -R => R means recursive 
+			- this command listout all files and directory including sub-directory content 
+			
+------------------------------------------------
+Q.. Which command listout all files including hidden files with their inode number 
+==> ls -ai 
+------------------------------------------------
+Q.. What is difference between -r and -R?
+------------------------------------------------
+Q.. What is difference between -a and -A?
+------------------------------------------------
+Q.. Most commonly used option in list command -l,-r,-a,-lrt,-i?
+------------------------------------------------
+Q.. How create directory in Linux?
+==> - To create directory we use 'mkdir' command 
+	- mkdir stand for make directory.
+	- using mkdir we can create single or multiple directory at a time.
+	
+	1) creating single directory?
+	=> mkdir -v  directory_name 
+		here v stand for verbose.it print message of result 
+	
+	2) creating multiple directory at a time?
+	=> mkdir -v dir1 dir2 dir3 .... N 
+	
+	3) creating directory on path?
+	=> mkdir a/b/c/d
+		here if a,b,c are the parent directory for d 
+		if parent directory are not available then we will get an error 
+		so we need to create first parent directory then we will able to create d directory 
+		mkdir a 
+		mkdir a/b 
+		mkdir a/b/c
+		mkdir a/b/c/d 
+	
+	4) creating child directory if parent directory is not available?
+	=> mkdir -p x/y/z
+		here -p stand for path 
+		-p check parent directory are availble or not
+		if parent directories are not available then it create parent directory and then child directory 
+		
+	5) creating sequence of directory e.g dir1,dir2,dir3 ....100?
+	=> mkdir -v dir{1..100}
+	
+	6) creating directories abc1,abc3,abc5,abc7?
+	=> mkdir -v abc{1,3,5,7}
+------------------------------------------------
+Q.. How to remove/delete directory?
+==> 1. rmdir(Remove Directory)
+	2. rm(remove)
+	
+	1. rmdir
+		- here 'rmdir' stand for remove directory 
+		- it is used to remove/delete directory 
+		- Limitation
+			- we can't delete file using this command 
+			- we can't delete directry if is not empty.
+			
+		options 
+		i) -p option 
+			- it used to delete parent as well as child directory they are empty 
+			- Syntax: 
+				rmdir -p A/B 
+				here if B is empty then B will delete 
+				if A is not empty then A will not delete it will give an error 
+			
+	
+	1. rm 
+		- rm stand for remove 
+		- By using rm command we delete empty or non-empty directories 
+		- By using rm command we can delete single or multiple directories at a time 
+		- This command is used to delete single or multiple files also 
+		
+		# option in 'rm' command?
+		
+		1) -i option 
+		- In linux if we delete file or directory then we can't retrive it because 
+		  linux does not perform undo operation.
+		- i stand for interactive.
+		- it is used to take confirmation from user before deleting file or directory.
+		
+		2) -f option 
+		- -f stand for forcefully removal 
+		- It is used to delet file/directory forcefully
+		
+		3) -r option 
+		- -r stand for recursively 
+		- it delete directory if it is not empty 
+		
+------------------------------------------------
+Q.. What is difference between following 2 command?
+	1. mkdir dir1/dir2/dir3
+	2. mkdir -p dir1/dir2/dir3 
+------------------------------------------------
+Q.. What is difference between rm and rmdir command?
+==> - rmdir command used to remove empty directory where as
+	  rm command used to remove empty as well as non-empty directory 
+	- rm command delete file where as rmdir can't delete file 
+------------------------------------------------
+Q.. Working on files?
+	1) creation of file.
+	2) Display content of file.
+	3) Copying of files.
+	4) Renaming of files.
+	5) Deleting Files.
+	6) Creation of hidden file and directory.
+	7) Creation of link files.
+	8) Editing of files.
+------------------------------------------------
+Q.. How to create files?
+==> To create files we have different commands like 
+	- By using touch command.
+	- By using cat command.
+	- By using gedit,vi,nano
+		gedit,vi,nano are the called as editor
+		
+	1. By using touch command 
+		- with the help of touch command we can create an empty file 
+			using touch command we can create single of multiple files at a time 
+			syntax: 
+				touch file_name
+				e.g : To create single file 
+					touch F1.txt 
+				when this command get executed then F1.txt file get created.
+				if F1.txt already exist then it simply change timestamp of that file.
+				
+				e.g : To create multiple files 
+					touch f1.txt f2.txt f3.txt 
+					
+		- we can change timestamp of file 
+			Syntax: 
+				touch file_name 
+			
+------------------------------------------------
+Q.. cat command?
+==> cat stand for concatination
+	- With the help of cat command we can do following things 
+		1. We can create file.
+		2. We can display file content.
+		3. We can append data into file
+		4. We can combine multiple files into single file 
+		
+	1. Creation of file using cat command.
+		Syntax: 
+			cat > file_name
+		e.g 
+			cat>f1.txt 
+			when we execute upper command then f1.txt file created and 
+			console open in write mode we can write content of file.like below 
+			
+			this is first line of f1.txt 
+			
+			once you completed your data then you need to press ctrl+d(save and exit)
+			
+	2. We can display file content
+		Syntax: 
+			cat option file_name 
+		e.g 
+			cat -n file_name 
+			-n used to display file content with line number.
+	
+	3. We write data in the file.
+		Syntax: 
+			cat >> file_name 
+		Once this command executed then 
+		file open in write mode and we can add data in file 	
+		after completion of insertion we need to press ctrl+d for save and exit
+		
+	4. 	we can combine multiple file into single file 
+		Syntax: 
+			cat file1 file2 file3 > newFile
+		e.g 
+			cat f1.txt f2.txt f3.txt > newF4.txt 
+			Once above command executed then f1.txt f2.txt f3.txt get commbined into newF4.txt
+------------------------------------------------	
+Q.. How to store output command into file?
+==> Syntax: 
+		command >outputFileName.txt 
+	e.g
+		ls >op.txt 
+------------------------------------------------
+Q.. How to display file content?
+==> To display file content we have different command
+	1. cat 
+		Syntax: 
+			cat -n file_name 
+		this command display file content with line numbers
+			cat -b file_name 
+		this command display file content without numbering to blank rows 
+		
+	2. tac 
+		This command display file content in reverse order 
+		Syntax: tac -n file_name 
+		for.eg 
+			CAT will display as TAC 
+			
+	3. rev 
+		rev stand for reverse 
+		This command will display Each line in reversed
+		it is horizontal reversal
+		Syntax: 
+			rev file_name
+			
+	4. head
+		This command is used to display top line from file 
+		counting always start from top 
+		Syntax: 
+			head -n file_name 
+		here -n stand for number of lines you want to display 
+		suppose if we want to display 5 lines then value n is 5 
+		Bydefault head command show 10 lines 
+		
+	5. tail 	
+		This command is used to display bottom lines from file 
+		Syntax: 
+			tail -n file_name 
+		here -n stand for number of lines you want to display 
+		Bydefault tail command display 10 lines 
+			
+	6. more 
+		If file has multiple pages and if we want to view file content page by page 
+		and we want to move in forward direction then use more command.
+		Syntax: 
+			more file_name
+		Navigation keys: 
+			Enter: to view next line
+			Space bar: To view next page 
+			q: quite/exit from more command.
+			
+		
+	7. less 
+		If file has multiple pages and if we want to view file content page by page 
+		and we want to move in forward as well as back direction then use less command.
+		Syntax: 
+			less file_name 
+		Navigation key:
+			Enter: to view next line 
+			Space: To view next page 
+			d: To view next page 
+			b: To view previous page 
+			q: To quite/exit from less command.
+------------------------------------------------
+Q.. What is difference between more and less command?
+==> 
+------------------------------------------------
+Q.. What is 'cp' command?
+==> - cp stand for copy
+	- with the help of cp command we can copy file or directory 
+	Syntax: cp source_file_path destination_file_path
+	e.g 
+		cp f1.txt f2.txt 
+		- here f1.txt data copy and paste into f2.txt 
+		- if f2.txt is not available then it create f2.txt 
+		- if f2.txt is already exist and contain some data
+		  then existing data get deleted and copied data get added.
+		  
+	Case 1: copy file and paste into another file 
+		cp f1.txt f2.txt 
+		
+	
+	Case 2: copy multiple files and paste into directory 
+		cp f1.txt f2.txt f3.txt B 
+		here f1.txt f2.txt f3.txt copied and paste into B directory 
+		if we use file_name instead of B then we will get an error 
+		
+	Case 3: Copy all files from one directory and paste into another directory 
+		cp source_directory_name/* distination_directory_name
+		
+	Case 4: Copy Total directory into another directory 
+		cp -r source_directory_name distination_directory_name
+	
+------------------------------------------------
+Q.. What is 'mv' command?
+==> - mv stand for move
+	- This command is used to 
+		- move file/directory from one location to another location 
+		- rename file name 
+	- Rename file
+		Rename file: 
+			mv old_file_name new_file_name
+		Rename directory: 
+			mv old_directory new_directoy
+			
+	- Moving file/directory
+		1. moving total directory into another directory
+			mv source_directory_path destination_directory_path
+		
+		2. Moving multiple files to directory
+			mv f1.txt f2.txt f3.txt Directory_name 
+			
+		3. Move all files from a directory to another directory 
+			mv source_directory_name/* destination_directory_path
+------------------------------------------------
+Q.. What is hidden file?
+==> - The file whose name start with dot that file consider as hidden file.
+	- Example: 
+			f1.txt => normal file 
+			.f1.txt => hidden file 
+			
+	# creation of hidden file/directory
+		-> There is no any special command to create hidden files.
+		   The commands which are used to create normal files same 
+		   commands are used to create hidden files.
+		-> We can create hidden files using 
+			1. touch command
+			2. cat command
+			3. using editors 
+	
+	# creation of empty hidden file
+		-> To create empty hidden file we use touch command
+		-> Syntax to create single hidden file
+			touch .file_name
+		-> Creation of hidden file using cat command
+		-> Syntax: cat .file_name
+		
+	# Display hidden file content 
+		-> There is no any special command to display hidden file content 
+		   The commands which are used to display normal content same command
+		   is used to display hidden file content 
+		-> cat,tac,rev,head,tail,more,less
+	
+	# Copy hidden files
+		-> To copy hidden file we can use 'cp' command
+		-> cp option sourceFile destination_file
+		
+	# creation of hidden directory
+		- To create hidden directory we use 'mkdir' command.
+		- Syntax: 
+			mkdir .directory_name
+	
+	# Converting hidden files into normal files
+		-> Hidden files and normal files are the same only difference is file name.
+		   Hidden files name start with dot where as normal file name does not start with dot.
+		-> so to convert hidden files into normal files just rename it.To rename a file or directory 
+		   we use 'mv' command 
+		   - Syntax to convert hidden file into normal file  
+				mv .hidden_file_name normal_file_name
+------------------------------------------------
+Q.. Why we create hidden files?
+==> To hide data from normal user.
+------------------------------------------------
+Q.. Do we get security through hidden files or hidden directory?
+==> No,by using hidden files and hidden directory we may not get full security.
+	To make make more secure we have to use proper permission.
+	To apply permission we use 'chmod' command.
+------------------------------------------------
+Q.. What are the type of links?
+==> There are two type of links 
+	1. soft link 
+	2. hard link 
+	
+	1. Soft link:
+		- soft link is a pointer to another file 
+		- It is just like windows shortcut 
+		- It is called as symbolic link 
+		- To create symbolic link file we need to use 'ln' command with '-s' option 
+		- Syntax: 
+			ln -s source_file_name softlink_file_name
+		- original file and soft link file don't have same timestamp
+		- original file and soft link file don't have same size.
+		- original file and soft link file don't have same inode number.
+		- if we delete soft link file then there is no impact on original file 
+		- if we delete original file then there is impact on soft link file,we can't 
+		  perform operation on soft link file 
+		- we can create soft link for directory also.
+		- Identification between normal file and soft link file 
+			when we execute long information of files using ls -l command then 
+			- normal file first letter is hypen(-)
+				-rw-r--r-- 1 root root 26 oct 
+			- soft link file first letter is (l)
+				lrwxrwxrwx 1 yashrajmulik yashrajmulik  6 Nov 14 06:33 f1_soft_link_file.txt
+				
+	2. Hard link: 
+		- Hard link means creating backup copy of your original file.
+		- Syntax: 
+			ln source_file_name hard_link_file_name
+			Example:
+				ln f11.txt f11_link_file.txt
+		- original file and hard link file have same timestamp.
+		- original file and hard link file have same size
+		- original file and hard link file have same inode number.
+		- If we modify original file then same modification will get updated in back up.
+		- If we modify back up file then same modification will get updated in original file.
+		- If we delete original file then there is no impact on hard link file.
+		- If we delete hard link file then there is no impact on original file.
+		- we can't create hard link for directory.
+------------------------------------------------
+Q.. What is sort command?
+==> - sort command is used to sort file content either ascending or descending order.
+	Syntax: 
+		sort [option] fileName
+	- here option are optional 
+	- if we use sort command without option then content get sorted in ascending order.
+	- If we want to sort content in reverse of alphabetical order then use -r option
+		sort -r file_name 
+	- If file contain number,uppercase,lowercase characters then sort command sort the file 
+	  content in order of => numbers => uppercase => lowercase character 
+	- If file has only numbers and we want to sort then content sort based on digit.
+	- IF file has only numbers and we want to sort it based on numeric value then use syntax
+		sort -n file_name 
+	- If we want to sort numbers in reverse order then syntax: 
+		sort -nr file_name 
+		
+	- If file has duplicate values then bydefault sort command display duplicate lines 
+	  If we want to display only unique lines then use -u option 
+		sort -u file_name 
+	- If has tabular content 
+		we want to sort data based on perticular column then syntax: 
+		sort -k 5n file_name
+		here 5 stand for fifth column 
+	  
+	
+------------------------------------------------
+Q.. What is uniq command?
+==> - This command is used to find unique content in file.
+	- To use uniq command file has sorted data 
+		Syntax: 
+			uniq file_name
+	- To display duplicate values (-d)
+		Syntax: 
+			uniq -d file_name 
+	- To display lines which are not duplicate
+		syntax: 
+			uniq -u file_name
+	- To display number of occurance each line
+		syntax: 
+			uniq -c file_name 
+------------------------------------------------
+Q.. 'wc' command?
+==> - WC command stand for word count 
+	- This command is used to count number of lines,number of word and number of character 
+	  present in the file.
+	Syntax: 
+		wc option file_name 
+		
+	- Various option in wc command 
+		-l : display line count 
+		-w : display word count 
+		-c : display character count 
+	- output of wc command 
+		13 13 38 f22.txt
+		13=> line count 
+		13=> word count 
+		38=> character count 
+		f22.txt => file_name 
+------------------------------------------------
+Q.. How to use Multiple commands in single line?
+==> we have 2 ways to use multiple command in single 
+	1. using semicolon (;)
+	2. using && 
+	
+	1. cmd1;cmd2;cmd3
+	
+	2. cmd&&cmd2&&cmd
+------------------------------------------------
+Q.. What is piping?
+==> -> Piping means passing output of one command as input to another command 
+	   is nothing but piping.
+	-> we can implement piping using vertical bar (|).
+	
+	Example: 
+		1. count number of words from first line of a1.txt 
+		=> head -1 a1.txt | wc -w 
+		
+		2. count number of character present in line number 1-5 of a1.txt 
+		=> 
+------------------------------------------------

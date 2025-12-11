@@ -446,11 +446,89 @@ Q.. find below requirement for 192.168.1.10/24?
 			
 		8. Usable IP Range is => 198.168.1.1 to 198.168.1.254
 -----------------------------------------------
+Q.. What is mean by Virtulization?
+==> Virtulization is process of constructing an abstract layer on top of Hardware 
+	using software.
 -----------------------------------------------
+Q.. What is Virtual Machine(VM)?
+==> Software based emulation of Physical machine.
+	- Multiple VMs runs on single Physical Machine.
+	- VMs are isolated from each other 
+	- if one VM fails,no impact on other VMs
+	- Each VM has its own OS called guest OS,which may differ from Host OS.
+	- All VMs share same Physical resources CPU,RAM and storage but act like independent.
+	==> Advantages of VM
+		- Resources Sharing: All VMs share same Physical resources CPU,RAM and storage
+		- Isolation: Each VM work independenly so if one VM fails then no impact on other VMs 
+		- Flexibility: we can add or remove VMs based on your requirement
+		- Portability: VMs can be moved or cloned.
 -----------------------------------------------
+Q.. How virtulization works?
+==> Virtulization works by inserting hyperviser between hardware and OS.
 -----------------------------------------------
+Q.. What is hyperviser?
+==> - Hypervisor is software or program that allows multiple VMs to run on single 
+	  physical machine by sharing its CPU,RAM and storage.
+	- Hypervisor=Trafic Controller.
+	  Hypervisor decide how much CPU,RAM,STORAGE will get by each VM
 -----------------------------------------------
+Q.. Type of hyperviser?
+==> There are 2 types of hyperviser
+	1. Type 1 hyperviser
+	2. Type 2 hyperviser
+	
+	1. Type 1 hyperviser
+	=> - it is called bare metal hyperviser
+	   - runs directly on Physical Hardware
+	   - it is faster and more secure because no HOST OS in between 
+	   - In real time bare metal hyperviser is used for virtulization
+	   - Example: VMware,hyper-v,KVM,Xen
+	   
+		1. VMware is developed by VMware and widely used in enterprise data center.
+		2. Hyper-v is developed by Miscrosoft. In windows hyper-v used for virtulization
+		3. KVM stand for Kernel based virtual machines.Linux provide KVM hyperviser for virtulization.
+		4. Xen is open source hyperviser and originally developed at cambridge University.
+		   Now Xen is maintained by Linux Foundation(Xen project).Big cloud provider like AWS,citrix,oracle
+		   uses Xen hyperviser.
+		   AWS EC2(Elastic Cloud Compute) service initially runs on Xen now it moved on KVM(Nitro hyperviser)
 -----------------------------------------------
+Q.. Type 2 Hypervisor?
+==> - It is also called Hosted Hypervisor
+	- Run on top of existing operating system.
+	- It is easy to use but slightly slow.
+	- Student use this hyperviser for learning purpose.
+	
 -----------------------------------------------
+Q.. What is difference between Type1 and Type2 hyperviser?
+==> - Type 1 hyperviser is called as bare metal hyperviser where as 
+	  Type 2 hyperviser is called hosted hyperviser.
+	- Type 1 hyperviser runs directly on Physical hardware where as 
+	  Type 2 hyperviser runs on the top of existing operating system 
+	- Type 1 is more secure than Type 2 because Type 1 runs directly on Physical Hardware 
+	- Type 1 is faster than Type 2 
+	- Type 1 example: Vmare,Hyper-v,Xen,KVM 
+	  Type 2 example: Virtualbox,VMware workstation
+-----------------------------------------------
+Q.. Type of Virtulization?
+==> Type of Virtulization is based on which component is being abstracted.
+	1. Server Virtulization
+	2. Desktop Virtulization
+	3. Application Virtulization
+	4. Network Virtulization
+	5. Storage Virtulization
+	6. Data virtulization
+	7. Operating System Virtulization
+-----------------------------------------------
+Q.. Server Virtulization?
+==> In server Virtulization single physical machine split into multiple Virtual Machine 
+	and each VM runs its own OS and apps 
+	- Software used for server Virtulization are VMware,Hyper-,KVM,Xen
+-----------------------------------------------
+Q.. Desktop Virtulization?
+==> - In desktop virtulization users are allowed to run desktop environment remotely from central server.
+	- Software used for Desktop Virtulization are VDI(Virtual Desktop Invironment),citrix
+-----------------------------------------------
+Q.. Application Virtulization?
+==> - In Application Virtulization application is isolated from underlying os 
 -----------------------------------------------
 -----------------------------------------------

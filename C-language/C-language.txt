@@ -4,21 +4,21 @@ Q.. What is C-Language?
 ==> C-Language is most popular and widely used programming language 
 	C introduced in 1972 by Denis Ritchic at Bell lab in USA.
 	we use turbo c compiler to compile C-Language
+	- It helps to understand how computer work 
+	- many other language based on C 
 	
-	
-Q.. What is int?
+Q.. What is int(%d)?
 ==> int is used to store number;
 	int size is 2 byte in turbo c means 2byte=16bits 2^16-1
-	
 
 Q.. what is float variable?
 ==> it is variable used to store floating numbers.
-	float size is 4 byte in turbo c means 4byte=32bits 2*32-1
+	float(%f) size is 4 byte in turbo c means 4byte=32bits 2*32-1
 	
 
 Q.. What is char variable?
 ==> char is used to store character type value 
-	default size of char is 1
+	default size of char(%c) is 1
 	
 	
 Q.. What is #include <stdio.h>

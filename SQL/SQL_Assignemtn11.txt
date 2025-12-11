@@ -1,0 +1,324 @@
+11. Consider the following Entities and relationship
+	Country(con-code,name,capital);
+	POPULATION_1(pop-code,population);
+	Country and Population are related with one-to-one relationship
+	Constraint Primary key and country name should not be null 
+==> 
+	Here 2 entities Country and Population 
+	Relation between Country and population is one to one 
+	Country table is the parent table and Population is child table 
+	
+	# Country table creation queries 
+	case 1: 
+	CREATE TABLE COUNTRY(con_code number PRIMARY KEY,name varchar(90) not null,capital varchar(90));
+	
+	case 2: 
+	CREATE TABLE COUNTRY(con_code number constriant CON_CODE_PK primary key,
+	name varchar(90) not null,capital varchar(90));
+	
+	case 3: 
+	CREATE TABLE COUNTRY(con_code number,name varchar(90) not null,capital varchar(90),
+	CONSTRAINT CON_CODE_PK PRIMARY KEY(con_code));
+	
+	INSERT INTO COUNTRY VALUES (1, 'India', 'Delhi');
+	INSERT INTO COUNTRY VALUES (2, 'USA', 'Washington');
+	INSERT INTO COUNTRY VALUES (3, 'China', 'Beijing');
+	INSERT INTO COUNTRY VALUES (4, 'Japan', 'Tokyo');
+	INSERT INTO COUNTRY VALUES (5, 'Germany', 'Berlin');
+
+
+	# POPULATION_1 table creation queries 
+	case 1: 
+	CREATE TABLE POPULATION_1(pop_code number PRIMARY KEY,population number,
+	con_code number UNIQUE KEY,CONSTRAINT FOREIGN KEY(con_code) REFERENCES COUNTRY(con_code))
+	
+	case 2: 
+	CREATE TABLE POPULATION_1(pop_code number CONSTRAINT pop_code_PK PRIMARY KEY,
+	population number,con_code number CONSTRAINT con_codeUK unique key,
+	CONSTRAINT foreign key(con_code) REFERENCES COUNTRY(con-code));
+	
+	case 3: 
+	CREATE TABLE POPULATION_1(pop_code number CONSTRAINT pop_code_PK PRIMARY KEY,
+	population number,con_code number,
+	CONSTRAINT con_codeUK unique(con_code),
+	CONSTRAINT con_codeFK FOREIGN KEY(con_code) REFERENCES COUNTRY(con_code))
+
+	INSERT INTO POPULATION_1 VALUES (101, 1400000000, 1);
+	INSERT INTO POPULATION_1 VALUES (102, 331000000, 2);
+	INSERT INTO POPULATION_1 VALUES (103, 1440000000, 3);
+	INSERT INTO POPULATION_1 VALUES (104, 126000000, 4);
+	INSERT INTO POPULATION_1 VALUES (105, 83000000, 5);
+
+
+Q. Give name and population of country whose capital is 'Delhi'?
+SQL
+select c.name,p.population from COUNTRY c inner join POPULATION_1 p ON 
+c.con_code=p.con_code where c.capital='Delhi';
+
+Q. Count the number of countries whose population is >60,00,000?
+SQL
+select count(c.name) from COUNTRY c inner join POPULATION_1 p ON 
+c.con_code=p.con_code where p.population>6000000;
+
+Q. Find the country details with highest population?
+SQL
+select c.* from COUNTRY c inner join POPULATION_1 p ON 
+c.con_code=p.con_code where population=(select max(population) from POPULATION_1);
+
+Q. Display country wise population details?
+SQL
+select c.name,p.population from COUNTRY c inner join POPULATION_1 p ON 
+c.con_code=p.con_code order by c.name asc
+
+Q. Find the country details with lowest population?
+SQL
+select c.* from COUNTRY c inner join POPULATION_1 p ON 
+c.con_code=p.con_code where p.population=(select min(population) from POPULATION_1)
+
+Q. List the name of countries whose population is between 50,00,000 and 70,00,000?
+SQL
+select c.name,p.population from COUNTRY c inner join POPULATION_1 p ON 
+c.con_code=p.con_code where p.population between 5000000 and 7000000
+
+Q. Find the population of India?
+SQL
+select c.name,p.population from COUNTRY c inner join POPULATION_1 p ON 
+c.con_code=p.con_code where c.name='India'
+
+Q. Display the country details in descending order of population?
+SQL
+select c.*,p.population from COUNTRY c inner join POPULATION_1 p ON 
+c.con_code=p.con_code order by p.population desc
+
+--------------------------------------------------------------
+12. Consider the following Entities and relationship
+	WHOLESALER(wno,wname,addr,city)
+	PRODUCT(pno,pname)
+	WHOLESALER & PRODUCT are related with many to many relationship
+	CONSTRAINT: PRIMARY KEY,PNAME SHOULD NOT BE NULL.
+==> 
+	Solution
+	Here 2 entities WHOLESALER and PRODUCT
+	Relation between WHOLESALER and PRODUCT is many to many 
+	both WHOLESALER and PRODUCT are the parent table 
+	we need to 3rd table as child table 
+	we create WHOLESALER_PRODUCT as child table 
+	
+	# WHOLESALER table creation queries 
+	case 1: 
+	CREATE TABLE WHOLESALER(wno number PRIMARY KEY,wname varchar(90),addr varchar(90),city varchar(90));
+	
+	case 2: 
+	CREATE TABLE WHOLESALER(wno number CONSTRAINT wnoPK PRIMARY KEY,wname varchar(90),
+	addr varchar(90),city varchar(90));
+	
+	case 3: 
+	CREATE TABLE WHOLESALER(wno number,wname varchar(90),addr varchar(90),city varchar(90),
+	CONSTRAINT wnoPK PRIMARY KEY(wno));
+	
+	INSERT INTO WHOLESALER VALUES (1, 'Dev Enterprises', 'Akurdi', 'Pune');
+	INSERT INTO WHOLESALER VALUES (2, 'Global Traders', 'Andheri', 'Mumbai');
+	INSERT INTO WHOLESALER VALUES (3, 'Star Distributors', 'Camp', 'Pune');
+	INSERT INTO WHOLESALER VALUES (4, 'Elite Suppliers', 'Thane', 'Mumbai');
+	INSERT INTO WHOLESALER VALUES (5, 'Royal Mart', 'Manpada', 'Nashik');
+	INSERT INTO WHOLESALER VALUES (6, 'Fresh Mart', 'Kothrud', 'Pune');
+	INSERT INTO WHOLESALER VALUES (7, 'Techno Traders', 'MG Road', 'Bangalore');
+	INSERT INTO WHOLESALER VALUES (8, 'City Distributors', 'Shivaji Nagar', 'Pune');
+	INSERT INTO WHOLESALER VALUES (9, 'Urban Supply Co.', 'Bandra', 'Mumbai');
+	INSERT INTO WHOLESALER VALUES (10, 'Value Enterprises', 'Civil Lines', 'Nagpur');
+
+	
+	# PRODUCT table creation queries
+	case 1: 
+	CREATE TABLE PRODUCT(pno number PRIMARY KEY,pname varchar(90));
+	
+	case 2: 
+	CREATE TABLE PRODUCT(pno number CONSTRAINT pnoPK PRIMARY KEY,pname varchar(90));
+	
+	case 3: 
+	CREATE TABLE PRODUCT(pno number,pname varchar(90),
+	CONSTRAINT pnoPK_11 PRIMARY KEY(pno));
+	
+	INSERT INTO PRODUCT VALUES (101, 'Keyboard');
+	INSERT INTO PRODUCT VALUES (102, 'Mouse');
+	INSERT INTO PRODUCT VALUES (103, 'Monitor');
+	INSERT INTO PRODUCT VALUES (104, 'CPU');
+	INSERT INTO PRODUCT VALUES (105, 'Printer');
+	INSERT INTO PRODUCT VALUES (106, 'Scanner');
+	INSERT INTO PRODUCT VALUES (107, 'Speaker');
+	INSERT INTO PRODUCT VALUES (108, 'Webcam');
+	INSERT INTO PRODUCT VALUES (109, 'Pen Drive');
+	INSERT INTO PRODUCT VALUES (110, 'Headphones');
+
+	
+
+	# WHOLESALER_PRODUCT table creation queries
+	case 1: 
+	CREATE TABLE WHOLESALER_PRODUCT(wno number REFERENCES WHOLESALER(wno),
+	pno number REFERENCES PRODUCT(pno))
+	
+	case 2: 
+	CREATE TABLE WHOLESALER_PRODUCT(wno number CONSTRAINT wnoFK_11 REFERENCES WHOLESALER(wno),
+	pno number CONSTRAINT pnoFK_11 REFERENCES PRODUCT(pno))
+	
+	case 3: 
+	CREATE TABLE WHOLESALER_PRODUCT(wno number,pno number,
+	CONSTRAINT wnoFK_11 FOREIGN KEY(wno) REFERENCES WHOLESALER(wno),
+	CONSTRAINT pnoFK_11 FOREIGN KEY(pno) REFERENCES PRODUCT(pno)
+	)
+	
+	INSERT INTO WHOLESALER_PRODUCT VALUES (1, 101);
+	INSERT INTO WHOLESALER_PRODUCT VALUES (1, 102);
+	INSERT INTO WHOLESALER_PRODUCT VALUES (2, 103);
+	INSERT INTO WHOLESALER_PRODUCT VALUES (3, 104);
+	INSERT INTO WHOLESALER_PRODUCT VALUES (4, 105);
+	INSERT INTO WHOLESALER_PRODUCT VALUES (5, 106);
+	INSERT INTO WHOLESALER_PRODUCT VALUES (6, 107);
+	INSERT INTO WHOLESALER_PRODUCT VALUES (7, 108);
+	INSERT INTO WHOLESALER_PRODUCT VALUES (8, 109);
+	INSERT INTO WHOLESALER_PRODUCT VALUES (9, 110);
+
+Q. Display wholesaler wise product details ?
+SQL
+select w.wname,p.pno,p.pname from WHOLESALER w inner join WHOLESALER_PRODUCT wp ON 
+w.wno=wp.wno inner join PRODUCT p on wp.pno=p.pno order by w.wname asc
+
+Q. Count the number of products sold by wholesaler 'Dev Enterprises'?
+SQL
+select count(p.pname) from WHOLESALER w inner join WHOLESALER_PRODUCT wp ON 
+w.wno=wp.wno inner join PRODUCT p on wp.pno=p.pno where w.wname='Dev Enterprises' 
+
+
+Q. Display the details of wholesalers living in the 'Mumbai' City?
+SQL
+select * from WHOLESALER where city='Mumbai'
+
+Q. Display the wholesaler details of product keyboard?
+SQL
+select w.* from WHOLESALER w inner join WHOLESALER_PRODUCT wp ON 
+w.wno=wp.wno inner join PRODUCT p on wp.pno=p.pno where p.pname='Keyboard'
+--------------------------------------------------------------
+13. Consider the following Entities and relationship
+	ITEM(item_no,name,quantity)
+	SUP(sno,name,addr,city,phone)
+	ITEM & SUP are related with many to many relationship with rate ,discount.
+	CONSTRAINT: PRIMARY KEY and item qty>5 and rate >0
+==> 
+	Solution
+	
+	Here 2 entities ITEM and SUP
+	Relation between ITEM and SUP is many to many 
+	Both ITEM and SUP are the parent table 
+	we need to create 3rd table as a child table 
+	we create ITEM_SUP as the child table 
+	
+	# ITEM table creation queries
+	case 1: 
+	CREATE TABLE ITEM(item_no number PRIMARY KEY,name varchar(90),
+	quantity number check(quantity>5));
+	
+	case 2: 
+	CREATE TABLE ITEM(item_no number CONSTRAINT item_no_PK PRIMARY KEY,
+	name varchar(90),
+	quantity number CONSTRAINT qtyCK check(quantity>5));
+	
+	case 3: 
+	CREATE TABLE ITEM(item_no number,name varchar(90),quantity number,
+	CONSTRAINT item_no_PK PRIMARY KEY(item_no),
+	CONSTRAINT qtyCK check(quantity>5));
+	
+	INSERT INTO ITEM VALUES (101, 'Keyboard', 100);
+	INSERT INTO ITEM VALUES (102, 'Mouse', 250);
+	INSERT INTO ITEM VALUES (103, 'Monitor', 50);
+	INSERT INTO ITEM VALUES (104, 'CPU', 80);
+	INSERT INTO ITEM VALUES (105, 'Printer', 30);
+
+	
+	# SUP table creation queries 
+	case 1: 
+	CREATE TABLE SUP(sno number PRIMARY KEY,name varchar(90),
+	addr varchar(200),city varchar(90),phone number)
+	
+	case 2: 
+	CREATE TABLE SUP(sno number CONSTRAINT noPK PRIMARY KEY,name varchar(90),
+	addr varchar(200),city varchar(90),phone number)
+	
+	case 3: 
+	CREATE TABLE SUP(sno number,name varchar(90),
+	addr varchar(200),city varchar(90),phone number,
+	CONSTRAINT noPK PRIMARY KEY(sno));
+	
+	INSERT INTO SUP VALUES (201, 'Mr.Patil', 'MG Road', 'Pune', 9876543210);
+	INSERT INTO SUP VALUES (202, 'Mr.Bhatia', 'Nehru Nagar', 'Mumbai', 9823456789);
+	INSERT INTO SUP VALUES (203, 'Mr.Shah', 'FC Road', 'Pune', 9811122233);
+	INSERT INTO SUP VALUES (204, 'Mr.Verma', 'Camp', 'Delhi', 9845678901);
+	INSERT INTO SUP VALUES (205, 'Mr.Naik', 'Ring Road', 'Nagpur', 9797979797);
+
+	
+	# ITEM_SUP table creation queries 
+	case 1: 
+	CREATE TABLE ITEM_SUP(item_no number REFERENCES ITEM(item_no),
+	sno number REFERENCES SUP(sno),rate number CHECK(rate>0),discount number);
+	
+	case 2: 
+	CREATE TABLE ITEM_SUP(item_no number CONSTRAINT item_no_FK REFERENCES ITEM(item_no),
+	sno number CONSTRAINT sno_FK REFERENCES SUP(sno),
+	rate number CONSTRAINT rateCK CHECK(rate>0),discount number);
+	
+	case 3: 
+	CREATE TABLE ITEM_SUP(item_no number,sno number,
+	rate number,discount number,
+	CONSTRAINT item_no_FK FOREIGN KEY(item_no) REFERENCES ITEM(item_no),
+	CONSTRAINT sno_FK FOREIGN KEY(sno) REFERENCES SUP(sno),
+	CONSTRAINT rateCK CHECK(rate>0)
+	);
+		
+	INSERT INTO ITEM_SUP VALUES (101, 201, 850, 5);
+	INSERT INTO ITEM_SUP VALUES (102, 201, 450, 7);
+	INSERT INTO ITEM_SUP VALUES (101, 202, 800, 6);
+	INSERT INTO ITEM_SUP VALUES (103, 203, 9500, 10);
+	INSERT INTO ITEM_SUP VALUES (104, 204, 15000, 8);
+	INSERT INTO ITEM_SUP VALUES (105, 205, 7000, 9);
+	INSERT INTO ITEM_SUP VALUES (102, 202, 420, 5);
+	INSERT INTO ITEM_SUP VALUES (104, 203, 14500, 7);
+	INSERT INTO ITEM_SUP VALUES (101, 203, 870, 4);
+	INSERT INTO ITEM_SUP VALUES (105, 201, 6800, 6);
+
+	
+Q. Find the rate and discount of the item keyboard?
+SQL
+select i.name,ip.rate,ip.discount from ITEM i inner join ITEM_SUP ip ON 
+i.item_no=ip.item_no where i.name='Keyboard'
+
+Q. Display item names in ascending order of quantity?
+SQL
+select name,quantity from ITEM order by quantity asc
+
+Q. Display the details of all suppliers from 'Pune' city?
+SQL
+select * from sup where city='Pune'
+
+Q. Count the number of items supplied by supplier 'Mr.Bhatia'?
+SQL
+select count(i.name) from ITEM i inner join ITEM_SUP ip ON 
+i.item_no=ip.item_no inner join SUP s on ip.sno=s.sno where s.name='Mr.Bhatia'
+
+Q. List all the details of items having quantity > 500?
+SQL
+select * from ITEM where quantity>500
+
+Q. Increase the 5% rate of the item mouse?
+SQL
+update ITEM_SUP set rate=rate+(rate*5/100) where item_no IN (select item_no from ITEM where name='Mouse');
+
+Q. Display the item details supplied by the supplier 'Mr.Patil'?
+SQL
+select i.name,i.quantity,ip.rate,ip.discount,s.name from ITEM i inner join ITEM_SUP ip ON 
+i.item_no=ip.item_no inner join SUP s ON
+ip.sno=s.sno where s.name='Mr.Patil';
+
+Q. Count the number of suppliers from the each city?
+SQL
+select count(name),city from SUP group by city 
+
+--------------------------------------------------------------		

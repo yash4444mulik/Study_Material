@@ -1,0 +1,244 @@
+Q. consider the following entities and Relationships
+	Patient(pno,pname,addr);
+	Bed(bno,bname,description);
+	Relationship between Patient and Bed is one to one 
+	Constraint : Primary key 
+==> Here 2 entities Patient and Bed 
+	Relation between Patient and Bed is one to one.
+	Patient is parent table and Bed is child table.
+	
+	# Patient table creation query
+		CREATE TABLE Patient_1(pno number,pname varchar(90),address varchar(100),
+		CONSTRAINT pno_PK PRIMARY KEY(pno));
+		
+	INSERT INTO Patient_1 VALUES (101, 'Mr.Sharma', 'Delhi');
+	INSERT INTO Patient_1 VALUES (102, 'Mr.Patil', 'Pune');
+	INSERT INTO Patient_1 VALUES (103, 'Mr.Khan', 'Mumbai');
+	INSERT INTO Patient_1 VALUES (104, 'Mr.Verma', 'Nashik');
+	INSERT INTO Patient_1 VALUES (105, 'Mr.Rao', 'Nagpur');
+	
+		
+	# Bed table cration query 
+		CREATE TABLE Bed(bno number,bname varchar(90),description varchar(90),pno number,
+		CONSTRAINT bno_UK UNIQUE(pno),
+		CONSTRAINT pno_FK foreign key(pno) references Patient(pno));
+	
+	INSERT INTO Bed VALUES (101, 'Room 1', 'General Ward', 101);
+	INSERT INTO Bed VALUES (102, 'Room 1', 'ICU Bed', 102);
+	INSERT INTO Bed VALUES (103, 'Room 3', 'Private Bed', 103);
+	INSERT INTO Bed VALUES (104, 'Room 3', 'Semi-Private Bed', 104);
+	INSERT INTO Bed VALUES (105, 'Room 2', 'Deluxe Bed', 105);
+
+	
+	# Write queries in Oracle 
+	Q1. Find the name of patients of bed number 103?
+	==> select pname,bno from Patient_1 p join Bed b on p.pno=b.pno where bno=103
+
+	Q2. Count the number of bed in room number 3?
+	==> select count(bno) from Bed where bname='Room 3'
+
+
+	Q3. Find bed number and room number of patient 'Mr.sharma'?
+	==> select bno,bname,pname from Bed b inner join Patient_1 p on b.pno=p.pno where pname='Mr.Sharma';
+
+	Q4. List bed wise patient name along with room number?	
+	==> select bno,bname,pname from Bed b inner join Patient_1 P on b.pno=p.pno group by bno,bname,pname;
+	
+	
+-------------------------------------------------------------
+Q. consider the following entities and Relationships
+	Customer(cno,cname,city)
+	Car(Carno,carmodel,color,price)
+	Customer and Car are related with one to many relationships
+	Constraint: Primary key,Price should be > 0.
+==> here 2 entities Customer and Car 
+	Relation between Customer and Car is one to many 
+	Customer is parent table and Car is child table 
+	
+	# Customer table creation queries
+		CREATE TABLE Customer(cno number,cname varchar(90),city varchar(90),
+		CONSTRAINT cno_PK PRIMARY KEY(cno));
+		
+	# Insert into statement for Customer 
+		INSERT INTO Customer VALUES (101, 'Mr.Jadhav', 'Pune');
+		INSERT INTO Customer VALUES (102, 'Mr.Patil', 'Mumbai');
+		INSERT INTO Customer VALUES (103, 'Mr.Shinde', 'Nashik');
+		INSERT INTO Customer VALUES (104, 'Mr.Kadam', 'Nagpur');
+		INSERT INTO Customer VALUES (105, 'Mr.Rao', 'Aurangabad');
+
+	# Car table creation queries
+		CREATE TABLE Car(Carno number,carmodel varchar(90),color varchar(90),price number,
+		cno number,
+		CONSTRAINT price_ck CHECK(price>0),
+		CONSTRAINT cno_FK FOREIGN KEY(cno) REFERENCES Customer(cno));
+	
+	# Insert into statement for Car 
+		INSERT INTO Car VALUES (201, 'Swift', 'Red', 650000, 101);
+		INSERT INTO Car VALUES (202, 'Baleno', 'Blue', 800000, 101);
+		INSERT INTO Car VALUES (203, 'i20', 'White', 900000, 102);
+		INSERT INTO Car VALUES (204, 'Creta', 'Black', 1600000, 102);
+		INSERT INTO Car VALUES (205, 'Alto', 'Silver', 450000, 103);
+		INSERT INTO Car VALUES (206, 'Kia Seltos', 'Grey', 1700000, 104);
+		INSERT INTO Car VALUES (207, 'Innova', 'White', 2000000, 105);
+	
+	# Write queries in oracle 
+	Q. list car model and color of car belong to 'Mr.Jadhav'?
+	select carmodel,color from Car c inner join 
+	Customer cu on c.cno=cu.cno where cname='Mr.Jadhav'
+
+	Q. Display the car details having maximum price?
+	select Carno,carmodel,color,price,cname,city from car c 
+	inner join customer cu on c.cno=cu.cno where price=(select max(price) from car)
+
+	Q. Count the number of cars belong to 'Mr.Patil'?
+	select count(carno),cname from car c inner join customer cu on c.cno=cu.cno 
+	where cname='Mr.Patil' group by cname
+
+	Q. List customer wise car model?
+	select carmodel,cname from car c inner join customer cu on c.cno=cu.cno 
+	order by carmodel asc
+
+-------------------------------------------------------------
+Q. consider the following entities and Relationships
+	Room(Rno,roomtype,Rate)
+	Guest(Gno,gname,no_of_days)
+	Room and guest are related with one to one relationship.
+	Constraint: Primary key,no_of_days should be > 0.
+==> Here 2 entities Room and Guest.
+	Relation between Room and Guest is one to one 
+	So Guest is Parent table and Room is child table.
+	
+	# Guest table creation queries
+		CREATE TABLE Guest(Gno number,gname varchar(90),no_of_days number,
+		CONSTRAINT Gno_PK PRIMARY KEY(Gno),
+		CONSTRAINT no_of_days_CK CHECK(no_of_days>0));
+		
+	# Guest table insert statement
+		INSERT INTO Guest VALUES (301, 'Mr.Rane', 2);
+		INSERT INTO Guest VALUES (302, 'Mrs.Shinde', 4);
+		INSERT INTO Guest VALUES (303, 'Mr.Jadhav', 3);
+		INSERT INTO Guest VALUES (304, 'Ms.Patil', 6);
+		INSERT INTO Guest VALUES (305, 'Mr.Mahajan', 1);
+
+	# Room table creation queries
+		CREATE TABLE Room(rno number,roomtype varchar(90),Rate number,Gno number,
+		CONSTRAINT rno_PK PRIMARY KEY(rno),
+		CONSTRAINT Gno_UK UNIQUE(Gno),
+		CONSTRAINT Gno_FK FOREIGN KEY(Gno) REFERENCES Guest(Gno));
+		
+	# Room table insert statement
+		INSERT INTO Room VALUES (101, 'Deluxe', 2500, 301);
+		INSERT INTO Room VALUES (102, 'Super Deluxe', 4000, 302);
+		INSERT INTO Room VALUES (103, 'Standard', 1800, 303);
+		INSERT INTO Room VALUES (104, 'Suite', 6000, 304);
+		INSERT INTO Room VALUES (105, 'Economy', 1200, 305);
+	
+	# Write queries in oracle
+	Q. Find the type of room number 101?
+	select roomtype,rno from Room where rno=101
+
+	Q. Find the name of guest who have allocated room more than three days?
+	select gname,no_of_days from Guest where no_of_days>3
+
+	Q. Display the room information having maximum rate?
+	select rno,roomtype,rate from Room where Rate=(select max(rate) from Room)
+
+	Q. List room wise guest name?
+	select rno,gname from Room r inner join Guest g 
+	on r.gno=g.gno group by rno,gname
+-------------------------------------------------------------
+Q. consider the following entities and Relationships
+	Company(cid,cname,cproduct,state)
+	Branches(bno,city)
+	Compnay and Branches are related with one to many relationships
+	Constraint: Primary key,Customer Name should not be null.
+==> Here 2 entities Company and Branches
+	Relation between Compnay and Branches are one to many 
+	Company is parent table and Branches is child table 
+	
+	# Company table creation queries
+		CREATE TABLE Company(cid number,cname varchar(90) not null,cproduct varchar(90),state varchar(90),
+		CONSTRAINT cid_pk PRIMARY KEY(cid));
+		
+	# Insert into statement for Company table 
+		INSERT INTO Company VALUES (401, 'MicroTech', 'Laptops', 'Maharashtra');
+		INSERT INTO Company VALUES (402, 'Lenovo', 'Desktops', 'Karnataka');
+		INSERT INTO Company VALUES (403, 'Compaq', 'Printers', 'Delhi');
+		INSERT INTO Company VALUES (404, 'Dell', 'Monitors', 'Gujarat');
+		INSERT INTO Company VALUES (405, 'HP', 'Keyboards', 'Maharashtra');
+
+	# Branches table creation queries
+		CREATE TABLE Branches(bno number,city varchar(90),cid number,
+		CONSTRAINT bno_PK PRIMARY KEY(bno),
+		CONSTRAINT cid_FK FOREIGN KEY(cid) REFERENCES Company(cid));
+		
+	# Insert into statement for Branches table 
+		INSERT INTO Branches VALUES (501, 'Pune', 401);
+		INSERT INTO Branches VALUES (502, 'Mumbai', 401);
+		INSERT INTO Branches VALUES (503, 'Bangalore', 402);
+		INSERT INTO Branches VALUES (504, 'Mysore', 402);
+		INSERT INTO Branches VALUES (505, 'Delhi', 403);
+		INSERT INTO Branches VALUES (506, 'Surat', 404);
+		INSERT INTO Branches VALUES (507, 'Ahmedabad', 404);
+		INSERT INTO Branches VALUES (508, 'Nagpur', 405);
+	
+	# Write queries in oracle 
+	Q1. List the product name of company 'MicroTech'?
+	Q2. List all the companies of product keyword?
+	Q3. List all the branches along with city of company 'Lenovo'?
+	Q4. Count the number of branches of company 'Compaq'
+	
+-------------------------------------------------------------
+Q. consider the following entities and Relationships
+	Teacher(tno,tname,collegename,dept)
+	Exam(examtno,examname)
+	Teacher and Exam related with many to many relationship
+	Constraint: Primary key,examname shuld not be null.
+==> Here 2 entities Teacher and Exam
+	Relation between Teacher and Exam is many to many
+	Both table Teacher and Exam are the parent table 
+	We need to create 3rd table as a child 
+	we create Teacher_Exam as a child table 
+	
+	# Teacher table creation query
+		CREATE TABLE Teacher_11(tno number,tname varchar(90),college_name varchar(90),dept varchar(90),
+		CONSTRAINT tno_PK PRIMARY KEY(tno));
+		
+	# Teacher table insert into statement
+		INSERT INTO Teacher_11 VALUES (601, 'Mrs.Jadhav', 'D.Y.Patil', 'Computer');
+		INSERT INTO Teacher_11 VALUES (602, 'Mr.Patil', 'MJC', 'Electronics');
+		INSERT INTO Teacher_11 VALUES (603, 'Ms.Shinde', 'Fergusson', 'Physics');
+		INSERT INTO Teacher_11 VALUES (604, 'Mr.Rane', 'MJC', 'Maths');
+		INSERT INTO Teacher_11 VALUES (605, 'Mrs.Kadam', 'Modern College', 'Chemistry');
+
+	# Exam table creation query 
+		CREATE TABLE Exam(examtno number,examname varchar(90) not null,
+		CONSTRAINT examtnoPK PRIMARY KEY(examtno));
+		
+	# Exam table insert into statement		
+		INSERT INTO Exam VALUES (701, 'SET');
+		INSERT INTO Exam VALUES (702, 'NET');
+		INSERT INTO Exam VALUES (703, 'PhD Entrance');
+		INSERT INTO Exam VALUES (704, 'GATE');
+		
+	# Teacher_Exam table creation query
+		CREATE TABLE Teacher_Exam(tno number,examtno number,
+		CONSTRAINT tnoFK FOREIGN KEY(tno) REFERENCES Teacher(tno),
+		CONSTRAINT examtnoFK FOREIGN KEY(examtno) REFERENCES Exam(examtno));
+		
+	# Teacher_Exam table insert into statement	
+		INSERT INTO Teacher_Exam VALUES (601, 701); 
+		INSERT INTO Teacher_Exam VALUES (601, 702); 
+		INSERT INTO Teacher_Exam VALUES (602, 701);
+		INSERT INTO Teacher_Exam VALUES (603, 703);
+		INSERT INTO Teacher_Exam VALUES (604, 701);
+		INSERT INTO Teacher_Exam VALUES (604, 704);
+		INSERT INTO Teacher_Exam VALUES (605, 702);
+		
+	# Write queries in oracle
+	Q1. Find departemtn of teacher 'Mrs.Jadhav' of D.Y.Patil college?
+	Q2. List all teachers who have given SET examination?
+	Q3. Count the number of teacher of 'MJC' college?
+	Q4. List college wise teacher name with examination given by teacher?	
+-------------------------------------------------------------
+	

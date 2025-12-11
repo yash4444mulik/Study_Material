@@ -1206,7 +1206,16 @@ Q.. What is event object?
 ==> whenever event is triggered then browser internally create an event object 
     and passes it as argument to event handler function.
 	The event object contains various properties method that provide information about the 
-	event such as the type of event,the element that triggered the event etc.
+	event such as the 
+	- type of event
+	- Target element
+	- mouse or keyword details 
+	- method to control event behaviour
+---------------------------------------
+Q.. What are the method to control event behaviour?
+==> - event.preventDefault()
+	- event.stopPropagation()
+	- event.stopImmediatePropagation()
 ---------------------------------------
 Q.. what is event bubbling?
 ==> Event bubbling is the process where event is added on child that propagate 
@@ -1290,13 +1299,6 @@ Q.. What is event delegation?
 				  </script>
 				</body>
 ---------------------------------------	
-Q.. What is event Propagation?
-==> Event Propagation is the process that define how event travel through the DOM when it occurs 
-	- Event Propagation divided into 3 part 
-		1. event capturing => window->document->parent->child
-		2. target =>event reaches to target element 
-		3. event bubbling=> child->parent->document->window
----------------------------------------	
 Q.. How to stop event propagation?
 ==> To stop event propagation simply use event.stopPropagation() in event handler function.
 		<body>
@@ -1369,8 +1371,8 @@ Q.. What is Immediate Stop Propagation?
 		</body>
 ---------------------------------------
 Q.. What is difference between stopPropagation() and stopImmediatePropagation()?
-==> - stopPropagation() stop event bubbling to parent but other listner still run where as 
-      stopImmediatePropagation() stop event bubbling and also stops other listners on the same element
+==> - stopPropagation() stop event bubbling to parent for that event where as 
+      stopImmediatePropagation() stop event bubbling and also stops other event on the same element
 ---------------------------------------
 Q.. How to prevent default behaviour of event source?
 ==> To prevent default behaviour we have preventDefault() method 
@@ -1923,7 +1925,7 @@ Q.. What is global function?
 Q.. what is window object?
 ==> window object is associated with browser window 
 	there are multiple window objects
-	1. open(): this method used to open new window 
+	1. open(): this method used to open URL in new window 
 			   this method accept one input argument i.e url 
 			   syntax: 
 				window.open();
@@ -2066,8 +2068,6 @@ Q.. What are the different method for string?
 	14) trim();
 		this method is used to remove white/extra space from both side i.e right and left 
 	
-----------------------------------------	
-
 ------------------------------------------
  1) write a program to find number is prime or not?
    2) Print Fibonacci series for number 5?

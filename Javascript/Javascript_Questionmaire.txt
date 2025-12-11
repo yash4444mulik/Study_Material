@@ -92,6 +92,7 @@ Q.. What is exception?
 Q.. What is exception handling?
 Q.. What is default exception handling in js?
 Q.. What is event object?
+Q.. What are the method to control event behaviour?
 Q.. What is event bubbling?
 Q.. What is event capturing?
 Q.. What is event delegation?
@@ -128,3 +129,35 @@ Q.. What is string in javascript?
 Q.. What is template literals?
 Q.. What is string interpolation?
 Q. What is difference between single,double quote and backtick?
+Q.. What is selector in js?
+Q.. What is difference between getElementById,getElementByClassName,getElementByTagName?
+Q.. What is querySelector() and querySelectorAll()?
+Q.. How to modify element properties and atrributes?
+Q.. What is difference between textContent and innerHTML?
+Q.. What is function in javascript?
+Q.. What is global function?
+Q.. What is isFinite() function?
+Q.. What is isNaN() function?
+Q.. What is parseInt() function?
+Q.. What is parseFloat() function?
+Q.. what is window object?
+Q.. What is open() method?
+Q.. What is print() method?
+Q.. What is stop() method?
+Q.. What is availWidth method?
+Q.. What is availHeight method?
+Q.. What is height method?
+Q.. What is width method?
+Q.. What is charAt()?
+Q.. What is charCodeAt()?
+Q.. What is startsWith()?
+Q.. What is endsWith()?
+Q.. What is concat()?
+Q.. What is includes()?
+Q.. What is toUpperCase()?
+Q.. What is toLowerCase()?
+Q.. What is indexOf()?
+Q.. What is lastIndexOf()?
+Q.. What is trimStart()?
+Q.. What is trimEnd()?
+Q.. What is trim()?

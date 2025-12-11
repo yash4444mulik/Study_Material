@@ -241,7 +241,7 @@ Q.. What is syntax to create database?
 --------------------------
 Q.. Data type in oracle?
 ==> Data type means which type of value we want to store in column 
-	Most commonly used data types are 3 and these are 
+	Most commonly used data types are  
 	1. string 
 	2. number 
 	3. date
@@ -279,7 +279,7 @@ Q.. what is mean by fixed in length?
 ==> fixed in legth means length of data type is fixed not depend on actual length.
 --------------------------
 Q.. What is mean by variable in length?
-==> length of data type is defined on actual length of value stored.
+==> length of data type is defined on actual length of value 
 --------------------------
 Q.. When shoud we go with char data type?
 ==> if you know size advancly then go with char data type.
@@ -300,8 +300,8 @@ Q.. What is difference between char and varchar?
 	   varchar store 400 character 
 	4. If you know size advancly then you can go with char data type where as 
 	   if you don't know size advancly then go with varchar data type 
-	5. with respect to memory utilization char is recommended to use where as 
-	   with respect to memory utilization varchar is not recommended to use 
+	5. with respect to memory utilization char is not recommended to use where as 
+	   with respect to memory utilization varchar is recommended to use 
 --------------------------
 Q.. Number data type?
 ==> Number data type is used to store numeric value.
@@ -648,9 +648,21 @@ Q.. Can we use order by clause to apply sort condition for 2 column?
 ==> yes 
 	Syntax: 
 		order by column_name ASC|DESC,column2_name ASC|DESC 
+		
+		SELECT first_name, department_id, salary
+		FROM employees
+		ORDER BY department_id ASC, salary DESC;
+	=> here first sort record by department_id if two or more person have same department_id then 
+	   it sort based on salary
 ------------------------------------------
 Q.. Can we use group function in order by clause ?
 ==> yes we can 
+	
+	- write syntax to find department wise sum of salary in descending order?
+		SELECT department_id, SUM(salary) AS total_salary
+		FROM employees
+		GROUP BY department_id
+		ORDER BY SUM(salary) DESC;
 ------------------------------------------
 Q.. In which statement we can use order by clause?
 ==> select statement
@@ -735,7 +747,7 @@ Q.. What is "replace" function?
 ==> replace function is used to replace single character or multiple character from source string 
 	it accept three input argument first input string and 
 	second is source character and third target char
-	Syntax: replace(source_string,source_char,target_char);	
+	Syntax: replace(source_string,target_char,replace_char);	
 ------------------------------------------
 Q.. What is "substr" function?
 ==> substr function is used to find substring from source string 
@@ -746,6 +758,8 @@ Q.. What is "substr" function?
 	
 	Syntax: 
 		substr(source_string,start_index,length_of_resultant_string);
+		
+		if we don't specify end index then it consider all length from start_index to end.
 ------------------------------------------
 Q.. What is "LPAD" function?
 ==> meaning of PAD is to ADD 
@@ -1426,6 +1440,27 @@ Q.. Which constraint defined at column level only?
 ------------------------------------------
 Q.. which constraint can not defined with constraint keyword?
 ==> Default 
+------------------------------------------
+Q.. In parent-child relationship,what is the table creation order and why?
+==> In parent-child relationship we need to create Parent table first then we can create child table 
+	because parent table primary key will be added in child table that's why 
+------------------------------------------
+Q.. To ensure foreign key constraint is not voileted during data insertion,What is the data 
+	insertion order for parent-child relationship table?
+==> Inset data first in Parent table then insert in child table 	
+------------------------------------------
+Q.. In parent-child relationship can we insert data directly into child table?
+==> - we can insert data if corresponding parent record already exist.if parent record not exist then 
+	  we will get an error 
+------------------------------------------
+Q.. In a parent child relationship what is the data deletion order and why?
+==> - First we need to delete child table record then we need to delete parent table record.
+	- Reason: Parent table primary key refered in child.if child table does not contain parent table record 
+	  then we can delete parent table record happily.
+------------------------------------------
+Q.. What is the meaning of "Integrity constraint xxx voileted parent-key not found"?
+==> when you are try to insert or update record in child table foreign key column which 
+	are not available in parent table 
 ------------------------------------------
 Q.. ON DELETE CASCADE and ON DELETE SET NULL?
 ==> In parent child relationship if we try to delete parent record we will get an error 
@@ -2195,9 +2230,9 @@ Q.. What is Index?
 		create index Index_name ON Table_name (clm1_name,clm2_name....N);
 		
 	Once Index created it meta data stored in 3 different views 
-		1. DBA_INDEX 
-		2. ALL_INDEXES 
-		3. USER_INDEXES 
+		1. DBA_INDEX ==> all indexes in database are stored in this view it is accesible to DBA person 
+		2. ALL_INDEXES ==> it store index information which is accessible to current user.
+		3. USER_INDEXES ==> it store index information which owned by current user.
 ------------------------------------------
 Q.. What are different type of Index?
 ==> 1. B-tree index 
@@ -2208,7 +2243,7 @@ Q.. What are different type of Index?
 	6. reverse key index 
 	7. domain index 
 	8. invisible index 
-	9. global and local partitioned index  
+	9. global and local partition index  
 	10. index organized table 
 ------------------------------------------
 Q.. What is B-tree Index?
@@ -2223,6 +2258,15 @@ Q.. What is B-tree Index?
 ------------------------------------------
 Q.. When we should go with B tree index?
 ==> if column have many unique values then we should go with B tree index.	
+------------------------------------------
+Q.. How many B-tree index a table can have?
+==> A table can have multiple B-tree index based on business requirement but too many indexes create 
+	problem likes 
+		1. Slow down DML operation because each index must be updated 
+		2. Overlapping or duplicate indexes waste space.
+------------------------------------------
+Q.. When we should not go with B-tree index?
+==> if column have few unique values over a millions of rows,it is not recommended to use B-tree index
 ------------------------------------------
 Q.. What is Rowid?
 ==> Rowid is unique identifier that represent physical location of row. 
@@ -2257,6 +2301,10 @@ Q.. Non-Unique index?
 ==> - Non-Unique index is sub type of b-tree index.
 	- when we create b-tree index by default it is Non-Unique index.
 	- there is no any special syntax to create Non-Unique index. 
+------------------------------------------
+Q.. Difference between Unique B-tree index and Non-Unique B-tree index?
+==> - If we want achive data integrity and speed up retrival operation then go with unique B-tree index.
+	- If we want to speedup retrival opeartion but not data integrity the go with Non-unique B-tree index.
 ------------------------------------------
 Q.. Composite index?
 ==> - index created on two or more column then that index consider as composite index. 
@@ -2851,23 +2899,74 @@ Q.. What is difference between simple view and complex view?
 	- simple view does not contain join where as 
 		complex view contain join 
 	- simple view does not contain set operator where as 
-		complex view cotains join 
+		complex view cotains set operator
 	- simple view does not contain having clause where as 
 		complex view contains having clause 
 	- simple view contain dml operation but complex view does not contain DML operation.
 ----------------------------------------------
 Q.. How to create view read only?How to prevent DML opration on simple view?
-==> create view view_name as select * from table_name read only.
+==> - To restrict DML operation on simple view we need to use 'with read only' keyword.
+	  create view view_name as select * from table_name with read only
+	- 'with read only' option prevent all DML operation.
 ----------------------------------------------
-Q.. What is CHECK option in simple view?
-==> CHECK option is optional in simple view 
+Q.. What is 'WITH CHECK OPTION' in simple view?
+==> 'WITH CHECK OPTION' is optional in simple view 
 	it ensure that while doing insert and update operation condition must be satisfied.
 	if condition not satisfied then we will get an error.
+	
+	- create or replace view emp_view as select empno,empname,salary from employee where salary>25000;
+		if we try to insert salary greater than 25000 it get inserted we don't get any error 
+	- if we want to force WHERE condtion to be checked while inserting updating data into view 
+	  then use 'WITH CHECK OPTION'
+		
+		Create or replace view emp_view as select empno,empname,salary from employee 
+		where salary>25000 WITH CHECK OPTION;
+----------------------------------------------
+Q.. can we use 'WITH CHECK OPTION' and 'WITH READ ONLY' option togher on same view?
+==> No we will get an error 
 ----------------------------------------------
 Q.. What is Inline view?
 ==> Inline view is subquery in the FORM clause of sql statement.
 	- example	
 		select empname,empno,doj from (select * from employee);
+		
+	- key points for inline view	
+		1. defined in from clause 
+		2. we don't create using 'create view' option
+		3. act like a temporary table or virtual view 
+		4. exist only execution (not stored in database)
+		5. useful for 
+			1. aggregation(sum,avg,etc)
+			2. Filtering before join 
+			3. Ranking.
+----------------------------------------------
+Q.. Why we create view?What benefits we are getting through view?What are advantages of view?
+==> By creating view we are getting some benefits like 
+	1. View simplifies complex queries 
+	2. View enhance security
+	3. View improve maintainability
+	4. View support reusablity
+	
+	1. View simplifies complex queries 
+		- suppose we have 3 table and we are fetching data using join then instead 
+		  of using join we can create view and use that view to retrive data 
+		- in short if we have complex query then create view and use that view 
+		
+	2. View enhance security?
+		- if we have table that contain some creadetials like mobile number,mail id 
+		  then instead of give over all access of table we can create view on perticular column 
+		- provide that view access instead of physical table 
+		- in this way we can enhance security.
+		
+	3. View improve maintainability?
+		- view centralize logic.if requirement change we can simply modify the view defination instead 
+		  of updating queries in multiple places.
+		- for example if a view join the department,employee and project table then by changing its 
+		  login with create or replace view ensure that all dependant queries automatically reflect the update.
+		
+	4. View support reusablity?
+		- A view can be reused in multiple queries,procedures or reports as per requirement.
+	
 ----------------------------------------------
 1. Which of the following is TRUE about a View?
 A. A View stores data physically.
@@ -3812,19 +3911,94 @@ Q.. select lpad('TESTING',15,null) from dual;
 ----------------------------------------------
 Q.. select ltrim('##testing',null) from dual;
 ----------------------------------------------
+Q.. What is mean by Temporary Table?
+==> The table which hold data for short period of time is nothing but temporary table.
+----------------------------------------------
+Q.. What is Real Table?
+==> The table which hold data for long period of time is called Real Table 
+----------------------------------------------
+Q.. When we should go with Real table and Temporary table?
+==> If we want to store data for long period of time then go with Real Table.
+	If we want to store data for short period of time then go with Temporary table.
+----------------------------------------------
+Q.. What is mean by session?
+==> It is time duration between log in and log out 
+----------------------------------------------
+Q.. What is mean by session specific?
+==> session specific means data is available for that specific session.
+	when session expired all data get deleted automatically.
+----------------------------------------------
+Q.. What is mean by Transaction?
+==> set of operations are executed as single unit is called Transaction.
+	For example: sending money from one account to another account 
+		sender side: 
+			- login to app 
+			- enter mobile number/UPI id 
+			- validate mobile number/UPI id 
+			- provide pin 
+			- send 
+			- update balance 
+		
+		Receiver side 
+			- check server is up and running 
+			- Receive money and update balance 
+----------------------------------------------
+Q.. What is mean by Transaction specific?
+==> Transaction specific means data is available only for that transaction
+	and ones transaction completed data get deleted.
+----------------------------------------------
+Q.. Types of temporary table?
+==> There are two type of temporary table 
+	1. Global temporary table 
+	2. Private temporary table 
+	
+	1. Global temporary table 
+		- Global temporary table is available from oracle 8i version 
+		- In global temporary table created table is available or accessible for 
+		  all users connected to database but data inside it is not visible to all users.
+		  data is visible for perticular user or perticular session only.
+		- When you insert,update,delete data then that updation is visible only for you 
+		  not for others 
+		- Global temporary table is stored on disk 
+		- Global temporary table created by one user is visible to other user 
+		- In Global temporary table at the end of session only data get deleted
+		- Syntax: 
+			create global temporary table table_name (clm1_name data_type constraint,
+			clm2 data_type constraint ...N) 
+			ON COMMIT DELETE ROWS | ON COMMIT PRESERVE ROWS
+			Here 
+				ON COMMIT DELETE ROWS : create global temporary table that is transaction specific 
+										at the end of transaction only data get deleted.
+				ON COMMIT PRESERVE ROWS : create global temporary table that is session specific 
+										  at the end of session only data get deleted automatically
+									  
+		    Bydefault oracle consider ON COMMIT DELETE ROWS 
+							
+		- To create gloal temporary table we use Global keyword 
+		- We can apply all constraint in Global temporary table 
+		- We can access global temporary table using database link 		- 
+		
+	2. Private temporary table 
+		- Private temporary table is available from oracle 18c version 
+		- In Private temporary table,created table and its data is available only for 
+		  perticular user or perticular session but not for all users.
+		- Private temporary table is stored on RAM 
+		- Private temporary table created by one user not visible to other user
+		- In Private temporary table at the end of session table and its data get deleted.
+		- Syntax: 
+			CREATE PRIVATE TEMPORARY TABLE table_name(clm1 data_type constraint,clm2 data_type constraint,
+			....N)
+			ON COMMIT DROP DEFINCATION | ON COMMIT PRESERVE DEFINATION 
+			
+			Here 
+				ON COMMIT DROP DEFINATION: create private temporary table that is transaction specific 
+				ON COMMIT PRESERVE DEFINATION: create private temporary table that is session specific 
+			
+		- To create Private temporary table we use Private keyword.
+		- We can apply only not null and check constraint 
+		- We can't access Private temporary table using database link 
 ----------------------------------------------
 
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
+----------------------------------------------
+----------------------------------------------
+----------------------------------------------

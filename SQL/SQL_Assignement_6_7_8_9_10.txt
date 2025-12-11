@@ -1,0 +1,484 @@
+6. Consider the following entities and relationships
+	Student(sno,sname,city,class) 
+	Subject(sub_no,sub_name)
+	Student and subjects are related with many-to-many with attribute marks.
+	Constraints: Primary key constraints and sname not null.
+				 class has to be FY,SY or TY.
+
+==> Here 2 entities Student and Subject.
+	Relation between Student and Subject is many to many.
+	Both Student and Subject are the Parent table.
+	So we need to create third table as a child 
+	we create Student_Subject as a child 
+	
+	# Student table creation queries
+	case 1: 
+	create table Student_1(sno number primary key,
+	sname varchar(20),city varchar(20),class varchar(2) check(class IN('FY','SY','TY')));
+	
+	case 2: 
+	create table Student_1(sno number constraint snoPk primary key,
+	sname varchar(20),city varchar(20),
+	class varchar(2) constraint classCK check(class IN('FY','SY','TY')));
+	
+	case 3: 
+	create table Student_1(sno number,sname varchar(20),
+	city varchar(20),class varchar(2),
+	constraint snoPK primary key(sno),
+	constraint classCK check(class IN('FY','SY','TY')));
+	
+	INSERT INTO Student_1 VALUES (1, 'Amar', 'Pune', 'FY');
+	INSERT INTO Student_1 VALUES (2, 'Ravi', 'Mumbai', 'SY');
+	INSERT INTO Student_1 VALUES (3, 'Sneha', 'Nagpur', 'TY');
+	INSERT INTO Student_1 VALUES (4, 'Rohit', 'Pune', 'SY');
+	INSERT INTO Student_1 VALUES (5, 'Kiran', 'Nashik', 'FY');
+	INSERT INTO Student_1 VALUES (6, 'Priya', 'Aurangabad', 'TY');
+	INSERT INTO Student_1 VALUES (7, 'Vikas', 'Pune', 'SY');
+	INSERT INTO Student_1 VALUES (8, 'Meena', 'Nagpur', 'FY');
+	INSERT INTO Student_1 VALUES (9, 'Amit', 'Mumbai', 'TY');
+	INSERT INTO Student_1 VALUES (10, 'Sonal', 'Pune', 'FY');
+
+	
+	
+	# Subject table creation queries
+	case 1: 
+	create table Subject(sub_no number primary key,sub_name varchar(90));
+	
+	case 2: 
+	create table Subject(sub_no number constraint sub_noPK primary key,sub_name varchar(90));
+	
+	case 3: 
+	create table Subject(sub_no number,sub_name varchar(90),
+	constraint sub_noPK primary key(sub_no));
+	
+	INSERT INTO Subject VALUES (101, 'DBMS');
+	INSERT INTO Subject VALUES (102, 'Operating Systems');
+	INSERT INTO Subject VALUES (103, 'Computer Networks');
+	INSERT INTO Subject VALUES (104, 'Java Programming');
+	INSERT INTO Subject VALUES (105, 'Data Structures');
+
+	
+	
+	# Student_Subject table creation queries
+	case 1: 
+	create table Student_Subject(sno number references Student(sno),
+	sub_no number references Subject(sub_no),mark number);
+	
+	case 2: 
+	create table Student_Subject(sno number constraint snoFK references Student(sno),
+	sub_no number Constraint sub_noFK references Subject(sub_no),mark number);
+	
+	case 3: 
+	create table Student_Subject(sno number,sub_no number,mark number,
+	constraint snoFK foreign key(sno) references Student(sno),
+	Constraint sub_noFK foreign key(sub_no) references Subject(sub_no));
+	
+	INSERT INTO Student_Subject VALUES (1, 101, 75);
+	INSERT INTO Student_Subject VALUES (2, 102, 68);
+	INSERT INTO Student_Subject VALUES (3, 101, 82);
+	INSERT INTO Student_Subject VALUES (4, 103, 59);
+	INSERT INTO Student_Subject VALUES (5, 105, 62);
+	INSERT INTO Student_Subject VALUES (6, 104, 85);
+	INSERT INTO Student_Subject VALUES (7, 101, 60);
+	INSERT INTO Student_Subject VALUES (8, 102, 55);
+	INSERT INTO Student_Subject VALUES (9, 104, 39);
+	INSERT INTO Student_Subject VALUES (10, 105, 70);
+
+
+Q. Count the number of students for each class?
+select count(sname),class from student_1 group by class
+
+Q. Display the name of all students who studying in class 'TY'?
+select sname,class from student_1 where class='TY'
+
+Q. Display subject wise name of all students?
+select sub_name,sname,city,class from student_1 s inner join student_subject ss on s.sno=ss.sno 
+inner join subject sb on ss.sub_no=sb.sub_no order by sub_name desc
+
+Q. Display the students from 'Pune' city?
+select * from student_1 where city='Pune'
+
+Q. Count the number of students studying in 'FY' having marks between 60 to 70?
+select count(sname),class from student_1 s inner join student_subject ss on s.sno=ss.sno
+where mark between 60 and 70 and class='FY' group by class
+
+Q. Display student wise subject details?
+select s.sname,sub_no,sub_name from student_1 s join student_subject ss on s.sno=ss.sno join 
+subject sb on ss.sub_no=sb.sub_no order by s.sname desc
+
+Q. Display the details of all students who are studying 'DBMS' subject?
+select s.sname,sb.sub_name from student_1 s join student_subject ss on s.sno=ss.sno join 
+subject sb on ss.sub_no=sb.sub_no where sb.sub_name='DBMS'
+
+Q. Update the marks of studnets to 40 who have scored marks 39?
+update student_subject set mark=40 where mark=39
+
+Q. Disaply the city wise studnet's details?
+select s.sname,s.class,sb.sub_name,ss.mark,s.city from student_1 s join student_subject ss on s.sno=ss.sno join 
+subject sb on ss.sub_no=sb.sub_no order by city asc
+
+Q. Find maximum marks scored in subject 'DBMS'?
+select max(mark),sb.sub_name from student_subject ss 
+inner join subject sb on ss.sub_no=ss.sub_no 
+where sub_name='DBMS' group by sb.sub_name
+
+Q. Display all the details of students who have scored marks less than 60?
+select s.*,sb.*,ss.* from student_1 s join student_subject ss on s.sno=ss.sno join 
+subject sb on ss.sub_no=sb.sub_no where ss.mark<60;
+
+Q. Display students who are studying in class 'SY' and living in the city 'Nagpur'?
+select sname,class,city from student_1 where class='SY' and city='Nagpur';
+----------------------------------------------------
+7. consider following entities and relationships
+	Book(bno,bname,pubname)
+	Author(ano,aname)
+	The relation between Book and Author is many to many.
+==> Here 2 enities are there Book and author 
+	Relation between Book and Author is many to many
+	Both Book and Author are the Parent table  
+	so we need to create third table as a child 
+	we create Book_Author as a child table
+	
+	# Book table creation queries
+	case 1: 
+	create table Book(bno number primary key,bname varchar(90) not null,
+	pubname varchar(90) not null);
+	
+	case 2: 
+	create table Book(bno number constraint bnoPk primary key,
+	bname varchar(90) not null,pubname varchar(90) not null);
+	
+	case 3:
+	create table Book(bno number,bname varchar(90) not null,pubname varchar(90) not null,
+	constraint bnoPk primary key(bno));
+	
+	INSERT INTO Book VALUES (1, 'Let Us C', 'BPB');
+	INSERT INTO Book VALUES (2, 'Data Structures in C', 'McGraw Hill');
+	INSERT INTO Book VALUES (3, 'Operating System Concepts', 'Wiley');
+	INSERT INTO Book VALUES (4, 'DBMS Concepts', 'McGraw Hill');
+	INSERT INTO Book VALUES (5, 'Computer Networks', 'Pearson');
+	INSERT INTO Book VALUES (6, 'Java Programming', 'BPB');
+	INSERT INTO Book VALUES (7, 'Python Made Easy', 'TechPress');
+	INSERT INTO Book VALUES (8, 'SQL for Beginners', 'Pearson');
+	INSERT INTO Book VALUES (9, 'System Design Basics', 'Wiley');
+	INSERT INTO Book VALUES (10, 'C++ Primer', 'BPB');
+
+	
+	# Author table creation queries
+	case 1: 
+	create table Author(ano number primary key,aname varchar(90));
+	
+	case 2: 
+	create table Author(ano number constraint anoPK primary key,aname varchar(90));
+	
+	case 3: 
+	create table Author(ano number,aname varchar(90),constraint anoPK primary key(ano));
+	
+	INSERT INTO Author VALUES (101, 'Kanetkar');
+	INSERT INTO Author VALUES (102, 'Galvin');
+	INSERT INTO Author VALUES (103, 'Korth');
+	INSERT INTO Author VALUES (104, 'Tanenbaum');
+	INSERT INTO Author VALUES (105, 'Herbert Schildt');
+	INSERT INTO Author VALUES (106, 'Guido van Rossum');
+	INSERT INTO Author VALUES (107, 'Silberschatz');
+	INSERT INTO Author VALUES (108, 'Ritchie');
+	INSERT INTO Author VALUES (109, 'James Gosling');
+	INSERT INTO Author VALUES (110, 'Mark Lutz');
+
+	#Book_Author table creation queries
+	case 1: 
+	create table Book_Author(bno number references Book(bno),
+	ano number references Author(ano));
+			
+	case 2: 
+	create table Book_Author(bno number constraint bnoFK references Book(bno),
+	ano number constraint anoFK references Author(ano));
+			
+	case 3: 
+	create table Book_Author(bno number,ano number,
+	constraint bnoFK foreign key(bno) references Book(bno),
+	constraint anoFK foreign key(ano) references Author(ano));
+	
+	INSERT INTO Book_Author VALUES (1, 101); 
+	INSERT INTO Book_Author VALUES (2, 101); 
+	INSERT INTO Book_Author VALUES (3, 102); 
+	INSERT INTO Book_Author VALUES (4, 103); 
+	INSERT INTO Book_Author VALUES (5, 104); 
+	INSERT INTO Book_Author VALUES (6, 109); 
+	INSERT INTO Book_Author VALUES (7, 106); 
+	INSERT INTO Book_Author VALUES (8, 103); 
+	INSERT INTO Book_Author VALUES (9, 104); 
+	INSERT INTO Book_Author VALUES (10, 105);
+
+			
+Q. Count number of books of each publisher?
+select count(bname),pubname from Book group by pubname
+
+Q. Display all details of the book written by 'Kanetkar'?
+select b.*,a.* from Book b inner join Book_Author ba on b.bno=ba.bno 
+inner join author a on ba.ano=a.ano where aname='Kanetkar'
+
+Q. Display Author-wise list of books?
+select bname,aname from Book b inner join Book_Author ba on b.bno=ba.bno 
+inner join author a on ba.ano=a.ano order by aname asc
+
+Q. Display the book-name whose author-name is 'Korth' and publisher name is 'BPB'
+select b.bname,a.aname,b.pubname from Book b inner join Book_Author ba on b.bno=ba.bno 
+inner join author a on ba.ano=a.ano where b.pubname='BPB'
+----------------------------------------------------
+8. Consider the following Entities and relationships 
+	Doctor(dno,dname,city)
+	Patient(opdno,pat_name,addr,disease)
+	The relation between patient and doctor is many to many 
+	Constraint: Primary key,address should not be null.
+==> 
+	Here 2 entities Doctor and Patient
+	Relation between doctor and patient is many to many 
+	both table consider as a parent table 
+	so we need to create third table as a child table
+	we create doctor_patient as a child table 
+	
+	# Doctor table creation queries 
+	case 1: 
+	create table doctor_1(dno number primary key,dname varchar(90),city varchar(90));
+	
+	case 2: 
+	create table doctor_1(dno number constraint dnoPk primary key,dname varchar(90),city varchar(90));
+	
+	case 3: 
+	create table doctor_1(dno number,dname varchar(90),city varchar(90),
+	constraint dnoPk primary key(dno));
+	
+	INSERT INTO doctor_1 VALUES (1, 'Dr. Apte', 'Pune');
+	INSERT INTO doctor_1 VALUES (2, 'Dr. Kulkarni', 'Mumbai');
+	INSERT INTO doctor_1 VALUES (3, 'Dr. Patil', 'Nagpur');
+	INSERT INTO doctor_1 VALUES (4, 'Dr. Joshi', 'Pune');
+	INSERT INTO doctor_1 VALUES (5, 'Dr. Mehta', 'Delhi');
+	INSERT INTO doctor_1 VALUES (6, 'Dr. Sharma', 'Nashik');
+	INSERT INTO doctor_1 VALUES (7, 'Dr. Deshmukh', 'Aurangabad');
+	INSERT INTO doctor_1 VALUES (8, 'Dr. Pawar', 'Kolhapur');
+	INSERT INTO doctor_1 VALUES (9, 'Dr. Jadhav', 'Pune');
+	INSERT INTO doctor_1 VALUES (10, 'Dr. Gupta', 'Mumbai');
+
+	# Patient table creation queries
+	case 1: 
+	create table Patient(opdno number primary key,pat_name varchar(90),
+	addr varchar(200) not null,disease varchar(100));
+	
+	case 2: 
+	create table Patient(opdno number constraint opdnoPk primary key,pat_name varchar(90),
+    addr varchar(200) constraint addrNL not null,disease varchar(100));
+	
+	case 3: 
+	create table Patient(opdno number ,pat_name varchar(90),
+	addr varchar(200) not null,disease varchar(100),
+	constraint opdnoPk primary key(opdnoPk));
+	
+	INSERT INTO Patient VALUES (101, 'Amit', 'Pune', 'Asthma');
+	INSERT INTO Patient VALUES (102, 'Sneha', 'Mumbai', 'Diabetes');
+	INSERT INTO Patient VALUES (103, 'Ravi', 'Nagpur', 'Fever');
+	INSERT INTO Patient VALUES (104, 'Kiran', 'Pune', 'Asthma');
+	INSERT INTO Patient VALUES (105, 'Meena', 'Delhi', 'Cold');
+	INSERT INTO Patient VALUES (106, 'Rohit', 'Nashik', 'Cough');
+	INSERT INTO Patient VALUES (107, 'Priya', 'Aurangabad', 'Diabetes');
+	INSERT INTO Patient VALUES (108, 'Vikas', 'Kolhapur', 'Fever');
+	INSERT INTO Patient VALUES (109, 'Sonal', 'Pune', 'Asthma');
+	INSERT INTO Patient VALUES (110, 'Nilesh', 'Mumbai', 'Cold');
+		
+		
+	# Doctor_Patient table creation queries
+	
+	case 1: 
+	create table Doctor_Patient(dno number references Doctor(dno),
+	opdno number references Patient(opdno));
+	
+	case 2: 
+	create table Doctor_Patient(dno number constraint dnoFK references Doctor(dno),
+	opdno number constraint opdnoFK references Patient(opdno));	
+	
+	case 3: 
+	create table Doctor_Patient(dno number,opdno number,
+	constraint dnoFK_1 foreign key(dno) references Doctor(dno),
+	constraint opdnoFK_1 foreign key(opdno) references Patient(opdno));
+	
+	INSERT INTO Doctor_Patient VALUES (1, 101);
+	INSERT INTO Doctor_Patient VALUES (1, 104);
+	INSERT INTO Doctor_Patient VALUES (1, 109);
+	INSERT INTO Doctor_Patient VALUES (2, 102);
+	INSERT INTO Doctor_Patient VALUES (3, 103);
+	INSERT INTO Doctor_Patient VALUES (4, 105);
+	INSERT INTO Doctor_Patient VALUES (5, 106);
+	INSERT INTO Doctor_Patient VALUES (6, 107);
+	INSERT INTO Doctor_Patient VALUES (7, 108);
+	INSERT INTO Doctor_Patient VALUES (8, 110);
+
+Q. Find the names of patienets who are treated by 'Dr.Apte'?
+select p.pat_name,d.dname from Patient p inner join doctor_patient dp on p.opdno=dp.opdno 
+inner join doctor d on dp.dno=d.dno where d.dname='Dr. Apte'
+
+Q. Display doctor wise details of patient?
+select p.pat_name,d.dname from Patient p inner join doctor_patient dp on p.opdno=dp.opdno 
+inner join doctor d on dp.dno=d.dno order by d.dname
+
+Q. Count the number of patients suffering from 'Asthma'?
+select count(pat_name),disease from patient where disease='Asthma' group by disease
+
+Q. Find the name of doctors who are treating the 'Diabetics' patient?
+select d.dname,p.disease from Patient p inner join doctor_patient dp on p.opdno=dp.opdno 
+inner join doctor d on dp.dno=d.dno where p.disease='Diabetes'
+	
+----------------------------------------------------
+9. Considet the following Entities and Relationships
+   Machine(mno,mname,mtype,mcost)
+   Part(pno,pname,pdesc)
+   Machine and parts are related with one to many relationship
+   Constraint : primary key,Machine name not be null.
+==> 
+	Here 2 entities Machin and Part 
+	Relation between Machine and parts is one to many 
+	Machine is parent table and Parts is child table 
+	
+	# Machine table creation queries
+	case 1: 
+	create table Machine(mno number primary key,
+	mname varchar(90) not null,mtype varchar(90),mcost varchar(90));
+	
+	case 2: 
+	create table Machine(mno number constraint mnoPk primary key,
+	mname varchar(90) not null,mtype varchar(90),mcost varchar(90));
+	
+	case 3: 
+	create table Machine(mno number,
+	mname varchar(90) not null,mtype varchar(90),mcost varchar(90),
+	constraint mnoPk primary key(mno));
+	
+	INSERT INTO Machine VALUES (1, 'Lathe', 'Manual', 45000);
+	INSERT INTO Machine VALUES (2, 'CNC', 'Automatic', 65000);
+	INSERT INTO Machine VALUES (3, 'Drill', 'Manual', 25000);
+	INSERT INTO Machine VALUES (4, 'Milling', 'Semi-Auto', 52000);
+	INSERT INTO Machine VALUES (5, 'Press', 'Hydraulic', 80000);
+	INSERT INTO Machine VALUES (6, 'Grinder', 'Manual', 30000);
+	INSERT INTO Machine VALUES (7, 'Cutter', 'Semi-Auto', 40000);
+	INSERT INTO Machine VALUES (8, 'Welder', 'Electric', 60000);
+	INSERT INTO Machine VALUES (9, 'Saw', 'Manual', 15000);
+	INSERT INTO Machine VALUES (10, 'Polisher', 'Electric', 55000);
+
+	# Parts table creation queries
+	case 1: 
+	create table Part(pno number primary key,
+	pname varchar(90),pdesc varchar(90),mno number references Machine(mno));
+	
+	case 2: 
+	create table Part(pno number constraint pnoPK primary key,
+	pname varchar(90),pdesc varchar(90),
+	mno number constraint mnoFK references Machine(mno));
+	
+	case 3: 
+	create table Part(pno number,
+	pname varchar(90),pdesc varchar(90),mno number,
+	constraint pnoPK_1 primary key(pno),
+	constraint mnoFK_1 foreign key(mno) references Machine(mno));
+	
+	INSERT INTO Part VALUES (101, 'Wheel', 'Main rotary wheel', 1);
+	INSERT INTO Part VALUES (102, 'Spindle', 'Rotating part', 2);
+	INSERT INTO Part VALUES (103, 'Chuck', 'Holding device', 1);
+	INSERT INTO Part VALUES (104, 'Drill Bit', 'Drilling tip', 3);
+	INSERT INTO Part VALUES (105, 'Motor', 'Main drive unit', 2);
+	INSERT INTO Part VALUES (106, 'Handle', 'Manual grip', 6);
+	INSERT INTO Part VALUES (107, 'Blade', 'Cutting edge', 7);
+	INSERT INTO Part VALUES (108, 'Gear', 'Transmission part', 5);
+	INSERT INTO Part VALUES (109, 'Pedal', 'Foot control', 8);
+	INSERT INTO Part VALUES (110, 'Wheel', 'Balancing part', 10);
+
+Q. List all machines having cost>5000?
+select mname,mtype,mcost from machine where mcost>5000
+
+Q. Display machine wise part details?
+select m.mname,p.pname from machine m inner join part p on m.mno=p.mno order by m.mname
+
+Q. find the name of machine having maximum cost?
+select mname,mcost from machine where mcost=(select max(mcost) from machine)
+
+Q. Display the name of all machines having part 'wheel'?
+select m.mname,p.pname from machine m inner join part p on m.mno=p.mno where p.pname='Wheel'
+
+Q. Increase the cost of machine by 10%?
+update machine set mcost=mcost+(mcost*10/100)
+
+Q. Display the machine names whose cost is between 50k and 70K?
+select mname,mcost from machine where mcost between 50000 and 70000
+
+Q. List all the part of 'CNC' machine?
+select m.mname,p.pname from machine m inner join part p on m.mno=p.mno where m.mname='CNC'
+
+Q. Delete the record from part table whose part name is wheel?	
+delete from part where pname='Wheel';
+----------------------------------------------------
+10. Conside the following Entities and Relationships
+	Politician(pno,pname,pdesc)
+	Party(party_code,party_name)
+	Politician and party are related with many to one 
+	Constraint: Primary key,foreign key,Party_name not null
+==> 
+	Here 2 Entities Politician and Party 
+	Relation between Politician and Party is many to one 
+	Party is parent table and Politician is child table 
+	
+	# Party table creation queries
+	case 1: 
+	create table Party(party_code number primary key,party_name varchar(90) not null);
+	
+	case 2: 
+	create table Party(party_code number constriant party_codePk primary key,party_name varchar(90) not null);
+	
+	case 3: 
+	create table Party(party_code number,party_name varchar(90) not null,
+	constraint party_codePk primary key(party_code));
+	
+	INSERT INTO Party VALUES (101, 'BJP');
+	INSERT INTO Party VALUES (102, 'INC');
+	INSERT INTO Party VALUES (103, 'NCP');
+	INSERT INTO Party VALUES (104, 'AAP');
+	INSERT INTO Party VALUES (105, 'ShivSena');
+	INSERT INTO Party VALUES (106, 'MNS');
+	INSERT INTO Party VALUES (107, 'CPI');
+	INSERT INTO Party VALUES (108, 'BSP');
+	INSERT INTO Party VALUES (109, 'TMC');
+	INSERT INTO Party VALUES (110, 'JD(U)');
+
+	# Politician table creation queries
+	case 1: 
+	create table Politician(pno number,pname varchar(90),pdesc varchar(200),
+	party_code number references Party(party_code));
+	
+	case 2: 
+	create table Politician(pno number,pname varchar(90),pdesc varchar(200),
+	party_code number constraint party_codeFK references Party(party_code));
+	
+	case 3: 
+	create table Politician(pno number,pname varchar(90),pdesc varchar(200),
+	party_code number,constraint party_codeFK foreign key(party_code) references Party(party_code));
+	
+	INSERT INTO Politician VALUES (1, 'Modi', 'PM', 101);
+	INSERT INTO Politician VALUES (2, 'Rahul', 'MP', 102);
+	INSERT INTO Politician VALUES (3, 'Sharad', 'AP', 103);
+	INSERT INTO Politician VALUES (4, 'Kejriwal', 'CM', 104);
+	INSERT INTO Politician VALUES (5, 'Uddhav', 'AP', 105);
+	INSERT INTO Politician VALUES (6, 'Raj', 'AP', 106);
+	INSERT INTO Politician VALUES (7, 'Sitaram', 'AP', 107);
+	INSERT INTO Politician VALUES (8, 'Mayawati', 'AP', 108);
+	INSERT INTO Politician VALUES (9, 'Mamata', 'CM', 109);
+	INSERT INTO Politician VALUES (10, 'Nitish', 'CM', 110);
+
+Q. Display party wise politician details?
+select p.pname,p.pdesc,p.party_code,pp.party_name from politician p inner join party pp on p.party_code=pp.party_code order by party_name
+
+Q. Display details of all politician of party 'BJP'?
+select p.pname,pp.party_name from politician p inner join party pp on p.party_code=pp.party_code where pp.party_name='BJP'
+
+Q. Count the total number of politiicans for each party?
+select count(p.pname),party_name from politician p inner join party pp on p.party_code=pp.party_code group by party_name
+
+Q. Count the number of politicians having political description as 'AP'?
+select count(p.pname),p.pdesc from politician p inner join party pp on p.party_code=pp.party_code where p.pdesc='AP' group by p.pdesc
+----------------------------------------------------

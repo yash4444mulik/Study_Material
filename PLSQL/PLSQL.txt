@@ -1,0 +1,544 @@
+============== PLSQL =================
+
+Q.. What is Trigger?
+==> Trigger is stored procedure in Oracle that automatically executed or fired
+	when a specific event occur on a table,view or database.
+----------------------------------------
+Q.. What is mean by stored procedure?
+==> - When we execute SQL query then internally 
+      SQL query get Parsed=>Compiled=>Executed
+	- IF we execute same query multiple time then every time 
+	  query get Parsed,Compiled and executed.
+	- Stored procedure means precompiled and stored SQL program inside the database
+	  can be executed repeatedly.
+----------------------------------------
+Q.. Usage or Purpose of Trigger?
+==> It is used for 
+	1. Data Validation.
+	2. Enforcing business rules.
+	3. Auding changes or deriving values.
+----------------------------------------
+Q.. Types of trigger?
+==> Triggers are classified based on Event Type,Timing,Scope(level)
+	
+	A) Based on Event Type: 
+		1. DML Trigger
+			The trigger which fired on DML operation is called DML Trigger 
+			DML operations are INSERT,UPDATE,DELETE.
+		
+		2. DDL Trigger: 
+			The trigger which fired on DDL operation is called DDL Trigger 
+			DDL operations are CREATE,ALTER,DROP
+		
+		3. Database event trigger or System event triggers
+			The trigger which perform on database event is called database event trigger 
+			for e.g => LOGON,LOGOFF,STARTUP,SHUTDOWN.
+			
+	B) Based on Timing
+		1. Before Trigger: fires before the DML event 
+		2. After Trigger: fires after the DML event 
+		
+	C) Based on Scope(level)
+		1. Statement level trigger- Fire once per statement 
+		2. Row level trigger - fire once per row affected 
+		
+	D) Other Special types Not seperate categories 
+		1. Instead of trigger 
+			It is special type of trigger 
+			It is applicable only for views 
+			Used when view are not directly updatable 
+			
+		2. Compound Trigger 
+			It is special case of row/statement trigger 
+			combines all four timing points 
+			BEFORE ROW 
+			AFTER ROW 
+			BEFORE STATEMENT
+			AFTER STATEMENT
+----------------------------------------
+Q.. Syntax of DML Trigger?
+==> CREATE OR REPLACE TRIGGER Trigger_name 
+	{BEFORE | AFTER | INSTEAD OF}
+	{INSERT | UPDATE | DELETE }
+	ON table_name_or_view_name 
+	[FOR EACH ROW]
+	[WHEN (condition)]
+	DECLARE 
+		-- optional : variable declartion
+	BEGIN
+		-- trigger logic 
+	EXCEPTION
+		-- optional: error handling 
+	END;
+	/
+	
+	
+	here 
+		1. FOR EACH ROW : 
+			- it is optional part 
+			- FOR EACH ROW means it is row-level trigger 
+			- FOR EACH ROW means trigger will execute once for each row affected by the DML statement 
+			- If we don't use FOR EACH ROW then trigger become statement level trigger 
+			- statement level trigger fire once no matter how many rows affected
+			
+		2. DECLARE
+			- it is used to declare the variable,constant and cursor declartion.
+			
+		3. BEGIN ... END
+			- BEGIN section is mandatory and it is called as trigger body 
+			- it is executable part 
+			- it contains executable logic for the trigger 
+			- every BEGIN block must be end with "END"
+			- We can write multiple BEGIN and END block for one trigger 
+			
+		4. EXCEPTION
+			- EXCEPTION is used to write error handling code 
+			- It is optional block but recommended 
+			
+		/ => it is end of CREATE TRIGGER BLOCK
+------------------------------------	
+Q.. Which statement are allowed in trigger body?
+==> allowed statements are INSERT,UPDATE,DELETE,SELECT
+------------------------------------	
+Q.. Which statements are not allowed in trigger body?
+==> CREATE,DROP,ALTER,COMMIT,ROLLBACK
+------------------------------------
+Q.. Consider Employee table when a row is inserted into Employee table 
+	then insert a record into audit_log table.
+==> CREATE trigger employee_tgr 
+	After INSERT on employee 
+	FOR EACH ROW 
+	Begin
+		INSERT INTO audit_log(LOG_ID,MSG,INSERT_DATE,USER_NAME) values(audit_log_sequence.nextval,'data added',sysdate,'yash');
+	END 
+	/
+------------------------------------
+Q.. Can we write TCL(COMMIT,ROLLBACK,SAVEPOINT) statement in trigger body?
+==> If we write TCL statements in trigger,trigger is created,we don't get any error 
+	but at the time of execution it give an error
+	so,final conslusion is TCL statements are not allowed in the trigger body.
+------------------------------------
+Q.. If trigger body insert data into table,how will that data get committed if
+	COMMIT is not allowed in Trigger?
+==> The COMMIT is done by session that fired the trigger not by trigger	
+------------------------------------
+Q.. If trigger body is performing DML operation,how will that data get committed 
+	if COMMIT is not allowed in Tigger?
+==> The COMMIT is done by the session that fired the trigger not by trigger 	
+------------------------------------
+Q.. Write trigger which does not allow salary decrease?
+==>CREATE OR REPLACE TRIGGER salary_tgr
+	BEFORE UPDATE on emp11
+	FOR EACH ROW 
+	BEGIN
+		IF :OLD.salary>:NEW.salary THEN
+		RAISE_APPLICATION_ERROR(-20001,'You cannot decrease salary');
+		END IF;
+	END;
+	/
+	
+	
+	here 
+		if we are using OLD and NEW keyword inside BEGIN block then we need to use : 
+		otherwise we will get an error 
+		
+		
+	CREATE TRIGGER salary_tgr
+	BEFORE UPDATE on emp11
+	WHEN(NEW.salary<OLD.salary)
+	BEGIN	
+		RAISE_APPLICATION_ERROR(-20001,'You cannot decrease salary');
+	END;
+	/		
+------------------------------------
+Q.. What is RAISE_APPLICATION_ERROR in oracle?
+==> - RAISE_APPLICATION_ERROR is build in procedure
+	- it is used to generate custom error message in PLSQL
+	- we can use this procedure in trigger,procedure or function
+	- This is useful when you want to enforce business rule or 
+	  inform users of specific problem 
+	- Syntax:
+		RAISE_APPLICATION_ERROR(error_number,message [,{true | false}]);
+	- It accept 3 input arguments first input argument is error number,
+	  second input argument is error message,third argument is True or False value.
+	
+	1. error_number: A negative integer between -20000 to -20999 used as the error code.
+	
+	2. message: A string message explaining the error (max 2048 character)
+	
+	3. TRUE | FALSE: It is optional.TRUE propogate the error to the client
+	   FALSE log it but does not propogate it.
+------------------------------------
+Q.. What is PL/SQL block?
+==> It is structured way of writing Pl/SQL code 
+	It consist of three sections: the declartion section,
+	executable section and the exception handling section
+	
+	- Syntax: 
+		DECLARE
+			-- declare the variable // this is optional 
+		BEGIN
+			--executable section 
+			-- it is mandatory section 
+		EXCEPTION
+			--Error/EXCEPTION handling section
+			-- it is optional 
+		END;
+------------------------------------
+Q.. Types of PL/SQL block?
+==> PL/SQL block can be IMPLICIT or EXPLICIT 
+	Implicit means created by oracle 
+	explicit means create by developer 
+	Explicit block can be anonymous block or named block 
+	
+	1. Implicit: 
+		- Automatically created by oracle engine
+		- we cannot see these blocks 
+		- example: 
+			1. Each SQL statement run in an implicit PL/SQL block 
+			2. Exception like no_data_found are raised automatically
+			
+	2. Explicit: 
+		- Block written by developer is called explicit block 
+		- Developer can control the structure 
+		- Explicit block are 2 types 
+			1. Anonymous block 
+			2. Named block 
+			
+			1. Anonymous block: 
+				- block without name is called Anonymous block
+				=> Properties 
+					- it is nameless 
+					- Anonymous block is not stored in the database 
+					- It is used for quick testing 
+					- Execute immediately 
+					- cannot be called again 
+				=> Structure 
+					DECLARE
+						-variable declaration 
+					BEGIN
+						--executable statement 
+					EXCEPTION
+						--optional 
+						--exception handlers 
+					END;
+			
+			2. Named block : 
+				- The block which has name is called Named block 
+				=> properties 
+					- named block is stored in the database 
+					- it can be reused 
+				=> Types of named block 
+					1. Procedures 
+					2. Function
+					3. Trigger 
+					4. Packages 
+------------------------------------
+Q.. Nesting of PL/SQL block?
+==> Nesting of block in PL/SQL means placing on block inside another 
+	
+	=> Example: 
+		DECLARE 
+		-- variable declaration for outer block 
+		BEGIN
+		-- outer block BEGIN
+			DECLARE 
+			-- inner block declare section 
+			BEGIN
+			-- inner block begin section
+			END;--end of inner block 
+		END;--end of outer block 
+		
+	- Block statements are executed from top to bottom.
+	- Inner block can have its own DECLARE section 
+	- Variables in inner block are local to that block 
+	- Outer block variable can be used in inner block but 
+	  inner block variable can't be used in outer block 
+	- Same variable we can declare in inner block 
+	
+------------------------------------
+Q.. Write PL/SQL Block to print 'Good Morning' message on console?
+==> 
+	BEGIN
+		DBMS_OUTPUT.PUT_LINE('Good Morning');
+	END;
+	/
+------------------------------------
+Q.. Write PL/SQL block to display user name along with Greet message ('Good Morning)?
+==>	
+	DECLARE
+	v_user_name;
+	BEGIN
+	select user into v_user_name from dual;
+	DBMS_OUTPUT.PUT_LINE('Good Morning' || v_user_name);
+	END;
+	/
+------------------------------------
+Q.. Write PL/SQL block to display today's date 
+==> 
+	DECLARE
+	v_date date;
+	BEGIN
+	select sysdate into v_date from dual;
+	DBMS_OUTPUT.PUT_LINE('today date is ' || v_date);
+	END;
+	/
+------------------------------------
+Q.. Write PL/SQL block to display date in format 'DD-MON-YYYY'?
+==> 
+	DECLARE
+	v_date varchar(90);
+	BEGIN
+	select to_char(sysdate,'DD-MON-YYYY') into v_date from dual;
+	DBMS_OUTPUT.PUT_LINE(v_date);
+	END;
+	/
+------------------------------------
+Q.. Write PL/SQL block to display name of Employee whose emp_id is 101?
+==>  
+	DECLARE
+	v_name varchar(90);
+	BEGIN
+	select emp_name into v_name from emp11 where emp_id=101;
+	DBMS_OUTPUT.PUT_LINE(v_name);
+	END;
+	/
+------------------------------------
+Q.. Write PL/SQL program to display emp_name and dept_id of Employee whose emp_id is 101?
+==> 
+	DECLARE
+	v_name varchar(90);
+	v_dept_id varchar(90);
+	BEGIN
+	select emp_name,dept_id into v_name,v_dept_id from emp11 where emp_id=101;
+	DBMS_OUTPUT.PUT_LINE(v_name ||' '|| v_dept_id);
+	END;
+	/
+------------------------------------
+Q.. Write PL/SQL program to display all details of Employee whose emp_id is 101;
+==> 
+	DECLARE
+	v_emp_id number;
+	v_emp_name varchar(90);
+	v_dept_id number;
+	v_salary number;
+	v_manager_id number;
+	v_hire_date date;
+	v_gender varchar(90);
+	BEGIN
+	select EMP_ID,EMP_NAME,DEPT_ID,SALARY,MANAGER_ID,HIRE_DATE,GENDER 
+	into v_emp_id,v_emp_name,v_dept_id,v_salary,v_manager_id,v_hire_date,v_gender 
+	from emp11 where emp_id=101;
+	DBMS_OUTPUT.PUT_LINE('employee details as below');
+	DBMS_OUTPUT.PUT_LINE(v_emp_id || ' ' ||v_emp_name 
+	|| ' ' || v_dept_id || ' ' ||v_salary|| ' ' ||v_manager_id
+	|| ' ' ||v_hire_date|| ' ' ||v_gender );
+	END;
+	/
+------------------------------------
+Q.. What is mean by variable?
+==> Variables are placeholder which hold value temporary the execution of PL/SQL block.
+------------------------------------
+Q.. Where do we declare variable?
+==> A variable must be declare inside the DECLARE section of PL/SQL block.
+	Syntax: 
+		variable_name data_type [not null] [:=initial_value]
+	
+	not null => means variable not hold null value at any time 
+	
+	RULE FOR NAMING PL/SQL VARIABLE: 
+	1. If you declare variable with NOT NULL,you must initilize variable at the time 
+	   of declaration,otherwise we will get an error 
+	2. If you delcare variable with NOT NULL and later you assign value to variable then 
+	   oracle engine raise an exception.
+	3. Variable name can be combination of uppercase character,lowercase character,digit
+	   and special symbols underscore(_),doller($),hashtag(#).
+	4. Variable name must be start with letter.
+	5. Variable name should not be start with number or special symbol.
+	6. Keywords are not allowed for variable name.
+	7. Blank space is not allowed in variable name.
+	8. maximum length of variable is 30 character
+	9. Variable names are not case sensitive
+------------------------------------
+Q.. Initilization of Variable?
+==> Initilization means assigning value to variable
+	- we can Initilize variable using 2 ways
+		1. using assignment operator (:=)
+		2. using DEFAULT keyword
+	- we can Initilize variable at the time of declaration or after the declaration. 
+	- If we declare variable then we can Initilize only in BEGIN section 
+	  otherwise we will get an error 
+	- If we want to initilize variable after the declartion inside the BEGIN section 
+	  then we need to use (:=) operator,if we use DEFAULT then we will get an error.
+------------------------------------
+Q.. Is NOT NULL is constraint?
+==> In PL/SQL variables,NOT NULL is not a constraint,but a variable attribute.
+	- It behave like a constraint,but it is not a database constraint.
+------------------------------------
+Q.. If we don't initilize variable then what is its default value?
+==> default value of variable is null.
+------------------------------------
+Q.. What happen if we declare variable twice in same block?
+==> - if we declare variable twice and not Initilize it then we don't get any error 
+	- if we declare variable twice and Initilize it then we will get an error.
+------------------------------------
+Q.. Can we access outer block variable inside inner block?
+==> Yes we can access 
+------------------------------------
+Q.. Can we access Inner block variable inside outer block?
+==> No 
+------------------------------------
+Q.. When is a variable created in PL/SQL?
+==> Variable created At the time of block execution.
+------------------------------------
+Q.. When is a variable destroyed in PL/SQL?
+==> Ones block execution is completed then a variable destroyed from the memory.
+------------------------------------
+Q.. What is data type in PL/SQL?
+==> which type of value store in variable is nothing but data type.
+------------------------------------
+Q.. Type of data type in PL/SQL?
+==> 1. Scalar data type 
+	2. Composite data type 
+	3. Reference data type 
+	4. LOB data type 
+------------------------------------
+Q.. Scalar data type?
+==> - The data type which store single value at a time is called scalar data type.
+	- Scalar data type is divided into different types 
+		1. Numeric 
+			- Number
+			- PLS_Integer 
+			- binary_float 
+			- binary_double 
+			
+		2. Character
+			- CHAR 
+			- NCHAR 
+			- VARCHAR2 
+			- NVARCHAR2
+			
+		3. Date & Time 
+			- DATE 
+			- TIMESTAMP
+			
+		4. Boolean
+			- BOOLEAN 
+------------------------------------
+Q.. NUMERIC 
+==> 1. NUMBER:
+	- It is used to store exact numeric value,including integer and fractional numbers.
+	- Syntax:
+		NUMBER(p,s)
+		p:P stand for Precision.Precision means Total number of digit.
+		s:S stand for Scale.Scale means Digits after decimal point 
+	- Range of Precision is 1 to 38 and Range of scale is -84 to +127
+	
+	2. PLS_Integer
+	- It is PL/SQL specific scale numeric data type.
+	- It store only scalar values.
+	- If we assign decimal value then we will not getting any error.it will ignore 
+	  decimal part and consider only integer.
+	- It is fastest integer data tyep than number,binary_double,binary_float 
+	  because it perform arithmatic using CPU-level operation
+	- Its size 4 byte (32bit)
+	- Range -2,147,483,648 to +2,147,483,647
+	- If value exceed then we will get an error "numeric overflow"
+	
+	=> Where to use PLS_Integer
+		1. Loop counters 
+		2. Array Indexes 
+		3. High performance numeric calculations 
+		
+	3. Binary_Float
+	- It is 32 bit(4 byte),single precision floating point numeric data type.
+	- 32 bit means it store 32 bit floating point number.
+	- It store approximate numeric values 
+	- It store approximately 6-7 decimal digit.
+	- It is fater than Number.
+	- It is designed for high performance and scientific calculations, not exact precision.
+	- It follows IEEE 754 single-precision floating point format.
+	- Range 
+		minimum positive value=> 1.175*10^-38
+		maximum positive value=> 3.402*10^38
+		
+		
+	4. Binary_Double
+	- It is 64 bit (8-byte),double precision floating point numeric data type.
+	- 64 bit (8byte) means it store 64 bit floating point number.
+	- It is used when you need high speed numeric calculations with higher precision
+	  than Binary_Float.
+	- It stores approximately 15 to 17 decimal digit 
+	- It provide more accurancy than Binary_Float
+	- It follows IEEE-754 double-precision floating point format 
+	- Range 
+		Binary_Double store extremely large value (up to 10^308) and extremely small (down to 10^-324)
+		with ~15-17 digit accurancy 
+		
+	# Performance wise Order (Fast to slow)
+		1. PLS_Integer
+		2. Binary_Float
+		3. Binary_Double
+		4. Number
+------------------------------------
+Q.. IEEE-754 standard?
+==> - Arithmatic calculations of floating point may vary from system to system 
+	- so to overcome this problem IEEE created an international standard for floating-point 
+	  arithmatic calculations and that standard is know as IEEE-754 standard 
+	- Every floating-point arithmatic calculation has to follow IEEE-754 standard 
+	  so as to get platform independent or machine independent result.
+	- IEEE stands for Institute of Electrical and Electronics Engineers.
+------------------------------------
+Q.. Character Scalar Data Type?
+==> 1. CHAR
+	- Char stand for character 
+	- it is fixed in length 
+	- maximum size of char is 32,767 bytes 
+	- default size is 1. 
+	
+	2. NCHAR
+	- NCHAR stand for National Character
+	- It is fixed length Unicode character data type in oracle.
+	- It is used to store national character set data,which supports multiple languages
+	  (like Hindi,Chinese,Arabic,etc)
+	- PL/SQL min size for NCHAR is 1
+	- SQL min size for NCHAR is 1 
+	- PL/SQL max size for NCHAR is 32676 bytes 
+	- SQL min size for NCHAR is 2000 bytes 
+	- Default size of NCHAR is 1. 
+	
+	3. VARCHAR2
+	- It is variable length character data type.
+	- Variable means memory adjusted depending on actual string length.
+	- PL/SQL max size of VARCHAR2 is 32767
+	
+	4. NVARCHAR2
+	- NVARCHAR2 is variable length unicode character data type in oracle.
+	- It store multi language string in the national character set.
+	- PL/SQL max size is 32676 character.
+	 
+------------------------------------
+Q.. COMPOSITE data type?
+==> Composite data types are used to store multiple values in a single variable 
+	1. RECORD 
+	2. TABLE 
+	3. NESTED TABLE 
+	4. VARRAY
+------------------------------------
+Q.. REFERENCE data type?
+==> REFERENCE data types are used to store memory addresss or pointers 
+	1. REF CURSOR 
+	2. CURSOR
+------------------------------------
+Q.. LOB(Large Object) Data types?
+==> LOB Data types are used to imges,files,etc.
+	1. BLOB(Binary Large Object)
+	2. CLOB(Character Large Object)
+	3. NCLOB(National Character Large Object)
+	4. BFILE(Binary File stored outside database(OS File))
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------

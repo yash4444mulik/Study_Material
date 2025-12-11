@@ -1,0 +1,161 @@
+Q. consider the following entities and Relationships
+	Student22(rollno,sname,bithdate)
+	Course1(cno,cname,course_fee,duration)
+	Student and Course are related with many to many relationships
+	Constraint: Primary key,Course fee should be > 0
+==> Here 2 entities Student22 and Course1 
+	Relation between Student22 and Course1 is many to many.
+	both table are the parent table we need to create child table.
+	we create Student_course1 as a child table 
+	
+	# Student22 table creation queries
+		CREATE TABLE Student22(rollno number,sname varchar(90),birthdate date,
+		CONSTRAINT rollnoPK1 PRIMARY KEY(rollno));
+	
+	#Student22 table insert into statement 
+	INSERT INTO Student22 VALUES (1, 'Nilesh', TO_DATE('2004-04-10', 'YYYY-MM-DD'));
+	INSERT INTO Student22 VALUES (2, 'Ramesh', TO_DATE('2003-07-15', 'YYYY-MM-DD'));
+	INSERT INTO Student22 VALUES (3, 'Sneha', TO_DATE('2005-01-25', 'YYYY-MM-DD'));
+	
+	#Course1 table creation queries
+		CREATE TABLE Course1(cno number,cname varchar(90),course_fee number,duration number,
+		CONSTRAINT cnoPK1 PRIMARY KEY(cno),
+		CONSTRAINT course_feeCK CHECK(course_fee>0));
+	
+	#Course1 table insert into statement
+	INSERT INTO Course1 VALUES (101, 'C', 5000, 3);
+	INSERT INTO Course1 VALUES (102, 'C++', 6000, 4);
+	INSERT INTO Course1 VALUES (103, 'Java', 7000, 5);
+
+	#Student_course1 table creation queries
+		CREATE TABLE Student_course1(rollno number,cno number,
+		CONSTRAINT rollnoFK22 FOREIGN KEY(rollno) REFERENCES Student(rollno),
+		CONSTRAINT cnoFK1 FOREIGN KEY(cno) REFERENCES Course1(cno));
+		
+	#Student_course1 table insert into statement
+	INSERT INTO Student_Course1 VALUES (1, 101);
+	INSERT INTO Student_Course1 VALUES (1, 102);
+	INSERT INTO Student_Course1 VALUES (2, 103);
+	INSERT INTO Student_Course1 VALUES (3, 102);
+	
+	# write queries in oracle 
+	Q1. Count the number of courses joined by 'Nilesh'?
+	select count(c.cno) from Course1 c INNER JOIN Student_course1 sc 
+	ON c.cno=sc.cno JOIN Student22 s
+	ON sc.rollno=s.rollno where sname='Nilesh'
+
+	Q2. List the name of all students who have joined for course c++?
+	select s.sname,c.cname from Student22 s JOIN Student_course1 sc
+	ON s.rollno=sc.rollno JOIN Course1 c 
+	ON sc.cno=c.cno
+	where c.cname='C++'
+
+	Q3. Display details of course having maximum fee?
+	select cname,course_fee from Course1 where course_fee=(select max(course_fee) from Course1)
+
+	Q4. List course wise student name along with course fee and duration?
+	select c.cname,s.sname,c.course_fee,duration from Course1 c JOIN Student_course1 sc
+	ON c.cno=sc.cno JOIN Student22 s 
+	ON sc.rollno=s.rollno 
+	order by cname asc
+-------------------------------------------------------------
+Q. consider the following entities and Relationships
+	Department1(dno,dname,HOD,location)
+	Project1(pno,pname,status)
+	Department and Project are related with one to many relationship
+	Constraint: Primary key,Project status: C-completed,P-Progressive,I-Incomplete
+==> Here 2 entities Department and Project 
+	Relation between Department1 and Project1 is one to many 
+	Department1 is parent table and Project1 is child table 
+	
+	# Department1 table creation query
+		CREATE TABLE Department1(dno number,dname varchar(90),
+		HOD varchar(90),location varchar(90),
+		CONSTRAINT dnoPK1 PRIMARY KEY(dno));
+		
+	# Department1 table insert into statment 
+		INSERT INTO Department1 VALUES (10, 'Computer', 'Dr. Mehta', 'Pune');
+		INSERT INTO Department1 VALUES (20, 'Mathematics', 'Dr. Patil', 'Mumbai');
+		INSERT INTO Department1 VALUES (30, 'Physics', 'Dr. Joshi', 'Nashik');
+		
+	# Project1 table creation query
+		CREATE TABLE Project1(pno number,
+		pname varchar(90),
+		status varchar(90),
+		dno number,
+		CONSTRAINT pnoPK1 PRIMARY KEY(pno),
+		CONSTRAINT statusCK1 CHECK(status IN('C','P','I')),
+		CONSTRAINT dnoFK1 FOREIGN KEY(dno) REFERENCES Department1(dno)
+		);
+	
+	
+	# Project1 table insert into statement
+		INSERT INTO Project1 VALUES (1001, 'AI Project', 'P', 10);
+		INSERT INTO Project1 VALUES (1002, 'ML System', 'C', 10);
+		INSERT INTO Project1 VALUES (1003, 'Algebra Solver', 'I', 20);
+		INSERT INTO Project1 VALUES (1004, 'Quantum Research', 'P', 30);
+
+	# write queries in oracle 
+	Q1. Find HOD of Computer Department located in 'Pune'?
+	select HOD,location from Department1 where dname='Computer' AND location='Pune'
+
+	Q2. List all project of mathematics department which are Incomplete?
+	select pname,dname,status from Department1 d JOIN 
+	Project1 p on d.dno=p.dno where status='I'
+
+	Q3. Display the project details of Computer Department?
+	select p.*,dname from Project1 p JOIN Department1 d
+	ON p.dno=d.dno where dname='Computer'
+
+	Q4. List department wise project along with status?
+	select dname,pname,status from Project1 p JOIN Department1 d
+	ON p.dno=d.dno
+-------------------------------------------------------------
+Q. consider the following entities and Relationships
+	Plant(plant_code,plant_name,plant_cost,plant_type)
+	Nutrients(ncode,n_name)
+	Plant and Nutrients are related with one to many relationship
+	Constraint: Primary key,quantity should be >0
+				Plant Type constraint: F-Flowering and NF-Non-flowering
+==> Here 2 entities Plant and Nutrients
+	Relation between Plant and Nutrients is one to many 
+	Plant is parent table and Nutrients is child table 
+	
+	# Plant table creation query
+		CREATE TABLE Plant(plant_code number,plant_name varchar(90),
+		plant_cost varchar(90),plant_type varchar(90),
+		CONSTRAINT plant_codePK PRIMARY KEY(plant_code),
+		CONSTRAINT plant_typeCK CHECK(plant_type IN('F','NF')));
+
+	# Plant table insert into statment 
+		INSERT INTO Plant VALUES (1, 'Rose', 200, 'F');
+		INSERT INTO Plant VALUES (2, 'Tulsi', 150, 'NF');
+		INSERT INTO Plant VALUES (3, 'Lily', 250, 'F');
+		
+	# Nutrients table creation query
+		CREATE TABLE Nutrients(ncode number,n_name varchar(90),plant_code number,
+		CONSTRAINT ncodePK PRIMARY KEY(ncode),
+		CONSTRAINT plant_codeFK FOREIGN KEY(plant_code) REFERENCES Plant(plant_code))
+	
+	# Nutrients table insert into statment 
+		INSERT INTO Nutrients VALUES (11, 'Urea', 1);
+		INSERT INTO Nutrients VALUES (12, 'Phosphate', 1);
+		INSERT INTO Nutrients VALUES (13, 'Urea', 2);
+		INSERT INTO Nutrients VALUES (14, 'Nitrogen', 3);
+		
+	# write queries in oracle 
+	Q1. Count the number of plants for each plant type?
+	select count(plant_code),plant_type from Plant group by plant_type
+
+	Q2. List all nutrients whose name start with 'U'?
+	select n_name from Nutrients where n_name like'U%'
+
+	Q3. List all the plants to whose nutrients 'Urea' is given?
+	select plant_name,n_name from Plant p JOIN Nutrients n
+	ON p.plant_code=n.plant_code where n_name='Urea'
+
+	Q4. Display plant wise nutrients given?
+	select plant_name,n_name from Plant p JOIN Nutrients n
+	ON p.plant_code=n.plant_code
+	order by plant_name asc
+---------------------------------------------------------
