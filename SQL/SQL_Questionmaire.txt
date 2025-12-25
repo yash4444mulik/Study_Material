@@ -348,3 +348,60 @@ Q.. What is difference between simple view and complex view?
 Q.. How to create view read only?How to prevent DML opration on simple view?
 Q.. What is CHECK option in simple view?
 Q.. What is Inline view?
+Q.. Why we create view?What are the benefits of view?
+Q.. What is Subquery?
+Q.. What are the type of subquery?
+Q.. What is single row subquery?
+Q.. What is multi-row subquery?
+Q.. What is multi-column subquery?
+Q.. What is difference between multi-row and multi-column subquery?
+Q.. What is inline view?
+Q.. What is correlated query?
+Q.. How to create table from existing table?
+Q.. How to copy structure with required data?
+Q.. How to insert data into table using old table?
+Q.. What are the single row comparison operator?
+Q.. Multi row comparison operator?
+Q.. Multi row operator 'IN'? 
+Q.. What is ALL operator?
+Q.. What is ANY operator?
+Q.. What is EXISTS operator?
+Q.. What is difference between IN and EXISTS?
+Q.. Between subquery and join which is best? Why?
+Q.. What is CASE EXPRESSION ?
+Q.. What is syntax of CASE expression?
+Q.. What is decode function in oracle?
+Q.. Limitation of Decode?
+Q.. What is difference between Case and Decode?
+Q.. What is Rollup function?
+Q.. What is CUBE function?
+Q.. What is difference between Rollup and Cube?
+Q.. What is analytical function?
+Q.. RANK() analytical function?
+Q.. Dense_rank() analytical function?
+Q.. Row_number() analytical function?
+Q.. what is aggregate analytical function?
+Q.. syntax of aggregate analytical function is 
+Q.. Precedence order for partition by,order by,window_frame_clause?
+Q.. What is default value of partition by,order by,window frame clause?
+Q.. what is mean by running value?
+Q.. What is difference between aggregate function and analytical aggregate function?
+Q.. What is mean by Transaction?
+Q.. ACID Properties?
+Q.. What is Atomicity?
+Q.. What is consistency?
+Q.. What is Isolation?
+Q.. What is Durability?
+Q.. How to check oracle version?
+Q.. What is v$version in oracle?
+Q.. How do you connect database?
+Q.. Tell me steps to connect database?
+Q.. What is mean by Temporary Table?
+Q.. What is Real Table?
+Q.. When we should go with Real table and Temporary table?
+Q.. What is mean by session?
+Q.. What is mean by session specific?
+Q.. What is mean by Transaction?
+Q.. What is mean by Transaction specific?
+Q.. Types of temporary table?
+Q.. What is difference between global temporary table and private temporary table?

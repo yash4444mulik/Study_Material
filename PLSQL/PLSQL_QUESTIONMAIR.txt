@@ -1,0 +1,34 @@
+Q.. What is Trigger?
+Q.. What is Stored Procedure?
+Q.. What is use of Trigger?
+Q.. Types of Trigger?
+Q.. What are the Event type Trigger?
+Q.. What are the Timing based trigger?
+Q.. What are the Scope based trigger?
+Q.. What is Instead of trigger?
+Q.. What is Compound trigger?
+Q.. What is syntax of DML trigger?
+Q.. Which statements are allowed in trigger body?
+Q.. Which statements are not allowed in trigger body?
+Q.. Can we write (commit,rollback,savepoint) in trigger body?
+Q.. If trigger body insert data into table,how will that data get committed if
+	COMMIT is not allowed in Trigger?
+Q.. If trigger body is performing DML operation,how will that data get committed 
+	if COMMIT is not allowed in Tigger?
+Q.. What is RAISE_APPLICATION_ERROR in oracle?
+Q.. What is PL/SQL block?
+Q.. Types of PL/SQL block?
+Q.. Nesting of PL/SQL block?
+Q.. What is mean by variable?
+Q.. Where do we declare variable?
+Q.. NOT NULL is constraint in PLSQL?
+Q.. If we don't initilize variable then what is its default value?
+Q.. What happen if we declare variable twice in same block?
+Q.. Can we access outer block variable inside inner block?
+Q.. Can we access Inner block variable inside outer block?
+Q.. When is a variable created in PL/SQL?
+Q.. When is a variable destroyed in PL/SQL?
+Q.. What is data type in PL/SQL?
+Q.. Type of data type in PL/SQL?
+Q.. What is scalar data type?
+Q.. 

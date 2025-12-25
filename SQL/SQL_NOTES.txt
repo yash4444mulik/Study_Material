@@ -1573,7 +1573,7 @@ Q.. What is ADD option in ALTER?
 Q.. If table is not empty then we want to add new column then which constraint we can apply on column?
 ==> we can apply all constraint except primary key and not null 
 ------------------------------------------
-Q.. Why primary key and not null is not allowed on new column if the table is not empty?
+Q.. Why primary key and not null constraint is not allowed on new column if the table is not empty?
 ==> if table contain some data and we try to add new column then new column value bydefault set to null 
 	and primary key column and not null column does not allowed null value thats why we can't apply 
 	primary key and not null constraint on new column if table contain some data 
@@ -1637,7 +1637,7 @@ Q.. if table is non empty then can we add primary key constraint on existing col
 ------------------------------------------
 Q.. If table is non empty can we add unique key constraint on existing column?
 ==> If table is non empty and column does not contain duplicate values then we can add unique constraint 
-	if table constain duplicate values then we can't add unique key constraint 
+	if table contain duplicate values then we can't add unique key constraint 
 ------------------------------------------
 Q.. If table is non empty can we add foreign key on existing column?
 ==> If table is non empty and we need to add foreign key on existing column 
@@ -1718,7 +1718,7 @@ Q.. Syntax to rename constraint?
 Q.. Can we change parent table name if it is refered in another table?
 ==> yes we can change parent table name.oracle engine automatically update foreign key reference in child table 
 ------------------------------------------
-Q.. Can we change parent table primary key or unique column if it is refered in child table?
+Q.. Can we change name of parent table primary key or unique column if it is refered in child table?
 ==> yes we can change primary key column.oracle engine automatically update foreign key reference 
 	in child table 
 ------------------------------------------
@@ -2098,6 +2098,22 @@ Q.. What are the limitation of sequence?
 	- we can't change start with value of sequence onces it created 
 	- we can't rollback sequence
 ------------------------------------------
+Q.. How to generate Character value like A,B,C using sequence?
+==> we can't generate character value directly but we can achieve using CHR() function.
+	- CHR() function is used to get character based on ASCII code 
+	Syntax to generate A-Z 
+		select CHR(sequence_name.nextval) from dual;
+------------------------------------------
+Q.. How to generate float number using sequence?
+==> we can't generate character value directly but we can achieve it 
+	Syntax: 
+		select sequence_name.nextval/10 from dual;
+------------------------------------------
+Q.. How to generate alpha numeric value using sequence? like emp12,emp13?
+==> we can't generate character value directly but we can achieve it 
+	Syntax:
+		select concat('emp- ',sequence_name.nextval) from dual;
+------------------------------------------
 Q.. can sequence generate duplicate values?
 ==> if sequence is properly defined then it can't generate duplicate values 
 	but we can generate duplicate values using cycle parameter and using alter the sequence
@@ -2303,7 +2319,9 @@ Q.. Non-Unique index?
 	- there is no any special syntax to create Non-Unique index. 
 ------------------------------------------
 Q.. Difference between Unique B-tree index and Non-Unique B-tree index?
-==> - If we want achive data integrity and speed up retrival operation then go with unique B-tree index.
+==> - Unique B-tree index does not allow duplicate values where as 
+	  Non-Unique B-tree index allow duplicate values 
+	- If we want achive data integrity and speed up retrival operation then go with unique B-tree index.
 	- If we want to speedup retrival opeartion but not data integrity the go with Non-unique B-tree index.
 ------------------------------------------
 Q.. Composite index?
@@ -2322,6 +2340,8 @@ Q.. Reversed key index?
 ==> - In revered key index column value will be reversed before storing.
 	- syntax to create reversed index 
 		create index index_name ON Table_name(clm1_name,clm2_name...N) reverse
+		
+		e.g if column have 12345 then in reverse index it store as 54321
 ------------------------------------------
 Q.. Invisible index?
 ==> - invisible index introduced in oracle 11G(Grid).
@@ -2340,8 +2360,24 @@ Q.. What is the purpose to make index INVISIBLE?
 Q.. Syntax to make visible index?
 ==> Alter index index_name visible;
 ------------------------------------------
+Q.. What is clustered index?
+==> - In clustered index data and index store at one place.
+	- one table have only one clustered index.
+	- Bydefault primary key considered as clustered index.
+	- In clustered index data is stored in leaf node of index.
+	- clustered index does not require additional space because data and index stored at one place 
+	- clustered index offer faster access data as compare to non-clustered index. 
+------------------------------------------
+Q.. What is non-clustered index?
+==> - Non-clustered index store data at one place and index value at another place.
+	- One table have multiple non-clustered index. 
+	- In non-clustered index data is not stored in leaf node of index. 
+	- Non-clustered index requires additional space because 
+	  data stored at one place and index stored at another place 
+	- Non-clustered index offer faster access of data 
+------------------------------------------
 Q.. What is Normalization?
-==> Breaking the larger table into smaller ones is nothing and linking them using relationship
+==> Breaking the larger table into smaller ones and linking them using relationship
 	is nothing but normalization.
 ------------------------------------------
 Q.. Why we use Normalization?
@@ -2367,8 +2403,17 @@ Q.. Rule for Second Normal Form. (foreign key)
 ==> Table must be in First Normal Form.
 	No partial dependancy
 	(Partial dependancy means non key columns are depends on part of composite key.
+		for e.g 
+			(order_id,product_id,product_name,order_date)
+			both order_id & product_id have composite primary key 
+			but in this single table order_id will repeat and product_id will repeat 
+			so this table is not in 2 NF 
+			to over come we need to do many to many relationship 
+			1. order_id,order_date 
+			2. product_id,product_name 
+			3. order_id,product_id			
 	 In second normal form we have to remove partial dependancy.
-	 No partial dependancy means non key attributes fully depends on whole key)
+	 No partial dependancy means non key column must depend on whole primary key)
 ------------------------------------------
 Q.. Rule of Third Noramal Form.(many to many foreign key)
 ==> Table must be in Second Normal Form.
@@ -2378,26 +2423,32 @@ Q.. Rule of Third Noramal Form.(many to many foreign key)
 	Non-key columns depends on another non-key columns 
 	In third normal form we have to remove this transitive dependancy
 ------------------------------------------
+Q.. Rule for BCNF?
+==> BCNF is stricter version than 3NF and BCNF is advanced version of 3NF.
+	after third normal form if some redundancy exist then apply BCNF.
+	1. Table must be in 3NF 
+	2. Every determinant is candidate key 
+	Any column or set of column which uniquely identify the record is called determinant.
+	
+	for e.g 
+		student -> course -> teacher 
+		if student have multiple course then 
+		(student,course) are candidate key 
+		but one student have multiple course then teacher name repeat for same course 
+		divide=>  student + course   and course + teacher 		
+------------------------------------------
 Q.. What is mean by super key?
-==> Any set of columns which uniquely identify the records.
-	one table can have multiple super keys 
+==> one or more columns which uniquely identify the records is called super key. 
 	for e.g mail id,mobile number etc 
 ------------------------------------------
 Q.. What is candidate key?
-==> minimal set of columns which uniquely identify the records 
+==> candidate key is minimal super key.
 	super key contains extra columns but candidate key does not contain extra columns 
 	One table can have multiple candidate key one of them become primary key 
 	
-	
-	Note: super key and candidate key are not constraints or keyword in SQL 
+	Note: all candidate keys are super key but all super keys are not candidate keys 
+		  super key and candidate key are not constraints or keyword in SQL 
 		  super key and candidate key are the therotical concept used on database design and normalization
-------------------------------------------
-Q.. Rule for BCNF?
-==> BCNF is stricter version than 3NF or BCNF is advanced version of 3NF.
-	after third normal form if some anomalies exist then apply BCNF.
-	1. Table must be in 3NF 
-	2. Every deterrminant is super key 
-	Any column or set of column which uniquely identify the record is called deterrminant.
 ------------------------------------------
 Q.. What is difference between 3NF and BCNF?
 ==> IN 3NF all non key columns fully depends on key column 
@@ -2637,7 +2688,7 @@ Q.. What is Equi join?
 ----------------------------------------------	
 Q.. What is Non-Equi join?
 ==> In Equi join we use equal to operator to compare the rows 
-	if we are using other operator like <,>,BETWEEN,LIKE then it become equi join 
+	if we are using other operator like <,>,BETWEEN,LIKE then it become non-equi join 
 ----------------------------------------------	
 Q.. null column  behavior in joins?
 ==> - in inner join null column will be ignored.
@@ -2794,7 +2845,7 @@ Q.. What is UNION?
 Q.. What is UNION ALL ?
 ==> It return all row from first select statement and all row from second select statement 
 	including duplicates.
-	- in UNION ALL sorting is not performed so it is faster then UNION ALL.
+	- in UNION ALL sorting is not performed so it is faster than UNION .
 ----------------------------------------------	
 Q.. Write sql query to display every employee 2 times?
 ==> select * from employee_detais union all select * from employee_details 
@@ -2851,7 +2902,7 @@ Q.. Which set operator not support in Mysql?
 ==> minus (Mysql use except)
 ----------------------------------------------	
 Q.. What is view?
-==> view is virtual table it is view is replica of one or more table.
+==> view is virtual table it is replica of one or more table.
 	- Type of view 
 		1. simple view 
 		2. complex view 
@@ -2916,11 +2967,17 @@ Q.. What is 'WITH CHECK OPTION' in simple view?
 	
 	- create or replace view emp_view as select empno,empname,salary from employee where salary>25000;
 		if we try to insert salary greater than 25000 it get inserted we don't get any error 
-	- if we want to force WHERE condtion to be checked while inserting updating data into view 
+	- if we want to check WHERE condtion while inserting,updating data into view 
 	  then use 'WITH CHECK OPTION'
 		
 		Create or replace view emp_view as select empno,empname,salary from employee 
 		where salary>25000 WITH CHECK OPTION;
+	- create view emp11_view as select * from emp11 where salary>25000
+	  insert into emp11_view values(116,'bapu',10,24000,109,sysdate,'M')//sucessfully executed
+	
+	- create view emp11_view1 as select * from emp11 where salary>25000 with check option
+	  insert into emp11_view1 values(118,'da',10,24000,109,sysdate,'M')//error
+	  
 ----------------------------------------------
 Q.. can we use 'WITH CHECK OPTION' and 'WITH READ ONLY' option togher on same view?
 ==> No we will get an error 
@@ -3112,9 +3169,12 @@ Q.. Single row subquery?
 	  operator then we will get an error 
 ----------------------------------------------
 Q.. Display employee details whose salary is greater than that of 101 empno?
+==> select * from employee where salary >(select salary from employee where empno=101)
 ----------------------------------------------
 Q.. Disply employee details whose salary is greater than 101 and department is 
 	same as that of Nayantara?	
+==> select * from employee where salary>(select salary from employee where empno=101) AND 
+	dept_name=(select dept_name from employee where emp_name='Nayantara')
 ----------------------------------------------
 Q.. display employee whose job is same as employee 110.
 ----------------------------------------------
@@ -3124,6 +3184,7 @@ Q.. Multi row subquery?
 	  comparison operator like IN,ANY,ALL.
 ----------------------------------------------
 Q.. Disaply employee details whose city is same as that employee whose name start with 'R'?
+==> select * from employee where city IN (select city from employee where empname like 'R%')
 ----------------------------------------------
 Q.. Multi-column subquery?
 ==> - query which return multiple columns and multiple row is called as multi-column subquery.
@@ -3132,12 +3193,14 @@ Q.. Multi-column subquery?
 ----------------------------------------------
 Q.. write a query to display all employee who belong to same department and city as employee 
 	working in mumbai.	
+==> select * from employee where (dept_name,city)IN(select dept_name,city from employee where city='Mumbai')
 ----------------------------------------------
 Q.. write a sql query to display employee details whose department id and city as same as Ajay?
+==> select * from employee where (dept_id,city) IN(select dept_id,city from employee where empname='Ajay');
 ----------------------------------------------
 Q.. write a sql query to display employee details whose designation id and city as same as Ajay?
 ----------------------------------------------
-Q.. What is difference between muli-row subquery and multi-column subquery?
+Q.. What is difference between multi-row subquery and multi-column subquery?
 ==> - multi-row subquery return multiple row with single column where as 
 	  multi-column subquery return multiple row and multiple column 
 	- multi-row subquery use comparison operator like IN,ANY,ALL where as 
@@ -3164,6 +3227,9 @@ Q..	How to copy structure of table?
 ----------------------------------------------
 Q.. How to copy structure with required data?
 ==> create table new_table_name as select query where condition;
+----------------------------------------------
+Q.. How to insert data into table using old table?
+==> insert into new_table(clm1,clm2,clm3..N) select clm1,clm2,clm3...N from old_table_name;
 ----------------------------------------------
 Q.. What are the single row comparison operator?
 ==> Single row operator compaire single value at a time 
@@ -3239,7 +3305,7 @@ Q.. Between subquery and join which is best? Why?
 ----------------------------------------------
 Q.. What is null in oracle?
 ==> - null is special type of value it is different than zero or blank.null means not present/absent 
-	- null handling is most confusing part in oracle because some operator conside null but some ignore 
+	- null handling is most confusing part in oracle because some operator consider null but some ignore 
 	
 	1. Any arithmatic operator with null
 		- select 100+null => null 
@@ -3421,6 +3487,58 @@ Q.. What is CASE EXPRESSION ?
 	  if expression and provided value is not matched then it return ELSE 
 	- ELSE is optional part if we don't provide ELSE part then bydefault it is null.
 ----------------------------------------------
+Q.. Write sql query to display empno,empname,dept_id and provide names to department for dept_id?
+----------------------------------------------
+Q.. Write sql query to display empno,empname and gender?in gender display M as male and F as Female?
+----------------------------------------------
+Q.. Write sql query to categories employee into three group based on salary
+	high if salary >30k
+	medium if salary between 20k to 30k
+	low if salary <20k
+	write query that shows the employee name,salary and salary category?
+----------------------------------------------
+Q.. write sql query to calculate total salary for male and female employee.
+    i.e Display gender wise total salary of employee 
+==> select sum(case gender when 'M' then salary end),
+	sum(case gender when 'F' then salary end) from emp11;
+----------------------------------------------
+Q.. write sql query to find total male and female employees?
+==> select sum(case when gender='M' then 1 end)as male_count,
+	sum(case when gender='F' then 1 else 0 end)as female_count from emp11
+----------------------------------------------
+Q.. write sql query to calculate total male and female salary based on department?
+==> select dept_id,sum(case when gender='M' then salary end)as male_count,
+	sum(case when gender='F' then salary end)as female_count from emp11 group by dept_id
+----------------------------------------------
+Q.. calculate department wise male and female total salary and display department where 
+	total salary of male employee is greater than female employee?
+==> select dept_id,sum(case when gender='M' then salary end)as male_count,
+	sum(case when gender='F' then salary end)as female_count from emp11 group by dept_id
+	having sum(case when gender='M' then salary end)>sum(case when gender='F' then salary end)
+----------------------------------------------
+Q.. Write a sql query to categories employee into salary level as high,medium and low,
+	count number of employee in each level 
+	high: salary >30k
+	medium:salary between 20k and 30k 
+	low : salary <20k
+==> select case(
+	when salary>30000 then 'HIGH'
+	when salary between 20000 AND 30000 then 'MEDIUM'
+	when salary<20000 then 'LOW'
+	END)as salary_level,count(*) from emp11 
+	group by case(
+	when salary>30000 then 'HIGH'
+	when salary between 20000 AND 30000 then 'MEDIUM'
+	when salary<20000 then 'LOW'
+	END)
+----------------------------------------------
+Q.. update shift column value of employee Day=>night and night=>Day?
+==> update emp11 set shift=case when shift='Day' then 'night' when shift='night' then 'Day' else shift end
+----------------------------------------------
+Q.. Update shift value for department id 10?
+==> update emp11 set shift=case when shift='Day' then 'night' when shift='night' then 'Day' else shift end
+    where department_id=10;
+----------------------------------------------
 ### **1. What is the purpose of the CASE expression in SQL?**
 
 A) To create new tables in the database
@@ -3495,6 +3613,9 @@ Q.. What is decode function in oracle?
 	for decode 3 input argument compulsary required 
 	1.expression 2. search 3. result otherwise we will get an error 
 ----------------------------------------------
+Q.. Write sql query to display department with user defined name 
+	e.g 10=>'mech' 20=>'elec' 30=>'pharma' 40=>'doctor'
+----------------------------------------------
 Q.. write sql query to display empname,empno,gender,gender_desc in gender_desc M=>Male F=>Female?
 ----------------------------------------------
 Q.. write sql query to categorizes employees into three groups based on their salary 
@@ -3532,6 +3653,28 @@ Q.. What is Rollup function?
 		-> Grant Total 
 		-> Null column represent grant total 
 		-> If we have n columns in Rollup we have n+1 combinations 
+		
+	single column: rollup(column1)
+	Execution steps
+		1. Grouping(column1)
+		2. Subtotal(column1)
+		3. Grandtotal()
+		
+	two columns: rollup(column1,column2)
+	Execution steps
+		1. Grouping(column1,column2)
+		2. Subtotal(column1)
+		3. Grandtotal()
+		
+	Three columns: rollup(column1,column2,column3)
+	Execution steps
+		1. Grouping(column1,column2,column3)
+		2. Subtotal(column1,column2)
+		3. Subtotal(column1)
+		4. Grandtotal()
+----------------------------------------------
+Q.. find sub total and grand total of salary based on dept_id and job_id?
+==> select sum(salary),dept_id,job_id from emp11 group by rollup(dept_id,job_id);
 ----------------------------------------------
 Q.. What is CUBE function?
 ==> CUBE is extention of group by clause. 
@@ -3546,6 +3689,29 @@ Q.. What is CUBE function?
 		-> sub Total 
 		-> Grant Total
 		-> If we have N columns in CUBE we have N^2 combinations 
+		
+	single column:CUBE(column1)
+		1. Grouping(column1)
+		2. Subtotal(column1)
+		3. Grandtotal()
+		
+	Two column(column1,column2)
+		1. Grouping(column1,column2)
+		2. subtotal(column1,column2)
+		3. subtotal(column1)
+		4. subtotal(column2)
+		5. Grandtotal()
+		
+	Three column(column1,column2,column3)
+		1. Grouping(column1,column2,column3)
+		2. subtotal(column1,column2,column3)
+		3. subtotal(column1,column2)
+		4. subtotal(column1)
+		5. subtotal(column2)
+		6. subtotal(column3)
+		7. subtotal(column1,column3)
+		8. subtotal(column2,column3)
+		9. Grandtotal()
 ----------------------------------------------
 Q.. What is difference between Rollup and Cube?
 ==> - Rollup generate subtotal and grant total in heirarchical manner where as 
@@ -3698,7 +3864,7 @@ Q.. What is difference between Rank() and dense_rank()?
 	dense_rank() is use to rank row but they doesn’t tie if there is subsequent 
 ----------------------------------------------
 Q.. Row_number() analytical function?
-==> It assing rank to row but it assign unique number to row 
+==> It assing rank to row but it assign unique number to row even there is tie in column
 	- it does not accept any input argument 
 ----------------------------------------------
 Q.. Write sql query to disply highest salary employee details like empno,empname?
@@ -3739,7 +3905,7 @@ Q.. what is aggregate analytical function?
 	- partition by => used to divide data into subset 
 	- order by => used to sort data 
 	- window_frame_clause => to specify row range 
-	- we can specify single partition by or order by clause but we can't specify window_frame_clause
+	- we can specify seperately partition by or order by clause but we can't specify window_frame_clause
 	- window_frame_clause always come with order by clause.
 ----------------------------------------------
 Q.. Precedence order for partition by,order by,window_frame_clause?

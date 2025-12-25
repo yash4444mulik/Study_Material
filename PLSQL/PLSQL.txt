@@ -9,7 +9,7 @@ Q.. What is mean by stored procedure?
       SQL query get Parsed=>Compiled=>Executed
 	- IF we execute same query multiple time then every time 
 	  query get Parsed,Compiled and executed.
-	- Stored procedure means precompiled and stored SQL program inside the database
+	- Stored procedure means A precompiled and stored SQL program inside the database
 	  can be executed repeatedly.
 ----------------------------------------
 Q.. Usage or Purpose of Trigger?
@@ -57,9 +57,9 @@ Q.. Types of trigger?
 			AFTER STATEMENT
 ----------------------------------------
 Q.. Syntax of DML Trigger?
-==> CREATE OR REPLACE TRIGGER Trigger_name 
+==> CREATE [OR REPLACE] TRIGGER Trigger_name 
 	{BEFORE | AFTER | INSTEAD OF}
-	{INSERT | UPDATE | DELETE }
+	{INSERT | UPDATE [OF clm1,clm3...N] | DELETE }
 	ON table_name_or_view_name 
 	[FOR EACH ROW]
 	[WHEN (condition)]
@@ -74,6 +74,14 @@ Q.. Syntax of DML Trigger?
 	
 	
 	here 
+		The portion mentioned in [] is optional part 
+		so in above syntax: 
+			OR REPLACE
+			OF clm1,clm2
+			FOR EACH ROW 
+			WHEN(condition)
+		are the optional parameter.
+		
 		1. FOR EACH ROW : 
 			- it is optional part 
 			- FOR EACH ROW means it is row-level trigger 
@@ -120,11 +128,11 @@ Q.. Can we write TCL(COMMIT,ROLLBACK,SAVEPOINT) statement in trigger body?
 ------------------------------------
 Q.. If trigger body insert data into table,how will that data get committed if
 	COMMIT is not allowed in Trigger?
-==> The COMMIT is done by session that fired the trigger not by trigger	
+==> The COMMIT operation is done by session that fired the trigger not by trigger itself
 ------------------------------------
 Q.. If trigger body is performing DML operation,how will that data get committed 
 	if COMMIT is not allowed in Tigger?
-==> The COMMIT is done by the session that fired the trigger not by trigger 	
+==> The COMMIT operation is done by the session that fired the trigger not by trigger itself	
 ------------------------------------
 Q.. Write trigger which does not allow salary decrease?
 ==>CREATE OR REPLACE TRIGGER salary_tgr
@@ -171,14 +179,14 @@ Q.. What is RAISE_APPLICATION_ERROR in oracle?
 ------------------------------------
 Q.. What is PL/SQL block?
 ==> It is structured way of writing Pl/SQL code 
-	It consist of three sections: the declartion section,
+	It consist of three sections: declartion section,
 	executable section and the exception handling section
 	
 	- Syntax: 
 		DECLARE
 			-- declare the variable // this is optional 
 		BEGIN
-			--executable section 
+			-- executable section 
 			-- it is mandatory section 
 		EXCEPTION
 			--Error/EXCEPTION handling section
@@ -188,7 +196,7 @@ Q.. What is PL/SQL block?
 Q.. Types of PL/SQL block?
 ==> PL/SQL block can be IMPLICIT or EXPLICIT 
 	Implicit means created by oracle 
-	explicit means create by developer 
+	Explicit means create by developer 
 	Explicit block can be anonymous block or named block 
 	
 	1. Implicit: 
@@ -231,11 +239,11 @@ Q.. Types of PL/SQL block?
 				=> Types of named block 
 					1. Procedures 
 					2. Function
-					3. Trigger 
-					4. Packages 
+					3. Trigger
+					4. Packages
 ------------------------------------
 Q.. Nesting of PL/SQL block?
-==> Nesting of block in PL/SQL means placing on block inside another 
+==> Nesting of block in PL/SQL means placing one block inside another block
 	
 	=> Example: 
 		DECLARE 
@@ -371,7 +379,7 @@ Q.. Initilization of Variable?
 	- If we want to initilize variable after the declartion inside the BEGIN section 
 	  then we need to use (:=) operator,if we use DEFAULT then we will get an error.
 ------------------------------------
-Q.. Is NOT NULL is constraint?
+Q.. NOT NULL is constraint in PLSQL?
 ==> In PL/SQL variables,NOT NULL is not a constraint,but a variable attribute.
 	- It behave like a constraint,but it is not a database constraint.
 ------------------------------------
@@ -436,11 +444,11 @@ Q.. NUMERIC
 	
 	2. PLS_Integer
 	- It is PL/SQL specific scale numeric data type.
-	- It store only scalar values.
+	- It store only integer values.
 	- If we assign decimal value then we will not getting any error.it will ignore 
 	  decimal part and consider only integer.
-	- It is fastest integer data tyep than number,binary_double,binary_float 
-	  because it perform arithmatic using CPU-level operation
+	- It is fastest integer data type than number,binary_double,binary_float 
+	  because it perform arithmatic operation at CPU-level
 	- Its size 4 byte (32bit)
 	- Range -2,147,483,648 to +2,147,483,647
 	- If value exceed then we will get an error "numeric overflow"

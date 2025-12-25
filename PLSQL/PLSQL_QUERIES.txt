@@ -1,0 +1,8 @@
+======PLSQL_QUERIES======
+Q.. Write trigger which does not allow salary decrease?
+Q.. Write PL/SQL Block to print 'Good Morning' message on console?
+Q.. Write PL/SQL block to display user name along with Greet message ('Good Morning)?
+Q.. Write PL/SQL block to display date in format 'DD-MON-YYYY'?
+Q.. Write PL/SQL block to display name of Employee whose emp_id is 101?
+Q.. Write PL/SQL program to display emp_name and dept_id of Employee whose emp_id is 101?
+Q.. Write PL/SQL program to display all details of Employee whose emp_id is 101;
