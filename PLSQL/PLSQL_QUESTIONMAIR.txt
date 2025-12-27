@@ -21,6 +21,8 @@ Q.. Types of PL/SQL block?
 Q.. Nesting of PL/SQL block?
 Q.. What is mean by variable?
 Q.. Where do we declare variable?
+Q.. Classification of Variable?
+Q.. Classification based on Data type?
 Q.. NOT NULL is constraint in PLSQL?
 Q.. If we don't initilize variable then what is its default value?
 Q.. What happen if we declare variable twice in same block?
@@ -31,4 +33,17 @@ Q.. When is a variable destroyed in PL/SQL?
 Q.. What is data type in PL/SQL?
 Q.. Type of data type in PL/SQL?
 Q.. What is scalar data type?
-Q.. 
+Q.. What is Number data type?
+Q.. What is PLS_INTERGER data type?
+Q.. What is Binary_Float data type?
+Q.. What is Binary_Double data type?
+Q.. IEEE-754 standard?
+Q.. Character Scalar Data Type?
+Q.. What is CHAR data type?
+Q.. What is NCHAR data type?
+Q.. What is VARCHAR2 data type?
+Q.. What is NVARCHAR2 data type?
+Q.. What is difference between CHAR and NCHAR?
+Q.. What is mean by database character set?
+Q.. What is mean by National character set?
+	

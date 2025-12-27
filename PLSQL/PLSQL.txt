@@ -379,6 +379,90 @@ Q.. Initilization of Variable?
 	- If we want to initilize variable after the declartion inside the BEGIN section 
 	  then we need to use (:=) operator,if we use DEFAULT then we will get an error.
 ------------------------------------
+Q.. Classification of Variable?
+==> 1. Data type based variable
+	2. Scope based variable
+------------------------------------
+Q.. Classification based on Data type?
+==> Data type based variable means which type of value hold by variable 
+	we have below types 
+	1. Scalar variables
+	2. Composite variables
+	3. Reference Variable
+	4. LOB Variable
+------------------------------------
+Q.. What is mean by scalar variable?
+==> The variable which hold single value at a time is know as scalar variable 
+	- scalar variables are also called as atomic variables or single valued variables 
+------------------------------------
+Q.. What is mean by Composite variable?
+==> The variable which hold multiple value at a time is called as Composite variable.
+------------------------------------
+Q.. What is Reference variable?
+==> The variable which hold reference of another variable is called Reference variable.
+------------------------------------
+Q.. What is mean by LOB variable?
+==> The variable which hold large object are called LOB variable.
+------------------------------------
+Q.. Classification based on scope of variable?
+==> Scope of variable means where the variable can be accessible.
+	1. Local variable
+	2. Global variable 
+	3. Formal parameters
+	4. Bind variable
+------------------------------------
+Q.. What is Local variable?
+==> The variable declared inside block is nothing but local variable 
+	- Local variable can be used within that block 
+	- Outside the block they are not accessible
+	- If we have nexted block then outer block variable can be accessible inside inner block
+	  but inner block variable not accessible inside outer block 
+------------------------------------
+Q.. What is Global variable?
+==> The variable declared inside package specification is called global variable.
+	- Global variable are accessible to all procedures/functions inside the package
+------------------------------------
+Q.. What is Formal Parameter?
+==> Variable declared inside procedure/functions as a parameter are called as Formal Parameter
+	- Formal parameter are accessible any where within that procedure/functions.
+------------------------------------
+Q.. What is Bind Variable?
+==> A variable whose value is supplied at execution time and bound to 
+    SQL statement is called bind variable
+	==> How to declare bind variable 
+		- Bind variable not declared inside PL/SQL DECLARE section 
+		- They are declared at the client tool level,using syntax 
+		  VARIABLE var_name data_type;
+		  Example: 
+		  VARIABLE v_empname VARCHAR(100);
+		  
+		- How to assign value to variable 
+			1. Syntax for EXEC 
+			EXEC :variable_name :=value;
+			Example
+			EXEC :variable_name :=value;
+		    
+			2. Syntax for Begin...End
+			BEGIN
+			:variable_name:=value;
+			END;
+			/
+------------------------------------
+Q.. What is Scope of Bind variable?
+==> Bind variables have SESSION scope - they exist and remain 
+	accessible as long as your database session is active.
+------------------------------------
+Q.. Why it is called Bind?
+==> Because of value is bound (attached) to the SQL statement during execution
+	- Databse parses the SQL only once and later you can send new values without parsing again 
+------------------------------------
+Q.. can we declare bind variable inside DECLARE section?
+==> No - we cannot declare bind variable inside DECLARE section.
+------------------------------------
+Q.. PL/SQL Anchored data types : %TYPE and %ROWTYPE
+==> Anchored types link a varaibles data type to a database column or table row 
+	so if the table changes,your PL/SQL code does not break.
+------------------------------------
 Q.. NOT NULL is constraint in PLSQL?
 ==> In PL/SQL variables,NOT NULL is not a constraint,but a variable attribute.
 	- It behave like a constraint,but it is not a database constraint.
@@ -460,10 +544,9 @@ Q.. NUMERIC
 		
 	3. Binary_Float
 	- It is 32 bit(4 byte),single precision floating point numeric data type.
-	- 32 bit means it store 32 bit floating point number.
-	- It store approximate numeric values 
-	- It store approximately 6-7 decimal digit.
-	- It is fater than Number.
+	- 32 bit means it store 32 bit floating point number. 
+	- It store approximately 6-7 decimal digit
+	- It is faster than Number.
 	- It is designed for high performance and scientific calculations, not exact precision.
 	- It follows IEEE 754 single-precision floating point format.
 	- Range 
@@ -483,11 +566,6 @@ Q.. NUMERIC
 		Binary_Double store extremely large value (up to 10^308) and extremely small (down to 10^-324)
 		with ~15-17 digit accurancy 
 		
-	# Performance wise Order (Fast to slow)
-		1. PLS_Integer
-		2. Binary_Float
-		3. Binary_Double
-		4. Number
 ------------------------------------
 Q.. IEEE-754 standard?
 ==> - Arithmatic calculations of floating point may vary from system to system 
@@ -511,7 +589,7 @@ Q.. Character Scalar Data Type?
 	  (like Hindi,Chinese,Arabic,etc)
 	- PL/SQL min size for NCHAR is 1
 	- SQL min size for NCHAR is 1 
-	- PL/SQL max size for NCHAR is 32676 bytes 
+	- PL/SQL max size for NCHAR is 32767 bytes 
 	- SQL min size for NCHAR is 2000 bytes 
 	- Default size of NCHAR is 1. 
 	
@@ -519,12 +597,67 @@ Q.. Character Scalar Data Type?
 	- It is variable length character data type.
 	- Variable means memory adjusted depending on actual string length.
 	- PL/SQL max size of VARCHAR2 is 32767
+	- SQL max size of VARCHAR2 is 4000.
 	
 	4. NVARCHAR2
 	- NVARCHAR2 is variable length unicode character data type in oracle.
 	- It store multi language string in the national character set.
 	- PL/SQL max size is 32676 character.
-	 
+	- SQL max size of NVARCHAR2 is 4000.
+------------------------------------
+Q.. What is difference between CHAR and NCHAR?
+==> - CHAR stand for character where as NCHAR stand for National character
+	- CHAR uses the database character where as NCHAR uses National character set 
+	- CHAR uses minimum 1 byte per character where as NCHAR uses 2 byte per character.
+	- CHAR may support Unicode depending on the database character set where as 
+	  NCHAR always store Unicode data 
+	- CHAR is typically used for English or single-byte character where as 
+	  NCHAR is used for multilingual data
+	- CHAR generally uses less storage where as NCHAR uses more storage.
+	- CHAR is faster than NCHAR because it involves simpler encoding.
+------------------------------------
+Q.. Why there is size difference in SQL and PL/SQL?
+==> SQL has smaller limits because data stored in tables.
+	PL/SQL allows larger sizes because data is stored in memory only 
+------------------------------------
+Q.. What is mean by database character set?
+==> Normal english set
+------------------------------------
+Q.. What is mean by National character set?
+==> Multilingual/unicode text
+------------------------------------
+Q.. What is difference between VARCHAR2 and NVARCHAR2?
+==> - VARCHAR2 stand for Variable length character data where as 
+	  NVARCHAR2 stand for National Variable length character data 
+	- VARCHAR2 uses database character set where as 
+	  NVARCHAR2 uses National character set 
+	- VARCHAR2 may support unicode character depending upon database character set where as 
+	  NVARCHAR2 always support unicode character
+	- VARCHAR2 uses less memory than NVARCHAR2
+	- VARCHAR2 uses less disk space than NVARCHAR2
+	- VARCHAR2 has better performance than NVARCHAR2
+------------------------------------
+Q.. In which use case would you choose each data type?
+==> Number => use for exact number
+	PLS_Integer => for fast integer operation
+	Binary_Float => floating point calculation with less accurancy
+	Binary_Double => floating point calculation with more accurancy
+	CHAR => for fixed length database character set 
+	NCHAR => For fixed length unicode character set 
+	VARCHAR2 => for variable length database character set 
+	NVARCHAR2 => for variable length unicode character set 
+------------------------------------
+Q.. Performance wise Order (Fast to slow) & Why?
+		1. PLS_Integer
+		2. Binary_Float
+		3. Binary_Double
+		4. Number
+==> 1. PLS_Integer : directly processed by CPU and no conversion is required so it is fast 
+	2. Binary_Float: 32 bit floating point number,small size,Less CPU work required
+	3. Binary_Double: 64 bit floating point number,large size,more CPU work required
+Q.. Classification of Variable?
+==> 		
+	3. Binary_Double: 64 bit floating point number,large size,more CPU work required		
 ------------------------------------
 Q.. COMPOSITE data type?
 ==> Composite data types are used to store multiple values in a single variable 
