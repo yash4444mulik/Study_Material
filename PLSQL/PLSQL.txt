@@ -242,6 +242,9 @@ Q.. Types of PL/SQL block?
 					3. Trigger
 					4. Packages
 ------------------------------------
+Q.. What is the purpose of / in PL/SQL?
+==> / is used to execute block in SQL plus or SQL developer
+------------------------------------
 Q.. Nesting of PL/SQL block?
 ==> Nesting of block in PL/SQL means placing one block inside another block
 	
@@ -460,8 +463,71 @@ Q.. can we declare bind variable inside DECLARE section?
 ==> No - we cannot declare bind variable inside DECLARE section.
 ------------------------------------
 Q.. PL/SQL Anchored data types : %TYPE and %ROWTYPE
-==> Anchored types link a varaibles data type to a database column or table row 
+==> Anchored data types link a varaibles data type to a database column or table row 
 	so if the table changes,your PL/SQL code does not break.
+------------------------------------
+Q.. What is %TYPE 
+==>	- If we want to store column types value then use %TYPE 
+	- %TYPE allows PL/SQL variable to inherit the data type and size of a table column 
+	- Benefit: If column data type changed then no need change PL/SQL code.
+	- How to declare variable of %TYPE 
+		Syntax: 
+		variable_name table_name.column_name%TYPE 
+		
+		e.g 
+			DECLARE 
+			v_empname emp11.emp_name%TYPE;
+			BEGIN
+			 select emp_name into v_empname from emp11 where emp_id=101;
+			 dbms_output.put_line(v_empname);
+			END;
+			/
+			
+	- If we want to store column value then use %TYPE 
+------------------------------------
+Q.. How many value %TYPE variable holds?
+==> only one at a time 
+------------------------------------
+Q.. Does %TYPE store multiple rows or values?
+==> No
+------------------------------------
+Q.. What does %TYPE do?
+==> It copies datatype,size,precision,scale.
+------------------------------------
+Q.. What is %ROWTYPE?
+==> %ROWTYPE allows variable to hold entire row of table or cursor.
+	- %ROWTYPE always store all column 
+	- We can't use %ROWTYPE to store perticular column
+	How to declare %ROWTYPE
+	 variable_name table_name%ROWTYPE
+	 
+	Exmple:
+		DECLARE
+		v_emprow emp11%ROWTYPE;
+		BEGIN
+		 select * into v_emprow from emp11 where emp_id=101;
+		 dbms_output.put_line(v_emprow.emp_id || v_emprow.emp_name || v_emprow.salary);
+		END;
+		/
+------------------------------------
+Q.. What is Substitution variable?
+==> Substitution variable is variable start with & or && and allows user to pass input at run time
+	- Substitution varaible is used to get input from user at runtime 
+	- They are not PL/SQL variables,but used in Oracle client tools like SQL Plus,SQL Developer.
+	Syntax: 
+		&variable_name 
+		&&variable_name
+------------------------------------
+Q.. What is difference between '&variable_name' and '&&variable_name'?
+==> &variable_name : Prompt every time(ask every time)
+	&&variable_name: Prompt one time and store that value and reuse.
+------------------------------------
+Q.. What is CONSTANT Variable?
+==> Variable whose value cannot be changed once it is assigned is nothing but CONSTANT variable.
+	- it is useful for fixed values such as tax rates,PI,maximum limit or any value that 
+	  should not change during execution.
+	- Syntax: 
+		Variable_name CONSTANT datatype :=value;
 ------------------------------------
 Q.. NOT NULL is constraint in PLSQL?
 ==> In PL/SQL variables,NOT NULL is not a constraint,but a variable attribute.
@@ -655,9 +721,7 @@ Q.. Performance wise Order (Fast to slow) & Why?
 ==> 1. PLS_Integer : directly processed by CPU and no conversion is required so it is fast 
 	2. Binary_Float: 32 bit floating point number,small size,Less CPU work required
 	3. Binary_Double: 64 bit floating point number,large size,more CPU work required
-Q.. Classification of Variable?
-==> 		
-	3. Binary_Double: 64 bit floating point number,large size,more CPU work required		
+	
 ------------------------------------
 Q.. COMPOSITE data type?
 ==> Composite data types are used to store multiple values in a single variable 
@@ -677,6 +741,625 @@ Q.. LOB(Large Object) Data types?
 	2. CLOB(Character Large Object)
 	3. NCLOB(National Character Large Object)
 	4. BFILE(Binary File stored outside database(OS File))
+------------------------------------
+Q.. What is Conditional statement in PL/SQL?
+==> We have 2 type of conditional statements
+	1. If statement
+	2. Case expression
+	- Case expression is used in SQL and PL/SQL but If statement is used only in PL/SQL
+	- We can't use IF statement in SQL.
+------------------------------------
+Q.. IF statement?
+==> - IF statement has 3 form 
+	1. IF...THEN 
+		IF condition THEN 
+		statement1;
+		statement2;
+		.
+		.
+		statementN;
+		END IF;
+		
+	2. IF...THEN...ELSE
+		IF condition THEN
+		statement1;
+		statement2;
+		.
+		.
+		statementN;
+		ELSE
+		statement1;
+		statement2;
+		.
+		.
+		statementN;
+		END IF;
+		
+	3. IF...THEN...ELSIF...ELSE
+		IF condition THEN 
+		.
+		.
+		ELSIF
+		.
+		.
+		ELSE
+		.
+		.
+		END IF;
+------------------------------------
+Q.. What is SQL%ROWCOUNT ?
+==> SQL%ROWCOUNT is an implicit cursor attribute that tell you: 
+	how may rows were affected by the most recent SQL statement 
+	(INSERT,UPDATE,DELETE,SELECT INTO)
+------------------------------------
+Q.. Date data type?
+==> DATE is scalar data type in PL/SQL
+	- DATE data type store data and time 
+	- default date format is DD-MON-YY HH24:MI:SS
+	- Even if you don't see time it is always stored.
+	- DATE data type uses 7 bytes to store date value.
+------------------------------------
+Q.. TIMESTAMP data type?
+==> TIMESTAMP is scalar data type 
+	- it is used to store date and time
+	- it is more Precise than DATE 
+	- TIMESTAMP uses 11 byte to store value
+	- 1 second =1000 miliseconds
+	- 1 miliseconds = 1000 microseconds
+	- 1 second = 10000 microseconds
+	- e.g 
+		DELARE
+			v_time TIMESTAMP;
+		BEGIN
+			v_time systimestamp;
+			dbms_output.put_line(v_time);
+		END;
+		/
+------------------------------------
+Q.. TIMESTAMP WITH TIME ZONE?
+==> it is scalar data type 
+	- it is used to store date and time with time zone 
+	- e.g 
+		DELARE
+			v_time TIMESTAMP WITH TIME ZONE;
+		BEGIN
+			v_time systimestamp;
+			dbms_output.put_line(v_time);
+		END;
+		/
+------------------------------------
+Q.. TIMESTAMP WITH LOCAL TIME ZONE?
+==> it is scalar data type 
+	- stored in database time,shown in your local time
+	- save once globally,display according to user location
+	- same data with different display 
+	- This data type is best for global application
+------------------------------------
+Q.. INTERVAL YEAR TO MONTH
+==> - it store difference in year and months 
+	- difference in year and months 
+	- suppose employee experience is 2 year and 3 months 
+	  same is represented in INTERVAL YEAR TO MONTH 
+	  INTERVAL '2-3' YEAR TO MONTH 
+	e.g 
+		DECLARE 
+		 v_date INTERVAL YEAR TO MONTH;
+		BEGIN
+		 v_date :=INTERVAL '2-3' YEAR TO MONTH;
+		 DBMS_OUTPUT.PUT_LINE(v_date);
+		END;
+		/
+		
+	O/P => +02-03
+------------------------------------
+Q.. INTERVAL DAY TO SECOND
+==> it store difference in days,hours,minuts,seconds
+	- Task ran for:
+		2 days 5 hours 30 minuts 20 seconds.
+	- above example can represent in INTERVAL DAY TO SECOND 
+		INTERVAL '2 05:30:20' DAY TO SECOND
+------------------------------------
+Q.. Add one day in today's date?
+==> select sysdate+1 from dual
+------------------------------------
+Q.. Add 2 hours in today's date?
+==> select sysdate+2/24 from dual;// add 2 hour in today's date
+------------------------------------
+Q.. Add 30 min in today's date?
+==> select sysdate+30/1440 from dual;
+------------------------------------
+Q.. Add 30 second in today's date?
+==> select sysdate+30/86400 from dual;
+------------------------------------
+Q.. Add 2 days in today's date using INTERVAL?
+==> select systimestamp+INTERVAL '2' DAY from dual;
+------------------------------------
+Q.. Add 2 hours in today's date using INTERVAL?
+==> select systimestamp+INTERVAL '2' HOURS from dual;
+------------------------------------
+Q.. Add 3hours30minute in today's date?
+==> select systimestamp + INTERVAL '3.30' HOURS TO MINUTE from dual;
+------------------------------------
+Q.. Add 2year6month in today's date?
+==> select systimestamp + INTERVAL '2-6' YEAR TO MONTH from dual;
+------------------------------------
+Q.. write PL/SQL block to Display age of employee?
+==> DECLARE
+	 v_date number;
+	BEGIN
+	 select trunc(months_between(sysdate,hire_date)/12) into v_date  from emp11 where emp_id=101;
+	 dbms_output.put_line(v_date);
+	END;
+	/
+	
+	DECLARE
+	 v_date date;
+	 v_age number;
+	BEGIN
+	 select hire_date into v_date  from emp11 where emp_id=101;
+	 v_age:=trunc((sysdate-v_date)/365);
+
+	 dbms_output.put_line(v_age);
+	END;
+	/
+------------------------------------
+Q.. Write PL/SQL block to check voteing ability?
+==> DECLARE
+	 v_date date;
+	 v_age number;
+	BEGIN
+	 
+	 select to_date('11-jul-2000') into v_date from emp11 where emp_id=101;
+
+	 v_age:=trunc(months_between(sysdate,v_date)/12);
+
+	 if v_age>18 then 
+	  dbms_output.put_line('user able to do the voting');
+	 else
+	  dbms_output.put_line('user not able to do the voting');
+	 end if;
+
+	END;
+	/
+------------------------------------
+Q.. Find experience in year and month?
+==> DECLARE
+	 v_exp date;
+	 t_ex INTERVAL YEAR TO MONTH;
+	BEGIN
+	  
+	 select hire_date into v_exp from emp11 where emp_id=101;
+
+	 t_ex:=NUMTOYMINTERVAL(floor(months_between(sysdate,v_exp)),'MONTH');
+
+	 dbms_output.put_line(t_ex);
+
+	END;
+	/
+------------------------------------
+Q.. NUMTOYMINTERVAL function?
+==> NUMTOYMINTERVAL function is used to convert number into INTERVAL 
+	Syntax:
+		NUMTOYMINTERVAL(number,'YEAR'/'MONTH');
+------------------------------------
+Q.. CAST function?
+==> CAST function is used to convert one data type into another data type
+	syntax:
+		CAST(source_value as target_date_type);
+	e.g 
+		select CAST(sysdate as TIMESTAMP) from dual;
+------------------------------------
+Q.. TO_TIMESTAMP function?
+==> TO_TIMESTAMP function is used to convert date formated string into TIMESTAMP
+	SYNTAX:
+		TO_TIMESTAMP(string);
+	e.g
+		select TO_TIMESTAMP(sysdate) from dual
+------------------------------------
+Q.. Case expression?
+==> Case expression is an alternative for multiple IF-ELSE statements
+	Case expression has 2 type
+	1. Simple Case expression 
+	2. Searched Case expression
+------------------------------------
+Q.. What is Simple Case expression?
+==> Simple Case Expression compares one expression with multiple values.
+	- If we want to compare one expression with multiple values then we go with Simple Case expression.
+	Syntax: 
+		CASE expression 
+		When value1 THEN statement1;
+		When value2 THEN statement2;
+		ELSE statements;
+		END CASE;
+------------------------------------
+Q.. What is Searched Case?
+==> If we have multiple multiple condition then go with Searched Case
+	Syntax: 
+		CASE 
+		When condition1 THEN statement1;
+		When condition2 THEN statement2;
+		ELSE statement;
+		END CASE;
+------------------------------------
+Q.. Write PL/SQL code to print Day name from Day number?
+------------------------------------
+Q.. Write PL/SQL code to print salary grade based on salary value?
+------------------------------------
+Q.. Write PL/SQL block to check voting Eligibility?
+------------------------------------
+Q.. Write PL/SQL block to check number is Even or ODD?
+------------------------------------
+Q.. Write PL/SQL block to grade student based on Mark?
+------------------------------------
+Q.. Difference between Simple case and Searched case?
+==> - Simple case compares value where as Searched case evalutes condtion
+	- Simple case have single expression where as Searched case have multiple conditions 
+	- Simple case does not support operators where as Searched case support operators
+------------------------------------
+Q.. What is mean by short circuit?
+==> Stopping the evalution of a condition as soon as final result is known.
+	- In PL/SQL logical operators (AND,OR) uses short circuit evalution
+------------------------------------
+Q.. Why short circuit important?
+==> - Improve Performance
+	- Prevent runtime errors 
+	- Used in real-time validation logic 
+------------------------------------
+Q.. What is mean by EXCEPTION?
+==> unwanted or unexcepted event that break normal execution flow nothing but exception.
+	if execption occure then rest of code is not execute.
+------------------------------------
+Q.. What is mean by Exception handling?
+==> Exception handling means providing alternative way so that rest of code get executed if exception occured.
+------------------------------------
+Q.. Why exception handling required?
+==> WITHOUT EXCEPTION HANDLING
+	1. Program get terminated abnormally 
+	2. No Chance to recover 
+	-> WITH EXCEPTION HANDLING
+		1. Error can be caught and managed 
+		2. We can provide custom message if there is an exception
+		3. Program terminated gracefully 
+	-> Exception handling is not mandatory but it is recommended 
+------------------------------------
+Q.. How to handle exception in PL/SQL?
+==> To handle exception we use EXCEPTION block 
+	There is not seperate existence for EXCEPTION block 
+	We need to write exception block inside the BEGIN block 
+	- Syntax: 
+		BEGIN
+			statements;
+		EXCEPTION
+			statements;
+		END;
+		/
+------------------------------------
+Q.. Types of Exception?
+==> there are 3 types of exceptions
+	1. Predefined exceptions
+	2. Non-Predefined exceptions
+	3. User defined exceptions
+------------------------------------
+Q.. Predefined Exceptions:
+==> The exceptions which are automatically raised by oracle engine with fixed name and 
+	error code are called Predefined Exceptions.
+	- Properties
+	- Predefined exceptions are already declared so we don't need to declare under DECLARE section
+	- Predefined exception have fixed name and error code 
+	- Oracle engine raise it automatically
+	
+	- Predefined exceptions 
+	1. NO_DATA_FOUND
+	
+	2. TOO_MANY_ROWS
+	
+	3. VALUE_ERROR 
+		- it is predefined exception
+		- error code: ORA-06502
+		- When it is raised 
+			1. When converting a value from one data type to another data 
+			   and conversion is not allowed 
+			2. When assigning a string longer than the declared variable length
+			3. When assigning a number exceeds the declared precision or scale.
+			
+	4. INVALID_NUMBER
+		- it is predefined exception 
+		- error code: ORA-01722
+		- It is raised when If we try to convert non-numeric value into number 
+		
+	5. DUP_VAL_ON_INDEX
+		- it is predefined exception
+		- error code: ORA-00001
+		- It is raise when Unique constraint voilation
+		  If we are inserting duplicate values in primary key column or unique key column 
+		  
+	6. ZERO_DIVIDE
+		- it is predefined exception
+		- error code: ORA-01476
+		- When it is raise: If we are dividing a number by zero
+		
+	7. INVALID_CURSOR
+		- it is predefined exception
+		- error code: ORA-01001
+		- it is raise : If we are trying to perform illegal operation
+		  on cursor then we will get INVALID_CURSOR exception
+		  
+	8. CURSOR_ALREADY_OPEN
+		- it is predefined exception
+		- error code: ORA-06511
+		- it is raise: If we are trying to open already opened cursor 
+		  then we will get CURSOR_ALREADY_OPEN exception
+	
+	9. ROWTYPE_EXCEPTION
+		- it is predefined exception 
+		- error code: ORA-06504
+		- when it raise: Incompatible %ROWTYPE
+		  Happens when the number of column or data types in the SELECT statement
+		  does not match the record 
+		  
+	10. PROGRAM_ERROR
+		- it is predefined exception
+		- error code: ORA-06501
+		- it is occur due to PL/SQL engine problems 
+		
+	11. STORAGE_ERROR
+		- It is prdefined exception
+		- error code: ORA-06500
+		- if there is memory allocation problem then we will get STORAGE_ERROR exception
+		
+	12. TIMEOUT_ON_RESOURCE
+		- it is predefined exception
+		- error code: ORA-00051
+		- if request is not completed within required time then we will get TIMEOUT_ON_RESOURCE 
+		
+	13. LOGIN DENIED 
+		- it is predefined exception
+		- error code: ORA-01017
+		- when it raise: invalid username or password 
+		
+	14. OTHERS
+		- it is predefined exception
+		- error code: NA 
+		- Purpose: To catch all type of exceptions
+------------------------------------
+Q.. Non-Predefined exception?
+==> The exception raise by oracle engine and have error code but do not have prdefined
+    exception name are called Non-Predefined exception.
+	- Properties
+		1. Oracle raise automatically
+		2. They don't have predefined name,but it has an error code 
+		3. developer must have declare it and associate it with error code 
+			using PRAGMA EXCEPTION_INIT
+			
+	- example of non-predefined exception
+		1. trying to delete a parent row that has child rows 
+		2. FOREGIN KEY constrain voilation
+		3. table or view does not exist 
+		4. unable to extent table 
+------------------------------------
+Q.. How to handle Non-Predefined exception?
+==> we can handle Non-Predefined exception using 2 ways 
+	1. using WHEN OTHERS 
+	2. PRAGMA EXCEPTION_INIT
+	
+	1. using OTHERS 
+		BEGIN
+		 delete from department where dept_id=101;
+		WHEN OTHERS THEN
+			dbms_output.put_line('child record exist so can't delete parent table record');
+		END;
+		
+	2. using PRAGMA EXCEPTION_INIT
+		DECLARE
+			fk_voilation EXCEPTION;
+			PRAGMA EXCEPTION_INIT(fk_voilation,-2290);
+		BEGIN
+			delete from department where emp_id=101;
+		EXCEPTION
+			WHEN fk_voilation THEN 
+				dbms_output.put_line('can't delete parent record ');
+			WHEN OTHERS THEN 
+				dbms_output.put_line('SQLERRM');
+		END;
+------------------------------------
+Q.. What is PRAGMA EXCEPTION_INIT?
+==> - it is compiler directive,not a statement 
+	- it is used to associate a user declared exception name with oracle error code.
+	- it is mainly used to handle non-predefined exception
+	- some oracle error have only error code to give meaning full name those error 
+	  codes we use PRAGMA EXCEPTION_INIT.
+	- can't be used inside BEGIN section,we need to use in declare section.
+------------------------------------
+Q.. When to use PRAGMA EXCEPTION_INIT?
+==> use PRAGMA EXCEPTION_INIT
+	- error does not have predefined exception name
+	- You know oracle error number 
+	- You want specific handling 
+	- You want clean,readable,maintainable code.
+------------------------------------
+Q.. difference between predefined and non-predefined exception?
+==> - predefined exception have predefined name where as non-predefined excpetion don't have name 
+	- predefined exception not require to declare where as non-predefined exception developer must declare
+------------------------------------
+Q.. WHEN to use WHEN OTHERS?
+==> use WHEN OTHERS only when : 
+	- You don't know exact error code 
+	- You must to log or display the error message.
+	- You want to ensure the program does not terminate abnormally
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
 ------------------------------------
 ------------------------------------
 ------------------------------------

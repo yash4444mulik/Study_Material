@@ -6,3 +6,8 @@ Q.. Write PL/SQL block to display date in format 'DD-MON-YYYY'?
 Q.. Write PL/SQL block to display name of Employee whose emp_id is 101?
 Q.. Write PL/SQL program to display emp_name and dept_id of Employee whose emp_id is 101?
 Q.. Write PL/SQL program to display all details of Employee whose emp_id is 101;
+Q.. Write PL/SQL block to check number is positive?
+Q.. Write PL/SQL block to check number is negative?
+Q.. Write PL/SQL block to check number is even or odd?
+Q.. Write PL/SQL block to check number is odd?
+Q.. 
