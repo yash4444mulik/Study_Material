@@ -132,32 +132,7 @@ Q.. If trigger body insert data into table,how will that data get committed if
 ------------------------------------
 Q.. If trigger body is performing DML operation,how will that data get committed 
 	if COMMIT is not allowed in Tigger?
-==> The COMMIT operation is done by the session that fired the trigger not by trigger itself	
-------------------------------------
-Q.. Write trigger which does not allow salary decrease?
-==>CREATE OR REPLACE TRIGGER salary_tgr
-	BEFORE UPDATE on emp11
-	FOR EACH ROW 
-	BEGIN
-		IF :OLD.salary>:NEW.salary THEN
-		RAISE_APPLICATION_ERROR(-20001,'You cannot decrease salary');
-		END IF;
-	END;
-	/
-	
-	
-	here 
-		if we are using OLD and NEW keyword inside BEGIN block then we need to use : 
-		otherwise we will get an error 
-		
-		
-	CREATE TRIGGER salary_tgr
-	BEFORE UPDATE on emp11
-	WHEN(NEW.salary<OLD.salary)
-	BEGIN	
-		RAISE_APPLICATION_ERROR(-20001,'You cannot decrease salary');
-	END;
-	/		
+==> The COMMIT operation is done by the session that fired the trigger not by trigger itself			
 ------------------------------------
 Q.. What is RAISE_APPLICATION_ERROR in oracle?
 ==> - RAISE_APPLICATION_ERROR is build in procedure
@@ -176,6 +151,14 @@ Q.. What is RAISE_APPLICATION_ERROR in oracle?
 	
 	3. TRUE | FALSE: It is optional.TRUE propogate the error to the client
 	   FALSE log it but does not propogate it.
+------------------------------------
+Q.. What happen if we use error number is out of range in RAISE_APPLICATION_ERROR?
+==> we will get an error 
+	ORA-21000: error number argument raise_application_error of 1000 is out of range 
+------------------------------------
+Q.. What happen if we use predefined error code in RAISE_APPLICATION_ERROR?
+==> we will get an error 
+	ORA-21000: error number argument raise_application_error of 06502 is out of range 
 ------------------------------------
 Q.. What is PL/SQL block?
 ==> It is structured way of writing Pl/SQL code 
@@ -267,85 +250,7 @@ Q.. Nesting of PL/SQL block?
 	  inner block variable can't be used in outer block 
 	- Same variable we can declare in inner block 
 	
-------------------------------------
-Q.. Write PL/SQL Block to print 'Good Morning' message on console?
-==> 
-	BEGIN
-		DBMS_OUTPUT.PUT_LINE('Good Morning');
-	END;
-	/
-------------------------------------
-Q.. Write PL/SQL block to display user name along with Greet message ('Good Morning)?
-==>	
-	DECLARE
-	v_user_name;
-	BEGIN
-	select user into v_user_name from dual;
-	DBMS_OUTPUT.PUT_LINE('Good Morning' || v_user_name);
-	END;
-	/
-------------------------------------
-Q.. Write PL/SQL block to display today's date 
-==> 
-	DECLARE
-	v_date date;
-	BEGIN
-	select sysdate into v_date from dual;
-	DBMS_OUTPUT.PUT_LINE('today date is ' || v_date);
-	END;
-	/
-------------------------------------
-Q.. Write PL/SQL block to display date in format 'DD-MON-YYYY'?
-==> 
-	DECLARE
-	v_date varchar(90);
-	BEGIN
-	select to_char(sysdate,'DD-MON-YYYY') into v_date from dual;
-	DBMS_OUTPUT.PUT_LINE(v_date);
-	END;
-	/
-------------------------------------
-Q.. Write PL/SQL block to display name of Employee whose emp_id is 101?
-==>  
-	DECLARE
-	v_name varchar(90);
-	BEGIN
-	select emp_name into v_name from emp11 where emp_id=101;
-	DBMS_OUTPUT.PUT_LINE(v_name);
-	END;
-	/
-------------------------------------
-Q.. Write PL/SQL program to display emp_name and dept_id of Employee whose emp_id is 101?
-==> 
-	DECLARE
-	v_name varchar(90);
-	v_dept_id varchar(90);
-	BEGIN
-	select emp_name,dept_id into v_name,v_dept_id from emp11 where emp_id=101;
-	DBMS_OUTPUT.PUT_LINE(v_name ||' '|| v_dept_id);
-	END;
-	/
-------------------------------------
-Q.. Write PL/SQL program to display all details of Employee whose emp_id is 101;
-==> 
-	DECLARE
-	v_emp_id number;
-	v_emp_name varchar(90);
-	v_dept_id number;
-	v_salary number;
-	v_manager_id number;
-	v_hire_date date;
-	v_gender varchar(90);
-	BEGIN
-	select EMP_ID,EMP_NAME,DEPT_ID,SALARY,MANAGER_ID,HIRE_DATE,GENDER 
-	into v_emp_id,v_emp_name,v_dept_id,v_salary,v_manager_id,v_hire_date,v_gender 
-	from emp11 where emp_id=101;
-	DBMS_OUTPUT.PUT_LINE('employee details as below');
-	DBMS_OUTPUT.PUT_LINE(v_emp_id || ' ' ||v_emp_name 
-	|| ' ' || v_dept_id || ' ' ||v_salary|| ' ' ||v_manager_id
-	|| ' ' ||v_hire_date|| ' ' ||v_gender );
-	END;
-	/
+
 ------------------------------------
 Q.. What is mean by variable?
 ==> Variables are placeholder which hold value temporary the execution of PL/SQL block.
@@ -883,60 +788,6 @@ Q.. Add 3hours30minute in today's date?
 Q.. Add 2year6month in today's date?
 ==> select systimestamp + INTERVAL '2-6' YEAR TO MONTH from dual;
 ------------------------------------
-Q.. write PL/SQL block to Display age of employee?
-==> DECLARE
-	 v_date number;
-	BEGIN
-	 select trunc(months_between(sysdate,hire_date)/12) into v_date  from emp11 where emp_id=101;
-	 dbms_output.put_line(v_date);
-	END;
-	/
-	
-	DECLARE
-	 v_date date;
-	 v_age number;
-	BEGIN
-	 select hire_date into v_date  from emp11 where emp_id=101;
-	 v_age:=trunc((sysdate-v_date)/365);
-
-	 dbms_output.put_line(v_age);
-	END;
-	/
-------------------------------------
-Q.. Write PL/SQL block to check voteing ability?
-==> DECLARE
-	 v_date date;
-	 v_age number;
-	BEGIN
-	 
-	 select to_date('11-jul-2000') into v_date from emp11 where emp_id=101;
-
-	 v_age:=trunc(months_between(sysdate,v_date)/12);
-
-	 if v_age>18 then 
-	  dbms_output.put_line('user able to do the voting');
-	 else
-	  dbms_output.put_line('user not able to do the voting');
-	 end if;
-
-	END;
-	/
-------------------------------------
-Q.. Find experience in year and month?
-==> DECLARE
-	 v_exp date;
-	 t_ex INTERVAL YEAR TO MONTH;
-	BEGIN
-	  
-	 select hire_date into v_exp from emp11 where emp_id=101;
-
-	 t_ex:=NUMTOYMINTERVAL(floor(months_between(sysdate,v_exp)),'MONTH');
-
-	 dbms_output.put_line(t_ex);
-
-	END;
-	/
-------------------------------------
 Q.. NUMTOYMINTERVAL function?
 ==> NUMTOYMINTERVAL function is used to convert number into INTERVAL 
 	Syntax:
@@ -1177,192 +1028,937 @@ Q.. When to use PRAGMA EXCEPTION_INIT?
 	- You want specific handling 
 	- You want clean,readable,maintainable code.
 ------------------------------------
+Q.. How does PRAGMA EXCEPTION_INIT work?give an example?
+==> PRAGMA EXCEPTION_INIT is a compiler directive in PL/SQL.
+	It is used to handle Non-Predefined Exception.
+	It is used to map Oracle predefined error number with custom exception name.
+	
+	-> How it is work?
+		- When exception is raised,PRAGMA EXCEPTION_INIT map the error number with 
+		  custom exception name and jump into exception handler 
+	-> Example: 
+		DECLARE
+		invalid_age EXCEPTION;
+		age number:=13;
+		PRAGMA EXCEPTION_INIT(invalid_age,-20001);
+		BEGIN
+		 if age<17 then
+		 RAISE_APPLICATION_ERROR(-20001,'invalid_age');
+		 end if;
+		EXCEPTION
+		  WHEN invalid_age THEN
+		  dbms_output.put_line(' error');
+		END;
+		/
+------------------------------------
 Q.. difference between predefined and non-predefined exception?
 ==> - predefined exception have predefined name where as non-predefined excpetion don't have name 
 	- predefined exception not require to declare where as non-predefined exception developer must declare
 ------------------------------------
-Q.. WHEN to use WHEN OTHERS?
+Q.. when to use WHEN OTHERS?
 ==> use WHEN OTHERS only when : 
 	- You don't know exact error code 
 	- You must to log or display the error message.
 	- You want to ensure the program does not terminate abnormally
 ------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
+Q.. When to use PRAGMA EXCEPTION_INIT?
+==> Use PRAGMA EXCEPTION_INIT
+	- The error does not have a predefined exception name.
+	- You know the oracle error number 
+	- You want specific handling 
+	- You want clean,readable,maintainable code.
+------------------------------------
+Q.. What is user defined exception?
+==> The exception which is declared and raised by programmer is nothing but user defined exception.
+	- user defined exception is also called as custom exception.
+	- Properties
+		1. declared by programmer in declare block
+		2. raised by programmer using RAISE and RAISE_APPLICATION_ERROR
+------------------------------------
+Q.. What is RAISE ?
+==> RAISE is PL/SQL statement.
+	- RAISE is used to explicitly raise a user defined exception
+	- RAISE cannot raise directly PREDEFINED exception like NO_DATA_FOUND.
+------------------------------------
+Q.. What is the difference between Predefined and User-defined exception?
+==> - Predefined exception defined by oracle where as user-defined exception defined by Developer
+	- predefined exception are raised automatically where as user defined exception raised using 
+	  RAISE or RAISE_APPLICATION_ERROR.
+	- Predefined exception have predefined name where as user defined exception have user defined name
+	- Predefined exception have predefined error code where as user defined exception have 
+	  user defined code -20000 to -20999
+	- Predefined exception handle system/runtime errors where User-defined exception handle 
+	  business validation rules.
+------------------------------------
+Q.. what is difference between RAISE and RAISE_APPLICATION_ERROR?
+==> - RAISE is used to raise user-defined exception and re-raise predefined or non-predefined exception
+	  where as 
+	  RAISE_APPLICATION_ERROR is used to raise user-defined exception.
+	- RAISE does not allow custom error number or message but 
+	  RAISE_APPLICATION_ERROR allows custom error number with message	
+------------------------------------
+Q.. How do we retrive the error number for an exception?
+==> we can retrive error number using SQLCODE.
+------------------------------------
+Q.. How do we retrive the error number and error message for an exception?
+==> We can retrive the error number and message using SQLERRM.
+------------------------------------
+Q.. Can we re-raise exception?
+==> Yes we can re-raise an exception
+	In exception handler use RAISE clause as below 
+		EXCEPTION
+			WHEN EXCEPTION_NAME THEN
+				RAISE;
+------------------------------------
+Q.. Explain the order of exception handlers.Why does it matter?
+==> - In PL/SQL there is no paren-child relationship for exception
+	- Every exception is independent
+	- In PL/SQL exception handlers are executed from top to bottom 
+	- For generic exception we use "WHEN OTHERS",If we use WHEN OTHERS then it must be 
+	  at last,otherwise we will get compilation error
+------------------------------------
+Q.. What happen if WHEN OTHERS is not the last exception handler?
+==> we will get an compilation error.
+------------------------------------
+Q.. What is difference between SQLCODE and SQLERRM?
+==> SQLCODE returns only error number but SQLERRM returns error number and message
+------------------------------------
+Q.. How to handle exception in PL/SQL?
+==> By using exception block we can handle exception in PL/SQL.	
+------------------------------------
+Q.. What is difference betwen compilation error,runtime error and exception?
+==> COMPILATION ERROR: means syntax error and occur at compilation time 
+		syntax error means 
+		1. missing semicolon,missing comma's
+		2. Undeclared variables.
+		3. wrong keyword usage
+		
+	RUNTIME ERROR: Occured during program execution due to poor logic or lack of system resources
+		1. Division by zero
+		2. Memory issues
+		
+	RUNTIME EXCEPTION: An exception is a runtime error but we can handle using exception block 
+		- division by zero is runtime exception we can handle 
+		- if there is memory issues being developer we can't handle 
+------------------------------------
+Q.. Difference between unhandled runtime error and handled exception?
+==> - unhandled runtime error means we have not handled using exception block 
+	- handled exception means we have handled using exception block 
+------------------------------------
+Q.. Give commanly used predefined exception?
+==> 1. NO_DATA_FOUND
+	2. TOO_MANY_ROWS
+	3. INVALID_NUMBER
+	4. VALUE_ERROR
+	5. STORAGE_ERROR
+	6. DUP_VAL_ON_INDEX
+	7. ZERO_DIVIDE
+	8. INVALID_CURSOR
+	9. CURSOR_ALREADY_OPEN
+	10. ROWTYPE_MISMATCH
+	11. PROGRAM_ERROR
+	12. STORAGE_ERROR
+	13. TIMEOUT_ON_RESOURCE
+	14. LOGIN_DENIED
+	15. OTHERS
+------------------------------------
+Q.. What is the purpose of WHEN OTHERS clause?
+==> it is used to catch any type of exception that is not handled by other exception handlers.
+------------------------------------
+Q.. How do you declare user defined exception?
+==> Syntax to define exception is 
+	exception_name EXCEPTION 
+------------------------------------
+Q.. Can we handle multiple exception in single exception block?
+==> Yes we can handle multiple exception in single exception block.
+------------------------------------
+Q.. How do you handle non-predefined execption?
+==> We handle non-predefined exception using PRAGMA EXCEPTION_INIT and steps are 
+	1. Declare EXCEPTION
+	2. Map error code with custome message using PRAGMA EXCEPTION_INIT
+	3. Handle it by name in the Exception block
+------------------------------------
+Q.. Can we RAISE exception manually?
+==> Yes,we can raise exception manually by using RAISE or RAISE_APPLICATION_ERROR.
+------------------------------------
+Q.. What is SQLCODE in PL/SQL?
+==> SQLCODE is predefined procedure.
+	SQLCODE return the error code of the most recent exception.
+		DECLARE
+		v_name varchar2(3);
+		v_code number;
+		BEGIN
+		 v_name:= 'peter';
+		 dbms_output.put_line(v_name);
+		EXCEPTION 
+		 WHEN OTHERS THEN 
+		 v_code:=SQLCODE;
+		 dbms_output.put_line(v_code);
+		END;
+------------------------------------
+Q.. What is SQLERRM?
+==> SQLERRM is predefined function in PL/SQL.
+	- It return error code and error message associated with the most recent exception.
+		DECLARE
+		v_name varchar2(3);
+		v_code number;
+		BEGIN
+		 v_name:= 'peter';
+		 dbms_output.put_line(v_name);
+		EXCEPTION 
+		 WHEN OTHERS THEN 
+		 dbms_output.put_line(SQLERRM);
+		END;
+	- it is used for debugging purpose 
+	- If you don't know error code and error message then you retrive using SQLERRM
+------------------------------------
+Q.. Deffering constraint in Oracle?
+==> - default status of constraint is enable.
+	- constraints are validated by default 
+		validated means verifies existing data + new data
+	- constraint are not DEFERRABLE by default 
+		NOT DEFERRABLE means constraints check occurs immediately 
+		after each DML statement.
+	- PRIMARY key and UNIQUE key create an Unique Index automatically
+	- FOREGIN key constraints are NO CASCADE DELETE bydefault.
+	
+	1. STATUS column value can be ENABLED or DISABLED,default is ENABLED.
+		=> ENABLED means constraint is Active 
+		=> DISABLED means constraint is no validation rules applied
+	2. DEFERRABLE column value can be NOT DEFERRABLE or DEFERRABLE,default is DEFERRABLE.
+		=> Constraint is DEFERRABLE 
+		   - You can control when it is checked IMMEDIATE or DEFERRED.
+		   - Constraint is temporary bypass.it get applied at the time of commit.
+		=> NOT DEFERRABLE 
+			- constraint is non deferred.
+			- it is always checked immediately
+	3. DEFERRED column value can be INITIALLY IMMEDIATE or INITIALLY DEFERRED,default is INITIALLY DEFERRED.
+		=> INITIALLY IMMEDIATE
+			- Constraint is checked immediately after each SQL statement
+		=> INITIALLY DEFERRED
+			- Constraint checking is postponed until COMMIT 
+			- Validation rules are applied at the time of commit
+	4. VALIDATE column value can be VALIDATED or NOT VALIDATED,default is VALIDATED.
+		=> VALIDATED 
+			- checking existing data + new data 
+		=> NOT VALIDATED 
+			- Ignore existing data but validate New Data
+------------------------------------
+Q.. What is Deferring constraint?
+==> Deferring constraint means temporary bypass the validation rules of certain constraint 
+	until the end of transaction 
+	- Deferring constraint is very usefull in 
+		1. Complex transaction
+		2. Bulk Loads
+		3. Parent-child insert/update in any order
+------------------------------------
+Q.. Which constraints can be deferred?
+==> 1. Primary key
+	2. Unique key
+	3. Foreign key 
+	4. Check constraint 
+	-> we can't defer not null and default constraint 
+------------------------------------
+Q.. When we can define Deferrable constraint?
+==> We can define deferrable constraints at the time of table creation and 
+	after the table creation
+------------------------------------
+Q.. Default behaviour of Primary key?
+==> status => enabled
+	deferrable => NOT DEFERRABLE 
+	deferred => INITIALLY IMMEDIATE
+	validate => VALIDATED
+------------------------------------
+Q.. Can we change DEFERRABLE to NOT DEFERRABLE or vice-verca?
+==> No we can't change it we need to drop constraint and reapply constraint.
+------------------------------------
+Q.. How to drop constraint?
+==> alter table table_name drop constraint constraint_name.
+------------------------------------
+Q.. Deferring constraint after table creation?
+==> We can make defferable after the table creation but we can make it possible 
+	first we need to drop constraint and then add constraint using alter option 
+	1. Syntax to make DEFERRABLE constraint with INITIALLY DEFERRABLE 
+	=> Alter table table_name constraint name_of_constraint constraint_type (column_name)
+	   DEFERRABLE INITIALLY DEFERRED;
+	   
+	2. Syntax to make DEFERRABLE constraint with INITIALLY IMMEDIATE
+	=> alter table table_name add constraint name_of_constraint constraint_type(column_name)
+	   DEFERRABLE INITIALLY IMMEDIATE
+------------------------------------
+Q.. Trigger information stored in which view?
+==> Trigger information available in below data dictionary view 
+	1. user_triggers
+	2. all_triggers
+	3. dba_triggers
+------------------------------------
+Q.. What is difference between user_triggers,all_triggers & dba_triggers?
+==> 1. user_triggers
+		- user_triggers is a view and accessible to all users
+		- It display triggers information created by current logged user 
+
+	2. all_triggers
+		- all_triggers is a view and accessible to all users 
+		- It disaly triggers information created by current logged user and accessible to current user
+	3. dba_triggers
+		- dba_triggers is a view and accessible only for dba person.
+		- it contain all triggers information
+------------------------------------
+Q.. How to enable or disable triggers?
+==> - bydefault triggers are enabled 
+	- we can enable or disable triggers 
+	- Syntax to DISABLE perticular trigger 
+		alter trigger trigger_name disable
+	- Syntax to enable perticular trigger	
+		alter trigger trigger_name enable 
+	- Syntax to disable all triggers
+		alter trigger disable all triggers
+	- Syntax to enble all triggers 
+		alter trigger enable all triggers 
+------------------------------------
+Q.. How to drop trigger?
+==> drop trigger trigger_name
+------------------------------------
+Q.. What is Mutating table?
+==> Mutating Table means at same time two or more operations are happening on table 
+	and one of operation is write operation.
+	
+	Solution of Mutating
+	- Use statement-level trigger
+	- use compound trigger 
+	- use package variables.
+------------------------------------
+Q.. What is PRAGMA AUTONOMOUS_TRANSACTION?
+==> - PRAGMA AUTONOMOUS_TRANSACTION is used in procedure,function,trigger and block.
+	- It is used to run procedure,Function,Trigger and block in its own independant transaction,
+	  seperate from calling transaction
+	- it commonly used for logging and audit tables.
+	- If we are using PRAGMA AUTONOMOUS_TRANSACTION then we need to write COMMIT and ROLLBACK explicitly 
+------------------------------------
+Q.. When to use PRAGMA AUTONOMOUS_TRANSACTION?
+==> - error debugging
+	- audit logs 
+	- debug tracking
+------------------------------------
+Q.. Where not to use PRAGMA AUTONOMOUS_TRANSACTION?
+==> Not recommended for business logic 
+------------------------------------
+Q.. If trigger are available on table,can we drop table?
+==> Yes we can drop table.
+------------------------------------
+Q.. If table dropped then what happens with triggers,triggers also dropped or persist in the database?
+==> When a table is dropped,all triggers defined on the table are automatically dropped by oracle engine.
+------------------------------------
+Q.. What is advantages of Trigger?
+==> - Automate business rule
+	- Enforce data integrity
+	- Maintain audit history
+	- Reduce code in application layer 
+	- Automatic logging & validation
+------------------------------------
+Q.. What is disadvantage of Trigger?
+==> - Hard to debug 
+	- Hidden login inside database
+	- Can cause performance issues if not written properly 
+	- Risk of mutating table errors
+	- Can create circular trigger dependancies 
+------------------------------------
+Q.. When should go with Trigger or Constraint?
+==> Constraint => data integrity
+	Trigger => Complex business logic 
+------------------------------------
+Q.. What is instead of Trigger?
+==> An Instead of trigger is a special type of trigger that fires instead of actual DML operations 
+	- it is mainly used with complex views.
+	
+	Syntax: 
+		CREATE OR REPLACE TRIGGER Trigger_name
+		INSTEAD OF INSERT ON complex_view_name
+		FOR EACH ROW 
+		BEGIN
+		 insert into table_name values(clm1,clm2,clm3,...N);		
+		END;
+		/
+------------------------------------
+Q.. Can we insert INSTEAD of trigger on table?
+==> NO
+------------------------------------
+Q.. Can we use before after in INSTEAD of trigger?
+==> NO 
+------------------------------------
+Q.. Can one INSERT INTO STATEMENT insert data into two tables?
+==> YES 
+------------------------------------
+Q.. sometime delete operation is allowed in complex view but sometime delete operations are not 
+	not allowed on complex view,why?
+Q.. In which case delete operation is allowed on complex view and in which use case delete 
+	operation is not allowed on complex view?
+==> Case 1: DELETE OPERATION IS NOT ALLOWED
+	- if view defination contains group functions,distinct clause,order by clause
+		or deletion affect multiple base tables then direct DELETE operation is not 
+		allowed on that view. In that case solution is Instead of Trigger.
+	
+	Case 2: DELETE OPERATION IS ALLOWED
+	- View is based on multiple tables but only one table is actually updatable and 
+		no ambiguity in row mapping,delete operation is allowd on that view 
+------------------------------------
+Q.. DELETE Operation with instead of trigger?
+==> Delete on complex view is not allowed directly we can use INSTEAD OF Trigger to delete 
+	complex view.INSTEAD OF Trigger defines how deletion should be performed on underlying base tables 
+------------------------------------
+Q.. Can we delete data from multiple base table on single delete operation?
+==> Yes,using INSTEAD OF trigger.
+------------------------------------
+Q.. 
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+------------------------------------
+Q.. Oracle storage heirarchy?
+==> Database ->Tablespace->DataFiles(Physical)->segment->Extent->Data Block
+------------------------------------
+Q.. What is Database?
+==> it is collection of datafiles,control files and redo log files.
+------------------------------------
+Q.. What is tablespace?
+==> Tablespace is logical storage unit 
+	- Tablespace is group of one or more DataFiles.
+	- Tablespace act as a container for database objects like table,view,index.
+	- Actual data is stored in DataFiles.
+	- data files has extention .dbf
+	- some of tablespace created automatically during database creation and these tablespace are
+		1. System
+		2. Sysaux
+		3. Temp
+		4. Undo
+		5. User
+	- Tablespace information store in data dictionary view
+		1. DBA_TABLESPACES
+		2. USER_TABLESPACES
+	- When we fire query 
+		select * from DBA_TABLESPACES / select * from USER_TABLESPACES
+	  then we will get o/p of 
+	  1. TABLESPACE: Name of Tablespace 
+	  2. Blocksize: size in byte 
+	  3. INITIALEXTENT:size of first extent.it is in byte.
+	  4. NEXTEXTENT:size of next extent.it is in byte.
+	  5. MINEXTENT:minimum extent size.it is in byte.
+	  6. MAXEXTENT:Max extent allowed.it's size is in byte 
+	  7. PC_INCREASE:Percentage Increase
+	  8. STATUS: Status if Tablespace allowed values are 
+			OFFLINE-Tablespace is Open 
+			ONLINE-Tablespace is closed
+			READONLY-Tablespace is readonly 
+			READWRITE-We can read and we can write into tablespace
+	 10. CONTENT: Type of database
+		 PERMENENT: Table,Index
+		 UNDO: Tablespace is for undo operation.
+	 11. LOGGING: logs are maintained or not 
+			values are logging,nologging.
+	 12. EXTENT_MANAGEMENT: How extent are managed.
+			LOCAL:modern
+			DICTIONARY: old/decrepted.
+	 13. ALLOCATION TYPE: How extent size decided?
+			SYSTEM: Oracle decides
+			UNIFORM: fixed size
+	 14. PLUGGED_IN: Tablespace is plugable or not
+	 15. SEGMENT_SPACE_MANAGEMENT: How the segment space is managed values are MANUAL and AUTO.
+------------------------------------
+Q.. If we don't specify tablespace while creating a table,table get created in default tablespace.
+	If default tablespace is SYSTEM then table is created in SYSTEM table.
+	- If we want to cross check your table space then use below query 
+		select * from user_tables where table_name ='table_name';
+	- we can explicitly specify the tablespace 
+		create table table_name(....)TABLESPACE name_of_tablespace;
+	- Note: It is not recommended to use SYSTEM tablespace,SYSAUX tablespace,UNDO tablespace 
+	  or TEMP tablespace to store user objects 
+	- Always use USER tablespace or custom tablespace to store user objects 
+	
+------------------------------------
+Q.. Types of Tablespace?
+==> 1. System
+		- it is heart of oracle database.
+		- It is manadatory tablespace and created during DB creation.
+		- We can't drop this tablespace or we can't create it manually.
+		- If this tablespace is not available then we can't create it manually.
+		- SYSTEM tablespace store core oracle data dictionary and internal objects.
+		- Its status must be ONLINE.
+		- It has only one datafile.
+		
+	2. Sysaux
+		- Sysaux stand for system Auxillary Tablespace.
+		- It is introduced in Oracle 10g
+		- It is mandatory tablespace and it is created during DB creation.
+		- We can't create this tablespace manually 
+		- We can't drop this tablespace
+		- It store metadata for oracle features and components.
+		- This tablespace is helping to keep system tablespace small and stable.
+		- Sysaux tablespace can contain one or more datafiles.
+		
+	3. Temp
+		- Temp stand for Temporary Tablespace
+		- This tablespace act as working area 
+		- This tablespace stores immediate result during query processing 
+		  like sorting,Group by,Joins,Index creation,Distinct.
+		- During DB creation this tablespace get created but based on our requirement 
+		  we can create our own TEMP tablespace. 
+		- We can drop this tablespace.
+		- Atleast one TEMP tablespace must be available in database.
+		- A TEMP tablespace can have multiple temp datafiles(tempfiles)
+		  
+	4. Undo
+		- This tablespace is created automatically during DB creation.
+		- If we want to create our own UNDO tablespace,we can create.
+		- UNDO tablespace store Old version of Data(Before changes)
+		- We can drop this tablespace.
+		
+	5. User
+		- This tablespace is created automatically during DB creation
+		- If we want to create our own User tablespace we can create 
+		- It store normal user table,index and other database objects.
+		- We can drop this tablespace.
+		
+NOTE: 
+	-> SYSTEM tablesapce is created with one datafile by default 
+		but it can have multiple datafiles if required
+	-> SYSAUX tablespace is created with one datafile by default 
+		but it can contain multiple datafile depending on database growth 
+	-> UNDO tablespace is created with one datafile by default 
+		but it can contain multiple datafile if required.
+	-> TEMP tablespace is created with one datafile by default 
+		but it can contain multiple datafile if required.
+	-> USER tablespace is created with one datfile by default
+		but it can contain multiple datafile if required.
+------------------------------------
+Q.. What is DataFiles?
+==> DataFiles store actual data.
+	- DataFiles has extention .dbf
+	- DataFiles information is stored in data dictionary view and view name is "DBA_DATA_FILES"
+		SELECT * FROM DBA_DATA_FILES
+	- DataFiles are created at the time of tablespace creation.
+------------------------------------
+Q.. Query to know information about DataFiles?
+==> SELECT * FROM DBA_DATA_FILES;
+------------------------------------
+Q.. What is Data block?
+==> Data block is smallest unit of Storage.
+	- Data block store actual table row 
+	- Data block size is defined at the time of DB creation and it is fixed 
+	- commonly block size is 8kb 
+	- oracle always read 8 kb at a time 
+	Query to know block size 
+	=> select * from v$parameter Where name='db_block_size';
+------------------------------------
+Q.. What is Extent?
+==> - collection of data block is nothing but Extent.
+	- Its size grows automatically as you insert data into tables.
+	- To check extent informtion queries 
+		1. select * from DBA_EXTENTS
+		2. select * from USER_EXTENTS
+------------------------------------
+Q.. What is Segment?
+==> - collection of extent is nothing but Segment.
+	- segment is created when you create an object.
+	- To check segment informtion we have queries 
+		1. select * from DBA_SEGMENTS
+		2. select * from USER_SEGMENTS
+------------------------------------
+Q.. General syntax to create Tablespace?
+==> CREATE TABLESPACE tablespace_name
+	DATAFILE 'path_of_data_file1','path_of_data_file2'
+	SIZE size 
+	[AUTOEXTENT ON|OFF] [NEXT size]
+	[MAXSIZE size|unlimited]
+	[EXTENT MANAGEMENT local]
+	[SEGMENT SPACE MANAGEMENT AUTO|MANUAL]
+	[LOGGING|NOLOGGIN]
+	[ONLINE|OFFLINE]
+	
+	- If we don't specify AUTOEXTENT then default is OFF 
+	- If we don't specify MAXSIZE then default is 
+		1. if AUTOEXTENT is OFF => max size=current size 
+		2. if AUTOEXTENT is ON => max size=unlimited
+	- If we don't specify EXTENT MANAGEMENT then default is local 
+	- If we don't specify SEGMENT SPACE MANAGEMENT the default is auto 
+	- If we don't specify LOGGING then default is LOGGING 
+	- If we don't specify STATUS then default is ONLINE
+	- Order of parameter is not important here 
+	
+	e.g
+	create tablespace my_tablespace
+	DATAFILE 'C:\ORACLEXE\ORADATA\XE\my_tablespace.DBF' SIZE 50M
+------------------------------------
+Q.. Syntax to create custome TEMP tablespace?
+==> CREATE TEMPORARY tablespace tablesapce_name 
+	TEMPFILE 'path_of_data_file1','path_of_data_file2'
+	SIZE size 
+	[AUTOEXTENT ON|OFF][NEXT size]
+	[MAXSIZE size|unlimited]
+	[EXTENT MANAGEMENT local]
+	[SEGMENT SPACE MANAGEMENT manual]
+	
+	Note: 
+	1. for TEMP tablespace datafiles are not available
+	2. for TEMP tablespace tempfiles are available
+	3. TEMP files are available in 'DBA_TEMP_FILES'
+
+	4. for temp tablespace below parameters are not allowed
+		1. SEGMENT SPACE MANAGEMENT AUTO => not allowed 
+		2. LOGGING|NOLOGGING
+			temp tablespace are always NOLOGGING bydefault we can't specify NOLOGGING explicitly
+		3. ONLINE|OFFLINE
+			Temporary tablespace are always ONLINE by default we can't specify ONLINE/OFFLINE
+------------------------------------
+Q.. How to add data files to tablespace?
+==> to add data files to tablesapce we need to alter table 
+	Syntax: 
+		Alter tablespace name_of_tablespace
+		Add datafile 'path_of_data_file'
+		SIZE size 
+		[Autoextend on|off][NEXT size]
+		[maxsize size|unlimited]
+------------------------------------
+Q.. Resize existing data files
+==> - Resizing means increase or decrease the size of datafiles 
+	- We can increases the size of datafile but we can't decrease size of datafiles below the used space.
+	Alter database datafile 'path'
+	Resize size;
+------------------------------------
+Q.. Syntax to enable or disable AUTOEXTEND?
+==> Alter database datafile 'PATH'
+	autoextend off [maxsize size]
+	
+	Alter database datafile 'PATH'
+	autoextend on [next size] [maxsize size]
+------------------------------------
+Q.. How to make ONLINE/OFFLINE tablespace?
+==> alter tablespace tablespace_name ONLINE|OFFLINE
+
+	Note: we can't OFFLINE => system,sysaux and temp
+------------------------------------
+Q.. How to rename tablespace?
+==> rename tablespace tablespace_name rename to new_tablespace_name;
+------------------------------------
+Q.. How to drop tablespace?
+==> drop tablespace tablespace_name;
+------------------------------------
+Q.. Creating table with tablespace?
+==> When we create table without specifying tablespace then table get created in default tablespace.
+	for e.g 
+		create table table_name(....) => created in default tablespace 
+	- check your default tablespace 
+		select * from user_user where username='user_name';
+		select * from dba_users where username='user_name'
+	- if we want to create table with tablespace then 
+		syntax
+		create table table_name(....)tablespace tablespace_name
+------------------------------------
+Q.. What is an user in Oracle?
+==> A login account in Oracle Database?
+------------------------------------
+Q.. How to create user?
+==> Syntax: 
+	CREATE USER username IDENTIFIED BY password
+	[DEFAULT TABLESPACE tablespace_name]
+	[TEMPORARY TABLESPACE temp_tablespace_name]
+	[QUOTA size|UNLIMITED ON tablespace_name]
+	[PROFILE profile_name]
+	[PASSWORD EXPIRED]
+	[ACOOUNT LOCK|UNLOCK];
+	
+	- above syntax create user but user can't login immediately we 
+	  GRANT CREATE SESSION Privilege explicitly to that user.
+	- Syntax to privide CREATE SESSION Privilege
+		GRANT privilege_name TO user_name 
+	- Parameters specified in square bracket are optional
+	  to create user we can use below syntax 
+	  CREATE USER username IDENTIFIED BY password;
+	- Example:
+		CREATE USER orauser1 IDENTIFIED BY orauser1;
+	-> Created user information is available in 
+		DBA_USERS,ALL_USERS AND USER_USERS
+	   we can view the information by executing select query as 
+	   select * from DBA_USERS
+	   select * from USER_USERS
+	   select * from ALL_USERS
+	-> Keywords explaination
+		1. DEFAULT TABLESPACE: When user created object are stored.
+			- this parameter is an optional 
+			- if we don't specify this parameter,oracle engine uses databse
+			  default tablespace (usually users)
+			- To check database default tablespace 
+				select * from DATABASE_PROPOERTIES where 
+				PROPERTY_NAME='DEFAULT_PERMANENET_TABLESPACE';
+		
+		2. TEMPORARY TABLESPACE: Which tablespace used for temp operations
+			- This parameter is an option 
+			- If we don't specify this parameter.oracle engine uses database
+			  default tablespace(Usually TEMP)
+			- Query to check default temp tablespace 
+				select * from DATABASE_PROPOERTIES where 
+				PROPERTY_NAME='DEFAULT_TEMP_TABLESPACE'
+		
+		3. QUOTA: Space limit on tablespace.How much space user can consume
+			- This parameter is an optional 
+			- If we don't specify this parameter,user has zero space.
+			- If QUOTA is zero,user can't create tables.
+			- We can check Quota for user 
+				select * from DBA_TS_QUOTAS where username='username'
+			  if above query returns zero rows means no quota is allocated for given user 
+			  
+		4. PROFILE:Resource and password rules
+			- This parameter is an optional 
+			- If we don't specify this parameter,name of PROFILE is DEFAULT
+			- PROFILE information is available in 'DBA_PROFILES'
+			- To check profile information use below query	
+				select * from DBA_PROFILES 
+		
+		5. PASSWORD: Value is EXPIRED 
+			- this parameter is an optional 
+			- If we don't specify this parameter,passoword is not expired.
+			- If we specify EXPIRED,Oracle engine forcess to change the passoword on first login
+			
+		6. ACCOUNT: Account status
+			- This parameter is an optional 
+			- If don't specify this parameter,default is UNLOCK(open)
+			
+	- Alter user 
+		1. Change the Password
+		-> Syntax: 
+			ALTER USER user_name IDENTIFIED BY new_password;
+		
+		2. Lock or Unlock the user
+		-> Syntax: 
+			ALTER USER user_name ACCOUNT LOCK|UNLOCK;
+		
+		3. Change the default tablespace
+		-> Syntax: 
+			ALTER USER user_name DEFAULT TABLESPACE new_tablespace_name;
+			
+		4. Change the QUOTA
+		-> Syntax: 
+			ALTER USER user_name QUOTA 20M ON tablespace_name;
+------------------------------------
+Q.. How to DROP user?
+==> Syntax: 
+	DROP USER user_name [CASCADE]
+	
+	- CASCADE is an optional parameter 
+	- if no object is associated with user then no need to user CASCADE.
+	- If any object is associated with user then we can't drop user in normal way 
+		DROP USER user_name Syntax can't drop user.
+	- In that case first drop all objects associated with that user and then drop user but 
+	  we can use CASCADE keyword to drop user along with his/her objects 
+	  DROP USER user_name CASCADE;
+	
+	But in real time droping the objects is not recommonded 
+	for that we have an alternative ways 
+	1. move all objects associated with that user to other user 
+	2. Loct the user account 
+	
+------------------------------------
+Q.. About PROFILE parameter of user creation syntax: 
+==> PROFILE: Resource and password rules 
+	-> Profile parameter is an optional.If we don't specify 
+	   profile parameter name then Oracle engine assign DEFAULT 
+	-> One user can have one profile or many users can have one profile 
+	-> Default profile name is 'DEFAULT' automatically assigned if no profile is specified.
+	-> Default profile cannot be dropped 
+	-> Profile information is available in 'DBA_PROFILES' data dictionary view.
+	-> To check profile information use below query 
+		SELECT * FROM DBA_PROFILES WHERE profile='DEFAULT'
+	-> we can create custome profile 
+		CREATE PROFILE profile_name 
+		LIMIT 
+		resource_name1 {integer|UNLIMITED|DEFAULT}
+		resource_name2 {integer|UNLIMITED|DEFAULT}
+		resource_name3 {integer|UNLIMITED|DEFAULT}
+		
+	# Important PROFILE parameters 
+	A. Password related PROFILE parameters 
+		1. FAILE_LOGIN_ATTEMPTS
+		-> maximum number of wrong password attempts allowed 
+		-> For DEFAULT profile its value is 10 
+		-> For custom profile its default value is 'DEFAULT'
+			'DEFAULT' means 'inherit value from DEFAULT PROFILE'
+		-> FAILED_LOGIN_ATTEMPTS 3 
+		-> affter 3 wrong logins -> account gets LOCKED
+		
+		2. PASSWORD_LIFT_TIME
+		-> How many days a password is valid.
+		-> For DEFAULT profile its value is 'UNLIMITED'
+		-> For Custom profile default value is 'DEFAULT'
+		-> PASSWORD_LIFE_TIME 60 
+			password expires after 60 days 
+			
+		3. PASSWORD_REUSE_TIME 
+		-> Minimum days before reusing an old password 
+		-> For DEFAULT PROFILE its value is UNLIMITED 
+		-> for custom profile its default value is 'DEFUALT'
+		-> Password_reuse_time 30 
+			cannot reuse old password for 30 days
+		
+		4. PASSWORD_REUSE_MAX
+		-> Number of passowrd changes required before reuse 
+		-> for default profile its value is unlimited 
+		-> for custom profile its default value is default 
+		-> password_reuse_max 5 
+		   must change password 5 times before reusing an old one 
+		   
+		5. PASSWORD_LOCK_TIME 
+		- How long(in days) the account remains locked after failed logins.
+		- For default profile its value is unlimited 
+		- for custom profile default value is default 
+		- passoword_lock_time 1 
+		- Account unlocks automatically after 1 day
+		
+		6. PASSWORD_GRACE_TIME 
+		- Extra days user can login after password expiry(warning period)
+		- For default profile its value is unlimited 
+		- for custom profile its default value is 'default'
+		- password_grace_time 7
+		User get 7 days warning before forced change 
+		
+		7. PASSWORD_VERIFY_FUNCTION
+		- PL/SQL function that checks password strength 
+		- For default profile its value is null 
+		- null means no password complexity check 
+		- for custom profile default value is 'default'
+		
+	B. Resource-related PROFILE parameters
+		1. sessions_per_user 
+		- Maximum concurrent logins allowed per user 
+		- for default profile its value is unlimited
+		- for custom profile its default value is 'default'
+		- sessions_per_user 2 
+		  only 2 sessions at a time 
+		  
+		2. cpu_per_session
+		- Total cpu time (in hundreth of seconds) allowed per session
+		- for default profile its value is unlimited
+		- for custom profile default value is 'default'
+		- cpu_per_session 10000
+			session ends after CPU limit reached 
+			
+		3. CPU_PER_CALL
+		- cpu time  limit per SQL call,not per session
+		- for default profile its value is unlimited
+		- for custom profile its default value is default 
+		- CPU_PER_CALL 1000
+			one heavy query can be stopped 
+			
+		4. CONNECT_TIME 
+		- Maximum total connected time (minutes) per session 
+		- for default profile its value is 'unlimited'
+		- for custom profile its default value is 'default'
+		- CONNECT_TIME 120 
+			session disconnects after 2 hours 
+			
+		5. IDLE_TIME 
+		- Max inactive time (minutes) before session is disconnected 
+		- for default profile its value is 'unlimited'
+		- for custom profile its default value is 'default'
+		- IDLE_TIME 30 
+			No activity for 30 mins -> session killed 
+			
+		6. LOGICAL_READS_PER_SESSION
+		- Max number of buffer reads per session 
+		- for default profile its value is 'unlimited'
+		- for custom profile its default value is 'default'
+		- LOGICAL_READS_PER_SESSION 100000
+			prevents heavy read operations
+			
+			
+------------------------------------
+Q.. General syntax to create tablespace (same as upper)
+==> CREATE TABLESPACE tablespace_name
+	DATAFILE 'path_of_data_file1','path_of_data_file2'
+	SIZE size 
+	[AUTOEXTENT ON|OFF] [NEXT size]
+	[MAXSIZE size|unlimited]
+	[EXTENT MANAGEMENT local]
+	[SEGMENT SPACE MANAGEMENT AUTO|MANUAL]
+	[LOGGING|NOLOGGIN]
+	[ONLINE|OFFLINE]
+	
+	e.g 
+		CREATE TABLESPACE pl_sql_dev_ts
+		DATAFILE 'C:\ORACLEXE\ORADATA\XE\pl_sql_dev_ts.DBF'
+		SIZE 50M
+		AUTOEXTEND ON NEXT 10M
+		MAXSIZE 100M
+		EXTENT MANAGEMENT Local
+		SEGMENT SPACE MANAGEMENT MANUAL 
+		LOGGING 
+		ONLINE;
+
+Q.. create custome profile ? 
+	Syntax: 
+		CREATE PROFILE profile_name 
+		LIMIT 
+		resource_name1 {integer|UNLIMITED|DEFAULT}
+		resource_name2 {integer|UNLIMITED|DEFAULT}
+		resource_name3 {integer|UNLIMITED|DEFAULT}
+		
+	e.g. 
+		CREATE PROFILE pl_sql_dev_profile 
+		LIMIT
+		FAILED_LOGIN_ATTEMPTS 7 
+		PASSWORD_LIFE_TIME 90
+		PASSWORD_LOCK_TIME 1 
+		SESSIONS_PER_USER 2
+		
+	- Profile password rule work bydefault but resource limit do not work by default.we need to enable 
+	  resource limit explicitly.so profiles work fully only if we enable resource limit 
+	- Syntax to enable resource limit 
+		alter system set resource_limit='true';
+	- Resource limit is system level not for profile level 
+	  so we need enable ones and get applied to all profiles 
+	  
+	- To check current value of resource limit syntax is?
+		select name,value from v$parameter where name='resource_limit';
+		
+Q.. How to create user?
+syntax: CREATE USER username IDENTIFIED BY password
+		[DEFAULT TABLESPACE tablespace_name]
+		[TEMPORARY TABLESPACE temp_tablespace_name]
+		[QUOTA size|UNLIMITED ON tablespace_name]
+		[PROFILE profile_name]
+		[PASSWORD EXPIRED]
+		[ACOOUNT LOCK|UNLOCK];
+		
+	e.g 
+		CREATE USER rrdtnp IDENTIFIED BY rrdtnp
+		DEFAULT TABLESPACE pl_sql_dev_ts
+		TEMPORARY TABLESPACE TEMP 
+		QUOTA UNLIMITED ON pl_sql_dev_ts
+		PROFILE pl_sql_dev_profile
+		
+	- Once user creation done then created user can't login
+	  if we try to login,we will get an error
+	  REASON: 
 ------------------------------------
