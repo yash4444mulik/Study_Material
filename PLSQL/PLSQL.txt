@@ -56,6 +56,283 @@ Q.. Types of trigger?
 			BEFORE STATEMENT
 			AFTER STATEMENT
 ----------------------------------------
+Q.. What is DDL Trigger?
+==> The trigger which is fired on DDL operation is called DDL trigger.
+	- Which statement fire DDL trigger?
+		1. CREATE
+		2. ALTER 
+		3. DROP
+		4. TRUNCATE
+		5. RENAME
+		6. GRANT/REVOKE(Oracle)
+		
+	# Types of DDL 
+	-> There are two types of DDL triggers 
+		1. Schema level
+		2. Database level 
+-------------------------------------------
+Q.. What privileges are required to create a DDL trigger?
+==> -> For Schema-level-> Create TRIGGER privilege is required
+	-> For database level -> ADMINISTER DATABASE TRIGGER privilege is required.
+----------------------------------------
+Q.. Syntax to create DDL Trigger?
+==> This syntax is applicable for both schema level and database level 
+	Syntax: 
+		CREATE OR REPLACE TRIGGER trigger_name 
+		{BEFORE|AFTER} ddl_event
+		ON {SCHEMA|DATABASE}
+		BEGIN
+		---trigger body
+		END;
+		/
+		
+	-> Syntax for schema level trigger
+		CREATE OR REPLACE TRIGGER trigger_name 
+		{BEFORE|AFTER} ddl_event
+		ON Schema
+		BEGIN
+			---trigger body
+		END;
+		/
+		ON SCHEMA -> only current schema objects 
+		
+	-> Syntax for database level trigger 
+		CREATE OR REPLACE TRIGGER trigger_name 
+		{BEFORE|AFTER} ddl_event
+		ON DATABASE
+		BEGIN
+		---trigger body
+		END;
+		/
+		ON DATABASE -> all schemas(needs DBA privilege)
+		
+	1. Triggering Timing?
+	-> BEFORE|AFTER are the triggering timing 
+	-> BEFORE means before executing DDL
+	-> AFTER means after DDL statement executed.
+	-> BEFORE is used to restrict DDL operation can block the DDL 
+	-> AFTER is mainly used for auditing 
+	
+	2. DDL Events 
+	-> We can use CREATE|ALTER|DROP|RENAME|TRUNCATE|GRANT|REVOKE|DDL
+	-> Based on our requirement we can specify perticular DDL event or 
+	   If we want to fire the trigger on all DDL statement the use keyword 'DDL'
+	-> DDL->Trigger fires for all DDL statements 
+	
+	3. Scope
+	-> We have two scopes 
+		1. ON SCHEMA
+		2. ON DATABASE
+	-> If scope is ON SCHEMA then trigger get fired only current schema objects 
+	-> If scope is ON DATABASE then trigger get fired for all schemas(needs DBA privilege)
+	
+	Note: 
+		-> No INSTEAD OF for DDL triggers 
+		-> INSTEAD OF is applicable only for views 
+----------------------------------------
+Q.. What built-in variables are used in DDL triggers?
+==> Common Oracle built-in variables:
+	1. ORA_SYSEVENT
+	-> ORA_SYSEVENT stand for Oracle system events 
+	-> This variable returns the DDL operation name 
+	
+	2. ORA_DICT_OBJ_NAME
+	-> ORA_DICT_OBJ_NAME stand for Oracle dictionary object name 
+	-> this variable returns Object name.
+	
+	3. ORA_DICT_OBJ_TYPE
+	-> ORA_DICT_OBJ_TYPE stands for Oracle Dictionary Object Type 
+	-> this variable returns Object type.
+	
+	4. SYS_CONTEXT
+	-> SYS_CONTEXT stand for system context 
+	-> It returns context like user name,schema name.
+----------------------------------------
+Q.. Where DDL Triggers are used?
+==> DDL triggers are mainly used for 
+	1. Auditing schema changes 
+	2. Preventing unauthorized object changes 
+	3. Logging who changed what and when 
+	4. Enforcing standards(naming,tablespace,etc.)
+----------------------------------------
+Q.. What DDL triggers cannot do?
+==> 1. We can't use :NEW or :OLD 
+	2. We can't use commit or rollback(same as other triggers)
+	3. We cannot control row level data 
+----------------------------------------
+Q.. Can DDL triggers be row-level?
+==> No,DDL triggers are statement-level only 
+----------------------------------------
+Q.. Can we use :NEW and :OLD in DDL triggers?
+==> No :NEW and :OLD are not available in DDL triggers.
+----------------------------------------
+Q.. Can we COMMIT or ROLLBACK inside a DDL trigger?
+==> No,DDL triggers cannot perform commit and rollback.
+----------------------------------------
+Q.. Can a DDL trigger fire on GRANT or REVOKE?
+==> Yes in oracle,DDL triggers can fire on GRANT and REVOKE statements.
+----------------------------------------
+Q.. What happens if a DDL trigger fails?
+==> The DDL statement fails 
+	Entire transaction is rolled back 
+----------------------------------------
+Q.. Write trigger to prevent Drop of tables?
+==> CREATE or REPLACE TRIGGER Prevent_table_drop
+	BEFORE DROP ON DATABASE 
+	BEGIN 
+		RAISE_APPLICATION_ERROR(-20001,'you can't drop table');
+	END;
+	/
+----------------------------------------
+Q.. Write database-level trigger to prevent specific table from dropping?
+==> CREATE OR REPLACE TRIGGER prevent_employee_drop
+	BEFORE DROP ON Database
+	BEGIN
+		IF ORA_DICT_OBJ_NAME='EMP11' THEN
+		RAISE_APPLICATION_ERROR(-20001,'YOU CANT DROP EMP11 TABLE');
+	END;
+	/
+----------------------------------------
+Q.. Suppose we have defined DDL trigger which prevent dropping of tables,but
+	want to drop table from database,how will you drop?
+==> -> First disable trigger
+	-> Drop table 
+	-> Enable trigger.
+----------------------------------------
+Q.. Write Trigger to log all DDL Changes?
+==> first create table to store log 
+	=> 	CREATE TABLE ddl_audit_logs(
+		username varchar(50),
+		object_name varchar(50),
+		object_type varchar(50),
+		ddl_action varchar(50),
+		ddl_time DATE
+		);
+		
+	create or replace trigger ddl_audit_tgr
+	AFTER DDL ON DATABASE
+	BEGIN
+		INSERT INTO ddl_audit_logs(username,object_name,object_type,ddl_action,ddl_time)
+		values(SYS_CONTEXT('USERENV','SESSION_USER'),
+		ORA_DICT_OBJ_NAME,ORA_DICT_OBJ_TYPE,ORA_SYSEVENT,SYSDATE);
+	END;
+	/
+----------------------------------------
+Q.. Schema level DDL Trigger:Control Changes in specific schema?
+==> Example 1: 
+	CREATE OR REPLACE trigger schema_ddl_tgr
+	BEFORE CREATE ON Schema
+	BEGIN
+	RAISE_APPLICATION_ERROR(-20001,'DDL Operation create not allowed');
+	END;
+	/
+----------------------------------------
+Q.. when we create a schema-level DDL trigger to restrict DDL operations but you can still 
+	create a table in same schema,why?
+==> Reason: if a user execute DDL inside their own schema,schema-level DDL 
+	trigger will NOT fire.
+----------------------------------------
+Q.. Why trigger is not fired?
+==> The schema owner alreday has control over thier own objects 
+	blocking the owner via schema trigger could: 
+	1. Break internal opeartions
+	2. Cause recursive DDL issues 
+	3. Lock the schema permanently 
+	so oracle says:
+	"If you own it,you can change it"
+----------------------------------------
+Q.. When does a schema-level DDL trigger fire?
+==> Schema-level trigger fires when another user is trying to 
+	perform DDL operation on another user's schema.
+	
+	Example: 
+	-> Suppose there are two users A and B.
+	-> User A has created schema-level DDL trigger for create statement 
+	   When user A is trying to create table then trigger is not fired but 
+	   if User B is trying to create table in  A's schema then schema level 
+	   trigger get fired.
+----------------------------------------
+Q.. Why schema-level DDL trigger is bypassed?
+==> it is not bypassed.Oracle does not fire schema-level DDL triggers for DDL 
+	executed by the schema owner.
+----------------------------------------
+Q.. How to restrict DDL operation using trigger?
+==> Way first: USE DATABASE-level DDL trigger 
+	CREATE OR REPLACE TRIGGER block_create_table
+	BEFORE CREATE ON DATABASE 
+	BEGIN 
+		IF ORA_DICT_OBJ_TYPE='TABLE' THEN 
+		RAISE_APPLICATION_ERROR(-20001,'Table creation is restricted');
+		END IF;
+	END;
+	/
+	
+	Way second: In trigger body apply the logic based on system event 
+	CREATE OR REPLACE TRIGGER schema_ddl_tgr
+	BEFORE CREATE OR ALTER OR DROP ON SCHEMA
+	BEGIN
+		IF ORA_SYSEVENT IN('CREATE','ALTER','DROP') THEN
+		RAISE_APPLICATION_ERROR(-20001,'DDL opeartion create not allowed');
+		END IF;
+	END;
+	/
+	
+	Way third :use privilege instead of triggers
+	REVOKE CREATE TABLE FROM rrdtnp;
+----------------------------------------
+Q.. Database Events Triggers.
+==> - The trigger which is fired on databases event are called database event triggers.
+	- Database event triggers are fired when specific database-level event occur,not on table or rows.
+	- Database Event triggers are used to monitor,control or audit database activities.
+----------------------------------------
+Q.. What are Database Event?
+==> Database events are actions that affect the entire database
+	such as: 
+	1. LOGON:Fires when user login
+	2. LOGOFF:Fires when user logout
+	3. STARTUP:Fires when database is started
+	4. SHUTDOWN:Fires when database is down
+	
+	syntax: 
+		CREATE OR REPLACE TRIGGER trigger_name
+		AFTER db_events ON DATABASE 
+		BEGIN
+			--logic
+		END;
+		
+----------------------------------------
+Q.. Can we use 'BEFORE' in the databse event triggers?
+==> yes for some events not for others 
+
+	LOGON => AFTER 
+	LOGOFF => BEFORE
+	STARTUP => AFTER 
+	SHUTDOWN => BEFORE 
+	SERVERERROR => AFTER 
+	
+	Database events triggers are always statement-level triggers 
+	they cannot be row level 
+----------------------------------------
+Q.. create trigger for login audit?
+==> Step 1: Create login_audit table
+		CREATE TABLE login_audit(username varchar(50),login_time date,host varchar(100));
+		
+	step 2: create trigger 
+		CREATE OR REPLACE TRIGGER login_audit_trigger
+		AFTER db_event ON DATABASE 
+		DECLARE 
+			PRAGMA AUTONOMOUS_TRANSACTION
+		BEGIN
+		 insert into login_audit(username,login_time,host)
+		 values(SYS_CONTEXT('USERENV','SESSION_USER'),sysdate,SYS_CONTEXT('USERENV','HOST'));
+		 commit;
+		END;
+		/
+	
+	Note: PRAGMA AUTONOMOUS_TRANSACTION is required for login/logoff if inserting data.
+	if we don't specify PRAGMA AUTONOMOUS_TRANSACTION then we don't get any exception 
+	trigger successfully created but data will not be commited.
+----------------------------------------
 Q.. Syntax of DML Trigger?
 ==> CREATE [OR REPLACE] TRIGGER Trigger_name 
 	{BEFORE | AFTER | INSTEAD OF}
@@ -1960,5 +2237,670 @@ syntax: CREATE USER username IDENTIFIED BY password
 		
 	- Once user creation done then created user can't login
 	  if we try to login,we will get an error
-	  REASON: 
+	  REASON: created user don't have system privilege by default.we need to provide system 
+			  privilege explicitly using GRANT command.
 ------------------------------------
+Q.. Syntax to alter profile?
+==> ALTER PROFILE profile_name
+	LIMIT 
+	resource_name1 [integer|UNLIMITED|DEFAULT],
+	resource_name2 [integer|UNLIMITED|DEFAULT],
+	resource_name3 [integer|UNLIMITED|DEFAULT];
+	
+	- if any user is associated with profile,we can't drop that profile.
+	  In that case move user to another profile 
+	  Syntax: ALTER USER user_name PROFILE new_profile_name;
+	- If user associated with profile and we can drop that profile then use	
+	  CASCADE keyword,so syntax for drop profile is 
+		DROP PROFILE profile_name CASCADE;
+------------------------------------
+Q.. What happens if SYSTEM tablespace get full?
+==> The tablespace will start throwing errors and many operation will fail 
+	If system tablesapce get full,the database can become unstable or unusable because 
+	Oracle cannot update data dictionary objects.
+	
+	=> Immediate DBA action
+	1. Add datafile
+		ALTER TABLESPACE system 
+		ADD DATAFILE 'path'
+		SIZE 2G AUTOEXTEND ON 
+		
+	2. Resize existing profile
+		ALTER DATABASE DATAFILE 'path'
+		RESIZE 5G;
+------------------------------------
+Q.. What is mean by Privileges?
+==> A privilege is a permission give to a user or role to perform an 
+	action in the database
+	- Example actions: 
+		Login to database
+		Create tables
+		Read data from another user's table 
+	
+	# Types of Privileges 
+	-> There are two types of Privileges 
+		1. System Privilege 
+		2. Object Privilege
+------------------------------------
+Q.. What is System Privilege?
+==> - System Privilege means what can the user do?
+	- System Privilege control database-level operations.
+	# Name of system Privileges 
+	1. Login and session
+	-> For login and session we have below two privileges
+		1. CREATE SESSION: allows to login.it is mandatory system 
+			privilege.every user must have CREATE SESSION privilege.
+			
+		2. RESTRICTED SESSION: Restrict the user from creating session.
+			user is not allowed to login.
+			
+		Syntax: GRANT CREATE SESSION TO user_or_role_name;
+		Example: 
+		GRANT CREATE SESSION TO RRDTNP
+		
+		3. Object creation(own schema)
+		-> Privilege Names
+			1. CREATE TABLE 
+			2. CREATE VIEW 
+			3. CREATE SEQUENCE 
+			4. CREATE INDEX 
+			5. CREATE PROCEDURE 
+			6. CREATE Function
+			7. CREATE PACKAGE 
+			8. CREATE TRIGGER
+		
+		If user don't have Object creation privilege then we will get an error 
+		- Grant Object Creation Privilege
+		- Syntax: GRANT privilege_name TO user_or_role;
+		- Example: GRANT CREATE TABLE TO RRDTNP
+		
+		4. Object Creation(Any schema)
+		-> Privilege Names 
+			1. CREATE ANY TABLE 
+			2. CREATE ANY VIEW 
+			3. CREATE ANY SEQUENCE
+			4. CREATE ANY PROCEDURE 
+			5. CREATE ANY TRIGGER 
+		
+		5. Object Management
+		-> By default user has privilege to alter his/her own objects.
+		   but he/she want to alter other user's object then privilege is required.
+		-> Name of Privilege
+			1. ALTER ANY TABLE 
+			2. DROP ANY TABLE 
+			3. TRUNCATE ANY TABLE 
+			4. COMMENT ANY TABLE
+			
+		6. User & role management
+		-> Name of the Privilege
+			1. CREATE USER 
+			2. ALTER USER 
+			3. DROP USER 
+			4. CREATE ROLE 
+			5. DROP ROLE 
+			6. GRANT ANY ROLE 
+			
+	System privilege information is available in data dictionary view and name of that are
+	a) DBA_SYS_PRIVS 
+	b) USER_SYS_PRIVS 
+	we can fire select query on that view as 
+		select * from DBA_SYS_PRIVS where GRANTEE='username';
+		
+-------------------------------------
+Q.. Object Privilege?
+==> Control access to specific schema objects 
+	- Object Privilege means on which object can the user act
+	- By default user has Object Privilege on other's schema. so we need 
+	  GRANT Object Privilege on other's schema.
+	
+	# Names of Object Privilege
+		Table/View 
+		- select 
+		- insert 
+		- update 
+		- delete 
+		- references 
+		
+		Sequence 
+		- select 
+		
+		Procedure/Function/PACKAGE
+		- execute 
+-------------------------------------
+Q.. What is Schema?
+==> A Schema is logical container of database objects 
+	- When we create an user,internally schema is created for that user 
+	- Name of Schema and name of user are same 
+	- There is no command to create schema 
+	- One user has one schema 
+	-> To list out schemas(users)
+		select * from DBA_USERS(all databe user informtion)
+		select * from user_users(current logged user informtion)
+		select * from all_users(all user username,id and creation date)
+	
+	-> To list out schemas objects
+		1. select * from dba_objects(all databse objects)
+		2. select * from user_objects(current logged user objects)
+		3. select * from all_objects(current logged user objects+granted object)
+		
+	-> To list Objects of specific schema
+		select * from DBA_OBJECTS where owner='user_name';
+-------------------------------------------	
+Q.. Grant Command?
+==> Grant command is used to grant privilege
+	Case1: Grant command syntax to grant system privilege
+	Syntax: 
+		GRANT system_privilege_name TO user_or_role_name[WITH ADMIN OPTION]
+		here WITH ADMIN OPTION is an optional paramter.it is used only with system privilege.
+		if we specify this option then user get admin rights.
+		
+	Example: GRANT CREATE SESSION system privilege to RRDTNP user 
+			 GRANT CREATE SESSION TO rrdtnp
+	Example: we can grant multiple system privileges at a time 
+			 GRANT CREATE SESSION,CREATE TABLE,CREATE VIEW,CREATE ANY TABLE TO rrdtnp
+			 
+	Example: Grant CREATE SESSION system privilege to RRDTNP user with ADMIN OPTION
+			 GRANT CREATE SESSSION TO rrdtnp WITH ADMIN OPTIONS 
+		Meaning: rrdtnp user can grant create session privilege to other users 
+	
+	Example: WITH ADMIN OPTION 
+			GRANT CREATE SESSION,CREATE TABLE,CREATE VIEW,CREATE ANY TABLE TO rrdtnp WITH ADMIN OPTION;
+		Meaning: rrdtnp user can grant CREATE SESSION,CREATE TABLE,CREAT VIEW,CREATE ANY TABLE Privilege to other users.
+	
+	- System Privilege information is available in data dictionary view and name of data dictionary views are 
+		1. DBA_SYS_PRIVS 
+		2. USER_SYS_PRIVS
+		
+		
+	Case 2: Grant command syntax to Grant Object Privilege
+	-> Object privilege are required only when to access other user objects 
+	-> Syntax for object privilege
+		GRANT object_privilege_names ON schema.object_name
+		TO user_or_role_name[WITH GRANT OPTION];
+		
+		Here WITH GRANT OPTION is an optional parameter
+		it is used only with Object Privilege.
+		meaning of WITH GRANT OPTION - user has rights to grant same object privilege to other users 
+		
+	Example: Grant single object privilege 
+		GRANT SELECT ON SYSTEM.Employee TO rrdtnp;
+	
+	Example: We can grant multiple object privilege at a time 
+		GRANT SELECT,INSERT,UPDATE ON SYSTEM.employee to rrdtnp;
+-------------------------------------------	
+Q.. How to check Object Privilege?
+==> select * from dba_tab_privs 
+	select * from user_tab_privs
+	select * from all_tab_privs
+-------------------------------------------
+Q.. Roles?
+==> A role is collect of privileges 
+-------------------------------------------
+Q.. How to create role?
+==> Syntax: 
+		create ROLE role_name;
+	
+	Example: create role pl_sql_dev;
+	# Role information is available in dba_roles data dictionary view.
+	select * from dba_roles;
+-------------------------------------------
+Q.. How to view privilege of Roles?
+==> Information for Role Privilege is available in dba_role_privs
+	data dictionary view
+		select * from dba_role_privs WHERE GRANTED_ROLE='PL_SQL_DEV';
+-------------------------------------------
+Q.. Revoking Privileges?
+==> Revoke means removing granted privileges 
+	1. Revoke system privilege
+	Syntax: 
+		REVOKE system_privilege_name FROM user_or_role_name;
+		
+	2. Revoke Object privilege 
+	Syntax: 
+		REVOKE object_privilege_names ON schema.object_name from user_or_role_name
+		
+	Note: 
+		1. REVOKE removes directly granted privileges
+		2. Privilege inherited via roles are not removed unless role is revoked.
+		3. Revoking object privilege also removes privileges granted by that user(cascade effect)
+		   Revoke is a DCL command;
+-------------------------------------------
+Q.. How to revoke role from user?
+==> REVOKE role_name from username;
+	user immediately loses all privileges provided by that role.
+-------------------------------------------
+Q.. How to drop the role?
+==> syntax: 
+		DROP ROLE role_name;
+	all users lose the privileges provided by that role.
+-------------------------------------------
+Q.. Can we create CUSTOM system privileges?
+==> No,system privileges are predefined by oracle
+	you cannot create new system privileges
+-------------------------------------------
+Q.. Can we create CUSTOM object privileges?
+==> No,object privileges are alos predefined
+	You cannot invent new ones like READ_SALARY or UPDATE_LIMITED;
+-------------------------------------------	
+Q.. What is procedure in PL/SQL?
+==> Procedure is named PL/SQL block used to perform an action.
+	Syntax: 
+		CREATE OR REPLACE PROCEDURE procedure_name(
+			parameter_name1[IN|OUT|IN OUT] datatype,
+			parameter_name2[IN|OUT|IN OUT] datatype,
+			parameter_name3[IN|OUT|IN OUT] datatype,
+			.
+			.
+		)
+		IS|AS
+			declaration section
+		BEGIN
+			executable_section
+		EXCEPTION
+			exception_section
+		END procedure_name;
+		/	
+-------------------------------------------
+Q.. What is IN OUT Parameter?
+==> IN OUT: receive a value from the celler and return a modified value back.
+-------------------------------------------
+Q.. Write a procedure to accept empid from user and print emp name on console?
+==> CREATE OR REPLACE PROCEDURE show_empname_by_id(
+	p_empid IN NUMBER)
+	IS 
+		v_empname varchar2(100);
+	BEGIN
+		SELECT empname INTO v_empname FROM emp11
+		where emp_id=p_empid;
+	EXCEPTION
+		WHEN OTHERS THEN 
+		DBMS_OUTPUT.PUT_LINE('EXCEPTION'||SQLERRM);
+	END show_empname_by_id;
+	/
+------------------------------------------------
+Q.. How to execute procedure?(How to call procedure)?
+==> - Procedure will not call automatically.we need to call it manually.
+	- We have 3 different ways to call procedure 
+	
+	Way 1: Using EXEC/EXECUTE Keyword 
+	-> EXEC/EXECUTE works in SQLPlus/Sql developer
+		Syntax: EXEC procedure_name;
+		Syntax: EXECUTE procedure_name;
+		
+		Example: EXEC GET_EMPNAME_BY_ID
+		
+		if output is not displayed on the screen,then set serverout on;
+		Syntax: SET SERVEROUTPUT ON;
+	
+	Way 2: Using CALL keyword:
+	Syntax: CALL Procedure_name
+	
+	Way 3: Using PL/SQL BLOCK
+	-> This is recommonded way to test your procedure.
+	Syntax: 
+	DECLARE
+		--variable declaration
+	BEGIN
+		--execution logic
+	END;
+	
+	Example:
+	BEGIN
+		show_empname_by_id(101);
+	END;
+	
+	
+	Note:
+	we can't use SELECT statement to call procedure
+	SQL:
+		select show_empname_by_id(101) from dual;-->this is invalid,we will get an error 
+------------------------------------------------
+Q.. Created procedure information is available in data dictionary views?
+==> 1. DBA_PROCEDURES 
+	2. ALL_PROCEDURES
+	3. USER_PROCEDURES
+	SELECT * FROM DBA_PROCEDURES WHERE OBJECT_NAME='GET_EMPNAME_BY_ID';
+------------------------------------------------
+Q.. Procedure status(Valid or Invalid)
+==> Procedure status information is available in USER_OBJECT view.
+	- select * from USER_OBJECTS WHERE OBJECT_NAME='GET_EMPNAME_BY_ID';
+------------------------------------------------
+Q.. Write a procedure which take emp_id from user and return his/her name.
+==> 
+	CREATE OR REPLACE PROCEDURE get_empname_by_id(p_empid IN NUMBER,p_empname OUT varchar2)
+	IS 
+	v_empname varchar2(100);
+	BEGIN
+	SELECT empname INTO p_empname FROM emp11
+	WHERE empno=p_empid;
+	EXCEPTION
+	WHEN OTHERS THEN 
+	DBMS_OUTPUT.PUT_LINE('EXCEPTION'||SQLERRM);
+	END get_empname_by_id;
+	/
+
+	# Syntax to call procedure:
+	DECLARE
+	v_empname VARCHAR2(100);
+	BEGIN
+	get_empname_by_id(101,v_empname);
+	DBMS_OUTPUT.PUT_LINE(v_empname);
+	END;
+
+------------------------------------------------
+Q.. Write a procedure which accept empid and display his/her salary on console?
+==> CREATE OR REPLACE PROCEDURE display_salary(p_empid IN NUMBER)
+	IS 
+		v_sal NUMBER;
+	BEGIN
+		select salary INTO v_sal FROM emp11
+		WHERE empno=p_empid;
+		DBMS_OUTPUT.PUT_LINE('salary of'||p_empid||'is'||v_sal);
+	EXCEPTION
+		WHEN OTHERS THEN
+			DBMS_OUTPUT.PUT_LINE('EXCEPTION'||SQLERRM);
+	END display_sal;
+	/
+	
+	Test the procedure
+		BEGIN
+			display_salary(101);
+		END;
+------------------------------------------------	
+Q.. write a procedure which accept empid and return status of employee(exist or not)?
+==> CREATE OR REPLACE PROCEDURE emp_exist(p_empid IN NUMBER,p_exit OUT BOOLEAN)
+	IS 
+	v_cnt number;
+	BEGIN
+		select count(*) INTO v_cnt from emp11
+		where empno=p_empid;
+		
+		IF v_cnt>0 THEN 
+			p_exit:=TRUE;
+		ELSE
+			p_exit:=FALSE;
+		END IF;
+	EXCEPTION 
+		WHEN OTHERS THEN 
+		DBMS_OUTPUT.PUT_LINE('Exception'||SQLERRM);
+	END is_emp_exist;
+	/
+	
+	
+	#Testing
+		DECLARE 
+			v_status BOOLEAN;
+		BEGIN
+			emp_exist(101,v_status);
+			DBMS_OUTPUT.PUT_LINE(CASE WHEN v_status 'TRUE' ELSE 'FALSE END);
+		END;
+------------------------------------------------
+Q.. write a procedure which accept empid and return name,salary,dept_id?
+==> CREATE OR REPLACE PROCEDURE get_emp_sal_dept_dtls(v_empid IN NUMBER,v_empname OUT varchar,v_salary OUT NUMBER,v_deptid OUT NUMBER)
+	IS
+	BEGIN
+	BEGIN
+	select empname into v_empname from emp11 where empno=v_empid;
+	END;
+	BEGIN
+	select salary into v_salary from emp11 where empno=v_empid;
+	END;
+	BEGIN
+	select dept_id into v_deptid from emp11 where empno=v_empid;
+	END;
+	END get_emp_sal_dept_dtls;
+
+	declare
+	v_empid number:=101;
+	v_empname varchar(90);
+	v_salary number;
+	v_deptid number;
+	begin
+	get_emp_sal_dept_dtls(v_empid,v_empname,v_salary,v_deptid);
+	dbms_output.put_line(v_empid || v_empname||v_salary||v_deptid);
+	end;
+	/
+------------------------------------------------
+Q.. write a procedure which accept emp_id and return his/her name,salary,dept_id?	
+------------------------------------------------
+Q.. Write a procedure which accept emp_id and return increase salary by 10%?
+------------------------------------------------
+Q.. Write a procedure which accpet emp_id,salary and return salary status(max or not)?
+------------------------------------------------
+Q.. Write a procedure which accept emp_id,salary and return salary status(max or not)?
+------------------------------------------------
+Q.. IN OUT Parameter in procedure?
+==> Example: write a procedure which accept salary and return increased salary?
+	CREATE OR REPLACE PROCEDURE increased_salary(v_salary IN OUT NUMBER)
+	IS
+	BEGIN
+	DBMS_OUTPUT.PUT_LINE('Received salary is'||v_salary);
+	p_salary:=p_salary+5000;
+	END increase_sal;
+	
+	Tesing:
+	Declare
+	 v_sal number:=25000;
+	BEGIN
+	 increase_sal(v_sal)
+	 dbms_output.put_line('out put  '|| v_sal);
+	END;
+------------------------------------------------
+Q.. Can we DISABLE a Procedure in Oracle?
+==> No,we cannot disable a procedure directly 
+	oracle supports ENABLE/DISBLE only for 
+	1. Triggers
+	2. Constraints
+	-> procedure,functions,packages do not have DISABLE option
+------------------------------------------------
+Q.. How to do people "disable" a procedure in practice?
+==> To disable a procedure we have different ways:
+	Case 1: Revoke EXECUTE privilege:
+	Syntax: 
+		REVOKE EXECUTE ON proc_name FROM user_name_role_name;
+	Example:
+		REVOKE EXECUTE ON INCREASE_SAL FROM RRDTNP;
+		
+	CASE 2: Rename the procedure
+	Syntax: 
+		REVOKE EXECUTE ON proc_name FROM user_name_role_name;
+	But this is not recommended in production
+	
+	CASE 3: Add a control flag inside procedure(best design)
+	-> Safest 
+	-> No recompilation
+	-> Widely used in production.
+		
+		step 1: Create table 
+		SQL : CREATE TABLE object_active_flags(object_name varchar(100),obj_status char(2));
+			 INSERT INTO object_active_flags values('increase_sal','Y');
+			 
+		step 2:create procedure
+		CREATE OR REPLACE PROCEDURE increase_sal(p_salary IN OUT NUMBER)
+		IS
+			v_flag CHAR(2);
+		BEGIN
+			select obj_status INTO v_flag FROM object_active_flags where object_name='increase_sal';
+		  IF v_flag='N' THEN
+			RAISE_APPLICATION_ERROR(-20001,'Procedure disabled');
+		  ELSE 
+			DBMS_OUTPUT.PUT_LINE('Received salary is '|| p_salary);
+		  END IF;
+		END increase_sal;
+		
+		Testing:
+			1. When flag is Y
+				DECLARE 
+					v_sal NUMBER:=45000;
+				BEGIN 
+					increase_sal(v_sal);
+					DBMS_OUTPUT.PUT_LINE('Output'||v_sal);
+				END;
+			
+			2. When flag is 'N'
+				DECLARE
+					v_sal NUMBER:=45000;
+				BEGIN
+					increase_sal(v_sal);
+					DBMS_OUTPUT.PUT_LINE('Output'||v_sal);
+				END;
+				
+	Case 4: Drop the procedure(hard stop)
+	Syntax: 
+		DROP PROCEDURE proc_name;
+		but this is not recommended in production;
+------------------------------------------------
+Q.. Which DML operations are allowed in Procedure?
+==> ALL DML operations are allowed in procedure.
+------------------------------------------------
+Q.. Are DDL statements allowed in a PROCEDURE?
+==> Not allowed directly 
+	You cannot write DDL directly inside a procedure 
+	All DDL statements are allowed via dynamic SQL 
+------------------------------------------------
+Q.. Are DCL statements allowed in a PROCEDURE?
+==> Not allowed directly 
+	You cannot write DCL directly inside a procedure.
+	They are allowed only via dynamic SQL 
+------------------------------------------------
+Q.. Summary table of procedure?
+==> DDL Not directly allowed via dynamic SQL 
+	DML Yes 
+	DQL Yes 
+	DCL Not directly but allowed via dynamic SQL 
+	TCL Yes 
+------------------------------------------------
+Q.. What is function in PL/SQL?
+==> Function is named PL/SQL block used to perform an action.
+	Syntax: 
+		CREATE OR REPLACE FUNCTION function_name(parameter_name IN datatype,...) return_datatype
+		IS|AS
+			declaration_section
+		BEGIN
+			executable_section
+		EXCEPTION
+			exception_section
+		END function_name;
+		/
+		
+	=> Function take input->process it->return one value.
+	=> procedure may or may not return a value but function always return a value.
+------------------------------------------------
+Q.. How many values a function can return at a time?
+==> Only one.
+------------------------------------------------
+Q.. Addition of two numbers using function?
+==> CREATE OR REPLACE FUNCTION add_two_number(n1 IN number,n2 IN number)return NUMBER
+	IS 
+		v_result number;
+	BEGIN
+		v_result:=n1+n2;
+		RETURN v_result;
+	END add_two_number;
+------------------------------------------------	
+Q.. How to test function?(How to call the function)?
+==> Way 1: Using select statement
+	Syntax: select function_name from table_name;
+	Example: select add_two_number(10,20) from dual;
+	
+	Way 2: Using BEGIN...END block 
+		DECLARE 
+			v_result NUMBER:=0;
+		BEGIN
+			select add_two_number(10,20) into v_result from dual;
+			DBMS_OUTPUT.PUT_LINE('Out pul'||v_result);
+		END;
+------------------------------------------------
+Q.. Write a function to find square of number?
+==> CREATE OR REPLACE FUNCTION square_of_number(v_num IN NUMBER)RETURN NUMBER
+	IS
+		v_result NUMBER:=0;
+	BEGIN
+		v_result:=v_num*v_num;
+		RETURN v_result;
+	END square_of_number;
+	/
+	
+	Way 1: Using select statement 
+		select square_of_number(10) from dual;
+		
+	Way 2: Using BEGIN...END block
+		DECLARE 
+			v_result number:=0;
+		BEGIN
+			select square_of_number(10) from dual;
+			dbms_output.put_line(v_result);
+		END;
+------------------------------------------------
+Q.. Write a function to concate two string values.
+==> 
+CREATE OR REPLACE FUNCTION join_two_string(first IN varchar,second IN varchar)RETURN VARCHAR
+IS 
+v_result varchar(50);
+BEGIN
+v_result:=first||second;
+---using predefined function
+select concat(first,second) INTO v_result FROM DUAL;
+RETURN v_result;
+END join_two_string;
+------------------------------------------------
+Q.. write a function to concat 4 string values?
+------------------------------------------------
+Q.. write function to sum of salaries of two employee.pass salary values to function and calculate salary sum?
+------------------------------------------------
+Q.. Write a procedure which accpet two emp_id and returns sum of salary?
+==> 
+	CREATE OR REPLACE PROCEDURE sum_of_sal_two_emp(p_empid1 IN NUMBER,p_empid2 IN NUMBER,p_result OUT NUMBER,p_message OUT VARCHAR)
+	IS
+	v_sal1 NUMBER;
+	v_sal2 NUMBER;
+	BEGIN
+	BEGIN
+	select salary into v_sal1 from emp11 where empno=p_empid1;
+	Exception
+	when others then 
+	v_sal1:=null;
+	END;
+	BEGIN
+	select salary into v_sal2 from emp11 where empno=p_empid2;
+	Exception
+	when others then 
+	v_sal2:=null;
+	END;
+	IF v_sal1 is not null AND v_sal2 is not null THEN 
+	p_result:=v_sal1+v_sal2;
+	p_message:='success';
+	ELSE
+	p_result:=0;
+	END IF;
+	IF v_sal1 is null AND v_sal2 is null then 
+	p_message:=p_empid1||' and '||p_empid2||' Employee does not exist';
+	RETURN;
+	END IF;
+	IF v_sal1 is null then 
+	p_message:=p_empid1||'Employee does not exist';
+	END IF;
+	IF v_sal2 is null then 
+	p_message:=p_empid2||'Employee does not exist';
+	END IF;
+	Exception
+	WHEN OTHERS THEN 
+	DBMS_OUTPUT.PUT_LINE('exception in sum_of_sal_two_emp' || SQLERRM);
+	END sum_of_sal_two_emp;
+	
+	
+	test 
+	declare
+	emp1 number:=101;
+	emp2 number:=102;
+	result number:=0;
+	msg varchar(900);
+	begin
+	sum_of_sal_two_emp(emp1,emp2,result,msg);
+	dbms_output.put_line(result);
+	dbms_output.put_line(msg);
+
+	end;
+------------------------------------------------
+Q.. 
+------------------------------------------------
