@@ -330,14 +330,14 @@ Q.. Date data type?
 	Date use 7 byte of storage 
 --------------------------
 Q.. Suppose I execute below statement 
-	insert into employee(empno,empname,dob) values(1,'yash,'01-july-24');
+	insert into employee(empno,empname,dob) values(1,'yash,'01-july-25');
 	What date value is insert 1925 or 2025?
 ==> 2025 is inserted if oracle use RR 
 	1925 is inserted if oracle use YY 
 --------------------------
 Q.. What is default data format in oracle?
 ==> Date data type store date in oracle 
-	- default display format depends on the NLS_DATE_FORMAT of database.
+	- default date format depends on the NLS_DATE_FORMAT of database.
 	- NLS stand for national language support 
 	- In most oracle installation the default date format is 'dd-mon-rr'
 	- To check default format we have syntax 
@@ -365,7 +365,7 @@ Q.. Conversion function to convert DATE data type into STRING and STRING into DA
 ==> TO_CHAR: convert date type value into STRING it accpet two input argument 
 			 first is date value and second is date format 
 			 TO_CHAR(date_value,'date_format')
-	
+
 	TO_DATE: convert STRING type value into date 
 		Syntax: TO_DATE('dd-mon-yy')
 --------------------------
@@ -543,7 +543,7 @@ Q.. What is "IS NOT NULL" operator?
 Q.. what is "BETWEEN AND " operator?
 ==> "BETWEEN AND" operator is used to specify the range 
 	for eg
-		we want to filter salary is between 1k to 2k 		
+		we want to filter salary is between 1k and 2k 		
 ------------------------------------------
 Q.. What is "NOT BETWEEN AND" operator?
 ==> "NOT BETWEEN AND" operator is used to specify the range is not between 
@@ -719,6 +719,22 @@ Q.. List out single row character function?
 	13.INSTR	14.ASCII
 	15.chr 		16.Translate
 ------------------------------------------
+Q.. List out Date functions?
+==> 1. SYSDATE
+	2. SYSTIMESTAMP
+	3. CURRENT_DATE
+	4. CURRENT_TIMESTAMP 
+	5. MONTHS_BETWEEN 
+	6. EXTRACT 
+	7. ROUND 
+	8. TRUNC 
+------------------------------------------
+Q.. List out single row number function?
+==> 1.ABS() 	2.CEIL() 	3.FLOOR()
+	4.POWER() 	5.SQRT() 	6.ROUND()
+	7.TRUNC() 	8.MOD()		9.GREATEST()
+	10.LEAST()
+------------------------------------------	
 Q.. what is "lower" function?
 ==> lower function accept one input argument 
 	it convert uppercase character into lowercase character
@@ -754,10 +770,10 @@ Q.. What is "substr" function?
 	it accept 3 input arguments
 	1. Source string 
 	2. Start index 
-	3. length of resultant string (optional)
+	3. end_index
 	
 	Syntax: 
-		substr(source_string,start_index,length_of_resultant_string);
+		substr(source_string,start_index,end_index);
 		
 		if we don't specify end index then it consider all length from start_index to end.
 ------------------------------------------
@@ -766,10 +782,7 @@ Q.. What is "LPAD" function?
 	this function is used to add extra character at left side of source string  
 	this function take 3 input argument
 	Syntax: 
-		LPAD(source_string,N,target_character)
-	
-		value of N should be zero or negative 
-		
+		LPAD(source_string,N,target_character)		
 ------------------------------------------
 Q.. What is "RPAD" function?
 ==> meaning of RPAD is to add 
@@ -1001,7 +1014,7 @@ Q.. sysdate function and current_date return today's date why we Oracle introduc
 	for same functionality?
 ==> In Oracle sysdate and current_date return the current date and time but there is an important 
 	difference related to time zones 
-	-> sysdate return system's database server's date and time 
+	-> sysdate return system's database server's date 
 	-> current_date return user session's time zone date 
 	-> based on your requirement you can choose sysdate and current_date function 
 ------------------------------------------
@@ -2031,7 +2044,7 @@ Q.. What is Order|NoOrder parameter in sequence?
 	- NoOrder parameter don't ensure sequence numbers 
 ------------------------------------------
 Q.. How to view sequence meta data?
-==> To view sequence metadata some tables are there 
+==> To view sequence metadata we have data dictionary views 
 	1. user_sequences ==> accesible for all users 
 	2. dba_sequences ==> accesible for DBA person
 	3. all_sequences ==> accesible for all users
@@ -3179,7 +3192,7 @@ Q.. Disply employee details whose salary is greater than 101 and department is
 Q.. display employee whose job is same as employee 110.
 ----------------------------------------------
 Q.. Multi row subquery?
-==> - The query which return multiple row ans single column is called multi row subquery.
+==> - The query which return multiple row and single column is called multi row subquery.
 	- If inner query return multiple row then in outer query we need to use muti row 
 	  comparison operator like IN,ANY,ALL.
 ----------------------------------------------
@@ -3255,7 +3268,7 @@ Q.. Multi row operator 'IN'?
 Q.. What is ALL operator?
 ==> - it is multi row operator 
 	- it is used with single row comparison operator 
-	- it compare value from outer value with all values returned by inner query 
+	- it compare value from outer query with all values returned by inner query 
 		and it return true if all values are matched.
 	- Syntax: 
 		select clm1,clm2 from table_name where column_name single row operator ALL(inner query)
@@ -3282,7 +3295,7 @@ Q.. What is ANY operator?
 	  where salary> SOME (select salary from employee where deptId=4)
 ----------------------------------------------
 Q.. What is difference between ALL and ANY?
-==> ALL return all value is condition is true where as ANY return true if one match is found.
+==> ALL return all value if condition is true where as ANY return true if one match is found.
 ----------------------------------------------
 Q.. What is EXISTS operator?
 ==> - EXISTS is boolean operator
@@ -3468,6 +3481,9 @@ C) Correlated subquery
 D) Multi-column subquery
 → **C) Correlated subquery**
 ----------------------------------------------
+----------------------------------------------
+----------------------------------------------
+----------------------------------------------
 Q.. What is CASE EXPRESSION ?
 ==> CASE is not function it it expression 
 	it is used to add conditional logic in sql query.
@@ -3605,6 +3621,7 @@ D) It will skip rows where the condition is not met
 ----------------------------------------------
 Q.. What is decode function in oracle?
 ==> Decode is predefined function in oracle.
+	it is used to add conditional logic in sql query.
 	It is simplified version of Case expression.
 	Syntax: 
 		DECODE(expression,search1,result1,search2,result2.....default) 

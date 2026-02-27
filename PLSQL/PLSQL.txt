@@ -1,5 +1,6 @@
 ============== PLSQL =================
 
+
 Q.. What is Trigger?
 ==> Trigger is stored procedure in Oracle that automatically executed or fired
 	when a specific event occur on a table,view or database.
@@ -138,15 +139,23 @@ Q.. What built-in variables are used in DDL triggers?
 	
 	2. ORA_DICT_OBJ_NAME
 	-> ORA_DICT_OBJ_NAME stand for Oracle dictionary object name 
-	-> this variable returns Object name.
+	-> this variable returns Object name.e.g table_name,view_name etc 
 	
-	3. ORA_DICT_OBJ_TYPE
+	3. ORA_DICT_OBJ_TYPE	
 	-> ORA_DICT_OBJ_TYPE stands for Oracle Dictionary Object Type 
-	-> this variable returns Object type.
+	-> this variable returns Object type.e.g TABLE,VIEW etc 
 	
 	4. SYS_CONTEXT
 	-> SYS_CONTEXT stand for system context 
-	-> It returns context like user name,schema name.
+	-> It returns environment information about current session.
+	syntax: SYS_CONTEXT(namespace,parameter)
+	
+	5. USERENV
+	-> USERENV is predefined namespace in oracle that contains session related information.
+		like current user,IP address,host,OS user,database name.
+		
+	6. SESSION_USER
+	-> SESSION_USER returns the username that logged into the database.
 ----------------------------------------
 Q.. Where DDL Triggers are used?
 ==> DDL triggers are mainly used for 
@@ -190,8 +199,11 @@ Q.. Write database-level trigger to prevent specific table from dropping?
 	BEGIN
 		IF ORA_DICT_OBJ_NAME='EMP11' THEN
 		RAISE_APPLICATION_ERROR(-20001,'YOU CANT DROP EMP11 TABLE');
+		END IF;
 	END;
 	/
+	
+	Note: mention table in Uppercase.
 ----------------------------------------
 Q.. Suppose we have defined DDL trigger which prevent dropping of tables,but
 	want to drop table from database,how will you drop?
@@ -335,7 +347,7 @@ Q.. create trigger for login audit?
 ----------------------------------------
 Q.. Syntax of DML Trigger?
 ==> CREATE [OR REPLACE] TRIGGER Trigger_name 
-	{BEFORE | AFTER | INSTEAD OF}
+	{BEFORE | AFTER}
 	{INSERT | UPDATE [OF clm1,clm3...N] | DELETE }
 	ON table_name_or_view_name 
 	[FOR EACH ROW]
@@ -456,7 +468,7 @@ Q.. What is PL/SQL block?
 Q.. Types of PL/SQL block?
 ==> PL/SQL block can be IMPLICIT or EXPLICIT 
 	Implicit means created by oracle 
-	Explicit means create by developer 
+	Explicit means created by developer 
 	Explicit block can be anonymous block or named block 
 	
 	1. Implicit: 
@@ -557,7 +569,7 @@ Q.. Initilization of Variable?
 ==> Initilization means assigning value to variable
 	- we can Initilize variable using 2 ways
 		1. using assignment operator (:=)
-		2. using DEFAULT keyword
+		2. using DEFAULT keyword (emp_id number defualt 101)
 	- we can Initilize variable at the time of declaration or after the declaration. 
 	- If we declare variable then we can Initilize only in BEGIN section 
 	  otherwise we will get an error 
@@ -644,96 +656,6 @@ Q.. Why it is called Bind?
 Q.. can we declare bind variable inside DECLARE section?
 ==> No - we cannot declare bind variable inside DECLARE section.
 ------------------------------------
-Q.. PL/SQL Anchored data types : %TYPE and %ROWTYPE
-==> Anchored data types link a varaibles data type to a database column or table row 
-	so if the table changes,your PL/SQL code does not break.
-------------------------------------
-Q.. What is %TYPE 
-==>	- If we want to store column types value then use %TYPE 
-	- %TYPE allows PL/SQL variable to inherit the data type and size of a table column 
-	- Benefit: If column data type changed then no need change PL/SQL code.
-	- How to declare variable of %TYPE 
-		Syntax: 
-		variable_name table_name.column_name%TYPE 
-		
-		e.g 
-			DECLARE 
-			v_empname emp11.emp_name%TYPE;
-			BEGIN
-			 select emp_name into v_empname from emp11 where emp_id=101;
-			 dbms_output.put_line(v_empname);
-			END;
-			/
-			
-	- If we want to store column value then use %TYPE 
-------------------------------------
-Q.. How many value %TYPE variable holds?
-==> only one at a time 
-------------------------------------
-Q.. Does %TYPE store multiple rows or values?
-==> No
-------------------------------------
-Q.. What does %TYPE do?
-==> It copies datatype,size,precision,scale.
-------------------------------------
-Q.. What is %ROWTYPE?
-==> %ROWTYPE allows variable to hold entire row of table or cursor.
-	- %ROWTYPE always store all column 
-	- We can't use %ROWTYPE to store perticular column
-	How to declare %ROWTYPE
-	 variable_name table_name%ROWTYPE
-	 
-	Exmple:
-		DECLARE
-		v_emprow emp11%ROWTYPE;
-		BEGIN
-		 select * into v_emprow from emp11 where emp_id=101;
-		 dbms_output.put_line(v_emprow.emp_id || v_emprow.emp_name || v_emprow.salary);
-		END;
-		/
-------------------------------------
-Q.. What is Substitution variable?
-==> Substitution variable is variable start with & or && and allows user to pass input at run time
-	- Substitution varaible is used to get input from user at runtime 
-	- They are not PL/SQL variables,but used in Oracle client tools like SQL Plus,SQL Developer.
-	Syntax: 
-		&variable_name 
-		&&variable_name
-------------------------------------
-Q.. What is difference between '&variable_name' and '&&variable_name'?
-==> &variable_name : Prompt every time(ask every time)
-	&&variable_name: Prompt one time and store that value and reuse.
-------------------------------------
-Q.. What is CONSTANT Variable?
-==> Variable whose value cannot be changed once it is assigned is nothing but CONSTANT variable.
-	- it is useful for fixed values such as tax rates,PI,maximum limit or any value that 
-	  should not change during execution.
-	- Syntax: 
-		Variable_name CONSTANT datatype :=value;
-------------------------------------
-Q.. NOT NULL is constraint in PLSQL?
-==> In PL/SQL variables,NOT NULL is not a constraint,but a variable attribute.
-	- It behave like a constraint,but it is not a database constraint.
-------------------------------------
-Q.. If we don't initilize variable then what is its default value?
-==> default value of variable is null.
-------------------------------------
-Q.. What happen if we declare variable twice in same block?
-==> - if we declare variable twice and not Initilize it then we don't get any error 
-	- if we declare variable twice and Initilize it then we will get an error.
-------------------------------------
-Q.. Can we access outer block variable inside inner block?
-==> Yes we can access 
-------------------------------------
-Q.. Can we access Inner block variable inside outer block?
-==> No 
-------------------------------------
-Q.. When is a variable created in PL/SQL?
-==> Variable created At the time of block execution.
-------------------------------------
-Q.. When is a variable destroyed in PL/SQL?
-==> Ones block execution is completed then a variable destroyed from the memory.
-------------------------------------
 Q.. What is data type in PL/SQL?
 ==> which type of value store in variable is nothing but data type.
 ------------------------------------
@@ -775,7 +697,7 @@ Q.. NUMERIC
 	- Range of Precision is 1 to 38 and Range of scale is -84 to +127
 	
 	2. PLS_Integer
-	- It is PL/SQL specific scale numeric data type.
+	- It is PL/SQL specific numeric data type.
 	- It store only integer values.
 	- If we assign decimal value then we will not getting any error.it will ignore 
 	  decimal part and consider only integer.
@@ -791,25 +713,23 @@ Q.. NUMERIC
 		3. High performance numeric calculations 
 		
 	3. Binary_Float
-	- It is 32 bit(4 byte),single precision floating point numeric data type.
+	- It is numeric data type used to store single precision numbers.
+	- It size is 32 bit(4 byte)
 	- 32 bit means it store 32 bit floating point number. 
-	- It store approximately 6-7 decimal digit
 	- It is faster than Number.
 	- It is designed for high performance and scientific calculations, not exact precision.
-	- It follows IEEE 754 single-precision floating point format.
-	- Range 
-		minimum positive value=> 1.175*10^-38
-		maximum positive value=> 3.402*10^38
+	- It follows IEEE 754 single-precision standards
+	
 		
 		
 	4. Binary_Double
-	- It is 64 bit (8-byte),double precision floating point numeric data type.
+	- It is numeric data type used to store double precision numbers.
+	- It size is 64 bit (8-byte)
 	- 64 bit (8byte) means it store 64 bit floating point number.
 	- It is used when you need high speed numeric calculations with higher precision
 	  than Binary_Float.
-	- It stores approximately 15 to 17 decimal digit 
 	- It provide more accurancy than Binary_Float
-	- It follows IEEE-754 double-precision floating point format 
+	- It follows IEEE-754 double-precision standards
 	- Range 
 		Binary_Double store extremely large value (up to 10^308) and extremely small (down to 10^-324)
 		with ~15-17 digit accurancy 
@@ -859,7 +779,7 @@ Q.. What is difference between CHAR and NCHAR?
 	- CHAR uses minimum 1 byte per character where as NCHAR uses 2 byte per character.
 	- CHAR may support Unicode depending on the database character set where as 
 	  NCHAR always store Unicode data 
-	- CHAR is typically used for English or single-byte character where as 
+	- CHAR is typically used for English or single-language character where as 
 	  NCHAR is used for multilingual data
 	- CHAR generally uses less storage where as NCHAR uses more storage.
 	- CHAR is faster than NCHAR because it involves simpler encoding.
@@ -1083,6 +1003,96 @@ Q.. TO_TIMESTAMP function?
 		TO_TIMESTAMP(string);
 	e.g
 		select TO_TIMESTAMP(sysdate) from dual
+------------------------------------
+Q.. PL/SQL Anchored data types : %TYPE and %ROWTYPE
+==> Anchored data types link a varaibles data type to a database column or table row 
+	so if the table changes,your PL/SQL code does not break.
+------------------------------------
+Q.. What is %TYPE 
+==>	- If we want to store column types value then use %TYPE 
+	- %TYPE allows PL/SQL variable to inherit the data type and size of a table column 
+	- Benefit: If column data type changed then no need change PL/SQL code.
+	- How to declare variable of %TYPE 
+		Syntax: 
+		variable_name table_name.column_name%TYPE 
+		
+		e.g 
+			DECLARE 
+			v_empname emp11.emp_name%TYPE;
+			BEGIN
+			 select emp_name into v_empname from emp11 where emp_id=101;
+			 dbms_output.put_line(v_empname);
+			END;
+			/
+			
+	- If we want to store column value then use %TYPE 
+------------------------------------
+Q.. How many value %TYPE variable holds?
+==> only one at a time 
+------------------------------------
+Q.. Does %TYPE store multiple rows or values?
+==> No
+------------------------------------
+Q.. What does %TYPE do?
+==> It copies datatype,size,precision,scale.
+------------------------------------
+Q.. What is %ROWTYPE?
+==> %ROWTYPE allows variable to hold entire row of table or cursor.
+	- %ROWTYPE always store all column 
+	- We can't use %ROWTYPE to store perticular column
+	How to declare %ROWTYPE
+	 variable_name table_name%ROWTYPE
+	 
+	Exmple:
+		DECLARE
+		v_emprow emp11%ROWTYPE;
+		BEGIN
+		 select * into v_emprow from emp11 where emp_id=101;
+		 dbms_output.put_line(v_emprow.emp_id || v_emprow.emp_name || v_emprow.salary);
+		END;
+		/
+------------------------------------
+Q.. What is Substitution variable?
+==> Substitution variable is variable start with & or && and allows user to pass input at run time
+	- Substitution varaible is used to get input from user at runtime 
+	- They are not PL/SQL variables,but used in Oracle client tools like SQL Plus,SQL Developer.
+	Syntax: 
+		&variable_name 
+		&&variable_name
+------------------------------------
+Q.. What is difference between '&variable_name' and '&&variable_name'?
+==> &variable_name : Prompt every time(ask every time)
+	&&variable_name: Prompt one time and store that value and reuse.
+------------------------------------
+Q.. What is CONSTANT Variable?
+==> Variable whose value cannot be changed once it is assigned is nothing but CONSTANT variable.
+	- it is useful for fixed values such as tax rates,PI,maximum limit or any value that 
+	  should not change during execution.
+	- Syntax: 
+		Variable_name CONSTANT datatype :=value;
+------------------------------------
+Q.. NOT NULL is constraint in PLSQL?
+==> In PL/SQL variables,NOT NULL is not a constraint,but a variable attribute.
+	- It behave like a constraint,but it is not a database constraint.
+------------------------------------
+Q.. If we don't initilize variable then what is its default value?
+==> default value of variable is null.
+------------------------------------
+Q.. What happen if we declare variable twice in same block?
+==> - if we declare variable twice and not Initilize it then we don't get any error 
+	- if we declare variable twice and Initilize it then we will get an error.
+------------------------------------
+Q.. Can we access outer block variable inside inner block?
+==> Yes we can access 
+------------------------------------
+Q.. Can we access Inner block variable inside outer block?
+==> No 
+------------------------------------
+Q.. When is a variable created in PL/SQL?
+==> Variable created At the time of block execution.
+------------------------------------
+Q.. When is a variable destroyed in PL/SQL?
+==> Ones block execution is completed then a variable destroyed from the memory.
 ------------------------------------
 Q.. Case expression?
 ==> Case expression is an alternative for multiple IF-ELSE statements
@@ -2901,6 +2911,349 @@ Q.. Write a procedure which accpet two emp_id and returns sum of salary?
 	dbms_output.put_line(msg);
 
 	end;
+------------------------------------------------
+Q.. What is regular expression?
+==> Regular expression is pattern used to search,check or extract text.
+	- Regular expression is also called as REGEXP
+------------------------------------------------
+Q.. Symbol to generate Regular expression
+==> We have different symbols and these symbols are used 
+	to generate regular expression pattern.
+	-> Regular expression symbols can be divided into 7 main categories
+		1. Literals
+		2. Metacharacters
+		3. Quantifiers
+		4. Character classes 
+		5. Predefined character classes 
+		6. Grouping constructs 
+		
+	1. Literals: 
+		- literals means a constant value assigned to a variable 
+		- if value is string type.we call it as string literal
+		- if value is number type,we cal it as numeric literals
+		- if value is date type we call it as date literal
+		- In literals exact match is required 
+		
+	2. Metacharacters
+		- Metacharacters means special character
+		- metacharacters have a special meaning instead of their literal meaning
+		- metacharacter symbols 
+			1. dot .
+			2. cap ^
+			3. Doller $
+			
+			1. dot symbol 
+			- It is metacharacter
+			- It match any single character except newline 
+			- One dot means one character 
+			- e.g 	
+				a. => a followed by any single character
+				
+			2. Cap symbol 
+			- ^ is metacharacter
+			- meaning: Start of string or start of line 
+			- e.g 
+				^A -> Start with A
+				^abc -> start with abc
+				
+			3. $ doller 
+			- it is metacharacter
+			- meaning: end of string or end of line 
+			e.g 
+				A$ -> End of A 
+	
+	3. Quantifiers
+		- Quantifiers are length controllers 
+		- Quantifiers controls how many times somthing apprears 
+		- Quantifiers are as below 
+			1. * star symbol 
+				- 0 or more times 
+				- Any character which may appear zero or more times 
+				- * always works on the character immediately before it 
+				
+			2. + plus symbol 
+				- 1 or more times 
+				- at least one time or multiple times 
+				- + repeats the previous character minimum 1 time or maximum n times 
+				- Before the + symbol there must be character
+				- + always works on the character immediately before it.
+				E.g 
+				a+ => occurance of 'a' can be 1 time or multiple time 
+				a,aa,aaa,aaaa...
+				
+			3. ? symbol 
+				- 0 or 1 time 
+				- ? always work on the character immediately before it.
+				e.g 
+				a? -> a may appear or may not appear 
+				"" empty string ,a 
+				
+			4. {n}
+				- exactly n times of previous character or group 
+				- {n} always works on the character immediately before it.
+				e.g 
+					a{3} => aaa
+					
+			5. {n,}
+				- N or more times(At least n times or more times)
+				e.g 
+				a{3,}-> aaa,aaaa,aaaaa
+				aa-> invalid
+				a-> invalid 
+				
+			6. {n,m}
+				- Between n and m 
+				- n=minimum m=maximum 
+				a(2,6)=> minimum 2 times and maximum 6 times 
+	
+	4. Character classes
+		- Character classes allow you to match one character from set of character
+		- they are written inside square brackets[]
+		e.g 
+		[a,b,c] Either a,b,c
+		[a-z] -> any lower case character
+		
+	4. Negated Character class
+		- For Negated character class use ^ inside square bracket 
+		e.g 
+		[^abc] matches anyting except a or b or c 
+		[^aeiou] matches anyting except vowel
+		^[a-z] start with lowercase 
+		^[A-Z] start with uppercase character 
+		- for character we have some special shortcuts 
+		\d => digit 
+		\D => non-digit 
+		\w => word character
+		\W => non-word character
+		\s => whitespace 
+		\S => non-whitespace
+		
+	5. Predefined character classes 
+		-> used inside []
+		-> Example 
+		[[:digit:]] Digits(0-9)
+		[[:lower:]] lowercase 
+		[[:upper:]] Uppercase 
+		[[:alpha:]] alphabets
+		[[:alnum:]] Alphanumeric
+		[[:space:]] space,tab
+		[[:punct:]] punctuation
+		[[:xdigit:]] hexadecimal
+		
+		other example 
+		^[[:digit:]] start with digits 
+		[^[:digit:]] match any character except digits 
+		
+	6. Grouping constructs 
+		- For grouping construct parenthesis() symbol is used 
+		e.g 
+		ab+ => a foowed by b,one or more time 
+		(ab)+ => ab,abab,ababab,...
+		
+	7. Alternation(OR)
+		- Symbol is | (pipe operator)
+		a|b -> Either a or b 
+		(ab|bc) -> Either ab or bc 
+		
+	8. Escape character 
+		-> user \ to treat special character or normal 
+		e.g 
+		\. dot literal 
+		\* start literal 
+		\\ backslash 
+		\* start literal 
+		\^ cap literal 
+		\$ doller literal 
+------------------------------------------------
+Q.. Predefined functions for Regular expression
+==> Below are the import function for regular expression
+	1. REGEXP_LIKE 
+	2. REGEXP_SUBSTR 
+	3. REGEXP_REPLACE
+	4. REGEXP_INSTR
+	5. REGEXP_COUNT
+------------------------------------------------
+Q.. What is REGEXP_LIKE?
+==> REGEXP_LIKE is a function 
+	- REGEXP_LIKE is used for regular expression pattern matching 
+	- Syntax: 
+		REGEXP_LIKE(source_string,regex_pattern,[option])
+	- It accept 3 input arguments-first input argument is source_string 
+	  second input argument is regex pattern and last input argument is option.
+	- Option is an optional parameter.
+	- source_string:columna name or string to test.
+	- regex_pattern:Regular expression pattern.
+	- option : controls matching behaviour 
+		we have different options 
+		'i' case insensitive
+		'c' case sensitive
+		'n' dot(.) matches newline 
+		'm' multi-line mode
+		
+	# working of REGEXP_LIKE 
+	- source string is compared with regex pattern.
+		if source string is maching with regex pattern then it return true 
+		otherwise it return false 
+		i.e Return type of REGEXP_LIKE is boolean.
+	- It is used in WHERE clause or IF condition.
+	- It is not used in select list 
+		select REGEXP_LIKE() from table_name;-->Invalid statement 
+------------------------------------------------
+Q.. Can REGEXP_LIKE be used in SELECT list?
+==> No because it returns boolean type value and boolean data type is not supported in SQL.
+------------------------------------------------
+Q.. Write a PL/SQL function to validate mobile number
+==> 1. Rules(Acceptance Criteria)
+	-> Should be 10 digit.
+	-> Start with either 7,8 or 9(first digit should be 7,8 or 9)
+	
+	CREATE OR REPLACE FUNCTION mobile_validate(f_mobileno IN NUMBER)RETURN NUMBER
+	IS 
+	v_regex_pattern varchar(90):='^[789][0-9](9)$';
+	result NUMBER=0;
+	BEGIN
+		IF REGEXP_LIKE(f_mobileno,v_regex_pattern) THEN 
+			result:=1;
+			RETURN result;
+		ELSE
+			RETURN result;
+		END IF;
+	EXCEPTION
+		WHEN OTHERS THEN 
+		DBMS_OUTPUT.PUT_LINE('Excpetion in valid mobile no'||SQLERRM);
+	END;
+	
+	Test function: 
+		DECLARE
+			input_test varchar(90):='9370585700';
+			t_result number;
+		BEGIN
+			t_result:=mobile_validate(input_test);
+			if t_result=1 then 
+			dbms_output.put_line('valid mobile number');
+			else
+			dbms_output.put_line('invalid mobile number');
+			end if;
+		END;
+------------------------------------------------
+Q.. Write a function to check number is even or odd?
+==> CREATE OR REPLACE FUNCTION even_odd_validate(f_number IN number)RETURN NUMBER 
+	IS
+		v_result number:=0;
+	BEGIN
+		IF MOD(f_number,2)=0 THEN 
+			v_result:=1;
+            RETURN v_result;
+		ELSE
+			RETURN v_result;
+        END IF;
+	EXCEPTION
+		WHEN OTHERS THEN 
+		DBMS_OUTPUT.PUT_LINE('excpetion is in Even or odd'||SQLERRM);
+	END;
+	
+	TESING OF even_odd_validate
+		DECLARE
+			input_number number:=10;
+			output_result number;
+		BEGIN
+			output_result:=even_odd_validate(input_number);
+			IF output_result=1 THEN
+				DBMS_OUTPUT.PUT_LINE('given number is even');
+			ELSE 
+				DBMS_OUTPUT.PUT_LINE('given number is ODD');
+			END IF;
+		END;
+------------------------------------------------
+Q.. Write a function to validate Vehical number?e.g MH-12-RT-3032
+==> CREATE OR REPLACE FUNCTION validate_vehicle_number(f_vehical_no IN VARCHAR)RETURN BOOLEAN
+	IS 
+		v_regex_pattern varchar(90):='^[A-Z]{2}-[0-9]{2}-[A-Z]{1,2}-[0-9]{4}$';
+	BEGIN
+		RETURN REGEXP_LIKE(f_vehical_no,v_regex_pattern,'i');
+	EXCEPTION
+		WHEN OTHERS THEN 
+		DBMS_OUTPUT.PUT_LINE('Eception in valid mobile no'||SQLERRM);
+	END;
+	
+	
+	TEST FUNCTION:
+		DECLARE
+			input_v_number varchar(90):='MH-11-BJ-5350';
+		BEGIN
+			IF validate_vehicle_number(input_v_number)=1 then 
+				DBMS_OUTPUT.PUT_LINE('valid vehicle number');
+			ELSE
+				DBMS_OUTPUT.PUT_LINE('Invalid vehicle number');
+			END IF;
+		END;
+------------------------------------------------
+Q.. What is Default mode of parameter for Function and Procedure?
+	i.e if we don't specify mode of parameter then what is default value for mode?
+==> Default mode of parameter for function and procedure is IN.
+	i.e If we don't specify mode of parameter then default mode is IN.
+	
+	e.g
+	1. CREATE OR REPLACE FUNCTION addition(n1 NUMBER,n2 NUMBER) RETURN NUMBER
+		IS 
+		BEGIN
+			RETURN n1+n2;
+		EXCEPTION
+			WHEN OTHERS THEN 
+				RETURN 0;
+		END;
+		
+	2. CREATE OR REPLACE PROCEDURE summation(n1 NUMBER,n2 NUMBER,p_result OUT NUMBER)
+		IS 
+		BEGIN
+			p_result:=n1+n2;
+		EXCEPTION
+			WHEN OTHERS THEN 
+				RETURN 0;
+		END;		
+------------------------------------------------
+Q.. Important points about functions?
+==> # Inside procedure or function we can't change the value of IN parameter.If we try to change its value then we will get an error.
+	# OUT and IN OUT is not read only we can change its value inside function or procedure.
+	# function can have IN,OUT,IN OUT parameters.
+	# function always return a value 
+	# If we want to return multiple values then use OUT parameter
+	# Function can be called inside SQL. if no OUT parameter or 
+	  function body don't have commit or rollback.
+	# all DML opeartions are allowed in function.
+	# Directly DDL operations are allowed inside function but 
+	  we write DDL opeartions via dynamic SQL.
+	# If function or procedure is not accept inputs then brackets are not required.
+	# at a time one value return the function not more than 1 
+	# If we want to return multiple parameter in function then use OUT paramter 
+------------------------------------------------
+Q.. How to call function?
+==> To call a function we have two ways 
+	1. Using SELECT statement(SQL Style)
+	2. Using BEGIN...END block(PL/SQL Style)
+	
+	1. When we should go with SQL style?
+	=> If function don't have OUT parameter
+		If function body don't have commit,rollback statements 
+		we can call function by SQL style.
+------------------------------------------------
+Q.. When we should go with PL/SQL style?
+==> If function has OUT parameter or function body have commit or rollback statement then go with PL/SQL style.
+------------------------------------------------
+Q.. How to call procedure?
+==> we can call a procedure
+	1. Using EXEC or EXECUTE 
+	2. Using CALL 
+	3. Using BEGIN....END
+	-> we can't call procedure using select statement.
+------------------------------------------------
+Q.. Which DDL statements are allowed in function?
+==> Directly DDL operations are not allowed inside function but 
+	we can write DDL statements via dynamic SQL.
+------------------------------------------------
+Q.. Which DDL statements are allowed in procedure?
+==> Directly DDL operations are not allowed inside procedure but 
+	we can write DDL statements via dynamic SQL.
 ------------------------------------------------
 Q.. 
 ------------------------------------------------
