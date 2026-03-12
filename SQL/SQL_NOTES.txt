@@ -2441,7 +2441,7 @@ Q.. Rule for BCNF?
 	after third normal form if some redundancy exist then apply BCNF.
 	1. Table must be in 3NF 
 	2. Every determinant is candidate key 
-	Any column or set of column which uniquely identify the record is called determinant.
+	One column can tell us the value of another column then that column is determinant.
 	
 	for e.g 
 		student -> course -> teacher 

@@ -195,7 +195,7 @@ Q.. Can we apply default constraint using constraint keyword?
 Q.. How to decide which table primary key or unique key what to refer in another table?
 Q.. Different types of relationships?
 Q.. What is ON DELETE CASCADE and ON DELETE SET NULL?
-Q.. How to find constraint belong to perticular table ?
+Q.. How to find constraint belong to perticular table?
 Q.. How to enable constraint?
 Q.. How to drop constraint?
 Q.. How to change properties of table,column and constraint?

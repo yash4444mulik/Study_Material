@@ -889,11 +889,6 @@ Q.. IF statement?
 		.
 		END IF;
 ------------------------------------
-Q.. What is SQL%ROWCOUNT ?
-==> SQL%ROWCOUNT is an implicit cursor attribute that tell you: 
-	how may rows were affected by the most recent SQL statement 
-	(INSERT,UPDATE,DELETE,SELECT INTO)
-------------------------------------
 Q.. Date data type?
 ==> DATE is scalar data type in PL/SQL
 	- DATE data type store data and time 
@@ -953,6 +948,11 @@ Q.. INTERVAL YEAR TO MONTH
 		/
 		
 	O/P => +02-03
+	
+	=> Use of INTERVAL YEAR TO MONTH
+		1. Experience calculation
+		2. Policy duration calculation
+		3. Age calculation
 ------------------------------------
 Q.. INTERVAL DAY TO SECOND
 ==> it store difference in days,hours,minuts,seconds
@@ -995,21 +995,38 @@ Q.. CAST function?
 	syntax:
 		CAST(source_value as target_date_type);
 	e.g 
-		select CAST(sysdate as TIMESTAMP) from dual;
+		declare 
+		v_date timestamp;
+		begin
+		select cast(sysdate as timestamp) into v_date from dual;
+		dbms_output.put_line(v_date);
+		end;
 ------------------------------------
 Q.. TO_TIMESTAMP function?
 ==> TO_TIMESTAMP function is used to convert date formated string into TIMESTAMP
 	SYNTAX:
 		TO_TIMESTAMP(string);
+		
 	e.g
-		select TO_TIMESTAMP(sysdate) from dual
+		declare
+		v_date varchar2(90):= '11-jul-11 02:10:10 PM';
+		result timestamp;
+		begin
+		select to_timestamp(v_date) into result from dual;
+		dbms_output.put_line(result);
+		end;
+-----------------------------------
+Q.. What is SQL%ROWCOUNT ?
+==> SQL%ROWCOUNT is an implicit cursor attribute that tell you: 
+	how may rows were affected by the most recent SQL statement 
+	(INSERT,UPDATE,DELETE,SELECT INTO)
 ------------------------------------
 Q.. PL/SQL Anchored data types : %TYPE and %ROWTYPE
-==> Anchored data types link a varaibles data type to a database column or table row 
+==> Anchored data types means declare a variable based on data type of existing table column or table row 
 	so if the table changes,your PL/SQL code does not break.
-------------------------------------
-Q.. What is %TYPE 
-==>	- If we want to store column types value then use %TYPE 
+------------------------------------	
+Q.. What is %TYPE?
+==>	- %TYPE is used to declare a variable with same data type as table column 
 	- %TYPE allows PL/SQL variable to inherit the data type and size of a table column 
 	- Benefit: If column data type changed then no need change PL/SQL code.
 	- How to declare variable of %TYPE 
@@ -1037,8 +1054,8 @@ Q.. What does %TYPE do?
 ==> It copies datatype,size,precision,scale.
 ------------------------------------
 Q.. What is %ROWTYPE?
-==> %ROWTYPE allows variable to hold entire row of table or cursor.
-	- %ROWTYPE always store all column 
+==> %ROWTYPE allows variable to hold/store entire row of the table.
+	- %ROWTYPE store all column of the table 
 	- We can't use %ROWTYPE to store perticular column
 	How to declare %ROWTYPE
 	 variable_name table_name%ROWTYPE
@@ -1058,7 +1075,16 @@ Q.. What is Substitution variable?
 	- They are not PL/SQL variables,but used in Oracle client tools like SQL Plus,SQL Developer.
 	Syntax: 
 		&variable_name 
+		e.g 
+			SELECT empno, empname, salary
+			FROM employee
+			WHERE dept_number = &deptno;
+			
 		&&variable_name
+		e.g 
+			SELECT empno, empname, salary
+			FROM employee
+			WHERE dept_number = &&deptno;
 ------------------------------------
 Q.. What is difference between '&variable_name' and '&&variable_name'?
 ==> &variable_name : Prompt every time(ask every time)
@@ -1095,7 +1121,8 @@ Q.. When is a variable destroyed in PL/SQL?
 ==> Ones block execution is completed then a variable destroyed from the memory.
 ------------------------------------
 Q.. Case expression?
-==> Case expression is an alternative for multiple IF-ELSE statements
+==> Case expression is an alternative for multiple IF-ELSE statements.
+	It is used to apply the condition
 	Case expression has 2 type
 	1. Simple Case expression 
 	2. Searched Case expression
@@ -1111,7 +1138,7 @@ Q.. What is Simple Case expression?
 		END CASE;
 ------------------------------------
 Q.. What is Searched Case?
-==> If we have multiple multiple condition then go with Searched Case
+==> If we have multiple condition then go with Searched Case
 	Syntax: 
 		CASE 
 		When condition1 THEN statement1;
@@ -1134,8 +1161,8 @@ Q.. Difference between Simple case and Searched case?
 	- Simple case have single expression where as Searched case have multiple conditions 
 	- Simple case does not support operators where as Searched case support operators
 ------------------------------------
-Q.. What is mean by short circuit?
-==> Stopping the evalution of a condition as soon as final result is known.
+Q.. What is mean by short circuit evalution?
+==> Stopping the evaluating of a condition as soon as final result is known.
 	- In PL/SQL logical operators (AND,OR) uses short circuit evalution
 ------------------------------------
 Q.. Why short circuit important?
@@ -1195,10 +1222,10 @@ Q.. Predefined Exceptions:
 		- it is predefined exception
 		- error code: ORA-06502
 		- When it is raised 
-			1. When converting a value from one data type to another data 
+			1. When converting a value from one data type to another data type
 			   and conversion is not allowed 
 			2. When assigning a string longer than the declared variable length
-			3. When assigning a number exceeds the declared precision or scale.
+			3. When assigning a number exceeds than declared precision or scale.
 			
 	4. INVALID_NUMBER
 		- it is predefined exception 
@@ -1271,9 +1298,9 @@ Q.. Non-Predefined exception?
 			
 	- example of non-predefined exception
 		1. trying to delete a parent row that has child rows 
-		2. FOREGIN KEY constrain voilation
+		2. FOREGIN KEY constraint voilation
 		3. table or view does not exist 
-		4. unable to extent table 
+		4. unable to extent table
 ------------------------------------
 Q.. How to handle Non-Predefined exception?
 ==> we can handle Non-Predefined exception using 2 ways 
