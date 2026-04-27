@@ -1536,27 +1536,35 @@ Q.. Deffering constraint in Oracle?
 	- PRIMARY key and UNIQUE key create an Unique Index automatically
 	- FOREGIN key constraints are NO CASCADE DELETE bydefault.
 	
-	1. STATUS column value can be ENABLED or DISABLED,default is ENABLED.
+	1. STATUS column va  lue can be ENABLED or DISABLED,default is ENABLED.
 		=> ENABLED means constraint is Active 
 		=> DISABLED means constraint is no validation rules applied
 	2. DEFERRABLE column value can be NOT DEFERRABLE or DEFERRABLE,default is DEFERRABLE.
 		=> Constraint is DEFERRABLE 
 		   - You can control when it is checked IMMEDIATE or DEFERRED.
-		   - Constraint is temporary bypass.it get applied at the time of commit.
+		   - Constraint is checked at the time of commit.
 		=> NOT DEFERRABLE 
 			- constraint is non deferred.
-			- it is always checked immediately
+			- it is always checked immediately after each SQL statement
 	3. DEFERRED column value can be INITIALLY IMMEDIATE or INITIALLY DEFERRED,default is INITIALLY DEFERRED.
 		=> INITIALLY IMMEDIATE
 			- Constraint is checked immediately after each SQL statement
 		=> INITIALLY DEFERRED
-			- Constraint checking is postponed until COMMIT 
+			- Constraint checking is only at the time of COMMIT 
 			- Validation rules are applied at the time of commit
 	4. VALIDATE column value can be VALIDATED or NOT VALIDATED,default is VALIDATED.
 		=> VALIDATED 
 			- checking existing data + new data 
 		=> NOT VALIDATED 
 			- Ignore existing data but validate New Data
+------------------------------------
+Q.. How to check constraint information?
+==> constraint information is stored in data dictionary view
+	1. USER_CONSTRAINTS
+	2. DBA_CONSTRAINTS
+	3. ALL_CONSTRAINTS
+	
+	select * from user_constraints where table_name='DEPARTMENT';
 ------------------------------------
 Q.. What is Deferring constraint?
 ==> Deferring constraint means temporary bypass the validation rules of certain constraint 
@@ -1565,10 +1573,14 @@ Q.. What is Deferring constraint?
 		1. Complex transaction
 		2. Bulk Loads
 		3. Parent-child insert/update in any order
+		
+	create table emp11(empid number primary key deferrable initially deferred,empname varchar(90))
 ------------------------------------
 Q.. Which constraints can be deferred?
 ==> 1. Primary key
+	create table emp11(empid number primary key deferrable initially deferred,empname varchar(90))
 	2. Unique key
+	create table emp11(empid number unique deferrable initially deferred,empname varchar(90));
 	3. Foreign key 
 	4. Check constraint 
 	-> we can't defer not null and default constraint 
@@ -1582,6 +1594,8 @@ Q.. Default behaviour of Primary key?
 	deferrable => NOT DEFERRABLE 
 	deferred => INITIALLY IMMEDIATE
 	validate => VALIDATED
+	
+	create table emp11(empid number primary key deferrable initially deferred,empname varchar(90));
 ------------------------------------
 Q.. Can we change DEFERRABLE to NOT DEFERRABLE or vice-verca?
 ==> No we can't change it we need to drop constraint and reapply constraint.
@@ -1634,8 +1648,8 @@ Q.. How to drop trigger?
 ==> drop trigger trigger_name
 ------------------------------------
 Q.. What is Mutating table?
-==> Mutating Table means at same time two or more operations are happening on table 
-	and one of operation is write operation.
+==> Mutating Table means when a row-level trigger tries to read or modify the same table 
+	that fired the trigger during a DML operation.
 	
 	Solution of Mutating
 	- Use statement-level trigger
@@ -1682,7 +1696,7 @@ Q.. When should go with Trigger or Constraint?
 	Trigger => Complex business logic 
 ------------------------------------
 Q.. What is instead of Trigger?
-==> An Instead of trigger is a special type of trigger that fires instead of actual DML operations 
+==> An Instead of trigger is trigger which get executes instead of actual DML operations on view.
 	- it is mainly used with complex views.
 	
 	Syntax: 
@@ -1693,6 +1707,48 @@ Q.. What is instead of Trigger?
 		 insert into table_name values(clm1,clm2,clm3,...N);		
 		END;
 		/
+		
+	Example: 
+	create table dept11(deptid number primary key,deptname varchar(90))
+	insert into dept11 values(201,'IT')
+	insert into dept11 values(202,'HR')
+
+	create table emp11(empid number,empname varchar(90),salary number,designation varchar(90),dept_id number references dept11(deptid))
+	insert into emp11(empid,empname,salary,designation,dept_id) values(101,'Peter',47000,'Manager',null);
+	insert into emp11(empid,empname,salary,designation,dept_id) values(102,'Robin',45000,'Manager',201);
+	insert into emp11(empid,empname,salary,designation,dept_id) values(103,'Kalis',45000,'Dev',202);
+
+	create or replace view c_view as select deptname,empid,empname,salary from dept11 d inner join 
+	emp11 e on d.deptid=e.dept_id;
+	
+	WHEN WE TRY INSERT DATA INTO c_view THEN WE WILL GET AN ERROR 
+	insert into c_view(deptname,empid,empname,salary) values('Mech',104,'Yash',45000)
+	==> ORA-01779: cannot modify a column which maps to a non key-preserved table
+	
+	SO TO OVERCOME THIS PROBLEM WE HAVE INSTEAD OF TRIGGER.
+		create or replace trigger c_view_tgr
+		instead of insert on c_view
+		for each row
+		begin
+		insert into emp11(empid,empname,salary,dept_id) values(:NEW.empid,:NEW.empname,:NEW.salary,
+		(select deptid from dept11 where deptname=:NEW.deptname));
+		end;
+		/
+		
+	E.g
+	create or replace view cc_view as select deptid,deptname,empid,empname,salary from dept11 d join emp11 e on d.deptid=e.dept_id
+
+	insert into cc_view values(203,'Admin',105,'yashh',47000)
+	We will get an error 
+	
+	CREATE INSTEAD TRIGGER  
+	create or replace trigger cc_view_tgr
+	instead of insert on cc_view
+	begin
+	insert into dept11(deptid,deptname) values(:NEW.deptid,:NEW.deptname);
+	insert into emp11(empid,empname,salary) values(:NEW.empid,:NEW.empname,:NEW.salary);
+	end;
+	/
 ------------------------------------
 Q.. Can we insert INSTEAD of trigger on table?
 ==> NO
@@ -1702,6 +1758,27 @@ Q.. Can we use before after in INSTEAD of trigger?
 ------------------------------------
 Q.. Can one INSERT INTO STATEMENT insert data into two tables?
 ==> YES 
+------------------------------------
+Q.. DELETE Operation with instead of trigger?
+==> Delete on complex view is not allowed directly we can use INSTEAD OF Trigger to delete 
+	complex view.INSTEAD OF Trigger defines how deletion should be performed on underlying base tables 
+	
+	Example: 
+	create table dept11(deptid number primary key,deptname varchar(90))
+	insert into dept11 values(201,'IT')
+	insert into dept11 values(202,'HR')
+
+	create table emp11(empid number,empname varchar(90),salary number,designation varchar(90),dept_id number references dept11(deptid))
+	insert into emp11(empid,empname,salary,designation,dept_id) values(101,'Peter',47000,'Manager',null);
+	insert into emp11(empid,empname,salary,designation,dept_id) values(102,'Robin',45000,'Manager',201);
+	insert into emp11(empid,empname,salary,designation,dept_id) values(103,'Kalis',45000,'Dev',202);
+
+	Trigger: 
+	create or replace trigger d_view_tgr
+	instead of delete on d_view
+	begin
+	delete from emp11 where salary=(select max(salary) from emp11 where designation=:NEW.designation);
+	end;
 ------------------------------------
 Q.. sometime delete operation is allowed in complex view but sometime delete operations are not 
 	not allowed on complex view,why?
@@ -1716,41 +1793,8 @@ Q.. In which case delete operation is allowed on complex view and in which use c
 	- View is based on multiple tables but only one table is actually updatable and 
 		no ambiguity in row mapping,delete operation is allowd on that view 
 ------------------------------------
-Q.. DELETE Operation with instead of trigger?
-==> Delete on complex view is not allowed directly we can use INSTEAD OF Trigger to delete 
-	complex view.INSTEAD OF Trigger defines how deletion should be performed on underlying base tables 
-------------------------------------
 Q.. Can we delete data from multiple base table on single delete operation?
 ==> Yes,using INSTEAD OF trigger.
-------------------------------------
-Q.. 
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
-------------------------------------
 ------------------------------------
 Q.. Oracle storage heirarchy?
 ==> Database ->Tablespace->DataFiles(Physical)->segment->Extent->Data Block
@@ -1769,7 +1813,7 @@ Q.. What is tablespace?
 		2. Sysaux
 		3. Temp
 		4. Undo
-		5. User
+		5. User 
 	- Tablespace information store in data dictionary view
 		1. DBA_TABLESPACES
 		2. USER_TABLESPACES
@@ -1801,17 +1845,6 @@ Q.. What is tablespace?
 			UNIFORM: fixed size
 	 14. PLUGGED_IN: Tablespace is plugable or not
 	 15. SEGMENT_SPACE_MANAGEMENT: How the segment space is managed values are MANUAL and AUTO.
-------------------------------------
-Q.. If we don't specify tablespace while creating a table,table get created in default tablespace.
-	If default tablespace is SYSTEM then table is created in SYSTEM table.
-	- If we want to cross check your table space then use below query 
-		select * from user_tables where table_name ='table_name';
-	- we can explicitly specify the tablespace 
-		create table table_name(....)TABLESPACE name_of_tablespace;
-	- Note: It is not recommended to use SYSTEM tablespace,SYSAUX tablespace,UNDO tablespace 
-	  or TEMP tablespace to store user objects 
-	- Always use USER tablespace or custom tablespace to store user objects 
-	
 ------------------------------------
 Q.. Types of Tablespace?
 ==> 1. System
@@ -1926,6 +1959,16 @@ Q.. General syntax to create Tablespace?
 	create tablespace my_tablespace
 	DATAFILE 'C:\ORACLEXE\ORADATA\XE\my_tablespace.DBF' SIZE 50M
 ------------------------------------
+Q.. If we don't specify tablespace while creating a table,table get created in default tablespace.
+	If default tablespace is SYSTEM then table is created in SYSTEM tablesapce.
+	- If we want to cross check your table space then use below query 
+		select * from user_tables where table_name ='table_name';
+	- we can explicitly specify the tablespace 
+		create table table_name(....)TABLESPACE name_of_tablespace;
+	- Note: It is not recommended to use SYSTEM tablespace,SYSAUX tablespace,UNDO tablespace 
+	  or TEMP tablespace to store user objects 
+	- Always use USER tablespace or custom tablespace to store user objects 
+------------------------------------
 Q.. Syntax to create custome TEMP tablespace?
 ==> CREATE TEMPORARY tablespace tablesapce_name 
 	TEMPFILE 'path_of_data_file1','path_of_data_file2'
@@ -2039,7 +2082,7 @@ Q.. How to create user?
 		3. QUOTA: Space limit on tablespace.How much space user can consume
 			- This parameter is an optional 
 			- If we don't specify this parameter,user has zero space.
-			- If QUOTA is zero,user can't create tables.
+			- If QUOTA is zero,user can't create tables.we will get an error 
 			- We can check Quota for user 
 				select * from DBA_TS_QUOTAS where username='username'
 			  if above query returns zero rows means no quota is allocated for given user 
@@ -2092,7 +2135,7 @@ Q.. How to DROP user?
 	But in real time droping the objects is not recommonded 
 	for that we have an alternative ways 
 	1. move all objects associated with that user to other user 
-	2. Loct the user account 
+	2. Lock the user account 
 	
 ------------------------------------
 Q.. About PROFILE parameter of user creation syntax: 
@@ -2255,7 +2298,7 @@ Q.. create custome profile ?
 	  
 	- To check current value of resource limit syntax is?
 		select name,value from v$parameter where name='resource_limit';
-		
+---------------------------------------		
 Q.. How to create user?
 syntax: CREATE USER username IDENTIFIED BY password
 		[DEFAULT TABLESPACE tablespace_name]
@@ -2330,6 +2373,7 @@ Q.. What is System Privilege?
 			
 		2. RESTRICTED SESSION: Restrict the user from creating session.
 			user is not allowed to login.
+			GRANT RESTRICTED SESSION YASHRAJ_PLSQL
 			
 		Syntax: GRANT CREATE SESSION TO user_or_role_name;
 		Example: 
@@ -2422,7 +2466,23 @@ Q.. What is Schema?
 		
 	-> To list Objects of specific schema
 		select * from DBA_OBJECTS where owner='user_name';
--------------------------------------------	
+-------------------------------------------
+Q.. How to give access of EMPLOYEE(system)table to YASHRAJ_PLSQL user?
+==> 1. READ Only
+		GRANT SELECT ON system.employee TO YASHRAJ_PLSQL;
+	
+	2. READ+INSERT 
+		GRANT SELECT, INSERT ON system.employee TO YASHRAJ_PLSQL;
+	
+	3. FULL ACCESS
+		GRANT ALL ON system.employee TO YASHRAJ_PLSQL;
+		
+	We can check access information using below query
+	select * from dba_tab_privs where grantee='YASHRAJ_PLSQL'
+-------------------------------------------
+Q.. How to remove access of EMPLOYEE(system) table to YASHRAJ_PLSQL?
+==> REVOKE SELECT ON system.employee FROM YASHRAJ_PLSQL;
+-------------------------------------------
 Q.. Grant Command?
 ==> Grant command is used to grant privilege
 	Case1: Grant command syntax to grant system privilege
@@ -2471,23 +2531,32 @@ Q.. How to check Object Privilege?
 	select * from all_tab_privs
 -------------------------------------------
 Q.. Roles?
-==> A role is collect of privileges 
+==> A role is collection of privileges 
 -------------------------------------------
 Q.. How to create role?
 ==> Syntax: 
 		create ROLE role_name;
 	
-	Example: create role pl_sql_dev;
+	Example: create role PLSQL_ROLE;
 	# Role information is available in dba_roles data dictionary view.
 	select * from dba_roles;
--------------------------------------------
-Q.. How to view privilege of Roles?
-==> Information for Role Privilege is available in dba_role_privs
+	
+	Grant object privileges to role
+	GRANT CREATE SESSION,CREATE TABLE TO PLSQL_ROLE;
+	
+	Grant role to user?
+	GRANT PLSQL TO YASHRAJ_PLSQL;
+	
+	Q.. How to view privilege of Roles?
+	==> Information for Role Privilege is available in dba_role_privs
 	data dictionary view
 		select * from dba_role_privs WHERE GRANTED_ROLE='PL_SQL_DEV';
 -------------------------------------------
 Q.. Revoking Privileges?
-==> Revoke means removing granted privileges 
+==> Revoke means removing granted privileges
+	REVOKE remove directly granted privileges
+	Privilege inherit via ROLES is not directly removed untill ROLE is revoked.
+	
 	1. Revoke system privilege
 	Syntax: 
 		REVOKE system_privilege_name FROM user_or_role_name;
@@ -2518,9 +2587,9 @@ Q.. Can we create CUSTOM system privileges?
 Q.. Can we create CUSTOM object privileges?
 ==> No,object privileges are alos predefined
 	You cannot invent new ones like READ_SALARY or UPDATE_LIMITED;
--------------------------------------------	
+-------------------------------------------
 Q.. What is procedure in PL/SQL?
-==> Procedure is named PL/SQL block used to perform an action.
+==> Procedure is named PL/SQL block used to perform specific task or action.
 	Syntax: 
 		CREATE OR REPLACE PROCEDURE procedure_name(
 			parameter_name1[IN|OUT|IN OUT] datatype,
@@ -2539,7 +2608,9 @@ Q.. What is procedure in PL/SQL?
 		/	
 -------------------------------------------
 Q.. What is IN OUT Parameter?
-==> IN OUT: receive a value from the celler and return a modified value back.
+==> IN: used to pass input to procedure
+	OUT: used to return from procedure,it does not take initial value from caller
+	IN OUT: used to take input and return modified value.
 -------------------------------------------
 Q.. Write a procedure to accept empid from user and print emp name on console?
 ==> CREATE OR REPLACE PROCEDURE show_empname_by_id(
@@ -2604,25 +2675,23 @@ Q.. Procedure status(Valid or Invalid)
 ------------------------------------------------
 Q.. Write a procedure which take emp_id from user and return his/her name.
 ==> 
-	CREATE OR REPLACE PROCEDURE get_empname_by_id(p_empid IN NUMBER,p_empname OUT varchar2)
-	IS 
-	v_empname varchar2(100);
-	BEGIN
-	SELECT empname INTO p_empname FROM emp11
-	WHERE empno=p_empid;
-	EXCEPTION
-	WHEN OTHERS THEN 
-	DBMS_OUTPUT.PUT_LINE('EXCEPTION'||SQLERRM);
-	END get_empname_by_id;
+	create or replace procedure salary_procedure(v_empid IN NUMBER,v_name OUT varchar2)
+	IS
+	begin
+	select empname into v_name from employee where empno=v_empid;
+	Exception
+	 when others then 
+	 dbms_output.put_line('SQLERRM');
+	end salary_procedure;
 	/
 
-	# Syntax to call procedure:
-	DECLARE
-	v_empname VARCHAR2(100);
-	BEGIN
-	get_empname_by_id(101,v_empname);
-	DBMS_OUTPUT.PUT_LINE(v_empname);
-	END;
+
+	declare
+	v_empname varchar2(90);
+	begin
+	salary_procedure(101,v_empname);
+	dbms_output.put_line(v_empname);
+	end;
 
 ------------------------------------------------
 Q.. Write a procedure which accept empid and display his/her salary on console?
@@ -2673,30 +2742,23 @@ Q.. write a procedure which accept empid and return status of employee(exist or 
 		END;
 ------------------------------------------------
 Q.. write a procedure which accept empid and return name,salary,dept_id?
-==> CREATE OR REPLACE PROCEDURE get_emp_sal_dept_dtls(v_empid IN NUMBER,v_empname OUT varchar,v_salary OUT NUMBER,v_deptid OUT NUMBER)
+==> 
+	create or replace procedure emp_name_sal_dept(v_empid IN number,v_name out varchar,
+	vsalary out number,dept_id out number)
 	IS
-	BEGIN
-	BEGIN
-	select empname into v_empname from emp11 where empno=v_empid;
-	END;
-	BEGIN
-	select salary into v_salary from emp11 where empno=v_empid;
-	END;
-	BEGIN
-	select dept_id into v_deptid from emp11 where empno=v_empid;
-	END;
-	END get_emp_sal_dept_dtls;
+	begin
+	 select empname,salary,dept_number into v_name,vsalary,dept_id from employee where empno=v_empid;
+	end;
 
 	declare
-	v_empid number:=101;
-	v_empname varchar(90);
+	v_name varchar2(90);
 	v_salary number;
-	v_deptid number;
+	v_dept_id number;
 	begin
-	get_emp_sal_dept_dtls(v_empid,v_empname,v_salary,v_deptid);
-	dbms_output.put_line(v_empid || v_empname||v_salary||v_deptid);
+	emp_name_sal_dept(104,v_name,v_salary,v_dept_id);
+	dbms_output.put_line('employee name is '||v_name||' '||'and his salary is '||v_salary||
+	' belong to department '||v_dept_id);
 	end;
-	/
 ------------------------------------------------
 Q.. write a procedure which accept emp_id and return his/her name,salary,dept_id?	
 ------------------------------------------------
@@ -2808,9 +2870,9 @@ Q.. Summary table of procedure?
 	TCL Yes 
 ------------------------------------------------
 Q.. What is function in PL/SQL?
-==> Function is named PL/SQL block used to perform an action.
+==> Function is named PL/SQL block used to perform an action which return single value using return keyword.
 	Syntax: 
-		CREATE OR REPLACE FUNCTION function_name(parameter_name IN datatype,...) return_datatype
+		CREATE OR REPLACE FUNCTION function_name(parameter_name IN datatype,...) RETURN datatype
 		IS|AS
 			declaration_section
 		BEGIN
@@ -2848,6 +2910,17 @@ Q.. How to test function?(How to call the function)?
 			DBMS_OUTPUT.PUT_LINE('Out pul'||v_result);
 		END;
 ------------------------------------------------
+Q.. When we should go with PL/SQL style?
+==> If function has OUT parameter or function body have commit or rollback statement then go with PL/SQL style.
+------------------------------------------------
+Q.. Which DDL statements are allowed in function?
+==> Directly DDL operations are not allowed inside function but 
+	we can write DDL statements via dynamic SQL.
+------------------------------------------------
+Q.. Which DDL statements are allowed in procedure?
+==> Directly DDL operations are not allowed inside procedure but 
+	we can write DDL statements via dynamic SQL.
+------------------------------------------------
 Q.. Write a function to find square of number?
 ==> CREATE OR REPLACE FUNCTION square_of_number(v_num IN NUMBER)RETURN NUMBER
 	IS
@@ -2880,6 +2953,16 @@ v_result:=first||second;
 select concat(first,second) INTO v_result FROM DUAL;
 RETURN v_result;
 END join_two_string;
+------------------------------------------------
+Q.. Write a function to return salary of employee using empid?
+------------------------------------------------
+Q.. Write a function to return annual salary (salary * 12)?
+------------------------------------------------
+Q.. Write a function to check even or odd number?
+------------------------------------------------
+Q.. Write a function to return maximum of two numbers?
+------------------------------------------------
+Q.. Write a function to return grade based on marks?
 ------------------------------------------------
 Q.. write a function to concat 4 string values?
 ------------------------------------------------
@@ -3129,6 +3212,28 @@ Q.. What is REGEXP_LIKE?
 Q.. Can REGEXP_LIKE be used in SELECT list?
 ==> No because it returns boolean type value and boolean data type is not supported in SQL.
 ------------------------------------------------
+Q.. Find employees whose name starts with 'A'?
+------------------------------------------------
+Q.. Find employees whose Names ending with 'n'?
+------------------------------------------------
+Q.. Find employees whose Names containing digit?
+==> select empname from employee where regexp_like(empname,'[0-9]');
+------------------------------------------------
+Q.. Find employees whose Names with only alphabets?
+==> select empname from employee where regexp_like(empname,'^[A-z]+$');
+------------------------------------------------
+Q.. Find employees whose Names starting with capital letter?
+==> select empname from employee where regexp_like(empname,'^[A-Z]');
+------------------------------------------------
+Q.. PAN number validation?
+==> select pan from employee where regexp_like(pan,'^[A-Z]{5}[0-9]{4}[A-Z]$');
+------------------------------------------------
+Q.. Aadhar number validation?
+==> select aadhar_number from employee where regexp_like(aadhar_number,'^[0-9]{12}$')
+------------------------------------------------
+Q.. Find employees whose Names NOT containing vowels?
+==> select empname from employee where regexp_like(empname,'^[^aeiouAEIOU]+$');
+------------------------------------------------
 Q.. Write a PL/SQL function to validate mobile number
 ==> 1. Rules(Acceptance Criteria)
 	-> Should be 10 digit.
@@ -3240,7 +3345,8 @@ Q.. What is Default mode of parameter for Function and Procedure?
 		END;		
 ------------------------------------------------
 Q.. Important points about functions?
-==> # Inside procedure or function we can't change the value of IN parameter.If we try to change its value then we will get an error.
+==> # Inside procedure or function we can't change the value of IN parameter.
+		If we try to change its value then we will get an error.
 	# OUT and IN OUT is not read only we can change its value inside function or procedure.
 	# function can have IN,OUT,IN OUT parameters.
 	# function always return a value 
@@ -3254,33 +3360,1448 @@ Q.. Important points about functions?
 	# at a time one value return the function not more than 1 
 	# If we want to return multiple parameter in function then use OUT paramter 
 ------------------------------------------------
-Q.. How to call function?
-==> To call a function we have two ways 
-	1. Using SELECT statement(SQL Style)
-	2. Using BEGIN...END block(PL/SQL Style)
+Q.. What is mean by loop?
+==> a block of code which execute repeatedly until a certain condition is met.
+	- There are 3 main type of loops
+	1. Simple loop
+	- This is the basic loop
+	- syntax: 
+		Loop
+		----statements
+		EXIT WHEN condition;
+		END LOOP;
+	- LOOP is keyword.Simple loop start with LOOP keyword.
+	- END LOOP is keyword.Simple loop end with END LOOP keyword.
+	- EXIT WHEN is keyword.it is an optional.it is called loop control statement.
+		
+		
 	
-	1. When we should go with SQL style?
-	=> If function don't have OUT parameter
-		If function body don't have commit,rollback statements 
-		we can call function by SQL style.
+	2. while loop 
+		while condition loop 
+		--statements
+		end loop;
+	- when loop condition is true then statement will execute 
+	- once condition false then iteration of loop stop and end loop
+	
+		
+	3. For loop
+		FOR variable IN start..end LOOP
+		---statements
+		END LOOP;
+	- it si most commonly used loop.
+	- no need to declare loop counter
+	- automatically increments loop counter
+	- automatically check the condition
+	- stop automatically
 ------------------------------------------------
-Q.. When we should go with PL/SQL style?
-==> If function has OUT parameter or function body have commit or rollback statement then go with PL/SQL style.
+Q.. What are the Loop control statements?
+==> Loop control statements are used to control flow of execuation in the loop
+	- we have different loop control statements
+	1. EXIT
+	2. EXIT WHEN 
+	3. CONTINUE
+	4. CONTINUE WHEN 
 ------------------------------------------------
-Q.. How to call procedure?
-==> we can call a procedure
-	1. Using EXEC or EXECUTE 
-	2. Using CALL 
-	3. Using BEGIN....END
-	-> we can't call procedure using select statement.
+Q.. write a PL/SQL program to print numbers from 1 to 10?
 ------------------------------------------------
-Q.. Which DDL statements are allowed in function?
-==> Directly DDL operations are not allowed inside function but 
-	we can write DDL statements via dynamic SQL.
+Q.. write a PL/SQL program to print even number between 1 to 10?
 ------------------------------------------------
-Q.. Which DDL statements are allowed in procedure?
-==> Directly DDL operations are not allowed inside procedure but 
-	we can write DDL statements via dynamic SQL.
+Q.. write a PL/SQL program to print odd number between 1 to 10?
 ------------------------------------------------
-Q.. 
+Q.. write a PL/SQL program to print number from 1 to 10 (using while loop)?
+------------------------------------------------
+Q.. Print hello 5 times using for loop?
+==> begin
+		for i 1..5 loop
+		dbms_output.put_line('Hello');
+		end loop;
+	end;
+------------------------------------------------
+Q.. Print number from 1 to 10?
+	begin
+	for i IN 1..10 loop
+	dbms_output.put_line(i);
+	end loop;
+	end;
+------------------------------------------------
+Q.. Print even number from 1 to 10?
+	begin
+	for i IN 1..10 loop
+	if mod(i,2)=0 then
+	dbms_output.put_line(i);
+	end if;
+	end loop;
+	end;
+------------------------------------------------
+Q.. Write a program to print multiplication of 5?
+	declare
+	v_result number;
+	begin
+	for i IN 1..10 loop
+	v_result:=5*i;
+	dbms_output.put_line(v_result);
+	end loop;
+	end;
+------------------------------------------------
+Q.. Write a program to print character from given string 'Welcome';
+declare
+v_string varchar2(90):='Welcome';
+v_str_length number;
+begin
+v_str_length:=length(v_string);
+
+for i IN 1..v_str_length loop
+dbms_output.put_line(substr(v_string,i,1));
+end loop;
+end;
+------------------------------------------------
+Q.. Write a program to print vowel from given string 'Welcome';
+declare
+v_string varchar2(90):='Welcome';
+v_str_length number;
+v_result varchar2(1);
+begin
+v_str_length:=length(v_string);
+for i IN 1..v_str_length loop
+v_result:=substr(v_string,i,1);
+if regexp_like(v_result,'[aeiou]') then
+dbms_output.put_line(v_result);
+end if;
+end loop;
+end;
+------------------------------------------------
+Q.. write program to print character from given string in reverse order('welcome')?
+declare
+v_string varchar2(90):='Welcome';
+v_str_length number;
+v_result varchar2(1);
+begin
+v_str_length:=length(v_string);
+for i IN reverse 1..v_str_length loop
+dbms_output.put_line(substr(v_string,i,1));
+end loop;
+end;
+------------------------------------------------
+Q.. write program to reverse given string 'Welcome'?
+declare
+v_string varchar2(90):= 'welcome';
+v_str_length number;
+v_result varchar2(90):='';
+result_str varchar2(90);
+begin
+v_str_length:=length(v_string);
+for i IN reverse 1..v_str_length loop
+v_result:=concat(v_result,to_char(substr(v_string,i,1)));
+end loop;
+dbms_output.put_line(v_result);
+end;
+------------------------------------------------
+Q.. write a program print sum of digit of number?12345678910?
+declare
+v_num varchar2(90):='12345678991';
+v_str_length number;
+v_result number:=0;
+begin
+v_str_length:=length(v_num);
+for i IN 1..v_str_length loop
+v_result:=v_result+to_number(substr(v_num,i,1));
+end loop;
+dbms_output.put_line(v_result);
+end;
+------------------------------------------------
+Q.. Loop control statements?
+==> loop control statement are used to control the flow of execution inside the loop.
+	- There are mainly 4 loop control statements 
+		1. exit
+		2. exit when 
+		3. continue
+		4. continue when
+
+	1. exit: Immediate terminate the loop 
+		syntax: exit;
+		
+	2. exit when : terminate loop when condition met true
+		syntax: exit when 
+		
+	3. continue: it is introduced in oracle 11g.
+		purpose: skip current iteration and move to next iteration
+		
+	4. continue when : it skip current iteration when condition is true.
+		continue when condition;
+------------------------------------------------
+Q.. write program to check number is prime or not?
+declare
+v_num number:=7;
+cnt number:=2;
+flag number:=0;
+begin
+loop
+if mod(v_num,cnt)=0 then
+flag:=1;
+exit;
+end if;
+cnt:=cnt+1;
+exit when cnt>=v_num-1;
+end loop;
+if flag=0 then 
+dbms_output.put_line('entered number is prime');
+else
+dbms_output.put_line('number is not prime');
+end if;
+end;
+------------------------------------------------
+Q.. write a program to check number is prime or not?using while loop?
+declare
+v_num number:=7;
+cnt number:=2;
+flag number:=0;
+begin
+
+while cnt<=v_num-1 loop
+if mod(v_num,cnt)=0 then
+flag:=1;
+exit;
+end if;
+cnt:=cnt+1;
+end loop;
+
+if flag=0 then
+dbms_output.put_line('entered number is prime');
+else
+dbms_output.put_line('enter number is not prime');
+end if;
+end;
+------------------------------------------------
+Q.. write a function to print number is amstrong or not?
+create or replace function f_amstrong(v_num IN number)return varchar2
+IS
+v_sum_of_digit number:=0;
+v_power number;
+v_new_number number;
+v_num_length number;
+digit number;
+v_result varchar2(90);
+begin
+v_num_length:=length(v_num);
+v_new_number:=v_num;
+while v_new_number>0 loop
+digit:=mod(v_new_number,10);
+v_power:=power(digit,v_num_length);
+v_sum_of_digit:=v_sum_of_digit+v_power;
+v_new_number:=trunc(v_new_number/10);
+end loop;
+
+if v_num=v_sum_of_digit then 
+v_result:='entered number is amstrong';
+return v_result;
+else
+v_result:='number is not amstrong';
+return v_result;
+end if;
+end;
+------------------------------------------------
+Q.. What is RETURN keyword in PL/SQL?
+==> RETURN is keyword in PL/SQL
+	it is used to return a value from function.
+	- it return only one value at a time.
+	- when oracle engine read return statement then it immediately stop execution and return control to caller.
+	- statements after return are skipped.
+	- return statement return one value at a time
+------------------------------------------------
+Q.. write a function to return string is palindrome or not?
+==> create or replace function f_palindrom(f_str IN varchar2)return varchar2
+IS
+str_length number;
+rev_str varchar2(90):='';
+v_result varchar2(90):='not palindrome';
+temp_str varchar2(90);
+begin
+str_length:=length(f_str);
+for i IN reverse 1..str_length loop
+temp_str:=substr(f_str,i,1);
+rev_str:=concat(rev_str,temp_str);
+end loop;
+
+if rev_str=f_str then 
+v_result:='entered string is palindrome';
+return v_result;
+else
+return v_result;
+end if;
+end;
+------------------------------------------------
+Q.. write a program to print factorial of number?
+==> create or replace function f_factorial(f_num IN number) return number
+IS
+v_result number:=1;
+
+begin
+
+for i IN 1..f_num loop
+v_result:=v_result*i;
+
+end loop;
+return v_result;
+end;
+------------------------------------------------
+Q.. What is composite data type?
+==> The data type which hold multiple value in single variable is nothing but composite data type.
+	- Types of composite data types
+		1. Records
+		2. Collections
+		
+	1. Collections:collection store multiple element of same datatype.
+		- Types of collection
+		1. Associate Array(Index-by table)
+		2. Nested table
+		3. Varray(variable size array)
+------------------------------------------------
+Q.. What is Varray?
+==> It is collection type which stores multiple values of same datatypes.
+	- Properties of VARRAY
+		1. it is fixed in size.
+			once we create array then we can't decrease or increase it's size.
+		2. Its index always start from 1.
+		3. It maintain order of element 
+		4. stored in database.
+		5. If we know size advance then we can go with varray.
+		
+	- How to declare varray
+		TYPE v_array_name IS VARRAY(max_size) OF datatype;=> collection declaration
+		v_numbers num_array; ==> define variable of that collection type
+		v_numbers:=num_array();==> initilization
+	
+	- Declare
+		TYPE student_list IS VARRA(5) OF VARCHAR2(50);
+		v_student_names student_list;
+		BEGIN
+		v_student_names:=studnet_list('robin','peter','kalis','melis','Threesh');
+		FOR i IN 1..5 LOOP 
+			dbms_output.put_line(v_student_name(i));
+		END LOOP;
+		END;
+		
+	- EXTEND: This function is used to add element in varray.
+		- when we call this function array_index increased by 1 
+		- when we want to add an element in an array,follow below steps 
+			1. v_array.extend
+			2. v_array(index):=value;
+			
+	- TRIM: This function remove element from end of VARRAY.
+		- v_array_name.TRIM ==>remove last element from array.
+		- v_array_name.TRIM(2) ==>remove last 2 element from array.
+		
+	- FIRST: This function return first element from Varray.
+		- if array is not empty then it return 1 element 
+		- if array is empty then it return null.
+		
+	- LAST: This function return last element from array
+		- if array is not empty then it return last element 
+		- if array is empty then it return null	
+		declare
+		type student_list IS VARRAY(4) OF NUMBER;
+		v_slist student_list:=student_list(10,20,30,40);
+		begin
+		dbms_output.put_line(v_slist.first);
+		end;
+		
+	- COUNT: This function return number of element present in array.
+		- if array is an empty then it return 0 
+		- if array is not empty then it return number of element present in array.
+		
+	- LIMIT: This function return max size defined while declaring an array.
+		- This function return capacity of an array.
+		- This function is applicable only for varray.
+		
+	=> Store varray in table column
+		1. create varray type
+			create or replace TYPE mark_array IS VARRAY(10) OF NUMBER;
+			
+		2. create table using varray	
+			create table stud11(stud_id number,student_name varchar(90),mark mark_array)
+			
+		3. insert data into table.
+			insert into stud11 values(101,'yash',mark_array(30,40,50,60))
+			
+		4. how to access values
+			select stud_id,student_name,m.column_value as marks from stud11 s,table(s.mark)m;
+			
+		5. delete specific element
+			delete from table(select mark from stud11 where stud_id=101) 
+			
+			delete specific value 
+			delete from table(select mark from stud11 where stud_id=101) where column_value=30
+			
+		6. Update varray element
+			Update table(select mark from stud11 where stud_id=101)set column_value=20000 where column_value=30
+
+------------------------------------------------
+Q.. Write program which store student list and display one by one?(using for loop)?
+------------------------------------------------
+Q.. What is nested table?
+==> it is a collection type that stores multiple values of same datatype.
+	
+	=> Properties of nested table
+		- index start from 1.
+		- size is dynamic(grow/shrink)
+		- can be stored in database table column
+		- can be used in SQL
+		- can delete elements
+		
+	=> how to declare
+		TYPE t_name IS TABLE of data_type
+		DECLARE
+		TYPE emplist IS TABLE OF VARCHAR2(50);
+		empnames emplist :=emplist('yash','raj','jay','sam');
+		BEGIN
+		dbms_output.put_line(empnames(1));
+		END;
+		
+	=> EXTEND: is used to add element in collection
+	
+	=> DELETE: used to remove element from collection
+		Syntax:
+			collection_name.delete; ==> delete all elements
+			collection_name.delete(1) ==> delete 1st index
+			collection_name.delete(1,5)==> delete 1 to 5 index.
+			
+	=> FIRST: used to return smallest existing number.
+	=> LAST:used to return last existing number.
+	=> EXISTS:used to check index is present or not in collection		
+		- this return true or false
+		- true means index is available
+		- false means indes is not available
+		
+	=> COUNT:used to return total number of index present in collection.
+	=> NEXT:used to return next index than provided index.
+	=> PRIOR:returns previous index before given index.
+	
+	# NESTED TABLE STORED IN DATABASE COLUMN
+	create or replace TYPE phone_list IS TABLE OF varchar2(50);
+	create table cust11(custid number,customer_name varchar2(50),phone phone_list)nested table phone store as phone_nt
+	insert into cust11 values(101,'yash',phone_list('9370585700','937038030'))
+	select c.customer_name,p.column_value as phone from cust11 c,TABLE(c.phone)p;
+	
+	# how to delete nested table values
+		DELETE FROM TABLE(SELECT collection_type_clm_name from TABLE_NAME WHERE condition)
+		=> delete from table(select phone from cust11 where custid=101)
+		
+		DELETE specific value
+		DELETE FROM TABLE(SELECT column_name from TABLE_NAME WHERE condition) WHERE condition;
+		delete from table(select phone from cust11 where custid=101) where column_value='9370585700'
+		
+	# How to update nested table values
+	UPDATE TABLE(SELECT column_name from MAIN_TABLE_NAME WHERE CONDITION) SET column_value='' where column_value='';
+	update table(select phone from cust11 where custid=101) set column_value='yashraj' where column_value='9370585700'
+------------------------------------------------
+Q.. NESTED TABLE STORED IN DATABASE COLUMN?
+==> create or replace TYPE phone_list IS TABLE OF varchar2(50);
+	create table cust11(custid number,customer_name varchar2(50),phone phone_list)nested table phone store as phone_nt
+	insert into cust11 values(101,'yash',phone_list('9370585700','937038030'))
+	select c.customer_name,p.column_value as phone from cust11 c,TABLE(c.phone)p;
+	
+	# how to delete nested table values
+		DELETE FROM TABLE(SELECT collection_type_clm_name from TABLE_NAME WHERE condition)
+		=> delete from table(select phone from cust11 where custid=101)
+		
+		DELETE specific value
+		DELETE FROM TABLE(SELECT column_name from TABLE_NAME WHERE condition) WHERE condition;
+		delete from table(select phone from cust11 where custid=101) where column_value='9370585700'
+		
+	# How to update nested table values
+	UPDATE TABLE(SELECT column_name from MAIN_TABLE_NAME WHERE CONDITION) SET column_value='' where column_value='';
+	update table(select phone from cust11 where custid=101) set column_value='yashraj' where column_value='9370585700'
+------------------------------------------------
+Q.. What is difference between varray and nested table?
+==> 1. varray has fixed maximum size where as nested table is growble 
+	2. In varray insertion order is preserved where as in nested table insertion order is not preserved
+	3. In the database,varray values are stored inline with the parent table row where as 
+		nested table values are stored in a seperate storage table.
+	4. Varray does not create a seperate internal storage table but nested table create seperate internal 
+	   storage to store its elements
+	5. we can't delete middle element from varray where as we can delete middle element of nested table.
+	6. Gaps are not allowed in varray where as gaps are allowed in nested table after deleting elements.
+------------------------------------------------
+Q.. what is associative array(index-by-index)?
+==> - it is called index-by table.
+	- it is colled collection type that stores data in key-value format.
+	- duplicate keys are not allowed but values can be duplicate.
+	- if you add duplicate key then old value is replaced with new value.
+	- key can be integer or string type.
+	- associate array is dynamic in size.it's size may be increase or decrease at run time.
+	- Data is stored in memory only.
+	
+	=> How to declare associative array
+		TYPE type_name IS TABLE OF data_type INDEX BY PLS_Integer/VARCHAR2(size);
+		
+		e.g create an associative array which store student rollno and name.
+		TYPE student_list IS TABLE OF VARCHAR2(1000) INDEX BY PLS_Integer
+			declare
+			TYPE student_list IS TABLE OF VARCHAR(1000) INDEX BY PLS_INTEGER;
+			v_stud student_list;
+			begin
+			v_stud(101):='yashraj';
+			dbms_output.put_line(v_stud(101));
+			end;
+			
+		e.g create an associative array which store student rollno(a,b,c..N) and name
+		TYPE student_list IS TABLE OF VARCHAR2(1000) INDEX BY VARCHAR2(1);
+			declare
+			TYPE student_list IS TABLE OF VARCHAR(1000) INDEX BY VARCHAR2(1);
+			v_stud student_list;
+			begin
+			v_stud('A'):='yashraj';
+			dbms_output.put_line(v_stud('A'));
+			end;
+		
+	=> FIRST:used to return first index.
+	=> LAST:used to return last index 
+	=> NEXT:used to return next index after given index.
+	=> PRIOR:used to return previous index before given index. 
+	=> EXISTS:check whether element exists at given index or not.
+		if exists then it return true otherwise false.
+	=> DELETE:remove elements
+	=> COUNT:return number of elements present 
+------------------------------------------------
+Q.. write program to store key-values in associative array (store student rollno and name)?DAY54
+------------------------------------------------
+Q.. write a program to calculate occurance of character?welcome?
+------------------------------------------------
+Q.. write a program to display duplicate characters from given string "hello"?
+------------------------------------------------
+Q.. what is RECORD type?
+==> - RECORD type is composite datatype in PLSQL
+	- A RECORD is like a row of table.
+	- It can hold multiple column in one variable.
+	- can hold multiple different datatypes.
+	- Used inside PL/SQL block.
+	=> Types of RECORD 
+		1. %ROWTYPE
+		2. %TYPE
+		3. user defined RECORD
+		
+	1. %ROWTYPE: It is also called table-based record.
+		- automatically take structure of table.
+		- it store only one row at a time.
+		- if select statement return multiple row then we will get an error 
+		Syntax: 
+			record_variable table_name%ROWTYPE
+			
+		declare
+		emp_rec employee%ROWTYPE;
+		begin
+		select * into emp_rec from employee where empno=101;
+		dbms_output.put_line(emp_rec.empname);
+		end;
+		
+		
+	2. %TYPE: It is composite data type.
+		- it hold column type values
+		- it store only one value at a time.
+		- if select statement return multiple values then we will get an error.
+		Syntax: 
+			variable_name table_name.column_name%TYPE;
+			
+		declare
+		emp_rec employee.empname%type;
+		begin
+		select empname into emp_rec from employee where empno=101;
+		dbms_output.put_line(emp_rec);
+		end;
+		
+	3. CUSTOM RECORD TYPE:
+		Syntax:
+			TYPE record_type_name IS RECORD(
+				column1 datatype;
+				column2 datatype;
+				column3 datatype;
+			)
+			
+		record_variable record_type_name;
+------------------------------------------------
+Q.. What is difference between %rowtype and %type?
+==> - %TYPE is used to declare variable for single column data type where as 
+		%ROWTYPE is used to declare variable for entire row.
+	- %TYPE can hold only one value where as %ROWTYPE can hold multiple column values 
+	- %TYPE take less memory where %ROWTYPE take more memory.
+	- Syntax of %TYPE is table_name.column_name%TYPE where as 
+		syntax of %ROWTYPE is table_name%ROWTYPE
+------------------------------------------------
+Q.. What is difference between varry and associative array?
+==> - varray size is fixed where associative array size is dynamic.
+	- In varray order is Preserved where as In associative array order is not preserved.
+	- In varray indexing is numeric where as in associative array indexing is numberic+string
+	- varray can be stored in database table column where as associative array exists only in PL/SQL memory 
+	- varray can use when size is know and limited where as associative array used for temporary purpose.
+------------------------------------------------
+Q.. What is difference between nested table and associative array?
+==> - In nested table indexing is numeric where as in associative array indexing is number+string
+	- nested table store in database where as associative array exists only in PL/SQL memory 
+	- nested table used in SQL where as associative array used in PL/SQL
+------------------------------------------------
+Q.. What is cursor?
+==> cursor is pointer to query result set.
+	It is used to fetch and process records row by row from the database.
+	
+	=> Type of cursor?
+		1. Implicit cursor 
+		2. Explicit cursor
+		
+	1. Implicit cursor: cursor created by oracle engine is nothing but implicit cursor.
+	
+	2. Explicit cursor: cursor created by programmer is nothing but explicit cursor.
+	
+------------------------------------------------
+Q.. What is Implicit cursor?
+==> cursor created by oracle engine is nothing but implicit cursor.
+	it is created when INSERT,UPDATE,DELETE,SELECT INTO 
+	
+	BEGIN
+	update employee set salary=45000 where empno=109;
+	IF SQL%FOUND THEN 
+	DBMS_OUTPUT.PUT_LINE('number of record updated'||SQL%ROWCOUNT);
+	END IF;
+	END;
+------------------------------------------------
+Q.. Steps of cursor processing?
+==> step1: Declare cursor
+		syntax: cursor cursor_name IS select statement;
+	
+	Step2: Open Cursor 
+		-> To process rows one by one from cursor,cursor must be opened.
+		Syntax to open cursor
+			OPEN cursor_name;
+	
+	Step3: fetch cursor values
+		Syntax to fetch cursor values
+			FETCH cursor_name INTO variable1,variable2,....;
+			
+	Step4: Close cursor
+		-> ones your work is done close the cursor.
+		-> If we don't close the we don't get any error but it create memory problem.
+		Syntax to close cursor
+			CLOSE cursor_name;
+------------------------------------------------
+Q.. Cursor Life cycle?
+==> 1. declare cursor
+	2. open cursor
+	3. fetch cursor 
+	4. close cursor 
+------------------------------------------------
+Q.. Important attribute of cursor?
+==> Cursor attribut start with % 
+	- Below are the some important attributes 
+	
+	1. %FOUND: This attribute is used to check row is fetched or not.
+		- if row is fetch then it return true.
+		
+	2. %NOTFOUND: This attribute is used to check row is fetched or not.
+		- if row is not fetched then it return true.
+		
+	3. %ROWCOUNT: This attribute return number of rows processed/Fetched.
+		- its initial value is 0.
+		
+	4. %ISOPEN: This attribute is used check cursor is open or not.
+		- if cursor is open then it return true.
+------------------------------------------------
+Q.. How to use attribute of cursor?
+==> Syntax: 
+	cursor_name%attribute_name;
+------------------------------------------------
+Q.. What is the need of cursor?
+==> We have %rowtype data type.%rowtype store one row at a time.if select statement return multiple row 
+	then we will get an error so to over come this problem cursor come in picture.
+------------------------------------------------
+Q.. What happens when we open a cursor?
+==> 1. Query is executed
+	2. memory is allocated
+	3. pointer is pointing before first row.
+------------------------------------------------
+Q.. What happens when we close a cursor?
+==> Releases memory.
+------------------------------------------------
+Q.. Check cursor is open or not?
+==> declare
+	cursor my_cursor IS SELECT empno,empname,salary from employee;
+	begin
+	IF my_cursor%ISOPEN then
+	dbms_output.put_line('cursor is open');
+	else
+	dbms_output.put_line('cursor is not opened');
+	end if;
+	end;	
+------------------------------------------------
+Q.. check cursor is open or not?if not open then open it?
+==> declare
+	cursor my_cursor IS SELECT empno,empname,salary from employee;
+	begin
+	if my_cursor%ISOPEN then 
+	dbms_output.put_line('cursor is open');
+	else 
+	dbms_output.put_line('cursor is not open at initially');
+	open my_cursor;
+	if my_cursor%ISOPEN then
+	dbms_output.put_line('cursor is open now after open it');
+	end if;
+	end if;
+	end;
+------------------------------------------------
+Q.. How to fetch values from cursor?
+==> method 1: using fetch statements 
+		Syntax: FETCH cursor_name INTO variable1,variable2,...;
+		
+	Method 2: using cursor for loop(most used)
+		Syntax: 
+			For variable_name IN cursor_name LOOP
+				dbms_output.put_line(variable_name.table_clm_name);
+			END LOOP;
+			
+		- If we are using CURSOR FOR LOOP then no need to open/fetch/close manually.
+		- CURSOR FOR LOOP automatically open cursor,fetch the values and close cursor.
+------------------------------------------------
+Q.. How to iterate Cursor(processing row one by one)
+==> ITERATION USING SIMPLE LOOP 
+		declare
+		cursor my_cursor IS SELECT empno,empname,salary from employee;
+		begin
+		if my_cursor%ISOPEN then 
+		dbms_output.put_line('cursor is open');
+		else 
+		dbms_output.put_line('cursor is not open at initially');
+		open my_cursor;
+		if my_cursor%ISOPEN then
+		dbms_output.put_line('cursor is open now after open it');
+		end if;
+		end if;
+		end;
+		
+	USING WHILE Loop
+		declare
+		cursor my_cursor IS select empno,empname,salary from employee;
+		v_id number;
+		v_name varchar(90);
+		v_salary number;
+		begin
+		open my_cursor;
+		fetch my_cursor into v_id,v_name,v_salary;
+		WHILE my_cursor%found loop
+		fetch my_cursor into v_id,v_name,v_salary;
+		dbms_output.put_line(v_id||' '||v_name||' '||v_salary);
+		end loop;
+		close my_cursor;
+		end;
+		
+	USING FOR LOOP
+		declare
+		cursor emp_cursor IS SELECT empno,empname,salary from employee;
+		begin
+		FOR emp_rec IN emp_cursor LOOP
+		dbms_output.put_line(emp_rec.empno||' '||emp_rec.empname||' '||emp_rec.salary);
+		END LOOP;
+		end;
+------------------------------------------------
+Q.. Behaviour of fetch in cursor?
+==> When you call fetch first time then 
+	1. cursor pointer moves from before the first row to the first row.
+	2. The first row is fetched into variables.
+	3. After the fetch pointer is remain on that row and the next fetch will move it to the second row.
+	4. It does not immediately move to the next row after fetching.
+------------------------------------------------
+Q.. After open cursor where is the cursor pointing?
+==> Before the first row not on the first row.
+------------------------------------------------
+Q.. What happen if cursor not closed?
+==> If we have not closed cursor then we don't get any compilation error but it consume memory resources.
+	so it is highly recommended to close the cursor once your work done.
+------------------------------------------------
+Q.. which cursor attribute return number of rows fetched?
+==> %ROWCOUNT
+------------------------------------------------
+Q.. Which attribute check cursor open state?
+==> %ISOPEN
+------------------------------------------------
+Q.. What is paramaterized cursor?
+==> Cursor which accepts parameters is called paramaterized cursor.
+	Syntax: 
+		CURSOR cursor_name(variable1 data_type,variable2 data_type) IS select statement;
+	
+	we can pass value to cursor at the time of opening of cursor 
+	Syntax: 
+		Open cursor_name(value);
+		
+		
+	DECLARE
+    CURSOR emp_cursor(p_empno NUMBER) IS 
+        SELECT empname, salary 
+        FROM employee 
+        WHERE empno = p_empno;
+
+    v_name VARCHAR2(50);
+    v_salary NUMBER;
+	BEGIN
+		OPEN emp_cursor(101);
+		
+		FETCH emp_cursor INTO v_name, v_salary;
+		DBMS_OUTPUT.PUT_LINE(v_name || ' ' || v_salary);
+		
+		CLOSE emp_cursor;
+	END;
+	/
+------------------------------------------------
+Q.. Pass empid to cursor and display employee details?
+==> declare
+	cursor emp_cursor(p_empno number) IS select empname,salary from employee where empno=p_empno;
+	emp_rec emp_cursor%ROWTYPE;
+	begin
+	OPEN emp_cursor(101);
+	FETCH emp_cursor into emp_rec;
+	dbms_output.put_line(emp_rec.empname);
+	close emp_cursor;
+	end;
+------------------------------------------------
+Q.. What is REF CURSOR(Reference Cursor)?
+==> REF CURSOR is cursor variable which store address of query result set.
+	
+	=> Type of REF CURSOR
+		1. Strong REF CURSOR 
+		2. Weak REF CURSOR
+		
+	1. Strong REF CURSOR:
+		- The cursor whose row structure is fixed is called strong REF CURSOR.
+		- RETURN clause is mandatory.
+		- ROW structure is RECORD type.
+		- This Record type we can define using %ROWTYPE or CUSTOME RECORD TYPE.
+		
+		=> How to declare strong REF cursor
+		Syntax: TYPE ref_cursor_name IS REF CURSOR RETURN table_name%ROW_TYPE;
+			
+		- Example:
+			TYPE emp_ref_cursor IS REF CURSOR RETURN Employee%ROWTYPE;
+			
+		=> How to OPEN strong REF CURSOR?
+			- A REF cursor is opend using OPEN FOR statement
+			Syntax: OPEN cursor_variable FOR select statement.
+			
+		=> How to fetch strong REF CURSOR?
+			FETCH cursor_variable INTO record_variable;
+------------------------------------------------
+Q.. When should go with REF cursor?
+==> - if want to return multiple rows from functions or procedure.
+	- If query is dynamic
+	- If we want to pass result of one procedure into procedure
+------------------------------------------------
+Q.. Write strong REF cursor to display employee details whose salary is greater than 45000?
+==> declare
+	TYPE emp_cursor IS REF CURSOR RETURN employee%ROWTYPE;
+	v_cursor emp_cursor;
+	emp_rec employee%ROWTYPE;
+	BEGIN
+	open v_cursor for select * from employee where salary>45000;
+	LOOP
+	FETCH v_cursor INTO emp_rec;
+	EXIT WHEN v_cursor%NOTFOUND;
+	dbms_output.put_line(emp_rec.empno||' '||emp_rec.empname||' '||emp_rec.salary);
+	END LOOP;
+	END;
+------------------------------------------------
+Q.. Write strong REF cursor to display employee details whose salary is greater than 45000(using while loop)?
+==> DECLARE
+	TYPE emp_cursor IS REF CURSOR RETURN employee%ROWTYPE;
+	v_cursor emp_cursor;
+	emp_rec employee%rowtype;
+	BEGIN
+	open v_cursor for select * from employee where salary>45000;
+	FETCH v_cursor into emp_rec;
+	WHILE v_cursor%FOUND LOOP
+	dbms_output.put_line(emp_rec.empno||' '||emp_rec.empname||' '||emp_rec.salary);
+	FETCH v_cursor into emp_rec;
+	END LOOP;
+	END;
+------------------------------------------------
+Q.. Write strong REF cursor to display employee details whose salary is greater than 45000(using for loop)?
+==> - Cursor for loop work only with explicit cursors.
+	- REF CURSOR(strong or weak) cannot be used with FOR LOOP because it is dynamic.
+	- Therefore we iterate REF CURSOR using LOOP or WHILE LOOP with FETCH statement.
+------------------------------------------------
+Q.. Weak REF cursor?
+==> The cursor whose row structure is not predefined and can be determined at the runtime is called weak REF cursor.
+	
+	=> Declaration of weak REF cursor
+		TYPE emp_cursor IS REF CURSOR;
+		
+	=> Variable declaration
+		v_cursor emp_cursor;
+		
+	=> How to open weak REF cursor
+		A REF cursor opened using OPEN FOR statement
+		Syntax: 
+			OPEN cursor_variable FOR select statement
+			
+		e.g
+			OPEN v_cursor FOR select empid,empname,salary from employee where salary>50000;
+			
+	=> How to fetch Weak REF cursor?
+		Fetch cursor_variable INTO variable_list;
+		
+	=> How to iterate through rows
+		LOOP
+		fetch v_cursor into v_id,v_empname,v_salary;
+		EXIT WHEN v_cursor%NOTFOUND;
+		dbms_output.put_line(v_id||' '||v_empname||' '||v_salary);
+		END LOOP;
+------------------------------------------------
+Q.. Write weak REF cursor to display employee details like empid,empname,salary of those employee
+	whose salary is greater than 45000(using simple loop)?
+==> declare
+	TYPE emp_cursor IS REF CURSOR;
+	v_cursor emp_cursor;
+	v_id number;
+	v_empname varchar2(90);
+	v_salary number;
+	begin
+	open v_cursor FOR select empno,empname,salary from employee where salary>20000;
+	LOOP
+	fetch v_cursor into v_id,v_empname,v_salary;
+	EXIT WHEN v_cursor%NOTFOUND;
+	dbms_output.put_line(v_id||' '||v_empname||' '||v_salary);
+	END LOOP;
+	end;
+------------------------------------------------
+Q.. Write weak REF cursor to display employee details like empid,empname,salary of those employee
+	whose salary is greater than 45000(using while loop)?
+------------------------------------------------
+Q.. write a procedure which accept salary and return employee details like empid,empname,salary,designation 
+	of those employee whose salary > input salary.
+==> create or replace procedure p_salary_input(p_salary IN number,p_emp_rec OUT SYS_REFCURSOR)
+	IS 
+	BEGIN
+	OPEN p_emp_rec FOR select empno,empname,salary from employee where salary>p_salary;
+	END;
+	
+	=> Calling the procedure
+	DECLARE
+	v_empno number;
+	v_empname varchar2(90);
+	v_salary number;
+	v_cursor SYS_REFCURSOR;
+	BEGIN
+	p_salary_input(20000,v_cursor);
+	LOOP
+	fetch v_cursor into v_empno,v_empname,v_salary;
+	EXIT when v_cursor%NOTFOUND;
+	dbms_output.put_line(v_empno||' '||v_empname||' '||v_salary);
+	end loop;
+	END;	
+------------------------------------------------
+Q.. What happen when we fetch a cursor?
+==> retrive one row from cursor and store into local variable.
+------------------------------------------------
+Q.. How does for loop work internally?
+==> Automatically opens,fetch row-by-row,close.
+------------------------------------------------
+Q.. What is SYS_REFCURSOR?
+==> It is predefined weak ref cursor in PLSQL used to return result set from a query.
+------------------------------------------------
+Q.. Why use cursor instead of SELECT INTO?
+==> SELECT INTO handle only one row,if we want to handle multiple row one by one then we should go with cursor.
+------------------------------------------------
+Q.. What happen if select into return rows?
+==> raises "too_many_rows" error.
+------------------------------------------------
+Q.. How to handle multiple rows?
+==> using cursor.
+------------------------------------------------
+Q.. what is cursor memory area?
+==> It is program global area(PGA)
+------------------------------------------------
+Q.. When should avoid cursor?
+==> If we are handle single row.
+------------------------------------------------
+Q.. Why cursor is slow?
+==> - Cursor is processing one row at a time 
+	- While processing context switching between SQL engine and PLSQL engine happens 
+	  so it utilize more CPU and memory so it becomes slow.
+------------------------------------------------
+Q.. What affect cursor performance?
+==> A cursor processes row one by one.which leads to context switching between sql engine and plsql engine 
+	this affect cursor performance.
+------------------------------------------------
+Q.. How to improve cursor performance?
+==> 1. use bulk collection
+	2. use forall
+	3. avoid loop if possible
+	4. use cursor for loop
+------------------------------------------------
+Q.. what is difference between implicit cursor and explicit cursor?
+==> - implicit cursor is created automatically using oracle engine where as 
+	  explicit cursor is created by developer.
+	- implicit curser is used for insert,update,delete opeartion where as 
+	  explicit cursor is used for multi-row queries.
+	- implicit cursor no need to open/fetch/close where as 
+	  explicit cursor must be open/fetch/close manually.
+------------------------------------------------
+Q.. what is difference between %found and %notfound?
+==> - %found return true when row found where as %notfound return true when row not found.
+	- %found return false when row not found where as %notfound return false when row false.
+------------------------------------------------
+Q.. what is difference between cursor and ref cursor?
+==> - Explicit cursor is static where as REF cursor is dynamic
+	- In Explicit cursor query is fixed at compile time where as In REF cursor query can change at runtime.
+	- Explicit cursor defined at compile time where as REF cursor is opened dynamically at runtime.
+	- explicit curseor used within a single block where as REF cursor can be passed,returned and reused.
+	- Explicit cursor has limited flexibility where as REF cursor provide more flexibility.
+------------------------------------------------
+Q.. What is difference between strong and weak REF cursor?
+==> - Strong ref cursor has fixed return type whereas weak ref cursor has no fixed return type.
+	- strong ref cursor must match the defined structure whereas weak ref cursor can return any query result.
+	- strong ref cursor provide type safety whereas weak ref cursor does not provide type safety.
+	- strong ref cursor is less flexible where as weak ref cursor is more flexible.
+	- strong ref cursor is defined with return clause whereas weak ref cursor is defined without return clause.
+------------------------------------------------
+Q.. What is difference between explicit and paramaterized cursor?
+==> - explicit cursor has fixed query whereas paramaterized cursor accept parameters
+	- explicit cursor cannot take input at runtime whereas paramaterized cursor take input during execution
+	- explicit cursor is less flexible where as paramaterized cursor is more flexible
+	- explicit cursor is used for fixed conditions whereas paramaterized cursor is used for dynamic filtering
+	- explicit cursor does not require parameters whereas paramaterized cursor is defined with parameter.
+------------------------------------------------
+Q.. MERGE Statement?
+==> MERGE is a sql statement used to Sync data in target table 
+	based on matching condition between source and target tables.
+	- we can insert,update and delete the records.
+	
+	=> Syntax: 
+		MERGE INTO table_name1 t1 USING table_name2 t2 ON(t1.clm_name=t2.clm_name)
+		WHEN MATCHED THEN 
+		updated set m.clm_name=d.clm_name,m_clam_name=d._clm_name
+		WHEN NOT MATCHED THEN 
+		insert value(d.id,d.name,d.plan);
+------------------------------------------------
+Q.. Is it manadatory to write both conditions(MATCHED and NOT MATCHED) in a MERGE statement?
+==> No,it is not manadatory to write both conditions.
+	we can use only WHEN MATCHED(for update only)
+	or 
+	we can use only WHEN NOT MATCHED(for insert only)
+	or 
+	we can use both together.
+	
+	-> but must write atleast one of clause either 
+		"WHEN MATCHED" or "WHEN NOT MATCHED" otherwise we will get an erro.
+		
+	=> Example:
+		MERGE INTO Master m using Daily d ON(m.id=d.id)
+		WHERE MATCHED THEN 
+			update set m.name=d.name,m.plan=d.plan
+			
+	=> Example:
+		MERGE INTO Master m using Daily d ON(m.id=d.id)
+		WHEN NOT MATCHED THEN
+			insert value(d.id,d.name,d.plan);
+			
+	=> Example(Updatation+insertion)
+			MERGE INTO Master m using Daily d ON(m.id=d.id)
+			WHEN MATCHED THEN 
+				update set m.name=d.name,m.plan=d.plan
+			WHEN NOT MATCHED THEN 
+				insert values(d.id,d.name,d.plan);
+------------------------------------------------
+------------------------------------------------
+------------------------------------------------
+------------------------------------------------
+------------------------------------------------
+------------------------------------------------
+Q.. What is bulk collect?
+==> Bulk collect means fetch multiple rows at once from a collection instead of fetching row-by-row,
+	it fetches all rows in one go,which improve performance 
+	
+	=> Why do we use Bulk collect?
+		- Improve performance
+		- Reduces context switching between SQL & PL/SQL.
+		- Faster data processing.
+		
+	Syntax:
+		select column_list BULK COLLECT INTO collection_name from table_name where condition;
+	
+	Example: Direct Bulk collect(No cursor)
+		declare
+		TYPE emp_tab IS TABLE OF Employee%ROWTYPE;
+		v_emp emp_tab;
+		BEGIN
+		SELECT * BULK COLLECT INTO v_emp FROM Employee;
+		For i IN 1..v_emp.COUNT LOOP
+		dbms_output.put_line(v_emp(i).empno||' '||v_emp(i).empname||' '||v_emp(i).salary);
+		END LOOP;
+		END;
+		
+	Example:BULK COLLECT with cursor
+		DECLARE
+		CURSOR emp_cursor IS select * from employee;
+		TYPE emp_tab IS TABLE OF Employee%ROWTYPE;
+		v_emp emp_tab;
+		BEGIN
+		OPEN emp_cursor;
+		fetch emp_cursor BULK COLLECT INTO v_emp;
+		CLOSE emp_cursor;
+		for i IN 1..v_emp.COUNT LOOP
+		dbms_output.put_line(v_emp(i).empno||' '||v_emp(i).empname||' '||v_emp(i).salary);
+		END LOOP;
+		END;
+		
+		
+	- Bulk collect is used for bulk fetching 
+	- bulk collect work with varray,nested tables and associative array.
+	- bulk collect can consume memory if number of records are more.we can overcome this problem using "LIMIT" clause.
+------------------------------------------------
+Q.. What is "LIMIT" means in Bulk collect?
+==> LIMIT specify the number of rows fetched per fetch call.
+	- suppose limit 100,means 100 rows fetched per fetch call.
+	- we can use limit clause with cursor only 
+	- we must use limit clause inside a loop with fetch 
+	Syntax: 
+		FETCH cursor_name BULK COLLECT INTO collection LIMIT 100;
+	
+	EXAMPLE: 
+		DECLARE
+		CURSOR emp_cursor IS SELECT * FROM EMPLOYEE;
+		TYPE emp_rec IS TABLE OF EMPLOYEE%ROWTYPE;
+		v_emp emp_rec;
+		BEGIN
+		OPEN emp_cursor;
+		FETCH emp_cursor BULK COLLECT into v_emp limit 3;
+		CLOSE emp_cursor;
+		for i IN 1..v_emp.count loop
+		dbms_output.put_line(v_emp(i).empno);
+		END LOOP;
+		END;
+------------------------------------------------
+Q.. How to handle large data using cursor?
+==> To handle large data we use bulk collect with limit clause inside a loop to fetch data in chunks.
+	
+	=> Using ROWNUM
+		DECLARE
+		TYPE emp_rec IS TABLE OF employee%ROWTYPE;
+		v_emp emp_rec;
+		BEGIN
+		select * BULK COLLECT INTO v_emp from employee where rownum<=10;
+		for i IN 1..v_emp.count loop
+		dbms_output.put_line(v_emp(i).empno||' '||v_emp(i).empname||' '||v_emp(i).salary);
+		end loop;
+		END;
+		
+	=> Using FETCH FIRST(oracle 12c+)
+		DECLARE
+		TYPE emp_rec IS TABLE OF employee%ROWTYPE;
+		v_emp emp_rec;
+		BEGIN
+		select * BULK COLLECT INTO v_emp from employee FETCH FIRST 100 ROWS ONLY;
+		for i IN 1..v_emp.count loop
+		dbms_output.put_line(v_emp(i).empno||' '||v_emp(i).empname||' '||v_emp(i).salary);
+		end loop;
+		END;
+------------------------------------------------
+Q.. Can we use "limit" without cursor?
+==> No.
+------------------------------------------------
+Q.. What is FORALL in Pl/SQL?
+==>	- it is a bulk processing statement in PLSQL.
+	- it is used to perform DML operations on collections.
+	- In stead of executing DML operation row-by-row,FORALL executes DML in bull(one shot).
+	- FORALL is used in INSERT,UPDATE,DELETE but not allowed in SELECT.
+	Syntax:
+		FORALL index IN lower_bound .. upper_bound DML statement;
+	
+	- Forall is not loop.it is a bulk DML statement.it sends all operations to SQL engine in one go and 
+	  improve performance by reducing context switching.
+	- FOR LOOP = ROW BY ROW where as FORALL=all rows at once.
+	- inside FORALL we can't write other procedural logic.
+------------------------------------------------
+Q.. Why use FORALL?
+==> - it is faster than normal loop.
+	- It reduces context switching.
+	- It is best for bulk operations.
+------------------------------------------------
+Q.. Delete 5 rows from tmp table using forall?
+==> DECLARE
+	TYPE v_emp_id IS TABLE OF NUMBER;
+	v_ids v_emp_id:=v_emp_id(1,2,3,4,5,6,7,8,9);
+	BEGIN
+	FORALL i IN 1..v_ids.count
+	DELETE FROM tmp where id=v_ids(i);
+	END;
+------------------------------------------------
+Q.. Delete 5 row from tmp table where id > 15?
+==> DECLARE
+	TYPE v_tmp_id IS TABLE OF NUMBER;
+	v_ids v_tmp_id:=v_tmp_id(51,52,53,54,55);
+	BEGIN
+	for i IN 50..v_ids.count loop
+	if v_ids(i)>50 then
+	delete from tmp where id=v_ids(i);
+	end if;
+	end loop;
+	END;
+
+------------------------------------------------
+Q.. Handling exception in bulk DML operation?
+==> We can handle exception in bulk DML using save exceptions.
+------------------------------------------------
+Q.. What is SAVE EXCEPTIONS?
+==> SAVE EXCEPTIONS is used with FORALL to: continue execution even if some DML operations fail.
+	Syntax:
+		FORALL i IN 1..v_ids.count save exceptions
+		INSERT INTO emp VALUES(...);
+	=> If some rows fail:
+		1. other rows still processed.
+		2. errors stored internally.
+		3. We can handle them later.
+------------------------------------------------
+Q.. What is SQL%BULKEXCEPTIONS?
+==> It is a collection that stores error details.
+------------------------------------------------
+Q.. FLASHBACK?
+==> - To detete an object(table,index,view,sequence,etc) we use drop statement.
+	- Drop is DDL statement.All ddl statement are auto-commit once we perform drop we can't rollback that object.
+	- once we delete row and commit we can't rollback.
+	- once we update row and commit we can't rollback.
+	- once we insert the row and commit we can't rollback.
+	- when we drop an obect or when we delete rows that object or row get stored in recycle bin.
+	- To restore objects or rows from recycle we use "flashback"
+	- flashback is for data recovery and historical analysis 
+	- flashback features were introduced in oracle 9i database release2 later versions
+		(like oracle database 10g and above) added more powerful flashback features.
+------------------------------------------------
+Q.. What is flashback?
+==> Flashback is feature and it is used for data recovery and historical analysis.
+	using this feature we can view or restore past data.
+	=> Types of flashback features
+		1. Flashback Query
+		2. Flashback table
+		3. Flashback Drop
+		4. Flashback Database
+		5. Flashback Version Query
+		6. Flashback Transaction Query
+------------------------------------------------
+Q.. What is Flashback Query?
+==> Flashback query feature is used to view past data.
+	- we can view past data based on TIMESTAMP and SCN(system Change Number).
+	Syntax:
+		select column_names from table_name 
+		AS OF TIMESTAMP(timestamp-INTERVAL 'value' TIME_UNIT);
+	 
+		Time unit can be : SECOND,MINUTE,HOUR,DAY,MONTH,YEAR.
+		e.g 
+			TIMESTAMP(SYSTIMESTAMP-INTERVAL '10' MINUTE)
+			TIMESTAMP(SYSTIMESTAMP-INTERVAL '2' HOUR)
+			TIMESTAMP(SYSTIMESTAMP-INTERVAL '2' DAY)
+			TIMESTAMP(SYSTIMESTAMP-INTERVAL '2' MONTH)
+			TIMESTAMP(SYSTIMESTAMP-INTERVAL '2' YEAR)
+			
+		Testing:
+		update employee set salary=30000 where empno=101;
+		
+		- View the past data before updation
+		select * from employee AS OF TIMESTAMP(SYSTIMESTAMP-INTERVAL '5' MINUTE);
+------------------------------------------------
+Q.. Flashback Table(Restore table)?
+==> Flashback table feature restore the table data back to old state.
+	- Syntax: 
+		FLASHBACK TABLE table_name TO TIMESTAMP(timestamp_value - INTERVAL 'value' TIME_UNIT);
+		
+	- it restore entire table to past state.
+	- suppose we have employee table with 5 rows and we insert 2 rows now we want to restore table old state
+	  using FLASHBACK TABLE.
+	  Syntax: 
+		FLASHBACK TABLE Employee TO TIMESTAMP(SYSTIMESTAMP-INTERVAL '2' MINUTE)
+	
+	- FLASHBACK need privilege:
+		GRANT FLASHBACK ANY TABLE TO user;
+	- For Flashback table enable the row movement 
+		ALTER TABLE table_name ENABLE ROW MOVEMENT;
+------------------------------------------------
+Q.. Flashback Drop?
+==> - it is used to restore droped table from recycle bin.
+	Syntax:
+		FLASHBACK TABLE table_name TO BEFORE DROP;
+	- Recovers dropped table from recycle bin.
+------------------------------------------------
+Q.. Flashback Version query?
+==> Flashback version query feature is used to view all version of row between two points in time.
+	Syntax:
+		SELECT column_list
+		VERSIONS_STARTTIME,
+		VERSIONS_ENDTIME,
+		VERSION_OPERATION,
+		VERSION_XID
+		FROM table_name
+		versions between TIMESTAMP
+			TO_TIMESTAMP('start_time','YYYY-MM-DD HH24:MI:SS')
+			AND TO_TIMESTAMP('end_time','YYYY-MM-DD HH24:MI:SS')
+			
+	=> Prerequisite for flashback version query
+		1. UNDO_RENTENTION should be sufficient
+		2. Table should not be truncated.
+		3. Data must still exit in UNDO tablespace.
+------------------------------------------------
+Q.. FLASHBACK Transaction Query?
+==> This feature is used to know which DML operation has changed the data.
+	Syntax:
+		SELECT column_list FROM flashback_transaction_query
+		FROM flashback_transaction_query WHERE table_name='table_name_in_capital';
+		
+	- flashback_transaction_query is a view.
+	- Flashback transaction query generate UNDO_SQL to reserse the changes.
+	- E.g 
+		select XID,START_SC,COMMIT_SCN,OPERATION,TABLE_NAME,UNDO_SQL 
+		from flashback_transaction_query where table_name='EMPLOYEE';
+------------------------------------------------
+Q.. How to restore wrong DML operations?
+==> To restore data to original state we can use flashback transaction query.
+	Step 1: Use flashback transaction query and find UNDO_SQL
+		-> SQL 
+			select undo_sql,xid,oepartion from flashback_transaction_query
+			where table_name='EMPLOYEE'
+			
+	Step 3: copy undo_sql and execute
+		-> SQL 
+			update "SYSTEM"."EMPLOYEE" set "SALARY" ="45000" where ROWID='AADksAABAAAKISAAB'
+			
+			above query will restore original data
+------------------------------------------------
+Q.. What is PURGE statement?
+==> PURGE is a DDL statement used to permanently remove objects from the recycle bin
+	
+	Why use PURGE?
+		- free up space in recycle bin
+		- Remove unwanted dropped objects permanently
+		- improve storage management
+		- prevent recovery of sensitive data.
+		
+	Syntax to delete object from Recycle bin 
+	case1: use actual table(user defined table name)
+	Syntax: PURGE TABLE table_name;
+		note: don't specify table_name in single quote.if we specify table name in single quote then we will get an error.
+	Example: PURGE TABLE employee;
+	
+	Case 2: Use system generated table name 
+		When we drop table using drop statement oracle engine generate name for that object.
+		on the basis system generated name we can PURGE the object.
+		Syntax: 
+			PURGE TABLE 'system_generated_table_name';
+		Example: PURGE TABLE 'BIN$hvD1AWFwT43INsSXrz5uHw==$0';
+------------------------------------------------
+Q.. How to know the system generated name?
+==> To retirve system generated name for drop object use below query
+	1. select * from dba_recyclebin where table_name='TABLE_NAME';
+	2. select * from user_recyclebin where table_name='TABLE_NAME';
+	3. select * from recyclebin where table_name='table_name';
+------------------------------------------------
+Q.. What is difference between DROP and PURGE?
+==> - DROP statement drop object from database where as 
+	  PURGE statement delete object permanently.
+	- If we drop the object using drop then droped object goes into recyclebin but 
+	  PURGE statement Bypasses recycle bin
+	- If we drop object using DROP statement then we can recover using FLASHBACK but 
+	  if we drop the object using PURGE statement then we can't recover.
+	- Drop statement does not free the space immediately but PURGE statement free the space immediately.
+	- DROP is safe but PURGE is risky.
+	- For normal delete use drop statement and for permanent deletion is PURGE statement.
+------------------------------------------------
+Q.. What is difference between DELETE and PURGE?
+==> - DELETE is DML statement but PURGE is DDL statement.
+	- DELETE statement delete rows but PURGE statement delete entire object.
+	- In DELETE statement UNDO is possible but in PURGE statement UNDO is not possible.
+	- For DELETE statement commit is required but PURGE statement commit is not required because it is auto commit.
+	- On DELETE statement trigger is fired but on PURGE statement trigger is not fired.
+	- We can use WHERE clause in DELETE statement but we can't use WHERE clause in PURGE statement.
+------------------------------------------------
+Q..  What is mean by PACKAGE?
+==> - Package is collection of PROCEDURE,FUNCTION,variable and cursor.
+	- PACKAGE has 2 parts
+		1. PKS 
+		2. PKB
+------------------------------------------------
+Q.. What is PKS?
+==> - PKS stand for package specification.
+	- Package specification means declaration.
+	- Package specification(PKS) is the public interface of PL/SQL package.
+	
+	=> What does it contains?
+		1. Procedure declarations
+		2. Function declaration
+		3. Global variables
+		4. Constants 
+		5. Cursor declarations
+		6. TYPES
+		
+	=> Syntax of PKS
+		CREATE OR REPLACE PACKAGE package_name
+		IS 
+			-- variable declarations
+				variable_name datatype;
+			
+			--constant declaration
+			CONSTANT constant_name datatype :=value;
+			
+			--Type Declaration
+			TYPE type_name IS...;
+			
+			--Cursor Declaration
+			CURSOR cursor_name IS select .....;
+			
+			--Procedure Declaration
+			PROCEDURE procedure_name (parameters);
+			
+			--Function declaration
+			FUNCTION function_name (parameters)RETURN return_datatype;
+			
+		END package_name;
+		/
+		
+	- PKS file has .pks extention.
+	- If we modify .pks file then we need to compile.
+------------------------------------------------
+Q.. What is PKB?
+==> PKB stand Package body.
+	- PKB is the implementation part of PKS 
+	- PKB contains the actual code of procedures and functions declared in the package specification.
+	=>  PKB may contain 
+		1. private variable 
+		2. private procedure 
+		3. private function
+		4. cursors 
+	- The element which is available in PKS is called public or global element.
+	- The element which is not available in PKS but available in PKB is called private element.
+	Syntax; 
+		CREATE OR REPLACE PACKAGE BODY package_name
+		IS
+			--private declarations
+			
+			--implementations of procedure/functions
+	
+		
+		END package_name;
+		/
+------------------------------------------------
+Q.. PKB can exist without PKB?
+=> No
+------------------------------------------------
+Q.. Between PKS and PKB which one compile first?
+==> first PKS then PKB
+------------------------------------------------
+Q.. If PKS is invalid can PKB compile?
+==> No
+------------------------------------------------
+Q.. What is difference between pks and pkb?
+==> 1. pks stand for package specification and pkb stand for package body.
+	2. pks is an interface and pkb is implementation
+	3. private members are not allowed in pks but private members are allowed in pkb
+	4. pks is not depends on pks but pkb is depends on pks.
+	5. pks variable are public but pkb variables are private.
+------------------------------------------------
+Q.. can we call procedure inside select statement?
+==> No
+------------------------------------------------
+Q.. Why proceudre cannot be called inside select?
+==> procedure does not return value but select requires a return value.
+------------------------------------------------
 ------------------------------------------------

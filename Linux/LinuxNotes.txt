@@ -761,5 +761,450 @@ Q.. What is piping?
 		=> head -1 a1.txt | wc -w 
 		
 		2. count number of character present in line number 1-5 of a1.txt 
-		=> 
+		=> head -5 a1.txt | wc -c 
 ------------------------------------------------
+Q.. What TOP command?
+==> - TOP command is used to display CPU utilization.
+	- ones top command get executed then in the output below information get display
+		1. current time
+		2. system up time 
+		3. number of logged user to system 
+		4. number of process initiated
+		5. running process count 
+		6. sleep process count 
+		7. stoped process count 
+		8. zombie process count 
+		9. % CPU usage
+		10. % memory usage
+		11. all initiated process id(PID)
+		12. who has started process
+		13. Process priority 
+		14. Process status.
+	
+	- to exit from top command we need to press ctrl+z 
+------------------------------------------------
+Q.. What is zombie process?
+==> The process whose execution is completed but process id is in use is called zombie process.
+------------------------------------------------
+Q.. What is SED command?
+==> SED stand for stream editor
+	1. Print a perticular line or multiple line
+	2. Delete a perticular line or multiple line
+	3. Replace or subtitute one word with another word.
+	4. Insert data before any line 
+	5. Insert data after any line
+	
+	Syntax: 
+		sed option 'action' file_name;
+		
+	Q. print line number 1 from f1.txt
+	=> sed -n '1p' f1.txt
+		here -n is used print target line 
+		if we don't specify -n then target line get printed two times and all other line also get printed.
+		
+	Q. print line number 5 from f1.txt
+	=> sed -n '5p' f1.txt
+	
+	Q. print last line of f1.txt?
+	=> sed -n '$p' f1.txt 
+
+	Q.. print line number 2,5 and 7 from f1.txt?
+	==> sed -n '2p;5p;7p' f1.txt 
+	
+	Q.. print line number 5 to 10?
+	==> sed -n '5,10p' f1.txt
+	
+	Q. delete line number 3 from f1.txt?
+	=> sed '3d' f1.txt
+	
+	Q.. delete line number 5 and 10 from f1.txt?
+	==> sed '3d;10d' f1.txt 
+	
+	Q. delete line from 2 to 8 from f1.txt?
+	=> sed '2,8d' f1.txt 
+	
+	Q. delete line number 2,5 and 8to 11 from f1.txt 
+	=> sed '2d;5d;8,11d' f1.txt
+	
+	Q. Insert data before line number 3 
+	=> sed '3i type data here' f1.txt
+	
+	Q. Add data after line number 3?
+	=> sed '3a type data here' f1.txt 
+	
+	Q. find one and replace with 001?
+	=> sed 's/0ne/001/' f1.txt 
+		bydefault subtitution take place only for first occurance 
+		if we want to replace all occurances then use g(g for global)
+	   sed 's/three/03/g' f1.txt 
+	   
+	Q.. find one word from f1.txt and replace only second occurance with 0001?
+	==> sed 's/one/0001/2g' f1.txt 
+	
+	Q.. find one word from f1.txt from line number 2 to 5 and replace all occurance with 0001?
+	==> sed '2,5s/one/0001/g' f1.txt 
+	
+	Q.. Add the # to start of every line
+	==> sed 's/^/#/' f1.txt 
+	
+	Q. Add # symbol to every line and save the output in another file?
+	==> sed 's/^/#/' f1.txt > another.txt
+------------------------------------------------
+Q.. hostname?
+==> hostname command is used to know your system information like system name,
+	system ip address,network ip address.
+	
+	hostname -i => system IP address
+	hostname -I => Network IP address 
+	hostname -f => system name 
+------------------------------------------------
+Q.. uname command?
+==> uname command is used to give operating system related information
+	
+	uname -1 => this will print all information 
+	
+	1. kername name => uname -s
+	2. hostanme => uname -n 
+	3. kernel release => uname -r 
+	4. kernel version => uname -v 
+	5. machine hardware name => uname -m 
+	6. processor type => uname -p 
+	7. harware platform => uname -i 
+	8. operating system name => uname -o
+------------------------------------------------
+Q.. arch command?
+==> arch command is used to know system is 32 bit or 64 bit 
+	syntax 
+		arch 
+------------------------------------------------
+Q.. finger command?
+==> finger command is used to know user information 
+	Syntax: 
+		finger username
+------------------------------------------------
+Q.. tar command?
+==> tar stand for tap archieve 
+	- tar command is used to group multiple files or multiple directory into single file.
+	Syntax: 
+		tar option archieve_file_name.tar source_file_name
+		
+		Here while creating archieve file we use option -cvf 
+		c stand for create 
+		v stand for verbose 
+		f stnd for forcefully
+		
+	e.g 
+		tar -cvf f123.tar f1.txt f2.txt f3.tx 
+------------------------------------------------
+Q.. How to extract content of archieve file?
+==> to extract content of an archieve file tar command is used with -xvf option
+	Syntax: 
+		tar option archieve_file_name
+------------------------------------------------
+Q.. How to create zip file?
+==> To create zip file we use gzip command.
+	Syntax: 
+		gzip input_file_name 
+	
+	e.g 
+		gzip f1.txt 
+		
+	- once command get executed we will get zip file and name of zip file will be f1.txt.gz 
+	- zip file has .gz extension 
+------------------------------------------------
+Q.. cration of zip file of directory?
+==> By default we can't create zip file of directory using gzip command.
+	- If we want to create zip file of directory then first we need to convert 
+		that directory into archieve file and then convert that archieve file into zip file.
+------------------------------------------------
+Q.. How to unzip file?
+==> - If we want to view the content of zip file then we can't view the content of zip file.
+	- If we want to view zip file content then we need to unzip it and then view the content.
+	- To unzip file we use 'gunzip' command as below 
+		gunzip f1.txt.gz
+------------------------------------------------
+Q.. What is zcat command?
+==> if we want to view zip file content without extracting it then we can use zcat command.
+	Syntax: 
+		zcat zipfile_name
+------------------------------------------------
+Q.. Why we compress a file or advantage of archieve file?
+==> i. it improves memory utilization
+	ii. transporation become easy 
+	iii. it reduce download time. 
+------------------------------------------------
+Q.. What is cut command?
+==> cut command is used to cut data from a file.
+	- we can cut data from a file character by character or word by word.
+	- we can cut data based on seperator like 
+		colon :
+		tild ~
+		hash #
+		percentage %
+		space 
+		Doller $
+		
+	Syntax: 
+		cut option file_name 
+	
+	-> option used in cut command
+		-c : To cut data character by character
+		-f : This option is used to specify field number 
+		-d : It is used to specify delimeter.delimeter means seperator.
+		
+	Q. Display only first character from every line of f1.txt?
+	=> cut -c 1 f1.txt 
+	
+	Q. Display only fifth character from every line of f1.txt?
+	=> cut -c 5 f1.txt 
+	
+	Q. display first 2 character from every line of f1.txt?
+	=> cut -c 1-2 f1.txt 
+	
+	Q. display 1,3,10and 11to16 character from every line of f1.txt?
+	=> cut -c 1,3,10,11-16 f1.txt
+	
+	Q. seperate data based on # and print first column?
+	=> cut -d# -f1 f1.txt 
+------------------------------------------------
+Q.. df command?
+==> df stand for disk free or disk fragmentation.
+	- df command is used to display 'file system' disk space usage.
+	- df command provides information about space available on all currently moutned file system.
+	- once command get executed it shows information the column format like 
+		filesystem name, total allocated size, used size,available size.
+	- option of df command 
+		-h => human readable 
+		-m => mega bytes
+		-k => kilo bytes 
+------------------------------------------------
+Q.. du command?
+==> du stand for disk usage.
+	- du command estimate "file" space usage.
+	- du command dispaly directory wise disk usage.
+------------------------------------------------
+Q.. What is difference between du and df command?
+==> df stand for disk fragmentation where as du stand for disk usage.
+	- df command display file system disk usage where as du command display file disk usage 
+------------------------------------------------
+Q.. what is free command?
+==> free command is used to display amount of free and used memory in the system.
+	- free command talks about RAM memory
+------------------------------------------------
+Q.. What is mean by swap memory?
+==> swap is small space available on hard disk and that is used when RAM is full.
+	- when system runs out of RAM in that case inactive pages are moved to swap memory.
+------------------------------------------------
+Q.. What is buffer memory?
+==> buffer memory is small portion of RAM which is reserved and which is hold temporary data.
+	- commanly buffer memory holds data which is received from or sent to external devices like printer,keyword
+------------------------------------------------
+Q.. What is mean by cache memory?
+==> It is supplementary memory and which acts as temporary storage.
+	- cache hold frequently used instructions and data.
+	- due to cache system performance is improved
+	- cache memory is bridge between CPU and RAM.
+------------------------------------------------
+Q.. What is AWK command?
+==> - it is utility command.
+	- awk is scripting language and used for manipulating data and generating reports.
+	- awk command is abbrevited from name of three developers.
+		1. alfred Aho
+		2. Peter Weinberger
+		3. Brian Kernighan 
+	
+	=> when should go with awk command?
+		- if ther is irregular seperator and we cannot fix the delimeter to cut data 
+		  from file then we should go with awk command.
+	
+	Syntax:
+		awk <option> 'action' file_name 
+		
+		$ symbol is used to specify field 
+		- F option is used to specify delimeter 
+		
+	Q. seperate the word on the basis of space and print first field using awk command?
+	=> awk '{print $1}' f1.txt
+		Here we have not used option -F to specify delimeter because default delimeter is space.
+		
+	Q. Seperate the words on the basis of space and print 2,3,6 field using awk command?
+	=> awk '{print $2,$3,$6}' f1.txt 
+	
+	Q. seperate the words on the basis of colon operator and print first field?
+	=> awk -F':' 'print $1}' f1.txt 
+------------------------------------------------
+Q.. Change file permission or change file mode?
+==> Every file has three modes
+	1. Read mode 
+	2. write mode 
+	3. execute mode 
+	-> here mode means which operation we can perform on a file 
+	-> Read mode is indicated by letter 'r'
+	-> Write mode is indicated by letter 'w'
+	-> Execute mode is indicated by letter 'x'
+	
+	- to change file permission we need to use chmod command.
+		Syntax: 
+			chmod file_permmission_numberic_value file_name
+			
+		read 4
+		write 2 
+		execute 1
+		
+	Q. chmod 175 f1.txt 
+	=> owner has only execute permission
+		group has read,write,execute permission
+		other has read and execute permission.
+------------------------------------------------
+Q.. how to change ownership of file?
+==> To change owner of file we use "chown" command.
+	- here chown stand for change owner
+	Syntax: 
+		sudo chown owner_name file_name
+------------------------------------------------
+Q.. How to change group name of file?
+==> To change group name of file we use chgrp command.
+	Syntax: 
+		sudo chgrp group_name file_name
+------------------------------------------------
+Q.. find command?
+==> find command is used to search a file or directory in a file system.
+	- find command searches file or directory recursively
+	Syntax: 
+		find search_location what_to_find option file_or_dir_name 
+		
+		search_location => specify on which location need to find 
+		what_to_find => file/directory -type f means file , -type d means directory.
+		option=> -name ,-user,-group,-perm,-size,-ctime,-mtime,-atime,-cmin,-empty
+	e.g 
+		find . -type f -name f1.txt 
+		
+		find . -type f -name '*.txt'
+------------------------------------------------
+Q.. what is -exec command?
+==> once file is found if we want to perform some operation on that result like copy a file,
+	delete file,move from one location to another then use -exec option with find command.
+	
+	e.g 
+		1. find all log files from current location and move to directory ABC
+		=> find . -type f -name '*.log' -exec mv {} ABC \;
+		
+		2. find all f1.txt and print its contnet on screen?
+		=> find . -type f -name f1.txt -exec cat -n {} \;
+------------------------------------------------
+Q.. locate command?
+==> locate command is used to find files.
+	- find comand searches file in linux file system 
+	- locate command searches file in linux database
+	Syntax: 
+		locate file_dir_name
+------------------------------------------------
+Q.. What is difference between find and locate command?
+==> - find command always searches a file in file system where as locate command always searches a file in database.
+	- find command is more powerful than locate where as locate command is less powerful than find.
+	- In find command we can find file on the basis of name,size,user,group,permission,time where as 
+		In locate command we can find file on the basis on name 
+	- find command is slower than locate where as locate command is faster than find 
+	- find command always give accurate result where as locate command may or may not give accurate result 
+	- In find command we can use -exec option to perform operation on result where as 
+		In locate command we can't use -exec option to perform operation on result.
+------------------------------------------------
+Q.. why find command is more powerful than locate?
+==> while finding a file using find command we can use different criteria like name,size,perm,time but 
+	in locate command we can find file only name basis.
+------------------------------------------------
+Q.. Why locate command is faster than find?
+==> locate command searches a file at only one place i.e database but find command searches file in file system.
+------------------------------------------------
+Q.. Locate command may or may not give accurate result,why?
+==> 1. locate command searches file in database.
+	2. bydefault this database get updated ones a day 
+	3. suppose after database update you have created some files 
+		then those file entry will not exist in databse so that locate command will not produce accurate result.
+------------------------------------------------
+Q.. How to update database manually?
+==> sudo updatedb
+------------------------------------------------
+Q.. What is mean by piping?
+==> passing out put of one command to another command using pipe ooperator is nothing but piping.
+	Symbol of pipe operator is  |
+	- piping means joining multiple commands
+		command1 | command 2 | command 3		
+--------------------------------------------------------------------------------------------
+Q.. Regular expression?
+==> if we want to represent group of sting in perticular pattern then we should go with regular expression.
+
+	* => represent zero or more character 
+	? => one character 
+	[] => range of character 
+	[abc] => either a or b or c 
+	[!abc] => any character except a,b and c 
+	{} => list files with comma seperated 
+--------------------------------------------------------------------------------------------
+Q.. What is PS command?
+==> ps command stand for process status.
+	- There are 2 Types of process 
+		1. Foreground process 
+		2. Background process 
+		
+	1. Foreground process: The process which occupies shell or terminal window is called foreground process 
+		- programs and commands run as foreground process 
+		- while executing foreground process user can't add other commands or task untill current running process get completed 
+		- To stop forground process we use ctrl+c 
+		
+	2. Background process: The process that is running independently of user are called as Background process.
+		- The process that runs behind the scene and without user intervention is called as background process.
+	
+	
+	Syntax: 
+		ps [option]
+		- When we execute ps command then in the output it shows 
+			1. PID => process id 
+			2. TTY => Terminal type 
+			3. TIME => Amount of time given by CPU to execute command.
+			4. CMD => command name 
+			
+		1. ps -A 
+		=> -A option is used to list out all process(Running+completed) 
+		
+		2. ps -e
+		=> -e means everything 
+			-e option is used to list out all process(Running+completed)
+			
+		3. ps -r 
+		=> -r option is usd to list out only running process.
+		
+		4. ps -eH
+		=> Display process tree
+--------------------------------------------------------------------------------------------
+Q.. How to kill process?
+==> To kill process we use "kill" command 
+	Syntax: 
+		kill -9 process_id 
+--------------------------------------------------------------------------------------------
+Q.. vi/vim command 
+==> vi is a text editor 
+	- if we want to open file in edit mode then we use vi/vim 
+	=> How to open file in edit mod?
+		- To open a file in edit mode syntax is : vi file_name
+		- when we press enter key then file get open in command mode.
+		- to switch command mode to edit or append mode press either i or a 
+		- to switch from insert mode to command mode press esc key.
+--------------------------------------------------------------------------------------------
+Q.. What is crontab?
+==> - If any job execcute automatically at the specified time of interval such type of jobs are called as cron jobs 
+	- The cron job can be either a single command or a script.
+	- Cron job are best suitable for automating work flow.
+	
+	1. crontab -l 
+	=> To list out cron jobs which are already configured.
+	
+	2. contab -e 
+	=> edit already existing cron jobs and to define new job 
+	
+	3. crontab -r 
+	=> remove all configured cron jobs 
+	
+	4. crontab filename 
+	=> install new cronjob from file.
+--------------------------------------------------------------------------------------------

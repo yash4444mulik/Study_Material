@@ -46,4 +46,4 @@ Q.. What is NVARCHAR2 data type?
 Q.. What is difference between CHAR and NCHAR?
 Q.. What is mean by database character set?
 Q.. What is mean by National character set?
-	
+

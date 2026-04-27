@@ -146,3 +146,1427 @@ Q.. loops (for,while,do-while)?
 		while (condition){
 		//block of code 
 		}
+---------------------------------
+---------------------------------
+ADVANCE C PROGRAMMING
+chapter 1: Pointer
+	- A variable which store memory address of another variable is nothing but pointer.
+	- there are 2 operator that we use in pointer concept
+	
+	1. Dereferencing operator:
+		- It is denoted by *
+		- it is used to access value stored at address.
+			#include <stdio.h>
+			#include <conio.h>
+			int main(){
+			int a=10;
+			int *p;
+			p=&a;
+				printf("Address of a: %p\n", &a);
+				printf("Pointer value: %p\n", p);
+				printf("Value using pointer: %d\n", *p);
+			getch();
+			return 0;
+			}
+			
+		- here
+		- &a give address of variable a 
+		- p=&a pointer p store address of a 
+		- *p is used to access value stored at address.
+		
+	2. Address operator &
+		- it is denoted by &
+		- it is used to store address of variable
+			#include <stdio.h>
+			#include <conio.h>
+			int main(){
+			int a=10;
+			int *p;
+			p=&a;
+				printf("Address of a: %p\n", &a);
+				printf("Pointer value: %p\n", p);
+				printf("Value using pointer: %d\n", *p);
+			getch();
+			return 0;
+			}
+			
+		- here
+		- &a give address of variable a 
+		- p=&a pointer p store address of a 
+		- *p is used to access value stored at address.
+-------------------------------------
+Q.. pointer declaration?
+==> pointer declaration defines a pointer variable that store memory address of another variable.
+	-Syntax: 
+		data_type *variable_name;
+		
+	 here data_type are int,char,float,etc.
+	 * indicate that variable is a pointer
+	 
+	 e.g
+		int *ptr;
+		char *ptr;
+		float *ptr;
+-------------------------------------
+Q.. Pointer initilization?
+==> pointer initilization means assining variable address to pointer.
+	int x=10;
+	int*ptr=&x;
+-------------------------------------
+Q.. size of pointer variable?
+==> size of pointer variable refer to amount of memory required to store address of variable
+	The size of a pointer variable depends on the system architecture, size is not depends on data type of variable.
+	if 32bit => 4bytes
+	if 64bit => 8bytes
+-------------------------------------
+Q.. Pointer arthimatic?
+==> pointer arithmatic allow you to perform arithmatic operation on pointer 
+	arithmatic operations like increment,decrement,addition,substraction etc.
+	
+	1. increment
+		increment operator increase the pointer to the next memory location of its datatype.
+		int a[]={10,20,30,40};
+		int *ptr=a;
+		ptr++;
+		printf("%d\n",*ptr);//output:20;
+		
+	2. Decrement
+		decrement operator decrease the pointer to previous memory location.
+		int a[]={10,20,30,40};
+		int *ptr=a+1;
+		ptr--;
+		printf("%d\n",*ptr);//output 10
+		
+	3. Addition
+		addition of a pointer moves pointer forward by n elements based on the size of data type.
+		e.g
+		int a[]={10,20,30,40};
+		int *ptr=a;
+		ptr=ptr+2;
+		printf("%d\n",*ptr);//output 30
+		
+	4. Substraction
+		substraction of a pointer moves pointer previous by n elements based on size of data type.
+		e.g
+		int a[]={10,20,30,40};
+		int *ptr=a+3;
+		ptr=ptr-1;
+		printf("%d\n",*ptr);//output 30
+------------------------------------------
+Q.. Relationship between pointer and array?
+==> In C relation between pointer and arry are closly related
+	1. Array and pointer are related.
+	=> Array as pointers:In C name of an array behave like a pointer to its first element.
+		When we use an array name then it is treated like the address of the first element.
+		int arr[5] = {10, 20, 30, 40, 50};
+		int *p = arr;
+		here arr point to first element and p also point first element.
+		
+	2. Accesing array element using pointer
+	=> we can access array element using pointer 
+		there are 2 ways to access element of array 
+		1. use the array index:-
+			int a[5]={10,20,30,40};
+			printf("%d\n",a[2]);
+			
+		2. Using pointer arithmatic
+			int arr[5]={10,20,30,40};
+			int *ptr=arr;
+			printf("%d\n",*(ptr+2));
+---------------------------------
+Q.. Pointer to pointer (double pointer)?
+==> A pointer variable which store pointer address of another pointer is called pointer to pointer or double pointer.
+	e.g 
+		int arr=10;
+		int *ptr=&arr;
+		int **aptr=&ptr;
+		printf("%p\n",arr);
+		printf("%p\n",*ptr);
+		printf("%p\n",**aptr);
+		
+	here **aptr is consider as pointer to pointer 
+----------------------------------
+Q.. Dynamic memory allocation?
+==> - dynamic memory allocation means allocating memory at runtime rather than at compile time.
+	- this give flexibility in managing memory for data structure whose size 
+	  is known in advance,such as arrays,list or matrics
+	- C-Language provide several functions from the <stdlib.h> to handle dynamic memory allocation and deallocation.
+	- these function allow use to request memory,resize it and free it when we are done.
+	
+	Below are the main function of memory allocation
+	
+	1. malloc()
+		- malloc() stand for memory allocation
+		- It allocate a block of memory of a specific size.
+		- Returns a pointer to the allocated memory.
+		- If the allocation is fail then it return null.
+		Syntax: 
+			void*malloc(size_t size);
+			
+		#include <stdio.h>
+		#include <stdlib.h>
+		int main(){
+		int *arr;//arr is pointer
+		int n=10;
+		arr=(int *)malloc(n * sizeof(int));//allocation memory
+		if (arr==NULL){
+			printf("memory allocation failed.\n");
+			return 1;
+		}
+		//adding values in arr
+		for (int i=0;i<n;i++){
+			arr[i]=i+1;
+		}
+		//printing values
+		for (int i=0;i<n;i++){
+			printf("%d",arr[i]);
+		}
+		printf("\n");
+		getch();
+		return 0;
+		}
+
+			
+	2. calloc()
+		- calloc() stand for contiguous allocation.
+		- It allocate memory for an array of n elements,each of size.
+		- initilize all memory to zero
+		- Return a pointer to allocated memory.
+		- if the allocation fails then it return null.
+		Syntax: 
+			void*calloc(size_t n,size_t size);
+			
+		#include <stdio.h>
+		#include <stdlib.h>
+		#include <conio.h>
+
+		void main(){
+		int *arr;
+		int n=10;
+		arr=(int *)calloc(n, sizeof(int));
+
+		if (arr==NULL){
+			printf("Memory allocation failed.\n");
+			return 1;
+		}
+
+		for (int i=0;i<n;i++){
+		   printf("%d ",arr[i]);
+		}
+
+		getch();
+		return 0;
+		}
+
+			
+	3. realloc()
+		- realloc() stand for reallocation.
+		- change the size of previously allocated memory block.
+		- Can be used to resize memory without losing the contents of original memory.
+		- returns a pointer to resize a memory block.
+		- If it cannot resize,it may return null and original memory remain valid.
+		Syntax:
+			void*realloc(void*ptr,size_t size);
+			
+		#include <stdio.h>
+		#include <stdlib.h>
+		int main(){
+		int *arr;//arr is pointer
+		int n=10;
+		arr=(int *)malloc(n * sizeof(int));//allocation memory
+		if (arr==NULL){
+			printf("memory allocation failed.\n");
+			return 1;
+		}
+		//adding values in arr
+		for (int i=0;i<n;i++){
+			arr[i]=i+1;
+		}
+		//printing values
+		for (int i=0;i<n;i++){
+			printf("%d",arr[i]);
+		}
+		printf("\n");
+
+		n=10;
+		arr=(int *)realloc(arr,n * sizeof(int));
+		if (arr==NULL){
+			printf("memory allocation failed.\n");
+			return 1;
+		}
+		//adding values in arr
+		for (int i=0;i<n;i++){
+			arr[i]=i+1;
+		}
+		//printing values
+		for (int i=0;i<n;i++){
+			printf("%d",arr[i]);
+		}
+
+		printf("\n");
+
+		getch();
+		return 0;
+		}
+
+			
+	4. free()
+		- frees previously allocated memory.
+		- After freeing the memory,the pointer become invalid,so it should be set to null.
+		Syntax: 
+			void free(void*ptr);
+			
+----------------------------------------------
+Q.. What is memory leak?
+==> A memory leak occur when a program allocates memory dynamically using malloc,calloc,realloc etc but fails to 
+	release it free().This causes memory to remain allocated even after it is no longer needed,resulting in 
+	wasted memory resources.
+	- How to avoid memory leak
+		always call free() to deallocate memory that was dynamically allocated.
+		#include <stdio.h>
+		#include <stdlib.h>
+		int main() {
+			int *p;
+			p = (int*) malloc(5 * sizeof(int));
+			if (p == NULL){
+				printf("Memory allocation failed\n");
+				return 1;
+			}
+			// use memory
+			for(int i = 0; i < 5; i++){
+				p[i] = i + 1;
+				printf("%d ", p[i]);
+			}
+			// free memory
+			free(p);
+			return 0;
+		}
+		
+	2. Dangging pointer:
+		A dangling pointer is a pointer that points to a memory location 
+		that has already been freed or is no longer valid.
+		- dereferencing such pointer leads to undefined behaviour,often causing crashes or unpredictable result.
+		- this is dangerous situation because pointer still pointer to memory location that the system might 
+			reallocate for another purpose.
+			
+		=> how to avoid danging pointer.
+			- set pointer to null after freeing memory
+			
+			// free memory
+			free(p);
+			p = NULL;
+			
+------------------------------------------------
+Q.. What is diference between % (address of) and * (dereference) operation?
+==> & is used to address of memory where as 
+	* is used to access value stored at memory address. 
+------------------------------------------------
+Q.. write a program to accept an interger using pointer and check whether it is even or odd?
+==> #include <stdio.h>
+	#include <conio.h>
+
+	int main(){
+	int num;
+	int *ptr;
+
+	ptr=&num;
+
+	printf("Enter an integer: ");
+	scanf("%d",ptr);
+
+	if (*ptr/2==0){
+		printf("%d is even.\n",*ptr);
+	}else{
+	printf("%d is odd.\n",*ptr);
+	}
+
+	getch();
+	return 0;
+	}
+				
+------------------------------------------------
+Q.. write a program to read two integer using pointers and perform all arithmatic operations on them.
+==> 
+		#include <stdio.h>
+		#include <conio.h>
+
+		int main(){
+		int num1;
+		int num2;
+		int *ptr1;
+		int *ptr2;
+
+		ptr1=&num1;
+		ptr2=&num2;
+
+		printf("enter two number:");
+		scanf("%d %d",ptr1,ptr2);
+
+		int sum=*ptr1+*ptr2;
+		int diff=*ptr1-*ptr2;
+		int multi=*ptr1 * *ptr2;
+
+		printf("addition of number:%d\n",sum);
+		printf("substation of number:%d\n",diff);
+		printf("multiplication of number:%d\n",multi);
+
+		if (*ptr2 !=0){
+			int div=*ptr1 / *ptr2;
+			int mod=*ptr1 % *ptr2;
+			printf("division of number: %d\n",div);
+			printf("modulus of number:%d\n",mod);
+		}else{
+			printf("division by zero is not allowed.\n");
+		}
+
+
+		getch();
+		return 0;
+		}
+
+------------------------------------------------
+Q.. write a program which accept 2 number and return maximum number using pointer?
+==> 
+		#include <stdio.h>
+		#include <conio.h>
+
+		int main(){
+		int num1,num2;
+		int *ptr1,*ptr2;
+		ptr1=&num1;
+		ptr2=&num2;
+
+		printf("Enter 2 numbers:");
+		scanf("%d %d",ptr1,ptr2);
+
+		if (*ptr1>*ptr2){
+			printf("maximum number is %d",*ptr1);
+		}else{
+			printf("maximum number is %d",*ptr2);
+		}
+
+
+		getch();
+		return 0;
+		}
+		
+------------------------------------------------		
+------------------------------------------------	
+CHAPTER 2:
+---------
+Q.. What is string?
+==> a sequence of character enclosed in double quote is nothing but string
+	- a string is an array of character terminated by special '\0'(null character).
+	
+Q.. What is string variable?
+==> it is an array of character we store string literals.
+	- a string is declare in the same way as one dimentional arrya with datatype character.
+	Syntax:
+		char string_name[size]
+		char city[20];
+		
+--------------------
+Q.. string input and output?
+	1. Scanf:
+		- we can use scanf function to read a stirng like any other datatype
+		- it takes only first enter word
+		- this function deos not allow a string which does not allow spaces 
+		- the %s is a format specifir for a string.
+		- in scanf fucntion we do not use & because here string is array of character.
+		- string is already a pointer to a first character.
+		
+		#include <stdio.h>
+		#include <conio.h>
+
+		int main(){
+
+		char str[10];
+
+		printf("enter string:");
+		scanf("%s",str);
+		printf("ener string =%s",str);
+
+		getch();
+		return 0;
+		}
+
+	2. gets()
+		- gets() is used to read a string from the user input.
+		- gets() allow string with spaces.
+		
+		Syntax: gets(variable_name);
+		
+		#include <stdio.h>
+		#include <conio.h>
+
+		int main(){
+
+		char str[10];
+
+		printf("enter string:");
+		gets(str);
+		printf("ener string =%s",str);
+
+		getch();
+		return 0;
+		}
+	
+	3) printf():
+		- used to print string
+		- printf() function does not allow to dipslay every string on new line.
+		syntax: 
+			printf("%s",string_name);
+			
+			
+	4) puts()
+		- puts() is used to pring string and automatically add new line at the end;
+		#include <stdio.h>
+		#include <conio.h>
+
+		int main(){
+
+		char str[10];
+
+		printf("enter string:");
+		gets(str);
+		printf("enter string");
+		puts(str);
+
+		getch();
+		return 0;
+		}
+-------------------
+Q.. C string function?
+==> The c string function are build in function.
+	- this function can be used to perform various operations on string
+	
+	1.strcat()
+		- this function is used for concatenate(join) two string.
+		Syntax: strcat(st1,st2);
+		
+	2. strncat()
+		- this function join the first n character of str2 to str1;
+		Syntax: strncat(str1,str2,n);
+		
+	3. strcmp():this function used to compare both string.
+			strcmp(str1,str2);
+			
+	4. strncmp()
+		- this function compare first n charcater of str1 and str2.
+		Syntax:strncmp(str1,str2,n);
+		
+	5. strcpy()
+		- this function is used to copy one string into another string.
+		- copy str1 into str2
+		Syntax:
+			strcpy(str2,str1);
+			
+	6. strncpy()
+		- this function copie first n character of str2 into str1.
+		strncpy(str1,str2,n)
+		
+	7. strlen()
+		- this function use to return length of string.
+		strlen(str1);
+		
+	8. strrev()
+		- this function used to reverse string
+		
+	9. stricmp(): used to case insensitive comparision of str1 and str2.
+	10. strincmp();
+	11. strlwr(): convert all character in lowercase of string.
+	12. strupr(): used to convert into uppercase 
+	13. strchr(): returns first occurance of given character 
+		strchr(str1,b);
+	14. strrchr(): used to find last occurance of given character.
+------------
+Q.. write a c program to accept sting an concate them?
+			#include <stdio.h>
+			#include <conio.h>
+			#include <stdlib.h>
+
+			int main(){
+
+			char str1[20];
+			char str2[20];
+
+
+			printf("Enter 2 string:");
+			scanf("%s %s",str1,str2);
+
+			strcat(str1,str2);
+
+			printf("concatenated string : %s",str1);
+
+			getch();
+			return 0;
+			}
+
+--------------	
+Q.. write a c program to accept 2 string and check both string are equal or not?
+		#include <stdio.h>
+		#include <conio.h>
+		#include <stdlib.h>
+
+		int main(){
+
+		char str1[20];
+		char str2[20];
+
+
+		printf("Enter 2 string:");
+		scanf("%s %s",str1,str2);
+
+		if (strcmp(str1,str2)==0){
+			printf("Both string are equal");
+		}else{
+			printf("Both string are not equal");
+		}
+
+		getch();
+		return 0;
+		}
+--------------
+Q.. Array of string?
+==> Array of string is collection of multiple string where each where each string represent as character array.
+	Syntax: 
+		char array_name[r] [m]={s1,s2,s3,....sn};
+		
+		array_name: variable_name
+		r: maximum number of strings to be stored in array.
+		m: maximum number of character values that can be stored in each string.
+		s1,s2,s3....sn: strings to be stoed.
+	
+	=> Declaration of string
+		1. Fixed size for strings:
+			here you can define size of each string and the number of strings.
+			e.g char names[3][10]={"JOHN","JANE","DOE"};
+			- this create array of 3 string
+			- each string maximum size is upto 9 character 10th charcter is reserved for \0
+			
+		2. Array of pointer string
+			- here you can use pointers to store string of varying lengths
+			- this llows string of different lengths.
+			- it is more memory-efficient because it doesn't waste space for unused characters.
+			e.g
+				char*name[]={"John","Jane","Doe"};
+--------------
+Q.. define string and declaration of string?
+--------------
+Q.. explain array of string?
+--------------
+Q.. write a c program to compare two strings using standarad library function?
+--------------
+Q.. write a c program to calculate length of string using standard library function?
+	#include <stdio.h>
+	#include <conio.h>
+	#include <stdlib.h>
+	#include <string.h>
+
+	int main(){
+
+	char str1[20];
+
+
+	printf("Enter string:");
+	gets(str1);
+
+	int i=strlen(str1);
+	printf("length of string is:%d ",i);
+
+	getch();
+	return 0;
+	}
+
+--------------
+Q.. write a menu-driven program in c to perform the following operations on string using standarad library functions
+	1. calculate length of string
+	2. reverse a given string 
+	3. concatenation of one string to another
+	4. copy one string into another 
+	5. compare two strings.
+			#include <stdio.h>
+			#include <conio.h>
+			#include <stdlib.h>
+			#include <string.h>
+
+			int main(){
+
+			char str1[20],str2[20];
+			int ch,i,j;
+
+
+
+			do{
+			printf("\t MENU");
+			printf("\n---------------------------------\n");
+			printf(" 1:Find length of string");
+			printf("\n 2:Find reverse of string");
+			printf("\n 3:Concate string");
+			printf("\n 4:copy string");
+			printf("\n 5:compare string");
+			printf("\n 6:exit");
+			printf("\n---------------------------------\n");
+			printf("enter your choice:");
+			scanf("%d",&ch);
+			switch(ch){
+			case 1:
+				printf("enter string value:");
+				scanf("%s",str1);
+				i=strlen(str1);
+				printf("Length of string is : %d \n\n",i);
+			break;
+
+			case 2:
+				printf("enter string value:");
+				scanf("%s",str1);
+				strrev(str1);
+				printf("Reversal of string is:%s \n\n",str1);
+			break;
+			case 3:
+			 printf("enter 2 string value:");
+			 scanf("%s %s",str1,str2);
+			 strcat(str1,str2);
+			 printf("after concatenation string is:%s\n",str1);
+			break;
+			case 4:
+				printf("Enter string value:");
+				scanf("%s",str1);
+				printf("string before copied \n str1=%s ",str1);
+				strcpy(str2,str1);
+				printf("String after copied \n str2=%s",str2);
+			break;
+			case 5:
+				printf("Enter string value");
+				scanf("%s %s",str1,str2);
+				j=strcmp(str1,str2);
+				if (j==0){
+					printf("both string are same\n");
+				}else{
+					printf("both string are not equal.\n");
+					}
+			break;
+			case 6:
+				exit(0);
+			break;
+			default:
+				printf("Invalid input.Please enter correct input \n\n");
+
+			}
+			}while(ch != 6);
+
+			getch();
+			return 0;
+			}
+
+--------------
+--------------
+--------------
+Chapter 3: structures and unions 
+--------------
+Q.. What is structure?
+==> - structure is user defined data type that allow us to group different type of value toghether in under one name.
+	- we use struc keywords to define custome data types that groups toghether the element of different data types.
+	- memory allocated in structure according to the size of each member.
+	
+	=> Declaration of structure.
+		we can declare structure using struc keyword.
+		Syntax:
+		struc structure_name{
+		
+		}variable_name;
+		
+		e.g 
+			struct book{
+				char title[20];
+				char author[20];
+				int price;
+				int pages;
+			}b;
+			
+	=> Delcare structure variable
+		A structure variable is a variable of a structure type used to store actual data.
+		- there are 2 ways to declare structure variable.
+		1. using structure tag
+			struct employee{
+				int id;
+				char name[20];
+			};
+			
+			struct employee e1,e2;
+			
+		2. with structure defination
+			struct employee{
+				int id;
+				char name[20];
+			}b1;
+			
+	=> accessing structure members
+		- To access structure memebers first we need to declare a structure variable and then 
+		  use the dot(.) operator along the structure variable.
+		
+		
+--------------
+Q.. write a c program to accept student details name rollno,percentage and print same details using structure?
+		#include <stdio.h>
+
+		struct student{
+			char name[20];
+			int rollNo;
+			float percentage;
+		}s;
+
+		void main(){
+
+		printf("Student Information");
+		printf("Student Name");
+		scanf("%s",s.name);
+		printf("Enter rollno");
+		scanf("%d",&s.rollNo);
+		printf("Enter percentage");
+		scanf("%f",&s.percentage);
+
+		printf("Student details are");
+		printf("\n name=%s",s.name);
+		printf("\n roll number is=%d",s.rollNo);
+		printf("\n percentages are=%f",s.percentage);
+
+		getch();
+		return 0;
+		}
+
+--------------
+Q.. write a c program to accept 3 student details [name,rollno,percentage] and print same details?using structure?
+==> 
+	#include <stdio.h>
+	struct student{
+		char name[20];
+		int rollno;
+		float percentage;
+	}s1,s2,s3;
+--------------
+Q.. nested structure?
+==> stucture within structure is known as nested structure.
+	e.g 
+		struct str_name1{
+			mem1;
+			mem2;
+			..
+			memN;
+			struct str2_name{
+			mem1;
+			mem2;
+			..
+			memN;
+			}var2;
+		}var1;
+		
+	real example:
+			#include <stdio.h>
+		 struct Address{
+			char street[100];
+			char city[100];
+			int zip_code;
+			};
+
+			struct Person{
+				char name[100];
+				int age;
+				struct Address address;
+			};
+
+		void main(){
+
+		struct Person person1={
+			"Yashraj Mulik",
+			26,
+			{
+				"mulikwadi",
+				"phaltan",
+				415537
+			}
+		};
+
+		printf("Name of person=%s",person1.name);
+		printf("age of person=%d",person1.age);
+		printf("street address=%s",person1.address.street);
+
+		getch();
+		return 0;
+
+		}
+
+--------------
+Q.. Array of structure?
+==> If we want details of 100 book then it is difficult to make 100 structure variable like b1 to b100
+	to avoid this problem we have array of structure.
+	- we can declare array of structure like array of integer.
+	e.g
+			#include <stdio.h>
+			 struct studentlist{
+				char name[50];
+				int rollno;
+				float percentage;
+
+			 };
+
+			void main(){
+			int n,i;
+
+			printf("enter total number of student= ");
+			scanf("%d",&n);
+
+			struct studentlist students[n];
+
+			for(i=0;i<n;i++){
+				printf("Enter student name");
+				scanf("%s",&students[i].name);
+				printf("Enter rollno of student");
+				scanf("%d",&students[i].rollno);
+				printf("Enter percentage of student");
+				scanf("%f",&students[i].percentage);
+			}
+
+			printf("\n Student Details:\n");
+
+			for (i=0;i<n;i++){
+				printf("Name of student is:%s",students[i].name);
+				printf("Rollno of studnet is:%d",students[i].rollno);
+				printf("Percentage of student is:%f",students[i].percentage);
+			}
+
+			getch();
+			return 0;
+
+			}
+
+
+--------------
+Q.. Union:
+	- it is same as structure both are user defined data type.
+	- the main diference between structure and union is all member in the union share same storage area in compute.
+		whereas in structure each member has assigned its own storeage area.
+	- As union share same memory area only one member can be active at a time.
+	
+	Syntax: 
+		union unionname{
+			datatype member1;
+			datatype member2;		
+		}var1,var2,....;
+--------------
+Q.. difference between structure and union?
+==> - In structure we can access all the members of structure at anytime where as 
+	  In Union only one member of union can be accessed at anytime.
+	- In structure memory is allocated for all variables where as In Union allocates memory for variable which variable require more memory.
+	- In structure initilization of all members of struccture can be initilized where as In union only the first member of union can be initialized.
+	- structure use struct keyword to declare structure where as union use union keyword to declare.
+--------------
+Q.. write a program to create a structure teacher(tno,tname,taddress) and structure experience(designation,joining_date) read and display the information fo three teacher?
+--------------
+Q.. write a program to create a structure person(pid,pname,page,psalary)accept and display the information of 5 persons by incrementing psalary by rs1000.(display old psalary and new psalary also)?
+--------------
+Q.. write a program to accept details for n students using structure and dipaly the student details having maximum percentage?
+--------------
+Q.. 
+--------------
+--------------
+--------------
+--------------
+--------------
+--------------
+Q.. Types of Array?
+==> array is collection of elements of same data type stored in contineuous memory location and accessed using an index.
+	- There are 3 types of array 
+		1. 1D array 
+			list of element stored in single row.
+			#include <stdio.h>
+			int main() {
+				int arr[3] = {10, 20, 30};
+				printf("%d", arr[1]); // Output: 20
+				return 0;
+			}
+			
+		2. 2D array 
+			list of element stored in row and column
+			#include <stdio.h>
+			int main() {
+				int arr[2][2] = {{10, 20}, {30, 40}};
+				printf("%d", arr[1][0]); // Output: 30
+				return 0;
+			}
+			
+		3. Multidimentional array.
+			An array with more than 2 dimensions.
+			#include <stdio.h>
+			int main() {
+				int arr[2][2][2] = {
+					{{1,2}, {3,4}},
+					{{5,6}, {7,8}}
+				};
+				printf("%d", arr[1][0][1]); // Output: 6
+				return 0;
+			}
+--------------
+Q.. Write a C program to determine the second largest element of a 1-D array of size?
+==>		#include <stdio.h>
+		int main() {
+			int arr[100], n;
+			int i;
+			int largest, second;
+			printf("Enter number of elements: ");
+			scanf("%d", &n);
+			printf("Enter elements:\n");
+			for(i = 0; i < n; i++){
+				scanf("%d", &arr[i]);
+			}
+			// Assume first element as largest and second largest
+			largest = second = -99999;
+
+			for(i = 0; i < n; i++){
+				if(arr[i] > largest){
+					second = largest;
+					largest = arr[i];
+				}
+				else if(arr[i] > second && arr[i] != largest){
+					second = arr[i];
+				}
+			}
+			printf("Second largest element is: %d", second);
+
+			return 0;
+		}
+--------------
+Q.. Write a C program to declare a 1-D array of size 10. Initialize the
+	array and display them. Display the array in reverse order?
+==> #include <stdio.h>
+
+	void main(){
+
+	int arr[10]={10,20,30,40,50,60,70,80,90,100};
+	int i;
+
+	printf("Entered element of array \n");
+	for (i=0;i<10;i++){
+		printf("%d\n",arr[i]);
+	}
+
+	printf("Array in reversal order as below\n");
+	for(i=9;i>=0;i--){
+		printf("%d\n",arr[i]);
+	}
+
+	getch();
+	return 0;
+
+	}
+--------------
+Q.. Write a C program to declare a 2-D array of size 3x3. Initialize the array and      
+	display the array. Determine the sum and products of elements of array and display them?
+==> #include <stdio.h>
+	void main(){
+	int arr[3][3]={{1,2,3},{4,5,6},{7,8,9}};
+	int i,j;
+	int sum=0;
+	int product=1;
+	for (i=0;i<3;i++){
+		for (j=0;j<3;j++){
+		printf("%d ",arr[i][j]);
+		sum=sum+arr[i][j];
+		product=product+*arr[i][j];
+		}
+		printf("\n");
+	}
+	printf("sum of number is: %d",sum);
+	printf("product of number is: %d",product);
+
+	getch();
+	return 0;
+
+	}
+
+--------------
+Q.. Write a C program to check if a matrix of size 3x3 is symmetric or not. 
+==> #include <stdio.h>
+	void main(){
+	int arr[3][3];
+	int i,j;
+	int flag=0;
+	printf("Enter 9 element:\n");
+	for (i=0;i<3;i++){
+		for (j=0;j<3;j++){
+			scanf("%d",&arr[i][j]);
+		}
+	}
+	for (i=0;i<3;i++){
+		for (j=0;j<3;j++){
+		   if(arr[i][j] != arr[j][i]){
+		   flag=1;
+		   break;
+		   }
+		}
+		printf("\n");
+	}
+	if(flag==1){
+		printf("matrix is not symmetric");
+	}else{
+	printf("matrix is symmetric");
+	}
+	getch();
+	return 0;
+	}
+--------------
+Q..Write a C program to perform matrix multiplication of two matrices of size  
+	3x3. Use a 3rdmatrix to store the result and display the same
+==>		#include <stdio.h>
+
+		void main(){
+
+		int a[3][3],b[3][3],c[3][3];
+		int i,j,k;
+
+		printf("Enter A matrix value:\n");
+		for (i=0;i<3;i++){
+			for (j=0;j<3;j++){
+				scanf("%d",&a[i][j]);
+			}
+		}
+
+		printf("Enter B matrix value:\n");
+		for (i=0;i<3;i++){
+			for (j=0;j<3;j++){
+				scanf("%d",&b[i][j]);
+			}
+		}
+
+
+		for (i=0;i<3;i++){
+			for (j=0;j<3;j++){
+				c[i][j]=0;
+			}
+		}
+
+		for (i=0;i<3;i++){
+			for(j=0;j<3;j++){
+				for(k=0;k<3;k++){
+					c[i][j]+=a[i][k]*b[k][j];
+				}
+			}
+		}
+
+		printf("matrix result is :\n");
+
+		for(i=0;i<3;i++){
+			for(j=0;j<3;j++){
+				printf("%d",c[i][j]);
+			}
+			printf("\n");
+		}
+
+		getch();
+		return 0;
+
+		}
+
+--------------
+Q.. Create Structure to store data of 10 students as roll no, name and percentage.
+	Write program to print rollno, names of students who have succeed less than 60%. 
+==>
+		#include <stdio.h>
+		#include <conio.h>
+
+		struct student{
+			int rollno;
+			char name[100];
+			float percentage;
+		}s[2];
+		int main(){
+		int i;
+
+
+		printf("Enter details of student:\n");
+
+		for(i=0;i<2;i++){
+			printf("Enter roll no of Student %d :",i+1);
+			scanf("%d",&s[i].rollno);
+			printf("Enter Name of student %d :",i+1);
+			scanf("%s",s[i].name);
+			printf("Enter percentage of student %d :",i+1);
+			scanf("%f",&s[i].percentage);
+
+		}
+
+		printf("\nCandidate who make score less than 60 as below \n");
+		for(i=0;i<2;i++){
+		if(s[i].percentage<60){
+		   printf("Roll No: %d\n", s[i].rollno);
+		   printf("Name: %s\n", s[i].name);
+		   printf("Percentage: %f\n\n", s[i].percentage);
+		}
+		}
+
+		getch();
+		return 0;
+		}
+
+--------------
+Q..	Write program to accept name, author, rate, quantity of n books From  
+	user and display name of books author name and total cost.
+==>		#include <stdio.h>
+		#include <conio.h>
+		//Write program to accept name, author, rate, quantity of n books From
+		//user and display name of books author name and total cost.
+
+
+
+		int main(){
+		int n;
+		struct books{
+			char name[100];
+			char author[100];
+			float rate;
+			int quantity;
+		};
+
+		printf("Enter total number of book details: ");
+		scanf("%d",&n);
+		struct books books[n];
+
+		for(int i = 0; i < n; i++){
+				printf("\nEnter name of book %d: ", i+1);
+				scanf("%s", books[i].name);
+
+				printf("Enter author of book %d: ", i+1);
+				scanf("%s", books[i].author);
+
+				printf("Enter rate of book %d: ", i+1);
+				scanf("%f", &books[i].rate);
+
+				printf("Enter quantity of book %d: ", i+1);
+				scanf("%d", &books[i].quantity);
+			}
+
+
+		printf("\nBooks details are as below:\n");
+
+			for(int i = 0; i < n; i++){
+				float cost = books[i].rate * books[i].quantity;
+
+				printf("\nName of book: %s\n", books[i].name);
+				printf("Author: %s\n", books[i].author);
+				printf("Total cost: %.2f\n", cost);
+				printf("Quantity: %d\n", books[i].quantity);
+			}
+
+
+
+
+		getch();
+		return 0;
+		}
+			
+--------------
+Q..  Write a C program to declare a 1-D array of size  10. Initialize the array and 
+	then swap the largest and smallest element of the array. Display the array before and after swapping
+==> #include <stdio.h>
+	#include <conio.h>
+	int main(){
+	int arr[10]={10,20,30,40,50,60,70,80,90,100};
+	int i, largest,smallest;
+	int largestIndex,smallestIndex;
+	int temp;
+
+	printf("Array before swapping number:\n");
+	for(i=0;i<10;i++){
+		printf("%d ",arr[i]);
+	}
+
+	largest=smallest=arr[0];
+	for (i=0;i<10;i++){
+		if(arr[i]>largest){
+			largest=arr[i];
+			largestIndex=i;
+
+		}
+		if(arr[i]<smallest){
+			smallest=arr[i];
+			smallestIndex=i;
+		}
+	}
+
+	temp=arr[largestIndex];
+	arr[largestIndex]=arr[smallestIndex];
+	arr[smallestIndex]=temp;
+
+	printf("\nArray after swapping:\n");
+	for(i=0;i<10;i++){
+		printf("%d ",arr[i]);
+	}
+
+	getch();
+	return 0;
+	}
+
+--------------
+Q.. Write a C program to swap the 1st and last element of a 1-D array of size?
+	Display the array before and after swapping?
+==> 	#include <stdio.h>
+		#include <conio.h>
+		int main(){
+		int arr[10]={10,20,30,40,50,60,70,80,90,100};
+		int n=10;
+		int i,firstIndex,lastIndex,temp;
+
+		printf("Array elements before swapping:");
+		for(i=0;i<10;i++){
+			printf("%d ",arr[i]);
+		}
+
+		temp=arr[n-1];
+		arr[n-1]=arr[0];
+		arr[0]=temp;
+
+		printf("\nArray elements after swapping:");
+		for(i=0;i<10;i++){
+			printf("%d ",arr[i]);
+		}
+
+		getch();
+		return 0;
+		}
+
+--------------
+Q.. Write a C program to determine the largest and smallest element of a 1-D array of size 10.
+#include <stdio.h>
+#include <conio.h>
+int main(){
+int arr[10]={10,20,30,40,50,60,70,80,90,100};
+int n=10;
+int i,largest,smallest;
+
+printf("Array elements: ");
+for (i=0;i<10;i++){
+    printf("%d ",arr[i]);
+}
+largest=smallest=arr[i];
+for(i=0;i<10;i++){
+    if(arr[i]>largest){
+        largest=arr[i];
+    }
+    if(smallest>arr[i]){
+        smallest=arr[i];
+    }
+}
+
+printf("\nSmallest element of array is : %d",smallest);
+printf("\nLargest element of array is : %d",largest);
+
+getch();
+return 0;
+}
+
+--------------
+Q.. Write a C program to determine the sum and product of odd and even elements 
+	of a 1-D array of size . Display the sum and product?
+==> #include <stdio.h>
+	#include <conio.h>
+	int main(){
+	int arr[10]={1,2,3,4,5,6,7,8,9,10};
+	int i,sumE=0,sumO=0,productE=1,productO=1;
+
+	for(i=0;i<10;i++){
+			if(arr[i]%2==0){
+				sumE=sumE+arr[i];
+				productE=productE*arr[i];
+			}
+			else{
+				sumO=sumO+arr[i];
+				productO=productO*arr[i];
+			}
+	}
+
+	printf("Sum of even elements of array is: %d\n",sumE);
+	printf("Product of even element of array is: %d\n",productE);
+	printf("Sum of odd elements of array is: %d\n",sumO);
+	printf("Product of odd element of array is: %d\n",productO);
+
+	getch();
+	return 0;
+	}
+
+--------------
+Q.. Write a C program to initialize a 1-D array with 10 integers and display them.  
+After that enter an integer value and check if the entered integer is present  
+in the array or not. If yes, then print the index value of that integer value 
+else print a message "Number not found". 
+--------------
+Q.. Write a C program to determine the transpose of a matrix of size 3x3 and display the same 
+#include <stdio.h>
+
+int main() {
+
+    int arr[3][3], trans[3][3];
+    int i, j;
+
+    printf("Enter 9 elements:\n");
+
+    // Input
+    for(i = 0; i < 3; i++){
+        for(j = 0; j < 3; j++){
+            scanf("%d", &arr[i][j]);
+        }
+    }
+
+    // Transpose logic
+    for(i = 0; i < 3; i++){
+        for(j = 0; j < 3; j++){
+            trans[j][i] = arr[i][j];
+        }
+    }
+
+    // Display original matrix
+    printf("\nOriginal Matrix:\n");
+    for(i = 0; i < 3; i++){
+        for(j = 0; j < 3; j++){
+            printf("%d ", arr[i][j]);
+        }
+        printf("\n");
+    }
+
+    // Display transpose matrix
+    printf("\nTranspose Matrix:\n");
+    for(i = 0; i < 3; i++){
+        for(j = 0; j < 3; j++){
+            printf("%d ", trans[i][j]);
+        }
+        printf("\n");
+    }
+getch();
+    return 0;
+}
+
+--------------
+Q.. Program to declare a structure 'struct-time' having data members hour, minutes, 
+	Seconds accept this data and display time in format 18:25:30 
+#include <stdio.h>
+
+// Structure declaration
+struct time {
+    int hour;
+    int minutes;
+    int seconds;
+};
+
+int main() {
+    struct time t;
+
+    // Input
+    printf("Enter hour, minutes and seconds: ");
+    scanf("%d %d %d", &t.hour, &t.minutes, &t.seconds);
+
+    // Output in format 18:25:30
+    printf("Time is: %02d:%02d:%02d\n", t.hour, t.minutes, t.seconds);
+
+    return 0;
+}
+--------------
+--------------

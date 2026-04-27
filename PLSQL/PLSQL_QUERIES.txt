@@ -1,4 +1,44 @@
 ======PLSQL_QUERIES======
+
+DDL trigger questions
+
+Q.. Write syntax to create a DDL trigger to log CREATE event.
+==>	create or replace trigger log_create_operation
+	after create 
+	on database
+	begin
+	insert into create_logs(username,c_time,c_obj_name,c_obj_type) values(SYS_CONTEXT('USERENV','SESSION_USER'),systimestamp,ORA_DICT_OBJ_NAME,ORA_DICT_OBJ_TYPE);
+	end;
+	/
+	
+--------
+Q.. Write a DDL trigger that fires before DROP.
+==> create or replace trigger drop_operation
+	before drop
+	on database
+	begin
+	dbms_output.put_line('You have dropped table'||ORA_DICT_OBJ_NAME);
+	end;
+	/
+--------
+Q.. Write a trigger that executes after ALTER statement.
+==> create or replace trigger alter_operation
+	after alter
+	on database
+	begin
+	dbms_output.put_line('alter operation performed on '||ORA_DICT_OBJ_NAME||ORA_DICT_OBJ_TYPE);
+	end;
+	/
+-------
+Write a DDL trigger to prevent users from dropping tables.
+-------
+Write a DDL trigger that logs every CREATE, ALTER, and DROP operation into an audit table.
+-------
+Write a DDL trigger that shows a message whenever a new table is created.
+-------
+Create a trigger that restricts table creation during office hours only.
+========================================
+========================================
 Q.. Write trigger which does not allow salary decrease?
 Q.. Write PL/SQL Block to print 'Good Morning' message on console?
 Q.. Write PL/SQL block to display user name along with Greet message ('Good Morning)?
@@ -212,4 +252,566 @@ Q.. Write PL/SQL block to check mobile number is 10 digit or not?
 	END;
 	/
 -----------------------------------------------
------------------------------------------------		
+===============================================
+********CURSOR QUESTIONS**********
+===============================================
+-----------------------------------------------
+Q..Write a PL/SQL program using an explicit cursor to display all employee names.
+==>	declare
+	cursor v_cursor IS select empname from employee;
+	v_empname varchar2(90);
+	begin
+	open v_cursor;
+	loop
+	fetch v_cursor into v_empname;
+	exit when v_cursor%notfound;
+	dbms_output.put_line(v_empname);
+	end loop;
+	end;
+----------------------------------------------------------------------
+Q..Write a program to fetch employee name and salary using explicit cursor and print them.
+==>	declare
+	cursor v_cursor is select empname,salary from employee;
+	v_empname varchar2(90);
+	v_salary number;
+	begin
+	open v_cursor;
+	loop
+	fetch v_cursor into v_empname,v_salary;
+	exit when v_cursor%notfound;
+	dbms_output.put_line(v_empname||' '||v_salary);
+	end loop;
+	end; 
+----------------------------------------------------------------------
+Q..Write a program to display only one employee record using explicit cursor.
+==> declare
+	cursor v_cursor IS select empname from employee where empno=101;
+	v_empname varchar2(90);
+	begin
+	open v_cursor;
+	loop
+	fetch v_cursor into v_empname;
+	exit when v_cursor%notfound;
+	dbms_output.put_line(v_empname);
+	end loop;
+	close v_cursor;
+	end;
+	
+	declare
+	cursor v_cursor IS select empname from employee where empno=101;
+	v_empname varchar2(90);
+	begin
+	open v_cursor;
+
+	fetch v_cursor into v_empname;
+	if v_cursor%found then 
+	dbms_output.put_line(v_empname);
+	else
+	dbms_output.put_line('no record found');
+	end if;
+	close v_cursor;
+	end;
+----------------------------------------------------------------------
+Q.. Write a program using explicit cursor to display employees whose salary is greater than 30,000.
+==> declare
+	cursor v_cursor is select empname,salary from employee where salary>30000;
+	v_empname varchar2(90);
+	v_salary number;
+	begin
+	open v_cursor;
+	loop
+	fetch v_cursor into v_empname,v_salary;
+	exit when v_cursor%notfound;
+	dbms_output.put_line(v_empname||' '||v_salary);
+	end loop;
+	close v_cursor;
+	end;
+----------------------------------------------------------------------
+Q.. Write a program to count total number of rows fetched using explicit cursor.
+==> declare
+	cursor v_cursor is select empname,salary from employee where salary>30000;
+	v_empname varchar2(90);
+	v_salary number;
+	begin
+	open v_cursor;
+	loop
+	fetch v_cursor into v_empname,v_salary;
+	exit when v_cursor%notfound;
+	dbms_output.put_line(v_empname||' '||v_salary);
+	end loop;
+	dbms_output.put_line(v_cursor%rowcount);
+	close v_cursor;
+	end;
+----------------------------------------------------------------------
+Q.. Write a program to find highest salary using explicit cursor.
+==> declare
+	cursor v_cursor IS select salary from employee;
+	max_salary number;
+	v_salary number;
+	begin
+	open v_cursor;
+	loop
+	fetch v_cursor into v_salary;
+	exit when v_cursor%notfound;
+	if v_salary>max_salary then 
+	max_salary:=v_salary;
+	end if;
+	end loop;
+	dbms_output.put_line(v_salary);
+	close v_cursor;
+	end;
+----------------------------------------------------------------------
+Q.. Write a program to find second highest salary with empname using explicit cursor.
+==>	declare
+	cursor v_cursor IS SELECT salary,empname from employee;
+	v_salary number;
+	v_empname varchar2(90);
+	max1 number:=-99999;
+	max2 number:=-99999;
+	v_name1 varchar2(90);
+	v_name2 varchar2(90);
+	begin
+	open v_cursor;
+
+	loop
+
+	fetch v_cursor into v_salary,v_empname;
+	exit when v_cursor%notfound;
+	if v_salary>max1 then 
+	max2:=max1;
+	v_name2:=v_name1;
+
+	max1:=v_salary;
+	v_name1:=v_empname;
+	elsif v_salary>max2 and v_salary<>max1 then 
+	max2:=v_salary;
+	v_name2:=v_empname;
+	end if;
+	end loop;
+	dbms_output.put_line(max2||v_name2);
+	close v_cursor;
+	end;
+----------------------------------------------------------------------
+Q.. Write a program using explicit cursor to update salary of each employee by 10%.
+==> declare
+	cursor v_cursor IS select salary from employee for update;
+	v_salary employee.salary%type;
+	begin
+	open v_cursor;
+	loop
+	fetch v_cursor into v_salary;
+	exit when v_cursor%NOTFOUND;
+	update employee set salary=v_salary+(v_salary*0.10) where current of v_cursor;
+	end loop;
+	end;
+----------------------------------------------------------------------
+Q.. Write a program to loop through cursor and insert data into another table.
+==> declare
+	cursor v_cursor IS select empno,empname from employee;
+	v_empno number;
+	v_empname varchar2(90);
+	begin
+	open v_cursor;
+	loop
+	fetch v_cursor into v_empno,v_empname;
+	exit when v_cursor%NOTFOUND;
+	insert into emp12(empno,empname)values(v_empno,v_empname);
+	end loop;
+	dbms_output.put_line('data inserted in emp12'||' '||v_cursor%ROWCOUNT||' '||'rows inserted');
+	close v_cursor;
+	end;
+----------------------------------------------------------------------
+Q.. Write a program using explicit cursor to handle NO_DATA_FOUND and TOO_MANY_ROWS exceptions.
+==> declare
+	cursor v_cursor IS SELECT empname,salary from employee where empno=101;
+	v_empname varchar2(90);
+	v_salary number;
+	v_count number:=0;
+	begin
+	open v_cursor;
+
+	loop
+
+	fetch v_cursor into v_empname,v_salary;
+
+	exit when v_cursor%NOTFOUND;
+
+	v_count:=v_count+1;
+	dbms_output.put_line(v_empname||v_salary);
+
+	end loop;
+
+	close v_cursor;
+
+	if v_count=0 then 
+	raise NO_DATA_FOUND;
+	elsif v_count>1 then
+	raise TOO_MANY_ROWS;
+	end if;
+
+	EXCEPTION
+	when NO_DATA_FOUND then
+	dbms_output.put_line('NO_DATA_FOUND');
+	when TOO_MANY_ROWS then
+	dbms_output.put_line('TOO_MANY_VALUES');
+	end;
+----------------------------------------------------------------------
+Q.. Write the procedure and try to make sure the conditions below
+	Use 2 variables, 1 input paramter, 1 output parameter, 1 type of cursor,
+	if else condition and 2 exceptions inside that procedure?
+==> create or replace procedure v_int_procedure(p_empno IN number,p_salary out number)
+	IS 
+	cursor v_cursor IS SELECT salary from employee where empno=p_empno;
+	v_salary number;
+	v_count number:=0;
+
+	BEGIN
+	open v_cursor;
+
+	LOOP
+
+	fetch v_cursor into v_salary;
+
+	exit when v_cursor%NOTFOUND;
+	v_count:=v_count+1;
+
+	p_salary:=v_salary;
+	END LOOP;
+	close v_cursor;
+
+	if v_count=0 then 
+	raise NO_DATA_FOUND;
+	elsif v_count>1 then 
+	raise TOO_MANY_ROWS;
+	end if;
+
+	EXCEPTION
+	when NO_DATA_FOUND then 
+	dbms_output.put_line('no details for mentioned emp number');
+	when TOO_MANY_ROWS then 
+	dbms_output.put_line('multiple employees belong to mentioned emp number');
+	when others then 
+	dbms_output.put_line(SQLERRM);
+	END;
+----------------------------------------------------------------------
+Q.. Write a program to print employee names using cursor FOR LOOP (without OPEN/FETCH/CLOSE)
+==> declare
+	cursor v_cursor IS SELECT empname from employee;
+	begin
+	for emp_rec IN v_cursor loop
+	dbms_output.put_line(emp_rec.empname);
+	end loop;
+	end;
+-----------------------------------------------
+Q.. write explicit procedure using cursor which take empno as input and show salary as output
+	use: 1 cursor,%TYPE,IF-ELSE if salary>50000 high else return low,handle no_data_found,too_many_rows,others.
+	print employee name inside procedure,ensure that cursor is open then close it?
+==> create or replace procedure p_salary_op(p_empno IN NUMBER,p_salary OUT NUMBER,p_status OUT VARCHAR2)
+	IS
+	cursor v_cursor IS SELECT salary,empname from employee where empno=p_empno;
+	v_salary employee.salary%TYPE;
+	v_empname employee.empname%TYPE;
+	v_count number:=0;
+	BEGIN
+
+	OPEN v_cursor;
+
+	LOOP
+	fetch v_cursor into v_salary,v_empname;
+	exit when v_cursor%NOTFOUND;
+
+	v_count:=v_count+1;
+
+	p_salary:=v_salary;
+	dbms_output.put_line('employee name is: '||v_empname);
+
+	if v_salary>50000 then
+	p_status:='salary is high';
+	else
+	p_status:='salary is low';
+	end if;
+
+	END LOOP;
+
+	close v_cursor;
+
+	if v_count=0 then 
+	raise NO_DATA_FOUND;
+	elsif v_count>1 then
+	raise TOO_MANY_ROWS;
+	end if;
+
+	EXCEPTION
+	when NO_DATA_FOUND then 
+	dbms_output.put_line('no data found for mentioned empno');
+	p_salary:=null;
+	p_status := 'No data found for given empno';
+	when TOO_MANY_ROWS then
+	dbms_output.put_line('too many employees belongs to this empno');
+	p_status := 'Multiple employees found';
+	p_salary:=null;
+	when OTHERS then 
+	p_salary:=null;
+	p_status := 'Error: ' || SQLERRM;
+
+	if v_cursor%ISOPEN then
+	close v_cursor;
+	end if;
+	END;
+	/
+
+
+	declare
+	o_salary number;
+	o_status varchar2(90);
+	begin
+	p_salary_op(101,o_salary,o_status);
+	dbms_output.put_line('salary: '||o_salary);
+	dbms_output.put_line('status: '||o_status);
+	end;
+-----------------------------------------------
+Q.. Write a program to display employee details based on employee id using parameterized cursor.
+==> declare
+	cursor v_cursor(p_empno number) IS SELECT empno,empname,salary,designation from employee where empno=p_empno;
+	v_empno number;
+	v_empname varchar2(90);
+	v_salary number;
+	v_designation varchar2(90);
+	begin
+	open v_cursor(101);
+
+	loop
+	fetch v_cursor into v_empno,v_empname,v_salary,v_designation;
+	exit when v_cursor%NOTFOUND;
+	dbms_output.put_line(v_empno||' '||v_empname||' '||v_salary||' '||v_designation);
+	end loop;
+	close v_cursor;
+	end;
+-----------------------------------------------
+Q.. Write a program using parameterized cursor to fetch employees whose salary is greater than a given value.
+==> declare
+	cursor v_cursor(p_salary number) IS SELECT empno,empname,salary,designation from employee where salary>p_salary;
+	v_empno number;
+	v_empname varchar2(90);
+	v_salary number;
+	v_designation varchar2(90);
+	begin
+	open v_cursor(30000);
+
+	loop
+	fetch v_cursor into v_empno,v_empname,v_salary,v_designation;
+	exit when v_cursor%NOTFOUND;
+	dbms_output.put_line(v_empno||' '||v_empname||' '||v_salary||' '||v_designation);
+	end loop;
+	close v_cursor;
+	end;
+-----------------------------------------------
+Q.. Create a parameterized cursor to fetch employee name and salary using empno.
+==> declare
+	cursor v_cursor(p_empno number) IS SELECT empno,empname,salary,designation from employee where empno=p_empno;
+	v_empno number;
+	v_empname varchar2(90);
+	v_salary number;
+	v_designation varchar2(90);
+	begin
+	open v_cursor(101);
+
+	loop
+	fetch v_cursor into v_empno,v_empname,v_salary,v_designation;
+	exit when v_cursor%NOTFOUND;
+	dbms_output.put_line(v_empno||' '||v_empname||' '||v_salary||' '||v_designation);
+	end loop;
+	close v_cursor;
+	end;
+-----------------------------------------------
+Q.. Write a program using parameterized cursor to count number of employees in a given department.
+==> declare
+	cursor v_cursor(p_dept_number number) IS SELECT * from employee where dept_number=p_dept_number;
+	employee_count number;
+	emp_rec v_cursor%ROWTYPE;
+	begin
+	open v_cursor(20);
+
+	loop
+	fetch v_cursor into emp_rec;
+	exit when v_cursor%NOTFOUND;
+	employee_count:=v_cursor%ROWCOUNT;
+	end loop;
+	dbms_output.put_line('number of employees belong to department number '||emp_rec.dept_number||' are '||employee_count);
+	close v_cursor;
+	end;
+-----------------------------------------------
+Q.. Use a parameterized cursor to fetch employees based on salary and insert them into another table.
+==> declare
+	cursor v_cursor(v_salary employee.salary%type) IS SELECT empno,empname from employee where salary>v_salary;
+	v_empno employee.empno%type;
+	v_empname employee.empname%type;
+	begin
+	open v_cursor(30000);
+	loop
+	fetch v_cursor into v_empno,v_empname;
+	exit when v_cursor%NOTFOUND;
+
+	insert into emp12(empno,empname)values(v_empno,v_empname);
+	end loop;
+	dbms_output.put_line(v_cursor%ROWCOUNT||' rows inserted in emp12');
+	close v_cursor;
+	end;
+-----------------------------------------------
+Q.. Write a program to increase salary by 10% for employees of a specific department using parameterized cursor.
+-----------------------------------------------
+Q.. Write a program using parameterized cursor to:Fetch employee by empno Handle:`NO_DATA_FOUND`,`TOO_MANY_ROWS`?
+-----------------------------------------------
+Q.. Create a parameterized cursor with 2 parameters (deptno, salary) and fetch employees matching both conditions.
+-----------------------------------------------
+Q.. Using parameterized cursor:If salary > 50000 → print “High” Else → print “Low”
+-----------------------------------------------
+Q.. Write a procedure that: Takes deptno as input Uses parameterized cursor Returns total salary of that department
+-----------------------------------------------
+Q.. Write a procedure using weak REF CURSOR to fetch all employee details.
+==> DECLARE
+	TYPE emp_cursor IS REF CURSOR;
+	v_cursor emp_cursor;
+	v_empno employee.empno%type;
+	v_empname employee.empname%type;
+	v_salary employee.salary%type;
+	BEGIN
+	OPEN v_cursor FOR select empno,empname,salary from employee;
+
+	LOOP
+	fetch v_cursor into v_empno,v_empname,v_salary;
+	exit when v_cursor%NOTFOUND;
+	dbms_output.put_line(v_empno||' '||v_empname||' '||v_salary);
+	END LOOP;
+	CLOSE v_cursor;
+	END;
+-----------------------------------------------
+Q.. Write a procedure that:
+	Takes deptno as input
+	Returns employees using SYS_REFCURSOR?
+==> 
+	CREATE OR REPLACE PROCEDURE p_deptnumber_inpur(p_deptno IN employee.dept_number%type,p_emp_rec OUT SYS_REFCURSOR)
+	IS 
+	BEGIN
+	OPEN p_emp_rec FOR select empno,empname,salary from employee where dept_number=p_deptno;
+	END;
+
+	declare
+	v_empno employee.empno%type;
+	v_empname employee.empname%type;
+	v_salary employee.salary%type;
+	v_cursor SYS_REFCURSOR;
+	begin
+	p_deptnumber_inpur(20,v_cursor);
+	LOOP
+	fetch v_cursor into v_empno,v_empname,v_salary;
+	exit when v_cursor%NOTFOUND;
+	dbms_output.put_line(v_empno||' '||v_empname||' '||v_salary);
+	END LOOP;
+	end;	
+-----------------------------------------------
+Q.. Use weak REF CURSOR to fetch employees whose salary > 50000.
+==> 
+	DECLARE
+	TYPE emp_cursor IS REF CURSOR;
+	v_cursor emp_cursor;
+	v_empname employee.empname%type;
+	v_salary employee.salary%type;
+
+	BEGIN
+	OPEN v_cursor FOR select empname,salary from employee where salary >50000;
+	LOOP
+	fetch v_cursor into v_empname,v_salary;
+	exit when v_cursor%NOTFOUND;
+	dbms_output.put_line(v_empname||' '||v_salary);
+	END LOOP;
+	close v_cursor;
+	END;
+-----------------------------------------------
+Q.. Write a block to:
+	Call procedure returning weak REF CURSOR
+	Fetch and display data using loop
+-----------------------------------------------
+Q.. Write a procedure using weak REF CURSOR with:
+	deptno
+	salary
+	Return matching employees
+-----------------------------------------------
+Q.. Declare a strong REF CURSOR type and fetch employee details.
+-----------------------------------------------
+Q.. Create strong REF CURSOR using `employee%ROWTYPE` and fetch full row.
+-----------------------------------------------
+Q.. Write a procedure:
+	Input → empno
+	Output → strong REF CURSOR
+	Fetch employee details
+-----------------------------------------------
+Q.. Use strong REF CURSOR to fetch data from:
+	employee + department tables (JOIN)
+-----------------------------------------------
+Q.. Write:
+	Procedure returning strong REF CURSOR
+	Anonymous block to fetch and print data
+-----------------------------------------------
+Q.. Use weak REF CURSOR to execute dynamic query based on input.
+-----------------------------------------------
+Q.. Write procedure using REF CURSOR and handle:NO_DATA_FOUND OTHERS
+-----------------------------------------------
+Q.. Write procedure:
+	OUT parameter → REF CURSOR
+	Fetch data in calling block
+-----------------------------------------------
+Q.. Write procedure:Input → deptno
+	Use strong REF CURSOR
+	Apply IF condition on salary
+	Return result
+	Fetch in calling block
+-----------------------------------------------
+-----------------------------------------------
+*************BULK COLLECT***************
+-----------------------------------------------
+-----------------------------------------------
+Q.. Write a PL/SQL block using BULK COLLECT to fetch all employee salaries into a collection and display them.
+-----------------------------------------------
+Q.. Write a program to:
+	Fetch employee records using cursor
+	Use BULK COLLECT with LIMIT 5
+	Print data in batches
+==> DECLARE
+	CURSOR emp_cursor IS select * from employee;
+	TYPE emp_rec IS TABLE OF EMPLOYEE%ROWTYPE;
+	v_emp emp_rec;
+	BEGIN
+	open emp_cursor;
+	LOOP
+	fetch emp_cursor bulk collect into v_emp limit 5;
+	exit when v_emp.count=0;
+	dbms_output.put_line('----Batch----');
+	for i IN 1..v_emp.count loop
+	dbms_output.put_line(v_emp(i).empno);
+	end loop;
+	END LOOP;
+	END;	
+-----------------------------------------------
+Q.. Write a program:
+	Use BULK COLLECT
+	Handle case when no data is found
+	Print proper message
+==>DECLARE
+	TYPE emp_rec IS TABLE OF employee%ROWTYPE;
+	v_emp emp_rec;
+	BEGIN
+	SELECT * 
+	BULK COLLECT INTO v_emp 
+	FROM employee 
+	WHERE salary > 1000000;
+	IF v_emp.COUNT = 0 THEN
+	 DBMS_OUTPUT.PUT_LINE('No records found');
+	else 
+	 FOR i IN 1..v_emp.COUNT LOOP
+	DBMS_OUTPUT.PUT_LINE(v_emp(i).empno);
+	END LOOP;
+	END IF;
+	END;
+		
+-----------------------------------------------

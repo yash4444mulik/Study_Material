@@ -3038,131 +3038,88 @@ Q.. Why we create view?What benefits we are getting through view?What are advant
 		- A view can be reused in multiple queries,procedures or reports as per requirement.
 	
 ----------------------------------------------
-1. Which of the following is TRUE about a View?
-A. A View stores data physically.
-B. A View is always up to date with base tables.
-C. A View cannot have WHERE clause.
-D. A View cannot be created on multiple tables.
-==> B. A view is always up to date with base tables.
+Q.. What is materialized view?
+==> Materialized view is database object that store the actual result data of query.
+	Syntax:
+		create MATERIALIZED view view_name as SELCT QUERY;
+		
+	Syntax:
+		create MATERIALIZED view view_name REFRESH FAST ON COMMIT AS SELECT QUERY;
+	- it is used to improve the performance for 
+		1. complex joins 
+		2. Large tables 
+		3. Aggeregate function.
+	- instead of running heavy query again and again the database reads the stored result.
 ----------------------------------------------
-2.Which of the following is true about a view in Oracle?
-A) A view stores data physically like a table
-B) A view is always read-only
-C) A view is a virtual table based on a query
-D) A view cannot be created on joins
-==> A view is a virtual table based on a query.
+Q.. Can we update Materialized view data directly?
+==> No generally it is read-only (data updated via refresh)
 ----------------------------------------------
-3.Which clause makes a view non-updatable?
-A) WITH CHECK OPTION
-B) WITH READ ONLY
-C) FORCE VIEW
-D) NO DML OPTION
-==> with read only.
+Q.. How to update Materialized view?
+==> Materialized views don't update automatically all the time,so we use refresh methods to update stored data.
+	- There are 3 types:
+		1. FAST Refresh=> Updates only the changed data
+			BEGIN
+			  DBMS_MVIEW.REFRESH('EMP_VIEW_1','F');
+			END;
+
+		2. Complete Refresh=> Deletes old data and reloads everything
+			Syntax:
+				BEGIN
+				  DBMS_MVIEW.REFRESH('EMP_VIEW_1','C');
+				END;
+				/
+		3. Force Refresh=> choose FAST if possible otherwise COMPLETE.
+			Syntax:
+				BEGIN
+				  DBMS_MVIEW.REFRESH('EMP_VIEW_1','?');
+				END;
+
 ----------------------------------------------
-4.Which of the following statements about WITH CHECK OPTION is correct?
-A) It prevents all DML on the view
-B) It ensures that inserted/updated rows satisfy the view’s WHERE condition
-C) It automatically creates a CHECK constraint on the base table
-D) It only applies to DELETE operations
-==> B) It ensures that inserted/updated rows satisfy the view’s WHERE condition
+Q.. How Materialized view improves performance?
+==> when we run complex query multiple time then it will impact on performance
+	instead of executing complex query multiple time use materialized view.
 ----------------------------------------------
-5. Can you apply WITH CHECK OPTION and WITH READ ONLY together in a view?
-A) Yes, but only in Oracle 19c and later
-B) Yes, but only on simple views
-C) No, they cannot be combined
-D) Yes, but only if FORCE VIEW is used
-==> C) No, they cannot be combined
+Q.. How to schedule atomatic refresh?
+==> we use DBMS_SCHEDULER to refresh at fixed time(daily,hourly,etc)
+	For DAILY => 'FREQ=DAILY; BYHOUR=18; BYMINUTE=30; BYSECOND=0'
+	For HOURLY => 'FREQ=HOURLY'
+	For Minuely => 'FREQ=MINUTELY;INTERVAL=10'
+	for weekly => 'FREQ=WEEKLY'
+	Syntax:
+		BEGIN
+		  DBMS_SCHEDULER.CREATE_JOB(
+			job_name => 'mv_refresh_job',
+			job_type => 'PLSQL_BLOCK',
+			job_action => 'BEGIN DBMS_MVIEW.REFRESH(''EMP_VIEW_1'',''C''); END;',
+			start_date => SYSDATE,
+			repeat_interval => 'FREQ=DAILY' ,
+			enabled => TRUE
+		  );
+		END;
+		/
+		
+	=> How to check job details 
+		select * from user_scheduler_jobs where job_name='MV_REFRESH_JOB';
+
+	=> How to delete schedular job
+		BEGIN
+		  DBMS_SCHEDULER.DROP_JOB/ENABLE/DISABLE('MV_REFRESH_JOB');
+		END;
+		/
 ----------------------------------------------
-6.Which of the following is not true about views?
-A) Views can be created on multiple tables using joins
-B) Views can have an ORDER BY clause without restrictions
-C) A view does not store data, only the query
-D) A view can be created with or without a WHERE condition
-==> B) Views can have an ORDER BY clause without restrictions
+Q.. What is difference between Simple view and Materialized view?
+==> - Simple view dow not store data only stores the sql query where as 
+		Materialized view store data physically in the database.
+	- For complex queries simple view performance is lower as comapare to materialized 
+		because simple view runs query every time and in materialized view data is precomputed.
+	- Simple view always shows latest data where as materialized view may show old data until refreshed.
+	- In Simple view no requirement to refresh but In materialized view need manual or automatic refresh.
 ----------------------------------------------
-7. Which of the following commands is valid?
-A) CREATE OR REPLACE VIEW v1 AS SELECT * FROM emp WITH CHECK OPTION;
-B) CREATE VIEW v2 AS SELECT * FROM emp WHERE deptno=10 WITH CHECK OPTION;
-C) CREATE VIEW v3 AS SELECT * FROM emp WITH READ ONLY;
-D) All of the above
-==> D) All of the above
-----------------------------------------------
-8. What will happen if you try to insert into a view with WITH CHECK OPTION that doesn’t satisfy the WHERE condition?
-A) The row will be inserted in base table but hidden from the view
-B) The row will be rejected with an error
-C) The row will be inserted and condition ignored
-D) The row will be inserted with NULL values
-==> B) The row will be rejected with an error
-----------------------------------------------
-9. Which of the following best describes a simple view?
-A) A view created on one table without any functions, joins, or group by
-B) A view created on multiple tables with joins
-C) A view created only with aggregate functions
-D) A view that cannot be updated
-==> A) A view created on one table without any functions, joins, or group by
-----------------------------------------------
-10. Which of the following operations are usually allowed on a simple view?
-A) SELECT only
-B) SELECT, INSERT, UPDATE, DELETE (if no restrictions)
-C) SELECT and UPDATE only
-D) SELECT and DELETE only
-==> B) SELECT, INSERT, UPDATE, DELETE (if no restrictions)
-----------------------------------------------
-11. Which of the following is NOT allowed in a Simple View?
-A. JOIN
-B. GROUP BY
-C. DISTINCT
-D. All of the above
-==> All of the above .
-----------------------------------------------
-12. Which clause ensures that only rows satisfying the view condition can be modified through the view?
-A. WITH CHECK OPTION
-B. WITH READ ONLY
-C. FORCE
-D. NO FORCE
-=> A. WITH CHECK OPTION.
-----------------------------------------------
-13. Which clause prevents DML operations on a view?
-A. WITH CHECK OPTION
-B. WITH READ ONLY
-C. NO FORCE
-D. None of the above
-=> WITH READ ONLY.
-----------------------------------------------
-14. Which statement is INVALID?
-A. CREATE OR REPLACE VIEW
-B. DROP VIEW
-C. ALTER VIEW
-D. REPLACE VIEW
-=> D. REPLACE VIEW.
-----------------------------------------------
-15. Which data dictionary view shows all the views accessible to the current user?
-A. DBA_VIEWS
-B. USER_VIEWS
-C. ALL_VIEWS
-D. Both B and C
-=> B. USER_VIEWS 
-----------------------------------------------
-16.Which of the following is generally not possible on a complex view?
-A) Insert through the view
-B) Select from the view
-C) Create the view with WHERE condition
-D) Use the view in a query
-=> A) Insert through the view.
-----------------------------------------------
-17.What is an inline view?
-A) A permanent view stored in the database
-B) A subquery in the FROM clause, treated as a temporary view for that query
-C) A view created with WITH READ ONLY
-D) A synonym for a materialized view
-=> 
-----------------------------------------------
-18.Which of the following statements about inline views is true?
-A) They must be created with CREATE VIEW
-B) They exist only during query execution
-C) They can be indexed directly
-D) They store data permanently
-=> 
+Q.. What are the limitations of Materialized view?
+==> 1. requires extra storage
+	2. need refresh 
+	3. fast refresh has restrications
+	4. maintenance overhead.
 ----------------------------------------------
 Q.. What is subquery?
 ==> query within query is called as subquery.
@@ -3313,8 +3270,9 @@ Q.. What is difference between IN and EXISTS?
 ----------------------------------------------
 Q.. Between subquery and join which is best? Why?
 ==> Between subquery and join join is best 
-	performance wise inner query is slow.inner query execute first and then its result is used in outer query.
-	- joins are recommended to use 
+	- In a subquery the inner query is executed first and its result is passed to the outer query,which can sometimes increase execution time.
+	- In a join the database optimizer can process tables togheter and choose a more efficient execution plan.
+	- therefor joins are usually faster and more efficient especially for large tables.
 ----------------------------------------------
 Q.. What is null in oracle?
 ==> - null is special type of value it is different than zero or blank.null means not present/absent 
@@ -4181,7 +4139,77 @@ Q.. Types of temporary table?
 		- We can apply only not null and check constraint 
 		- We can't access Private temporary table using database link 
 ----------------------------------------------
-
+Q.. What is Query Optimization or Performance tunning?
+==> Query optimization or performance tunning is the process of writing effective SQL queries
+	to get fast and accurate result while using minimum system resources like cpu,memory and time.
+	- if we want to do performance tunning then we need to follow below guidlines
+	
+	1. Implementing proper indexing(use index)
+		- Index speed up the retrival operation and ordered by operation.
+		- if we are selecting data from multiple table then use indexed column in the on clause.
+		- If we are selecting data from single table then in the where caluse use indexed column.
+		- If there are group functions then create index on aggregated column
+		- If we are using order by clause then use indexed column name in order by clause.
+	
+	2. Avoid using select * 
+		- instead of selecting all columns select only required column data because selecting all columns affect the bandwidth and resource.
+		- always select only required columns
+		- it reduces data transfer and improves performance
+		
+	3. Avoind using select distinct.
+		- distinct adds extra processing
+		- use only when required.
+		
+	4. use joins instead of inner query or subquery
+		- In a subquery the inner query is executed first and its result is passed to the outer query,which can sometimes increase execution time.
+		- In a join the database optimizer can process tables togheter and choose a more efficient execution plan.
+		- therefore joins are usually faster and more efficient especially for large tables.
+		
+	5. use where clause instead of having 
+		
+	6. try to retrive limited data an use condition properly.
+	
+	7. avoid using function at right hand side of operator
+		- where UPPER(name)='JOHN' => don't use.
+		
+	8. number of joins must be equal to number of tables.
+	
+	9. use like operator carefully.
 ----------------------------------------------
+Q.. Query optimization questions?
+==> 1. select * from employee where dept_id=10;
+	=> select * fetches unnecessary data.
+	=> create index on dept_id 
+		create index ind_emp_dept on employee(dept_id);
+		
+		select emp_id,name from employee where dept_id=10;
+	
+	2. where upper(name) = 'JOHN';
+	=> select * from employee where name='JOHN';
+	
+	3. where name like '%son';
+	=> solution	
+		where name like 'son%';
+		
+	4. select distinct dept_id from employee;
+	=> solution
+		select dept_id from employee group by dept_id;
+		
+	5. subquery vs join 
+		select name from employee where dept_id IN(select dept_id from employee where location='pune');
+		=> Solution
+			select e.name from employee e JOIN department da
+			ON e.dept_id=d.dept_id 
+			where d.location='pune';
+			
+	6. Having vs where 
+		having dept_id=10;
+		=> solution
+			select dept_id,count(*) from employee where dept_id=10 group by dept_id;
+			
+	7. aggregate optimization
+		select dept_id,sum(salary) from employee group by dept_id;
+		=> solution
+			create materialized view emp_mv as select dept_id,sum(salary) from employee group by dept_id;
 ----------------------------------------------
 ----------------------------------------------

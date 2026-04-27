@@ -1,0 +1,33 @@
+Q.. Performance tuning?
+Q.. Explain plan syntax?
+Q.. Index type?
+Q.. Bitmap index?
+Q.. curser types?
+Q.. Explicit vs ref curser?
+Q.. Procedure vs function?
+Q.. Types of database partition and syntax.
+Q.. If table is already created then how we can do the partition and syntax?
+Q.. Write the procedure and try to make sure the conditions below
+	Use 2 variables, 1 input paramter, 1 output parameter, 1 type of cursor,
+	if else condition and 2 exceptions inside that procedure	
+Q.. if we have transaction table and trans_amount is column and column have positive and negative 
+	seperate with positive and negative?
+	table transaction(trans_ammount NUMBER) and we want with the positive number column and negative number column
+Q.. Find out the monthly transactions count?
+	select to_char(txn_date,'Month')as month,count(*)as total_transactions from transactions 
+	group by to_char(txn_date,'Month')
+Q.. Find out the monthly transactions amount?	
+	select to_char(txn_date,'Month')as month,sum(amount)as monthly_trans_amount from transactions 
+	group by to_char(txn_date,'Month')
+Q.. Find mothly transactions running total?
+	select 
+	month,
+	total_amount,
+	sum(total_amount) over(order by month_num)as running_totoal
+	from(
+	select
+	to_char(txn_date,'Month')as month,
+	sum(amount)as total_amount,
+	extract(month from txn_date)as month_num from transactions 
+	group by to_char(txn_date,'Month'),extract(month from txn_date)
+	)order by month_num
