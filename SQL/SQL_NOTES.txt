@@ -1153,7 +1153,7 @@ Q.. General functions?
 	   if expression 1 is not null then it consider 2nd expression
 ------------------------------------------
 Q.. What is difference between nvl() and nvl2()?
-==> nvl() accept one input argument where as nvl2() accpet 3 input argument 
+==> nvl() accept 2 input argument where as nvl2() accpet 3 input argument 
 	in nvl() 1st input argument is null then it consider 2nd argument where as
 	in nvl2() 1st input argument is null then it consider 3rd expression 
 	in nvl() 1st input argument is not null then it consider 1st expression where as 
@@ -2404,7 +2404,6 @@ Q.. What are different types(forms) of normalization?
 	2. Second Normal Form (2NF)
 	3. Third Normal Form (3NF)
 	4. BCNF(Boyce Codd Normal Form)
-	
 ------------------------------------------
 Q.. Rule for First Normal Form.
 ==> Each table cell must have atomic value(automic means single value)
@@ -2466,76 +2465,6 @@ Q.. What is candidate key?
 Q.. What is difference between 3NF and BCNF?
 ==> IN 3NF all non key columns fully depends on key column 
 	IN BCNF The column which uniquely identify record must it key itself.
-------------------------------------------
-Q.. What is the main purpose of normalization?
-	A. To increase data redundancy
-	B. To remove data anomalies and redundancy
-	C. To improve indexing
-	D. To reduce the number of tables
-==> B. To remove data anomalies and redundancy
-------------------------------------------
-Q.. Which of the following is not a type of data anomaly?
-	A. Insertion anomaly
-	B. Deletion anomaly
-	C. Modification anomaly
-	D. Execution anomaly
-==> D. Execution anomaly
-------------------------------------------
-Q.. A table is in First Normal Form (1NF) if:
-	A. All non-key attributes depend on the primary key
-	B. It contains atomic (indivisible) values
-	C. It has no transitive dependencies
-	D. It has a composite key
-==> B. It contains atomic (indivisible) values
-------------------------------------------
-Q.. Which normal form removes partial dependencies?
-	A. 1NF
-	B. 2NF
-	C. 3NF
-	D. BCNF
-==> B. 2NF
-------------------------------------------
-Q.. A table in 2NF may still have which kind of dependency?
-	A. Composite dependency
-	B. Functional dependency
-	C. Transitive dependency
-	D. Partial dependency
-==> C. Transitive dependency
-------------------------------------------
-Q.. A table is in Third Normal Form (3NF) when:
-	A. It is in 2NF and has no partial dependencies
-	B. It is in 2NF and every non-key attribute is non-transitively dependent on the primary key
-	C. It is in 1NF and has only one candidate key
-	D. It has no NULL values
-==> B. It is in 2NF and every non-key attribute is non-transitively dependent on the primary key
-----------------------------------------------	
-Q.. Which normal form addresses issues caused by overlapping candidate keys?
-	A. 2NF
-	B. 3NF
-	C. BCNF
-	D. 4NF
-==> C. BCNF	
-----------------------------------------------
-Q.. Which of the following is a violation of BCNF?
-	A. A non-prime attribute depends on another non-prime attribute
-	B. A candidate key determines another column
-	C. A non-super key determines another column
-	D. A table has multiple candidate keys	
-==> C. A non-super key determines another column
-----------------------------------------------
-Q.. What is a transitive dependency?
-	A. When an attribute is dependent on part of the primary key
-	B. When a non-key attribute depends on another non-key attribute
-	C. When an attribute is dependent on a foreign key
-	D. When an attribute is dependent on a composite key	
-==> B. When a non-key attribute depends on another non-key attribute
-----------------------------------------------	
-Q.. Which normal form eliminates multi-valued attributes?
-	A. 2NF
-	B. 3NF
-	C. BCNF
-	D. 1NF
-==> D. 1NF
 ----------------------------------------------
 Q.. What is JOIN in sql?
 ==> fetching data from two or more table based on related column is nothing but join 	
@@ -2708,95 +2637,6 @@ Q.. null column  behavior in joins?
 	- in left outer join null column from left table only will be display 
 	- in right outer join null column from right table only will be display 
 	- in full outer join both table null values will be display 
-----------------------------------------------	
-1. Which of the following best describes an INNER JOIN?
-A) Returns all rows from both tables, matching or not
-B) Returns only rows where there is a match in both tables
-C) Returns all rows from the left table, plus matches from the right
-D) Returns all rows from the right table, plus matches from the left
--> B) Returns only rows where there is a match in both tables
-
-----------------------------------------------
-
-2. Which JOIN type will return all rows from the left table, even if there are no matches in the right table
-A) INNER JOIN
-B) FULL OUTER JOIN
-C) RIGHT JOIN
-D) LEFT JOIN
--> D) LEFT JOIN
-
-----------------------------------------------
-
-3. If table A has 100 rows and table B has 200 rows, a CROSS JOIN will return:
-A) 100 rows
-B) 200 rows
-C) 20,000 rows
-D) Depends on join condition
--> C) 20,000 rows
-
-----------------------------------------------
-
-4. Which of these joins may use the USING clause in Oracle?
-A) INNER JOIN
-B) NATURAL JOIN
-C) EQUI JOIN
-D) Both A and C
--> D) Both A and C
-
-----------------------------------------------
-
-5. In Oracle, NULL values in the join column will:
-A) Always match each other
-B) Never match each other in INNER JOIN
-C) Always be ignored in LEFT JOIN
-D) Cause an error
--> B) Never match each other in INNER JOIN
-
-----------------------------------------------
-
-6. Which join type can be used to find rows present in one table but not in another?
-A) CROSS JOIN
-B) LEFT JOIN with IS NULL filter
-C) INNER JOIN
-D) NATURAL JOIN
--> B) LEFT JOIN with IS NULL filter
-
-----------------------------------------------
-
-7. In a SELF JOIN, we must:
-A) Use different schemas
-B) Use different databases
-C) Use table aliases
-D) Have different table structures
--> C) Use table aliases
-
-----------------------------------------------
-
-8. Which of the following is true for FULL OUTER JOIN?
-A) Returns only matching rows
-B) Returns all rows from both tables
-C) Returns only unmatched rows
-D) Equivalent to INNER JOIN
--> B) Returns all rows from both tables
-
-----------------------------------------------
-
-9. A NON-EQUI JOIN in Oracle is performed using:
-A) = operator
-B) <, >, BETWEEN, or other inequality operators
-C) LIKE operator only
-D) No condition at all
--> B) <, >, BETWEEN, or other inequality operators
-
-----------------------------------------------
-
-10. If you forget the join condition in an INNER JOIN, Oracle will:
-A) Return no rows
-B) Return only NULLs
-C) Return a Cartesian product (same as CROSS JOIN)
-D) Throw an error
--> C) Return a Cartesian product (same as CROSS JOIN)
-
 ----------------------------------------------	
 Q.. Which join returns only rows where there is match in both tables?
 ==> Inner join 
@@ -3041,7 +2881,7 @@ Q.. Why we create view?What benefits we are getting through view?What are advant
 Q.. What is materialized view?
 ==> Materialized view is database object that store the actual result data of query.
 	Syntax:
-		create MATERIALIZED view view_name as SELCT QUERY;
+		create MATERIALIZED view view_name as SELECT QUERY;
 		
 	Syntax:
 		create MATERIALIZED view view_name REFRESH FAST ON COMMIT AS SELECT QUERY;
@@ -3050,6 +2890,15 @@ Q.. What is materialized view?
 		2. Large tables 
 		3. Aggeregate function.
 	- instead of running heavy query again and again the database reads the stored result.
+	
+	- metadata of materialized view is stored inside 
+		1. dba_mviews;
+		2. all_mviews;
+		3. user_mviews;
+		
+----------------------------------------------
+Q.. How to drop materialized view?
+==> drop materialized view emp_view_1;
 ----------------------------------------------
 Q.. Can we update Materialized view data directly?
 ==> No generally it is read-only (data updated via refresh)
@@ -3059,19 +2908,19 @@ Q.. How to update Materialized view?
 	- There are 3 types:
 		1. FAST Refresh=> Updates only the changed data
 			BEGIN
-			  DBMS_MVIEW.REFRESH('EMP_VIEW_1','F');
+			  DBMS_MVIEW.REFRESH('view_name','F');
 			END;
 
 		2. Complete Refresh=> Deletes old data and reloads everything
 			Syntax:
 				BEGIN
-				  DBMS_MVIEW.REFRESH('EMP_VIEW_1','C');
+				  DBMS_MVIEW.REFRESH('view_name','C');
 				END;
 				/
 		3. Force Refresh=> choose FAST if possible otherwise COMPLETE.
 			Syntax:
 				BEGIN
-				  DBMS_MVIEW.REFRESH('EMP_VIEW_1','?');
+				  DBMS_MVIEW.REFRESH('view_name','?');
 				END;
 
 ----------------------------------------------
@@ -3108,7 +2957,7 @@ Q.. How to schedule atomatic refresh?
 		/
 ----------------------------------------------
 Q.. What is difference between Simple view and Materialized view?
-==> - Simple view dow not store data only stores the sql query where as 
+==> - Simple view does not store data only stores the sql query where as 
 		Materialized view store data physically in the database.
 	- For complex queries simple view performance is lower as comapare to materialized 
 		because simple view runs query every time and in materialized view data is precomputed.
@@ -3305,143 +3154,6 @@ Q.. What is null in oracle?
 			
 		4. ANY or ALL consider the NULL values 	
 ----------------------------------------------
-Q.. Which of the following best defines a subquery?
-A) A query that retrieves rows from multiple tables
-B) A query nested inside another SQL statement
-C) A query that always uses GROUP BY
-D) A query that only runs independently
-==> B) A query nested inside another SQL statement
-----------------------------------------------
-Q.. Where can a subquery be placed in Oracle SQL?
-A) WHERE clause
-B) FROM clause
-C) HAVING clause
-D) All of the above
-==> D) All of the above
-----------------------------------------------
-Q.. A subquery that returns exactly one value is called?
-A) Multi-row subquery
-B) Correlated subquery
-C) Single-row subquery
-D) Inline view
-==> C) Single-row subquery
-----------------------------------------------
-Q.. Which operators are used with single-row subqueries?
-A) =, <, >, <=, >=, !=
-B) IN, ANY, ALL
-C) EXISTS, NOT EXISTS
-D) BETWEEN, LIKE
-==>A) =, <, >, <=, >=, !=
-----------------------------------------------
-Q.. Which operators are used with multi-row subqueries?
-A) IN, ANY, ALL
-B) =, <, >
-C) BETWEEN, LIKE
-D) None
-==> A) IN, ANY, ALL
-----------------------------------------------
-Q.. Which of the following is NOT true about subqueries?
-A) Subquery must be enclosed in parentheses
-B) Subquery can return multiple columns always
-C) Subquery can be nested inside SELECT, WHERE, HAVING
-D) Subquery executes before the outer query (except correlated subquery)
-==> B) Subquery can return multiple columns always
-----------------------------------------------
-Q.. A subquery in the FROM clause is called:
-A) Inline view
-B) Multi-column subquery
-C) Correlated subquery
-D) Join
-==> A) Inline view
-----------------------------------------------
-Q.. A correlated subquery is:
-A) Independent of outer query
-B) Executes once for the outer query
-C) Executes once for each row of the outer query
-D) Same as inline view
-==> C) Executes once for each row of the outer query
-----------------------------------------------
-Q.. Which keyword is used to check if a value returned by subquery exists?
-A) ALL
-B) ANY
-C) EXISTS
-D) UNION
-==> C) EXISTS
-----------------------------------------------
-Q.. What will happen if a single-row subquery returns multiple rows?
-A) Oracle automatically picks the first row
-B) Error: ORA-01427: single-row subquery returns more than one row
-C) Oracle ignores extra rows
-D) Query executes successfully
-==> B) Error: ORA-01427: single-row subquery returns more than one row
-----------------------------------------------
-Q.. What happens if a multi-row subquery returns no rows?
-A) Outer query fails
-B) Outer query returns no rows if operator is IN
-C) Oracle throws error
-D) Query result is NULL
-==> B)Outer query returns no rows if operator is IN
-----------------------------------------------
-Q.. Which operator returns TRUE if the comparison is true for at least one value returned by subquery?
-A) ALL
-B) ANY/SOME
-C) EXISTS
-D) IN
-==> B) ANY/SOME
-----------------------------------------------
-Q.. Which operator returns TRUE only if the comparison is true for all values returned by subquery?
-A) ALL
-B) ANY/SOME
-C) EXISTS
-D) IN
-==> A) ALL
-----------------------------------------------
-Q.. Which subquery type can return multiple columns?
-A) Inline view
-B) Multi-column subquery
-C) Single-row subquery
-D) EXISTS subquery
-==> B) Multi-column subquery
-----------------------------------------------
-Q.. What is the main advantage of using subqueries over joins?
-A) Always faster
-B) Always easier to optimize
-C) Easier to write and understand for filtering with aggregates
-D) Required in every query
-==> C) Easier to write and understand for filtering with aggregates
-----------------------------------------------
-Q.. In a correlated subquery, the inner query:
-A) Runs once before outer query
-B) Runs once for each row in the outer query
-C) Runs only if outer query fails
-D) Runs after the outer query completes
-==> B) Runs once for each row in the outer query
-----------------------------------------------
-Q.. What is the difference between IN and EXISTS in subqueries?
-A) IN checks for values; EXISTS checks for existence of rows
-B) IN is faster always; EXISTS is slower always
-C) Both are same internally
-D) EXISTS cannot be used in Oracle
-==> A) IN checks for values; EXISTS checks for existence of rows
-----------------------------------------------
-Q.. Which of the following is true for inline views?
-A) They are temporary views defined in FROM clause
-B) They can be used like a table in joins
-C) They vanish once query execution is complete
-D) All of the above
-→ **D) All of the above**
-----------------------------------------------
-**19. Which type of subquery is used in this query?
-SELECT ename FROM employee e WHERE EXISTS (SELECT 1 FROM dept d WHERE d.deptno = e.deptno);
-A) Inline view
-B) Multi-row subquery
-C) Correlated subquery
-D) Multi-column subquery
-→ **C) Correlated subquery**
-----------------------------------------------
-----------------------------------------------
-----------------------------------------------
-----------------------------------------------
 Q.. What is CASE EXPRESSION ?
 ==> CASE is not function it it expression 
 	it is used to add conditional logic in sql query.
@@ -3512,70 +3224,6 @@ Q.. update shift column value of employee Day=>night and night=>Day?
 Q.. Update shift value for department id 10?
 ==> update emp11 set shift=case when shift='Day' then 'night' when shift='night' then 'Day' else shift end
     where department_id=10;
-----------------------------------------------
-### **1. What is the purpose of the CASE expression in SQL?**
-
-A) To create new tables in the database
-B) To perform conditional logic and return different values based on conditions
-C) To join multiple tables together
-D) To enforce constraints on columns
-**→ B) To perform conditional logic and return different values based on conditions**
-
-----------------------------------------------
-
-### **2. Which of the following is true about the CASE expression?**
-
-A) It can only be used in the WHERE clause
-B) It is a control-of-flow structure used to repeat a query multiple times
-C) It evaluates conditions and returns values like an IF-THEN-ELSE structure
-D) It always requires an ELSE statement
-**→ C) It evaluates conditions and returns values like an IF-THEN-ELSE structure**
-
-----------------------------------------------
-
-### **3. Given this query:**
-
-```sql
-SELECT ename,  
-       CASE WHEN salary > 5000 THEN 'High'  
-            ELSE 'Low'  
-       END AS salary_category  
-FROM Employee;
-```
-
-**What will be the output for an employee with a salary of 3000?**
-A) High
-B) Low
-C) NULL
-D) Error
-**→ B) Low**
-
-----------------------------------------------
-
-### **4. Where can the CASE expression be used?**
-
-A) SELECT, WHERE, GROUP BY, ORDER BY clauses
-B) Only in SELECT clause
-C) Only inside functions
-D) It cannot be used in SQL queries
-**→ A) SELECT, WHERE, GROUP BY, ORDER BY clauses**
-
-----------------------------------------------
-
-### **5. What will this query return if no condition matches and there is no ELSE clause?**
-
-```sql
-SELECT ename,  
-       CASE WHEN salary > 10000 THEN 'High'  
-       END AS salary_category  
-FROM Employee;
-```
-
-A) It will throw an error
-B) It will return 'High' for all rows
-C) It will return NULL for rows where the condition is not met
-D) It will skip rows where the condition is not met
-**→ C) It will return NULL for rows where the condition is not met**
 ----------------------------------------------
 Q.. What is decode function in oracle?
 ==> Decode is predefined function in oracle.
@@ -3693,96 +3341,6 @@ Q.. What is difference between Rollup and Cube?
 	  Cube generate subtotal and grant total for all possible combination 
 	- In Rollup for given N column there N+1 combinations where as 
 	  In Cube for given N column there N^2 combinations 
-----------------------------------------------
-### **1. What does the ROLLUP operator do in Oracle SQL?**
-A) Calculates subtotals for all possible combinations of columns
-**B) Calculates hierarchical subtotals from leftmost column to rightmost ✅**
-C) Sorts the data in ascending order
-D) Eliminates duplicate rows
-----------------------------------------------
-### **2. Which of the following statements is true? (Given GROUP BY ROLLUP(dept,job))**
-A) You get subtotals for each dept and each job separately
-B) You get only the grand total
-**C) You get subtotal for each dept and the grand total ✅**
-D) You get all combinations of dept and job
-----------------------------------------------
-### **3. How do you identify subtotal or grand total rows in a ROLLUP query?**
-A) Using the SUM() function
-**B) Using the GROUPING() function ✅**
-C) Using DISTINCT keyword
-D) Using ORDER BY clause
-----------------------------------------------
-### **4. What will the following query return?**
-```sql
-SELECT dept, job, SUM(salary)
-FROM Employee_Test
-GROUP BY ROLLUP(dept, job);
-```
-A) Only total salary for each department
-B) Salary for each employee
-**C) Salary by dept, salary by dept+job, and grand total ✅**
-D) All possible combinations of dept and job with subtotals
-----------------------------------------------
-### **5. Difference between ROLLUP and CUBE is:**
-A) ROLLUP generates all possible subtotals; CUBE generates hierarchical subtotals
-**B) ROLLUP generates hierarchical subtotals; CUBE generates all possible subtotals ✅**
-C) Both are the same
-D) ROLLUP cannot be used with aggregate functions
-----------------------------------------------
-### **6. What is the purpose of the CUBE operator in SQL?**
-A) It computes only grand totals
-B) It creates hierarchical subtotals
-**C) It generates all possible combinations of subtotals and totals for specified columns ✅**
-D) It filters out NULL values from the result
-----------------------------------------------
-### **7. For GROUP BY CUBE(dept, job), how many grouping sets will be generated?**
-A) 2
-B) 3
-C) 4
-**D) 4 ✅**
-----------------------------------------------
-### **8. What is the difference between ROLLUP(dept, job) and CUBE(dept, job)?**
-A) ROLLUP generates all combinations, CUBE generates only hierarchical subtotals
-**B) ROLLUP generates hierarchical subtotals, CUBE generates all combinations of grouping columns ✅**
-C) There is no difference
-D) CUBE can only be used with numeric columns
-----------------------------------------------
-### **9. Given the following query:**
-```sql
-SELECT dept, job, SUM(salary)
-FROM Employee_Test
-GROUP BY CUBE(dept, job);
-```
-**Which of the following rows will not appear?**
-A) Grouped by both dept and job
-B) Grouped by dept only
-C) Grouped by job only
-D) Grouped by neither dept nor job (grand total)
-**-> All are correct ✅**
-----------------------------------------------
-### **10. You can use the GROUPING() function with CUBE to:**
-A) Identify rows that are duplicates
-**B) Distinguish between detail rows and subtotal/grand total rows ✅**
-C) Sort the output in ascending order
-D) Create indexes automatically
-----------------------------------------------
-### **11. For GROUP BY CUBE(dept, job, location), how many grouping sets will be created?**
-A) 3
-B) 6
-C) 7
-**D) 8 ✅**
-----------------------------------------------
-### **12. Which use case best fits the use of CUBE?**
-A) Generating simple totals by one column
-B) **Producing multidimensional reports across several attributes ✅**
-C) Filtering results based on specific conditions
-D) Encrypting sensitive data
-----------------------------------------------
-### **13. Which statement is true when you use CUBE?**
-A) It only works with numeric columns
-B) It automatically sorts data in ascending order
-**C) It calculates aggregate values at all levels of specified columns ✅**
-D) It removes all rows with NULL values
 ----------------------------------------------
 Q.. What is analytical function?
 ==> - The function which perform calculation across the set of rows related to current rows 
@@ -3963,40 +3521,6 @@ Q.. What is mean by Transaction?
 	- To maintain data integrity,RDBMS ensure that each transaction should follow the ACID Properties 
 	- Integrity means data is correct,valid and reliable
 ----------------------------------------------
-Q.. ACID Properties?
-==> ACID stand for 
-	A=> Atomicity
-	C=> Consistency
-	I=> Isolation 
-	D=> Durability
-----------------------------------------------
-Q.. What is Atomicity?
-==> Atomicity means all or nothing 
-	- Either all operation within transaction are successfully completed 
-	  and committed to the database or none of them are.If anyone operation fails then 
-	  entire transaction is rolled back and data is restored to its original state.
-	- To achive this Oracle uses Rollback,Savepoint,commit.
-	- Example:
-		sending money online : Either money is deducted from your account and added to the receiver's 
-		account or whole transaction is fails - no in between 
-----------------------------------------------
-Q.. What is consistency?
-==> Consistency means database must be consistent state before and after the transaction.
-	- To achieve this oracle use PK,FK,Triggers
-	- If a transaction voilet database rule or constraints,it should be rejected,ensuring that 
-	  consistent data exists after the transaction.
-	- Example: You can't transfer money more than you have.
-----------------------------------------------
-Q.. What is Isolation?
-==> Multiple transaction can run at the same time without affecting each other's result 
-	- oracle uses lock and isolation levels to to isolate the transaction.
-	- Oracle feature used: isolation levels (read committed)
-----------------------------------------------
-Q.. What is Durability?
-==> Once a transaction is committed the changes are permanent-even if there is system crash or power failure.
-	- Once you send a message and see "delivered" , it say delivered even if your phone dies 
-	- Oracle feature used : Redo logs,flashback,Datafiles
-----------------------------------------------
 Q.. How to check oracle version?
 ==> select * from v$version;
 ----------------------------------------------
@@ -4167,7 +3691,7 @@ Q.. What is Query Optimization or Performance tunning?
 		
 	5. use where clause instead of having 
 		
-	6. try to retrive limited data an use condition properly.
+	6. try to retrive limited data and use condition properly.
 	
 	7. avoid using function at right hand side of operator
 		- where UPPER(name)='JOHN' => don't use.

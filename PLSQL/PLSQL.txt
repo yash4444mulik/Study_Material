@@ -1,6 +1,10 @@
 ============== PLSQL =================
 
-
+Q.. What is PL/SQL?
+==> - PL/SQL is oracle's procedural extension of SQL.
+	- It is combination of SQL commands and programming features such as 
+		variable,loop,condition,cursors,triggers,procedures,function and exception handling.
+----------------------------------------
 Q.. What is Trigger?
 ==> Trigger is stored procedure in Oracle that automatically executed or fired
 	when a specific event occur on a table,view or database.
@@ -8,7 +12,7 @@ Q.. What is Trigger?
 Q.. What is mean by stored procedure?
 ==> - When we execute SQL query then internally 
       SQL query get Parsed=>Compiled=>Executed
-	- IF we execute same query multiple time then every time 
+	- If we execute same query multiple time then every time 
 	  query get Parsed,Compiled and executed.
 	- Stored procedure means A precompiled and stored SQL program inside the database
 	  can be executed repeatedly.
@@ -4291,7 +4295,7 @@ Q.. write a procedure which accept salary and return employee details like empid
 	EXIT when v_cursor%NOTFOUND;
 	dbms_output.put_line(v_empno||' '||v_empname||' '||v_salary);
 	end loop;
-	END;	
+	END;
 ------------------------------------------------
 Q.. What happen when we fetch a cursor?
 ==> retrive one row from cursor and store into local variable.
@@ -4804,4 +4808,6 @@ Q.. can we call procedure inside select statement?
 Q.. Why proceudre cannot be called inside select?
 ==> procedure does not return value but select requires a return value.
 ------------------------------------------------
+Q.. How to call procedure if package is in another schema?
+==> schema_name.package_name.procedure_name
 ------------------------------------------------

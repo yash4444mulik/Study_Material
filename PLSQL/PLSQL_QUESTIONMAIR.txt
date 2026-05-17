@@ -1,3 +1,4 @@
+Q.. What is PL/SQL?
 Q.. What is Trigger?
 Q.. What is Stored Procedure?
 Q.. What is use of Trigger?
