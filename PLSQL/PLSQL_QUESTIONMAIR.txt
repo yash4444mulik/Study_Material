@@ -4,21 +4,69 @@ Q.. What is Stored Procedure?
 Q.. What is use of Trigger?
 Q.. Types of Trigger?
 Q.. What are the Event type Trigger?
-Q.. What are the Timing based trigger?
-Q.. What are the Scope based trigger?
-Q.. What is Instead of trigger?
-Q.. What is Compound trigger?
-Q.. What is syntax of DML trigger?
-Q.. Which statements are allowed in trigger body?
+Q.. What is DDL Trigger?
+Q.. Types of DDL Trigger?
+Q.. What are build in variable in Trigger?
+Q.. Where DDL triggers are used?
+Q.. What DDL triggers cannot do?
+Q.. Can DDL triggers be row-level?
+Q.. Can we use :NEW and :OLD in DDL triggers?
+Q.. Can we COMMIT or ROLLBACK inside a DDL trigger?
+Q.. Can a DDL trigger fire on GRANT or REVOKE?
+Q.. What happens if a DDL trigger fails?
+Q.. Write trigger to prevent Drop of tables?
+Q.. Write database-level trigger to prevent specific table from dropping?
+Q.. Suppose we have defined DDL trigger which prevent dropping of tables,but
+	want to drop table from database,how will you drop?
+Q.. Write Trigger to log all DDL Changes?
+Q.. Schema level DDL Trigger:Control Changes in specific schema?
+Q.. when we create a schema-level DDL trigger to restrict DDL operations but you can still 
+	create a table in same schema,why?
+Q.. When does a schema-level DDL trigger fire?
+Q.. Why schema-level DDL trigger is bypassed?
+Q.. How to restrict DDL operation using trigger?
+Q.. What is database trigger?
+Q.. What are Database Event?
+Q.. Can we use 'BEFORE' in the databse event triggers?
+Q.. create trigger for login/logout audit?
+Q.. How will you prevent users from logging in during maintenance activity?
+Q.. How can you audit who dropped a table in the database?
+Q.. Suppose a user creates tables frequently in production. How will you monitor it?
+Q.. What is DML Trigger?
+Q.. Which statement are allowed in trigger body?
 Q.. Which statements are not allowed in trigger body?
-Q.. Can we write (commit,rollback,savepoint) in trigger body?
+Q.. Consider Employee table when a row is inserted into Employee table 
+	then insert a record into audit_log table.?
+Q.. Can we write TCL(COMMIT,ROLLBACK,SAVEPOINT) statement in trigger body?
 Q.. If trigger body insert data into table,how will that data get committed if
 	COMMIT is not allowed in Trigger?
 Q.. If trigger body is performing DML operation,how will that data get committed 
 	if COMMIT is not allowed in Tigger?
+Q.. What are the Scope based trigger?
+Q.. What is instead of Trigger?
+Q.. Can we insert INSTEAD of trigger on table?
+Q.. Can we use before after in INSTEAD of trigger?
+Q.. Can one INSERT INTO STATEMENT insert data into two tables?
+Q.. DELETE Operation with instead of trigger?
+Q.. sometime delete operation is allowed in complex view but sometime delete operations are not 
+	not allowed on complex view,why?
+Q.. In which case delete operation is allowed on complex view and in which use case delete 
+	operation is not allowed on complex view?
+Q.. Can we delete data from multiple base table on single delete operation?
+Q.. What is Compound trigger?
+Q.. How to enable or disable triggers?
+Q.. How to drop trigger?
+Q.. If trigger are available on table,can we drop table?
+Q.. If table dropped then what happens with triggers,triggers also dropped or persist in the database?
+Q.. What is advantages of Trigger?	
+Q.. What is disadvantage of Trigger?
+Q.. When should go with Trigger or Constraint?
 Q.. What is RAISE_APPLICATION_ERROR in oracle?
+Q.. What happen if we use error number is out of range in RAISE_APPLICATION_ERROR?
+Q.. What happen if we use predefined error code in RAISE_APPLICATION_ERROR?
 Q.. What is PL/SQL block?
 Q.. Types of PL/SQL block?
+Q.. What is the purpose of / in PL/SQL?
 Q.. Nesting of PL/SQL block?
 Q.. What is mean by variable?
 Q.. Where do we declare variable?
@@ -47,4 +95,105 @@ Q.. What is NVARCHAR2 data type?
 Q.. What is difference between CHAR and NCHAR?
 Q.. What is mean by database character set?
 Q.. What is mean by National character set?
-
+Q.. What is difference between VARCHAR2 and NVARCHAR2?
+Q.. Performance wise Order (Fast to slow) & Why?
+		1. PLS_Integer
+		2. Binary_Float
+		3. Binary_Double
+		4. Number
+Q.. COMPOSITE data type?
+Q.. REFERENCE data type?
+Q.. LOB(Large Object) Data types?
+Q.. Date data type?
+Q.. TIMESTAMP data type?
+Q.. TIMESTAMP WITH TIME ZONE?
+Q.. TIMESTAMP WITH LOCAL TIME ZONE?
+Q.. INTERVAL YEAR TO MONTH
+Q.. INTERVAL DAY TO SECOND
+Q.. Add one day in today's date?
+Q.. Add 2 hours in today's date?
+Q.. Add 30 min in today's date?
+Q.. Add 30 second in today's date?
+Q.. Add 2 days in today's date using INTERVAL?
+Q.. Add 2 hours in today's date using INTERVAL?
+Q.. Add 3hours30minute in today's date?
+Q.. Add 2year6month in today's date?
+Q.. CAST function?
+Q.. TO_TIMESTAMP function?
+Q.. What is SQL%ROWCOUNT ?
+Q.. PL/SQL Anchored data types : %TYPE and %ROWTYPE?
+Q.. What is %TYPE?
+Q.. How many value %TYPE variable holds?
+Q.. Does %TYPE store multiple rows or values?
+Q.. What does %TYPE do?
+Q.. What is %ROWTYPE?
+Q.. What is Substitution variable?
+Q.. What is difference between '&variable_name' and '&&variable_name'?
+Q.. What is CONSTANT Variable?
+Q.. NOT NULL is constraint in PLSQL?
+Q.. If we don't initilize variable then what is its default value?
+Q.. What happen if we declare variable twice in same block?
+Q.. Can we access outer block variable inside inner block?
+Q.. Can we access Inner block variable inside outer block?
+Q.. When is a variable created in PL/SQL?
+Q.. When is a variable destroyed in PL/SQL?
+Q.. What is Conditional statement in PL/SQL?
+Q.. Case expression?
+Q.. What is Simple Case expression?
+Q.. What is Searched Case?
+Q.. Write PL/SQL code to print Day name from Day number?
+Q.. Write PL/SQL code to print salary grade based on salary value?
+Q.. Write PL/SQL block to check voting Eligibility?
+Q.. Write PL/SQL block to check number is Even or ODD?
+Q.. Write PL/SQL block to grade student based on Mark?
+Q.. Difference between Simple case and Searched case?
+Q.. What is mean by short circuit evalution?
+Q.. Why short circuit important?
+Q.. What is mean by EXCEPTION?
+Q.. What is mean by Exception handling?
+Q.. Why exception handling required?
+Q.. How to handle exception in PL/SQL?
+Q.. Types of Exception?
+Q.. Predefined Exceptions:
+Q.. Non-Predefined exception?
+Q.. How to handle Non-Predefined exception?
+Q.. What is PRAGMA EXCEPTION_INIT?
+Q.. When to use PRAGMA EXCEPTION_INIT?
+Q.. How does PRAGMA EXCEPTION_INIT work?give an example?
+Q.. difference between predefined and non-predefined exception?
+Q.. when to use WHEN OTHERS?
+Q.. When to use PRAGMA EXCEPTION_INIT?
+Q.. What is user defined exception?
+Q.. What is RAISE ?
+Q.. What is the difference between Predefined and User-defined exception?
+Q.. what is difference between RAISE and RAISE_APPLICATION_ERROR?
+Q.. How do we retrive the error number for an exception?
+Q.. How do we retrive the error number and error message for an exception?
+Q.. Can we re-raise exception?
+Q.. What happen if WHEN OTHERS is not the last exception handler?
+Q.. What is difference between SQLCODE and SQLERRM?
+Q.. How to handle exception in PL/SQL?
+Q.. What is difference betwen compilation error,runtime error and exception?
+Q.. Give commanly used predefined exception?
+Q.. Can we handle multiple exception in single exception block?
+Q.. How do you handle non-predefined execption?
+Q.. Can we RAISE exception manually?
+Q.. What is SQLCODE in PL/SQL?
+Q.. What is SQLERRM?
+Q.. What is Mutating table?
+Q.. What is PRAGMA AUTONOMOUS_TRANSACTION?
+Q.. When to use PRAGMA AUTONOMOUS_TRANSACTION?
+Q.. Where not to use PRAGMA AUTONOMOUS_TRANSACTION?
+Q.. What is procedure in PL/SQL?
+Q.. Write a procedure to accept empid from user and print emp name on console?
+Q.. Write a procedure which take emp_id from user and return his/her name.
+Q.. Write a procedure which accept empid and display his/her salary on console?
+Q.. write a procedure which accept empid and return status of employee(exist or not)?
+Q.. write a procedure which accept empid and return name,salary,dept_id?
+Q.. write a procedure which accept emp_id and return his/her name,salary,dept_id?	
+Q.. Write a procedure which accept emp_id and return increase salary by 10%?
+Q.. Write a procedure which accpet emp_id,salary and return salary status(max or not)?
+Q.. Write a procedure which accept emp_id,salary and return salary status(max or not)?
+Q.. Which DML operations are allowed in Procedure?
+Q.. Are DDL statements allowed in a PROCEDURE?
+Q.. Are DCL statements allowed in a PROCEDURE?

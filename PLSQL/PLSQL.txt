@@ -1,5 +1,3 @@
-============== PLSQL =================
-
 Q.. What is PL/SQL?
 ==> - PL/SQL is oracle's procedural extension of SQL.
 	- It is combination of SQL commands and programming features such as 
@@ -75,13 +73,13 @@ Q.. What is DDL Trigger?
 	-> There are two types of DDL triggers 
 		1. Schema level
 		2. Database level 
--------------------------------------------
-Q.. What privileges are required to create a DDL trigger?
-==> -> For Schema-level-> Create TRIGGER privilege is required
+	
+	What privileges are required to create a DDL trigger?
+	-> For Schema-level-> Create TRIGGER privilege is required
 	-> For database level -> ADMINISTER DATABASE TRIGGER privilege is required.
-----------------------------------------
-Q.. Syntax to create DDL Trigger?
-==> This syntax is applicable for both schema level and database level 
+	
+	Syntax to create DDL Trigger?
+	This syntax is applicable for both schema level and database level 
 	Syntax: 
 		CREATE OR REPLACE TRIGGER trigger_name 
 		{BEFORE|AFTER} ddl_event
@@ -135,7 +133,7 @@ Q.. Syntax to create DDL Trigger?
 		-> No INSTEAD OF for DDL triggers 
 		-> INSTEAD OF is applicable only for views 
 ----------------------------------------
-Q.. What built-in variables are used in DDL triggers?
+Q.. What are built-in variables are used in DDL triggers?
 ==> Common Oracle built-in variables:
 	1. ORA_SYSEVENT
 	-> ORA_SYSEVENT stand for Oracle system events 
@@ -160,12 +158,13 @@ Q.. What built-in variables are used in DDL triggers?
 		
 	6. SESSION_USER
 	-> SESSION_USER returns the username that logged into the database.
+		Syntax: SYS_CONTEXT('USERENV','SESSION_USER')
 ----------------------------------------
 Q.. Where DDL Triggers are used?
 ==> DDL triggers are mainly used for 
 	1. Auditing schema changes 
 	2. Preventing unauthorized object changes 
-	3. Logging who changed what and when 
+	3. Which user logged in,When user logged and what they changed
 	4. Enforcing standards(naming,tablespace,etc.)
 ----------------------------------------
 Q.. What DDL triggers cannot do?
@@ -211,9 +210,9 @@ Q.. Write database-level trigger to prevent specific table from dropping?
 ----------------------------------------
 Q.. Suppose we have defined DDL trigger which prevent dropping of tables,but
 	want to drop table from database,how will you drop?
-==> -> First disable trigger
+==> -> First disable trigger (alter trigger drop_table_emp11 disable)
 	-> Drop table 
-	-> Enable trigger.
+	-> Enable trigger (alter trigger drop_table_emp11 enable)
 ----------------------------------------
 Q.. Write Trigger to log all DDL Changes?
 ==> first create table to store log 
@@ -245,17 +244,11 @@ Q.. Schema level DDL Trigger:Control Changes in specific schema?
 ----------------------------------------
 Q.. when we create a schema-level DDL trigger to restrict DDL operations but you can still 
 	create a table in same schema,why?
-==> Reason: if a user execute DDL inside their own schema,schema-level DDL 
-	trigger will NOT fire.
-----------------------------------------
-Q.. Why trigger is not fired?
-==> The schema owner alreday has control over thier own objects 
-	blocking the owner via schema trigger could: 
-	1. Break internal opeartions
-	2. Cause recursive DDL issues 
-	3. Lock the schema permanently 
-	so oracle says:
-	"If you own it,you can change it"
+==> Reason: 
+		1. it may be due to disabled trigger status
+		2. incorrect trigger logic
+		3. powerful privileges such as DBA/system privileges that can bypass the restriction
+		4. need to check with exception handling
 ----------------------------------------
 Q.. When does a schema-level DDL trigger fire?
 ==> Schema-level trigger fires when another user is trying to 
@@ -274,27 +267,12 @@ Q.. Why schema-level DDL trigger is bypassed?
 ----------------------------------------
 Q.. How to restrict DDL operation using trigger?
 ==> Way first: USE DATABASE-level DDL trigger 
-	CREATE OR REPLACE TRIGGER block_create_table
-	BEFORE CREATE ON DATABASE 
+	CREATE OR REPLACE TRIGGER block_ddl_operations
+	BEFORE DDL CREATE ON DATABASE 
 	BEGIN 
-		IF ORA_DICT_OBJ_TYPE='TABLE' THEN 
-		RAISE_APPLICATION_ERROR(-20001,'Table creation is restricted');
-		END IF;
+		RAISE_APPLICATION_ERROR(-20001,'Table creation is restricted due to trigger block_create_table');
 	END;
 	/
-	
-	Way second: In trigger body apply the logic based on system event 
-	CREATE OR REPLACE TRIGGER schema_ddl_tgr
-	BEFORE CREATE OR ALTER OR DROP ON SCHEMA
-	BEGIN
-		IF ORA_SYSEVENT IN('CREATE','ALTER','DROP') THEN
-		RAISE_APPLICATION_ERROR(-20001,'DDL opeartion create not allowed');
-		END IF;
-	END;
-	/
-	
-	Way third :use privilege instead of triggers
-	REVOKE CREATE TABLE FROM rrdtnp;
 ----------------------------------------
 Q.. Database Events Triggers.
 ==> - The trigger which is fired on databases event are called database event triggers.
@@ -302,7 +280,7 @@ Q.. Database Events Triggers.
 	- Database Event triggers are used to monitor,control or audit database activities.
 ----------------------------------------
 Q.. What are Database Event?
-==> Database events are actions that affect the entire database
+===> Database events are actions that affect the entire database
 	such as: 
 	1. LOGON:Fires when user login
 	2. LOGOFF:Fires when user logout
@@ -329,42 +307,126 @@ Q.. Can we use 'BEFORE' in the databse event triggers?
 	Database events triggers are always statement-level triggers 
 	they cannot be row level 
 ----------------------------------------
-Q.. create trigger for login audit?
+Q.. create trigger for login/logout audit?
 ==> Step 1: Create login_audit table
-		CREATE TABLE login_audit(username varchar(50),login_time date,host varchar(100));
+		CREATE TABLE emp12(username varchar(50),login_time date,activity varchar(100));
 		
 	step 2: create trigger 
-		CREATE OR REPLACE TRIGGER login_audit_trigger
-		AFTER db_event ON DATABASE 
-		DECLARE 
-			PRAGMA AUTONOMOUS_TRANSACTION
+		CREATE OR REPLACE TRIGGER logoff_audit
+		BEFORE LOGON ON DATABASE
+		DECLARE
+		   PRAGMA AUTONOMOUS_TRANSACTION;
 		BEGIN
-		 insert into login_audit(username,login_time,host)
-		 values(SYS_CONTEXT('USERENV','SESSION_USER'),sysdate,SYS_CONTEXT('USERENV','HOST'));
-		 commit;
+		   INSERT INTO emp12
+		   VALUES (
+			  SYS_CONTEXT('USERENV','SESSION_USER'),
+			  SYSDATE,
+			  'LOGOFF');
+		   COMMIT;
+		END;
+		/
+		
+	step 3: create trigger for logoff 
+		CREATE OR REPLACE TRIGGER logoff_audit
+		BEFORE LOGOFF ON DATABASE
+		DECLARE
+		   PRAGMA AUTONOMOUS_TRANSACTION;
+		BEGIN
+		   INSERT INTO emp12
+		   VALUES (
+			  SYS_CONTEXT('USERENV','SESSION_USER'),
+			  SYSDATE,
+			  'LOGOFF'
+		   );
+		   COMMIT;
 		END;
 		/
 	
-	Note: PRAGMA AUTONOMOUS_TRANSACTION is required for login/logoff if inserting data.
-	if we don't specify PRAGMA AUTONOMOUS_TRANSACTION then we don't get any exception 
-	trigger successfully created but data will not be commited.
+	Note: when we use upper syntax and logged in using another user than created trigger user then 
+		log is not printed so to avoid this need to use syntax is INSERT INTO SYSTEM.login_audit
+			step 2: create trigger 
+			CREATE OR REPLACE TRIGGER logoff_audit
+			BEFORE LOGON ON DATABASE
+			DECLARE
+			   PRAGMA AUTONOMOUS_TRANSACTION;
+			BEGIN
+			   INSERT INTO system.emp12
+			   VALUES (
+				  SYS_CONTEXT('USERENV','SESSION_USER'),
+				  SYSDATE,
+				  'LOGOFF');
+			   COMMIT;
+			END;
+			/
+			
+			step 3: 
+			CREATE OR REPLACE TRIGGER logoff_audit
+			BEFORE LOGOFF ON DATABASE
+			DECLARE
+			   PRAGMA AUTONOMOUS_TRANSACTION;
+			BEGIN
+			   INSERT INTO system.emp12
+			   VALUES (
+				  SYS_CONTEXT('USERENV','SESSION_USER'),
+				  SYSDATE,
+				  'LOGOFF'
+			   );
+			   COMMIT;
+			END;
+			/
 ----------------------------------------
-Q.. Syntax of DML Trigger?
-==> CREATE [OR REPLACE] TRIGGER Trigger_name 
-	{BEFORE | AFTER}
-	{INSERT | UPDATE [OF clm1,clm3...N] | DELETE }
-	ON table_name_or_view_name 
-	[FOR EACH ROW]
-	[WHEN (condition)]
-	DECLARE 
-		-- optional : variable declartion
+Q.. How will you prevent users from logging in during maintenance activity?
+==>	CREATE OR REPLACE TRIGGER trg_login_prevent
+	AFTER LOGON ON DATABASE
 	BEGIN
-		-- trigger logic 
-	EXCEPTION
-		-- optional: error handling 
+	IF USER NOT IN ('SYS','SYSTEM') THEN
+	RAISE_APPLICATION_ERROR(
+	-20002,
+	'Due to maintenance activity, login is restricted,maintenance_activity_login_prevent'
+	);
+	END IF;
 	END;
 	/
+----------------------------------------
+Q.. How can you audit who dropped a table in the database?
+==> CREATE OR REPLACE TRIGGER table_drop_audit
+	AFTER DROP ON DATABASE
+	DECLARE
+		PRAGMA AUTONOMOUS_TRANSACTION;
+	BEGIN
+	INSERT INTO EMP11 VALUES(SYS_CONTEXT('USERENV','SESSION_USER'),ORA_DICT_OBJ_TYPE,ORA_DICT_OBJ_NAME,ORA_SYSEVENT,SYSDATE);
+	COMMIT;
+	END;
+----------------------------------------
+Q.. Suppose a user creates tables frequently in production. How will you monitor it?
+==> CREATE OR REPLACE TRIGGER table_drop_audit
+	AFTER CREATE ON DATABASE
+	DECLARE
+		PRAGMA AUTONOMOUS_TRANSACTION;
+	BEGIN
+		INSERT INTO EMP11 VALUES(SYS_CONTEXT('USERENV','SESSION_USER'),ORA_DICT_OBJ_TYPE,ORA_DICT_OBJ_NAME,ORA_SYSEVENT,SYSDATE);
+		COMMIT;
+	END;
+----------------------------------------
+Q.. What is DML Trigger?
+==> The trigger which fired on DML operation is called DML Trigger 
+	DML operations are INSERT,UPDATE,DELETE.
 	
+	Syntax of DML Trigger?
+		CREATE [OR REPLACE] TRIGGER Trigger_name 
+		{BEFORE | AFTER}
+		{INSERT | UPDATE [OF clm1,clm3...N] | DELETE }
+		ON table_name_or_view_name 
+		[FOR EACH ROW]
+		[WHEN (condition)]
+		DECLARE 
+			-- optional : variable declartion
+		BEGIN
+			-- trigger logic 
+		EXCEPTION
+			-- optional: error handling 
+		END;
+		/
 	
 	here 
 		The portion mentioned in [] is optional part 
@@ -427,6 +489,147 @@ Q.. If trigger body is performing DML operation,how will that data get committed
 	if COMMIT is not allowed in Tigger?
 ==> The COMMIT operation is done by the session that fired the trigger not by trigger itself			
 ------------------------------------
+Q.. What is instead of Trigger?
+==> An Instead of trigger is trigger which get executes instead of actual DML operations.
+	- if we have created complext view then if we try to insert data into it then we will get an error 
+	  so to avoid this issue we can use instead of trigger.
+	
+	Syntax: 
+		CREATE OR REPLACE TRIGGER Trigger_name
+		INSTEAD OF INSERT/UPDATE/DELETE ON complex_view_name
+		FOR EACH ROW 
+		BEGIN
+		 insert into table_name values(clm1,clm2,clm3,...N);		
+		END;
+		/
+		
+	Example: 
+	create table dept11(deptid number primary key,deptname varchar(90))
+	insert into dept11 values(201,'IT')
+	insert into dept11 values(202,'HR')
+
+	create table emp11(empid number,empname varchar(90),salary number,designation varchar(90),dept_id number references dept11(deptid))
+	insert into emp11(empid,empname,salary,designation,dept_id) values(101,'Peter',47000,'Manager',null);
+	insert into emp11(empid,empname,salary,designation,dept_id) values(102,'Robin',45000,'Manager',201);
+	insert into emp11(empid,empname,salary,designation,dept_id) values(103,'Kalis',45000,'Dev',202);
+
+	create or replace view c_view as select deptname,empid,empname,salary from dept11 d inner join 
+	emp11 e on d.deptid=e.dept_id;
+	
+	WHEN WE TRY INSERT DATA INTO c_view THEN WE WILL GET AN ERROR 
+	insert into c_view(deptname,empid,empname,salary) values('Mech',104,'Yash',45000)
+	==> ORA-01779: cannot modify a column which maps to a non key-preserved table
+	
+	SO TO OVERCOME THIS PROBLEM WE HAVE INSTEAD OF TRIGGER.
+		create or replace trigger c_view_tgr
+		instead of insert on c_view
+		for each row
+		begin
+		insert into emp11(empid,empname,salary,dept_id) values(:NEW.empid,:NEW.empname,:NEW.salary,
+		(select deptid from dept11 where deptname=:NEW.deptname));
+		end;
+		/
+		
+	E.g
+	create or replace view cc_view as select deptid,deptname,empid,empname,salary from dept11 d join emp11 e on d.deptid=e.dept_id
+
+	insert into cc_view values(203,'Admin',105,'yashh',47000)
+	We will get an error 
+	
+	CREATE INSTEAD TRIGGER  
+	create or replace trigger cc_view_tgr
+	instead of insert on cc_view
+	begin
+	insert into dept11(deptid,deptname) values(:NEW.deptid,:NEW.deptname);
+	insert into emp11(empid,empname,salary) values(:NEW.empid,:NEW.empname,:NEW.salary);
+	end;
+	/
+------------------------------------
+Q.. Can we insert INSTEAD of trigger on table?
+==> NO
+------------------------------------
+Q.. Can we use before after in INSTEAD of trigger?
+==> NO 
+------------------------------------
+Q.. Can one INSERT INTO STATEMENT insert data into two tables?
+==> YES 
+------------------------------------
+Q.. DELETE Operation with instead of trigger?
+==> Delete on complex view is not allowed directly we can use INSTEAD OF Trigger to delete 
+	complex view.INSTEAD OF Trigger defines how deletion should be performed on underlying base tables 
+	
+	Example: 
+	create table dept11(deptid number primary key,deptname varchar(90))
+	insert into dept11 values(201,'IT')
+	insert into dept11 values(202,'HR')
+
+	create table emp11(empid number,empname varchar(90),salary number,designation varchar(90),dept_id number references dept11(deptid))
+	insert into emp11(empid,empname,salary,designation,dept_id) values(101,'Peter',47000,'Manager',null);
+	insert into emp11(empid,empname,salary,designation,dept_id) values(102,'Robin',45000,'Manager',201);
+	insert into emp11(empid,empname,salary,designation,dept_id) values(103,'Kalis',45000,'Dev',202);
+
+	Trigger: 
+	create or replace trigger d_view_tgr
+	instead of delete on d_view
+	begin
+	delete from emp11 where salary=(select max(salary) from emp11 where designation=:NEW.designation);
+	end;
+------------------------------------
+Q.. sometime delete operation is allowed in complex view but sometime delete operations are not 
+	not allowed on complex view,why?
+Q.. In which case delete operation is allowed on complex view and in which use case delete 
+	operation is not allowed on complex view?
+==> Case 1: DELETE OPERATION IS NOT ALLOWED
+	- if view defination contains group functions,distinct clause,order by clause
+		or deletion affect multiple base tables then direct DELETE operation is not 
+		allowed on that view. In that case solution is Instead of Trigger.
+	
+	Case 2: DELETE OPERATION IS ALLOWED
+	- View is based on multiple tables but only one table is actually updatable and 
+		no ambiguity in row mapping delete operation is allowd on that view 
+------------------------------------
+Q.. Can we delete data from multiple base table on single delete operation?
+==> Yes,using INSTEAD OF trigger.
+------------------------------------
+Q.. How to enable or disable triggers?
+==> - bydefault triggers are enabled 
+	- we can enable or disable triggers 
+	- Syntax to DISABLE perticular trigger 
+		alter trigger trigger_name disable
+	- Syntax to enable perticular trigger	
+		alter trigger trigger_name enable 
+	- Syntax to disable all triggers
+		alter trigger disable all triggers
+	- Syntax to enble all triggers 
+		alter trigger enable all triggers 
+------------------------------------
+Q.. How to drop trigger?
+==> drop trigger trigger_name
+------------------------------------
+Q.. If trigger are available on table,can we drop table?
+==> Yes we can drop table.
+------------------------------------
+Q.. If table dropped then what happens with triggers,triggers also dropped or persist in the database?
+==> When a table is dropped,all triggers defined on the table are automatically dropped by oracle engine.
+------------------------------------
+Q.. What is advantages of Trigger?
+==> - Automate business rule
+	- Enforce data integrity
+	- Maintain audit history
+	- Reduce code in application layer 
+	- Automatic logging & validation
+------------------------------------
+Q.. What is disadvantage of Trigger?
+==> - Hard to debug 
+	- Hidden login inside database
+	- Can cause performance issues if not written properly 
+	- Risk of mutating table errors
+	- Can create circular trigger dependancies 
+------------------------------------
+Q.. When should go with Trigger or Constraint?
+==> Constraint => data integrity
+	Trigger => Complex business logic 
+------------------------------------
 Q.. What is RAISE_APPLICATION_ERROR in oracle?
 ==> - RAISE_APPLICATION_ERROR is build in procedure
 	- it is used to generate custom error message in PLSQL
@@ -434,7 +637,7 @@ Q.. What is RAISE_APPLICATION_ERROR in oracle?
 	- This is useful when you want to enforce business rule or 
 	  inform users of specific problem 
 	- Syntax:
-		RAISE_APPLICATION_ERROR(error_number,message [,{true | false}]);
+		RAISE_APPLICATION_ERROR(error_number,message,{true | false});
 	- It accept 3 input arguments first input argument is error number,
 	  second input argument is error message,third argument is True or False value.
 	
@@ -848,51 +1051,6 @@ Q.. LOB(Large Object) Data types?
 	3. NCLOB(National Character Large Object)
 	4. BFILE(Binary File stored outside database(OS File))
 ------------------------------------
-Q.. What is Conditional statement in PL/SQL?
-==> We have 2 type of conditional statements
-	1. If statement
-	2. Case expression
-	- Case expression is used in SQL and PL/SQL but If statement is used only in PL/SQL
-	- We can't use IF statement in SQL.
-------------------------------------
-Q.. IF statement?
-==> - IF statement has 3 form 
-	1. IF...THEN 
-		IF condition THEN 
-		statement1;
-		statement2;
-		.
-		.
-		statementN;
-		END IF;
-		
-	2. IF...THEN...ELSE
-		IF condition THEN
-		statement1;
-		statement2;
-		.
-		.
-		statementN;
-		ELSE
-		statement1;
-		statement2;
-		.
-		.
-		statementN;
-		END IF;
-		
-	3. IF...THEN...ELSIF...ELSE
-		IF condition THEN 
-		.
-		.
-		ELSIF
-		.
-		.
-		ELSE
-		.
-		.
-		END IF;
-------------------------------------
 Q.. Date data type?
 ==> DATE is scalar data type in PL/SQL
 	- DATE data type store data and time 
@@ -1026,9 +1184,10 @@ Q.. What is SQL%ROWCOUNT ?
 	(INSERT,UPDATE,DELETE,SELECT INTO)
 ------------------------------------
 Q.. PL/SQL Anchored data types : %TYPE and %ROWTYPE
-==> Anchored data types means declare a variable based on data type of existing table column or table row 
+==> Anchored data types means declare a variable based on 
+	data type of existing table column or table row 
 	so if the table changes,your PL/SQL code does not break.
-------------------------------------	
+------------------------------------
 Q.. What is %TYPE?
 ==>	- %TYPE is used to declare a variable with same data type as table column 
 	- %TYPE allows PL/SQL variable to inherit the data type and size of a table column 
@@ -1123,6 +1282,52 @@ Q.. When is a variable created in PL/SQL?
 ------------------------------------
 Q.. When is a variable destroyed in PL/SQL?
 ==> Ones block execution is completed then a variable destroyed from the memory.
+------------------------------------
+Q.. What is Conditional statement in PL/SQL?
+==> Conditional statement is used to apply the condition and make decision.
+	We have 2 type of conditional statements
+	1. If statement
+	2. Case expression
+	- Case expression is used in SQL and PL/SQL but If statement is used only in PL/SQL
+	- We can't use IF statement in SQL.
+	
+	IF statement?
+	- IF statement has 3 form 
+		1. IF...THEN 
+			IF condition THEN 
+			statement1;
+			statement2;
+			.
+			.
+			statementN;
+			END IF;
+			
+		2. IF...THEN...ELSE
+			IF condition THEN
+			statement1;
+			statement2;
+			.
+			.
+			statementN;
+			ELSE
+			statement1;
+			statement2;
+			.
+			.
+			statementN;
+			END IF;
+			
+		3. IF...THEN...ELSIF...ELSE
+			IF condition THEN 
+			.
+			.
+			ELSIF
+			.
+			.
+			ELSE
+			.
+			.
+			END IF;
 ------------------------------------
 Q.. Case expression?
 ==> Case expression is an alternative for multiple IF-ELSE statements.
@@ -1326,7 +1531,7 @@ Q.. How to handle Non-Predefined exception?
 			delete from department where emp_id=101;
 		EXCEPTION
 			WHEN fk_voilation THEN 
-				dbms_output.put_line('can't delete parent record ');
+				dbms_output.put_line('can not delete parent record ');
 			WHEN OTHERS THEN 
 				dbms_output.put_line('SQLERRM');
 		END;
@@ -1396,7 +1601,20 @@ Q.. What is user defined exception?
 Q.. What is RAISE ?
 ==> RAISE is PL/SQL statement.
 	- RAISE is used to explicitly raise a user defined exception
-	- RAISE cannot raise directly PREDEFINED exception like NO_DATA_FOUND.
+	- RAISE cannot raise directly PREDEFINED exception like NO_DATA_FOUND.	
+		DECLARE
+			v_age NUMBER := 15;
+			age_exception EXCEPTION;
+		BEGIN
+			IF v_age < 18 THEN
+			RAISE age_exception;
+		END IF;
+			DBMS_OUTPUT.PUT_LINE('Eligible for voting');
+		EXCEPTION
+			WHEN age_exception THEN
+			DBMS_OUTPUT.PUT_LINE('Age must be 18 or above');
+		END;
+		/
 ------------------------------------
 Q.. What is the difference between Predefined and User-defined exception?
 ==> - Predefined exception defined by oracle where as user-defined exception defined by Developer
@@ -1429,7 +1647,7 @@ Q.. Can we re-raise exception?
 				RAISE;
 ------------------------------------
 Q.. Explain the order of exception handlers.Why does it matter?
-==> - In PL/SQL there is no paren-child relationship for exception
+==> - In PL/SQL there is no parent-child relationship for exception
 	- Every exception is independent
 	- In PL/SQL exception handlers are executed from top to bottom 
 	- For generic exception we use "WHEN OTHERS",If we use WHEN OTHERS then it must be 
@@ -1455,7 +1673,7 @@ Q.. What is difference betwen compilation error,runtime error and exception?
 		1. Division by zero
 		2. Memory issues
 		
-	RUNTIME EXCEPTION: An exception is a runtime error but we can handle using exception block 
+	EXCEPTION: An exception is a runtime error but we can handle using exception block 
 		- division by zero is runtime exception we can handle 
 		- if there is memory issues being developer we can't handle 
 ------------------------------------
@@ -1480,13 +1698,6 @@ Q.. Give commanly used predefined exception?
 	14. LOGIN_DENIED
 	15. OTHERS
 ------------------------------------
-Q.. What is the purpose of WHEN OTHERS clause?
-==> it is used to catch any type of exception that is not handled by other exception handlers.
-------------------------------------
-Q.. How do you declare user defined exception?
-==> Syntax to define exception is 
-	exception_name EXCEPTION 
-------------------------------------
 Q.. Can we handle multiple exception in single exception block?
 ==> Yes we can handle multiple exception in single exception block.
 ------------------------------------
@@ -1500,7 +1711,7 @@ Q.. Can we RAISE exception manually?
 ==> Yes,we can raise exception manually by using RAISE or RAISE_APPLICATION_ERROR.
 ------------------------------------
 Q.. What is SQLCODE in PL/SQL?
-==> SQLCODE is predefined procedure.
+==> SQLCODE is predefined function in PLSQL.
 	SQLCODE return the error code of the most recent exception.
 		DECLARE
 		v_name varchar2(3);
@@ -1636,24 +1847,27 @@ Q.. What is difference between user_triggers,all_triggers & dba_triggers?
 		- dba_triggers is a view and accessible only for dba person.
 		- it contain all triggers information
 ------------------------------------
-Q.. How to enable or disable triggers?
-==> - bydefault triggers are enabled 
-	- we can enable or disable triggers 
-	- Syntax to DISABLE perticular trigger 
-		alter trigger trigger_name disable
-	- Syntax to enable perticular trigger	
-		alter trigger trigger_name enable 
-	- Syntax to disable all triggers
-		alter trigger disable all triggers
-	- Syntax to enble all triggers 
-		alter trigger enable all triggers 
-------------------------------------
-Q.. How to drop trigger?
-==> drop trigger trigger_name
-------------------------------------
 Q.. What is Mutating table?
 ==> Mutating Table means when a row-level trigger tries to read or modify the same table 
-	that fired the trigger during a DML operation.
+	on which the trigger is currently running.
+	
+	e.g => when we create trigger which selecting data from employee table
+			and we if we try to update same table then we will get mutating table error.
+			
+				CREATE OR REPLACE TRIGGER trg_emp
+				AFTER UPDATE ON emp1
+				FOR EACH ROW
+				DECLARE
+				   v_salary NUMBER;
+				BEGIN
+				   SELECT salary
+				   INTO v_salary
+				   FROM emp1
+				   WHERE emp_id = :NEW.emp_id;
+
+				   DBMS_OUTPUT.PUT_LINE(v_salary);
+				END;
+				/
 	
 	Solution of Mutating
 	- Use statement-level trigger
@@ -1675,131 +1889,6 @@ Q.. When to use PRAGMA AUTONOMOUS_TRANSACTION?
 Q.. Where not to use PRAGMA AUTONOMOUS_TRANSACTION?
 ==> Not recommended for business logic 
 ------------------------------------
-Q.. If trigger are available on table,can we drop table?
-==> Yes we can drop table.
-------------------------------------
-Q.. If table dropped then what happens with triggers,triggers also dropped or persist in the database?
-==> When a table is dropped,all triggers defined on the table are automatically dropped by oracle engine.
-------------------------------------
-Q.. What is advantages of Trigger?
-==> - Automate business rule
-	- Enforce data integrity
-	- Maintain audit history
-	- Reduce code in application layer 
-	- Automatic logging & validation
-------------------------------------
-Q.. What is disadvantage of Trigger?
-==> - Hard to debug 
-	- Hidden login inside database
-	- Can cause performance issues if not written properly 
-	- Risk of mutating table errors
-	- Can create circular trigger dependancies 
-------------------------------------
-Q.. When should go with Trigger or Constraint?
-==> Constraint => data integrity
-	Trigger => Complex business logic 
-------------------------------------
-Q.. What is instead of Trigger?
-==> An Instead of trigger is trigger which get executes instead of actual DML operations on view.
-	- it is mainly used with complex views.
-	
-	Syntax: 
-		CREATE OR REPLACE TRIGGER Trigger_name
-		INSTEAD OF INSERT ON complex_view_name
-		FOR EACH ROW 
-		BEGIN
-		 insert into table_name values(clm1,clm2,clm3,...N);		
-		END;
-		/
-		
-	Example: 
-	create table dept11(deptid number primary key,deptname varchar(90))
-	insert into dept11 values(201,'IT')
-	insert into dept11 values(202,'HR')
-
-	create table emp11(empid number,empname varchar(90),salary number,designation varchar(90),dept_id number references dept11(deptid))
-	insert into emp11(empid,empname,salary,designation,dept_id) values(101,'Peter',47000,'Manager',null);
-	insert into emp11(empid,empname,salary,designation,dept_id) values(102,'Robin',45000,'Manager',201);
-	insert into emp11(empid,empname,salary,designation,dept_id) values(103,'Kalis',45000,'Dev',202);
-
-	create or replace view c_view as select deptname,empid,empname,salary from dept11 d inner join 
-	emp11 e on d.deptid=e.dept_id;
-	
-	WHEN WE TRY INSERT DATA INTO c_view THEN WE WILL GET AN ERROR 
-	insert into c_view(deptname,empid,empname,salary) values('Mech',104,'Yash',45000)
-	==> ORA-01779: cannot modify a column which maps to a non key-preserved table
-	
-	SO TO OVERCOME THIS PROBLEM WE HAVE INSTEAD OF TRIGGER.
-		create or replace trigger c_view_tgr
-		instead of insert on c_view
-		for each row
-		begin
-		insert into emp11(empid,empname,salary,dept_id) values(:NEW.empid,:NEW.empname,:NEW.salary,
-		(select deptid from dept11 where deptname=:NEW.deptname));
-		end;
-		/
-		
-	E.g
-	create or replace view cc_view as select deptid,deptname,empid,empname,salary from dept11 d join emp11 e on d.deptid=e.dept_id
-
-	insert into cc_view values(203,'Admin',105,'yashh',47000)
-	We will get an error 
-	
-	CREATE INSTEAD TRIGGER  
-	create or replace trigger cc_view_tgr
-	instead of insert on cc_view
-	begin
-	insert into dept11(deptid,deptname) values(:NEW.deptid,:NEW.deptname);
-	insert into emp11(empid,empname,salary) values(:NEW.empid,:NEW.empname,:NEW.salary);
-	end;
-	/
-------------------------------------
-Q.. Can we insert INSTEAD of trigger on table?
-==> NO
-------------------------------------
-Q.. Can we use before after in INSTEAD of trigger?
-==> NO 
-------------------------------------
-Q.. Can one INSERT INTO STATEMENT insert data into two tables?
-==> YES 
-------------------------------------
-Q.. DELETE Operation with instead of trigger?
-==> Delete on complex view is not allowed directly we can use INSTEAD OF Trigger to delete 
-	complex view.INSTEAD OF Trigger defines how deletion should be performed on underlying base tables 
-	
-	Example: 
-	create table dept11(deptid number primary key,deptname varchar(90))
-	insert into dept11 values(201,'IT')
-	insert into dept11 values(202,'HR')
-
-	create table emp11(empid number,empname varchar(90),salary number,designation varchar(90),dept_id number references dept11(deptid))
-	insert into emp11(empid,empname,salary,designation,dept_id) values(101,'Peter',47000,'Manager',null);
-	insert into emp11(empid,empname,salary,designation,dept_id) values(102,'Robin',45000,'Manager',201);
-	insert into emp11(empid,empname,salary,designation,dept_id) values(103,'Kalis',45000,'Dev',202);
-
-	Trigger: 
-	create or replace trigger d_view_tgr
-	instead of delete on d_view
-	begin
-	delete from emp11 where salary=(select max(salary) from emp11 where designation=:NEW.designation);
-	end;
-------------------------------------
-Q.. sometime delete operation is allowed in complex view but sometime delete operations are not 
-	not allowed on complex view,why?
-Q.. In which case delete operation is allowed on complex view and in which use case delete 
-	operation is not allowed on complex view?
-==> Case 1: DELETE OPERATION IS NOT ALLOWED
-	- if view defination contains group functions,distinct clause,order by clause
-		or deletion affect multiple base tables then direct DELETE operation is not 
-		allowed on that view. In that case solution is Instead of Trigger.
-	
-	Case 2: DELETE OPERATION IS ALLOWED
-	- View is based on multiple tables but only one table is actually updatable and 
-		no ambiguity in row mapping,delete operation is allowd on that view 
-------------------------------------
-Q.. Can we delete data from multiple base table on single delete operation?
-==> Yes,using INSTEAD OF trigger.
-------------------------------------
 Q.. Oracle storage heirarchy?
 ==> Database ->Tablespace->DataFiles(Physical)->segment->Extent->Data Block
 ------------------------------------
@@ -1817,7 +1906,7 @@ Q.. What is tablespace?
 		2. Sysaux
 		3. Temp
 		4. Undo
-		5. User 
+		5. User
 	- Tablespace information store in data dictionary view
 		1. DBA_TABLESPACES
 		2. USER_TABLESPACES
@@ -2437,6 +2526,8 @@ Q.. Object Privilege?
 	- Object Privilege means on which object can the user act
 	- By default user has Object Privilege on other's schema. so we need 
 	  GRANT Object Privilege on other's schema.
+	  
+	Syntax: GRANT privilage_name ON Table/View TO user_name;
 	
 	# Names of Object Privilege
 		Table/View 
@@ -2593,7 +2684,8 @@ Q.. Can we create CUSTOM object privileges?
 	You cannot invent new ones like READ_SALARY or UPDATE_LIMITED;
 -------------------------------------------
 Q.. What is procedure in PL/SQL?
-==> Procedure is named PL/SQL block used to perform specific task or action.
+==> Procedure is named PL/SQL block used to perform specific task or action 
+	and execute whenver required.
 	Syntax: 
 		CREATE OR REPLACE PROCEDURE procedure_name(
 			parameter_name1[IN|OUT|IN OUT] datatype,
@@ -2610,11 +2702,16 @@ Q.. What is procedure in PL/SQL?
 			exception_section
 		END procedure_name;
 		/	
--------------------------------------------
-Q.. What is IN OUT Parameter?
-==> IN: used to pass input to procedure
-	OUT: used to return from procedure,it does not take initial value from caller
-	IN OUT: used to take input and return modified value.
+	What is IN OUT Parameter?
+		IN: used to pass input to procedure and it is default parameter
+		OUT: used to return from procedure,it does not take initial value from caller
+		IN OUT: used to take input and return modified value.
+	
+	Q.. Created procedure information is available in data dictionary views?
+	1. DBA_PROCEDURES 
+	2. ALL_PROCEDURES
+	3. USER_PROCEDURES
+	SELECT * FROM DBA_PROCEDURES WHERE OBJECT_NAME='GET_EMPNAME_BY_ID';
 -------------------------------------------
 Q.. Write a procedure to accept empid from user and print emp name on console?
 ==> CREATE OR REPLACE PROCEDURE show_empname_by_id(
@@ -2666,12 +2763,6 @@ Q.. How to execute procedure?(How to call procedure)?
 	we can't use SELECT statement to call procedure
 	SQL:
 		select show_empname_by_id(101) from dual;-->this is invalid,we will get an error 
-------------------------------------------------
-Q.. Created procedure information is available in data dictionary views?
-==> 1. DBA_PROCEDURES 
-	2. ALL_PROCEDURES
-	3. USER_PROCEDURES
-	SELECT * FROM DBA_PROCEDURES WHERE OBJECT_NAME='GET_EMPNAME_BY_ID';
 ------------------------------------------------
 Q.. Procedure status(Valid or Invalid)
 ==> Procedure status information is available in USER_OBJECT view.
@@ -3038,8 +3129,9 @@ Q.. Symbol to generate Regular expression
 		2. Metacharacters
 		3. Quantifiers
 		4. Character classes 
-		5. Predefined character classes 
-		6. Grouping constructs 
+		5. negated character classes.
+		6. Predefined character classes .
+		7. Grouping constructs 
 		
 	1. Literals: 
 		- literals means a constant value assigned to a variable 
@@ -3127,7 +3219,7 @@ Q.. Symbol to generate Regular expression
 		[a,b,c] Either a,b,c
 		[a-z] -> any lower case character
 		
-	4. Negated Character class
+	5. Negated Character class
 		- For Negated character class use ^ inside square bracket 
 		e.g 
 		[^abc] matches anyting except a or b or c 
@@ -3175,11 +3267,11 @@ Q.. Symbol to generate Regular expression
 		\. dot literal 
 		\* start literal 
 		\\ backslash 
-		\* start literal 
+		\* star literal 
 		\^ cap literal 
 		\$ doller literal 
 ------------------------------------------------
-Q.. Predefined functions for Regular expression
+Q.. Predefined functions for Regular expression?
 ==> Below are the import function for regular expression
 	1. REGEXP_LIKE 
 	2. REGEXP_SUBSTR 
