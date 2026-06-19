@@ -1,0 +1,19 @@
+Myself Yashraj Mulik
+I have totally 4.5 year of experiece with SQL and PLSQL
+Currently, I am associated with Harjai Computers and 
+working for the Bharti AXA Life Insurance client as a PL/SQL Developer. 
+Previously, I worked with Jowar India Pvt. Ltd.
+
+- In my current role, I am responsible for developing and maintaining PL/SQL database objects such 
+as procedures, functions, triggers, packages, and cursors. 
+I write and optimize simple as well as complex SQL queries to support business requirements and reporting needs
+I develop SQL and PL/SQL scripts for data generation, report creation, 
+data validation, and troubleshooting database-related issues. 
+I regularly interact with clients and end users through calls, emails, and chats 
+I am also involved in Disaster Recovery (DR) activities
+I Involved in data reconciliation processes
+
+I also involved in query optimization and production support activities to ensure smooth application performance.
+
+My core skills include Oracle SQL, PL/SQL, Performance Tuning, Query Optimization,
+Cursors, Triggers, Procedures, Functions, Packages, and Production Support.

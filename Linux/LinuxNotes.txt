@@ -508,7 +508,7 @@ Q.. How to display file content?
 		suppose if we want to display 5 lines then value n is 5 
 		Bydefault head command show 10 lines 
 		
-	5. tail 	
+	5. tail	
 		This command is used to display bottom lines from file 
 		Syntax: 
 			tail -n file_name 
@@ -1182,7 +1182,65 @@ Q.. How to kill process?
 	Syntax: 
 		kill -9 process_id 
 --------------------------------------------------------------------------------------------
-Q.. vi/vim command 
+Q. What is a ping command
+Ans: 1) ping stands for  Packet InterNet Groper
+     2) This command is used to check connectivity between source
+     3) syntax: ping option target_device 
+	    
+       Once ping command get executed then we will get output like,
+	 4) output of ping command 
+			1. target_device
+			2. icmp_seq => sequence number of the ping request 
+			3. ttl => time to live 
+			4. time => round trip time 
+			5. pocket loss => indicate network reliability.
+       note - ICMP stands for Internet Control Message Protocol
+            - It is network protocol that allows devices to communicate,
+              report and control messages.
+            - ICMP is used to diagnose and report issues.
+--------------------------------------------------------------------------------------------
+Q. what is use of telnet command?
+Ans : 1) telnet is one protocol.
+      2) It can be used for a variety of tasks such as 
+         a) testing network connections between two node
+         b) logging into remote systems and transferring files
+         c) checking particular port is open or not
+
+      3) syntax: telnet [ip_address] [port_number]
+
+Note: a) IP address: Ip address of the remote host you want to connect to.
+      b) port: The port number of the remote service you want to connect to. 
+         By default, telnet will try to connect to port 23.
+------------------------------------
+Q. What is use of ifconfig command?
+-> It is used to know system ip address and othe network related things
+-> Need to perform practical?
+------------------------------------
+Q. what is use of netstat command?
+==> netstat command stand for network statistics 
+	- used to display network connections,routing tables,interface statistics and listening ports.
+	 Syntax: 
+		netstat -a => show all active connection
+		netstat -at => TCP connection
+		netstat -l => listening ports
+		netstat -tulpn => listening ports with process id 
+------------------------------------ 
+Q. What is crontab command?
+==> it is used to schedule tasks (jobs) to run automatically at specified times and intervals.
+	
+	crontab -l => view current user cron jobs 
+	crontab -e => edit job 
+	crontab -r => remove all jobs 
+--------------------------------------------------------------------------------------------
+Q. What is DNS?
+Ans : 1) DNS stands for Domain Naming Service
+      2) It is used for resolving IP addresses
+      3) DNS is like a translator for computers, computers understand the   
+	     number and not the alphabet. 
+      4) For example, if we type like hotmail.com, the computer doesn’t understand this, 
+	  so they use DNS which converts (hotmail.com) into (numbers) and then executes the command.
+--------------------------------------------------------------------------------------------
+Q.. vi/vim command
 ==> vi is a text editor 
 	- if we want to open file in edit mode then we use vi/vim 
 	=> How to open file in edit mod?
@@ -1190,21 +1248,138 @@ Q.. vi/vim command
 		- when we press enter key then file get open in command mode.
 		- to switch command mode to edit or append mode press either i or a 
 		- to switch from insert mode to command mode press esc key.
+		- if we want to save content then command => :w
+		- if we want to save and exit => :wq
+		- if we want to exit without saving => :q
+		- if we want to exit forcefully without saving => :q!
 --------------------------------------------------------------------------------------------
-Q.. What is crontab?
-==> - If any job execcute automatically at the specified time of interval such type of jobs are called as cron jobs 
-	- The cron job can be either a single command or a script.
-	- Cron job are best suitable for automating work flow.
-	
-	1. crontab -l 
-	=> To list out cron jobs which are already configured.
-	
-	2. contab -e 
-	=> edit already existing cron jobs and to define new job 
-	
-	3. crontab -r 
-	=> remove all configured cron jobs 
-	
-	4. crontab filename 
-	=> install new cronjob from file.
+Applicaiton slowness issue
+Solution : If there is an application slowness then I check
+   1) Long running process (use ps -ux command which gives status of process)
+   2) Need to find process which consumed high CPU by using below command
+      ps -e pid,ppid,cmd,%mem,%cpu --sort =-%cpu
+   3) Need to find process which has consumed high memory by using below
+      ps -e pid,ppid,cmd,%mem,%cpu --sort=-%mem
+   If required I kill the process by taking approval from My TL
+   
+   To kill the process We use command  kill -9 process_id
 --------------------------------------------------------------------------------------------
+Q. Technical growth means what?
+-> Currently I am working on insurance domain but I want working
+   on Banking and Telecom domain.
+-> Here we are using less number of tools, I want to expore
+   myself in term of tools also.
+----------------------------------------------------------
+Q. What is daily scrum time?(UI-Support Engineer)
+-> We have two shifts-Mornig and Evening.
+   Mornig Shift Timing is 7:00 to 3:00 pm and Evening shift timing is 2:30 to 10:30 pm
+   If shift is in morning then scrum meeting is at 11:30 am.
+   If shift is in evening then scrum meeting is 5:15 pm.
+   Some time It may be changed.
+----------------------------------------------------------
+# Explain your current Project(UI-Developer)
+-> I am working on insurance domain and My Project Title is "Motor Claim Processing"
+   In My Project there are two modules one is Claim and another is Policy but I am 
+   working on motor claim module.In claim Module claim related activities are handled.
+   Being insurance organization we have tie up with different motor delears like
+   Honda, Hyundai,Kia, Ford,Mahindra,Maruti.
+   These delears register the claim via webservice, ones claim register then it goes from
+   different stages like
+   1) Survey Appoitment
+   2) Survey Completion
+   3) Document Upload
+   4) Assessment
+   5) Final Assesment
+   6) Claim Closing
+   
+-> Being UI developer my role is to develope UI component as per requirement.
+   
+-> Technologies used in the Project 
+   1. For Front end we have used - HTML,CSS,JS,Bootstrap and React JS.
+   2. For Back end -Spring Boot and Microservices
+   3. Data Base- Oracle 12c
+   4. Version Cntrol Tool- Git.
+   5. Methodology: Agile
+   6. Midleware: Weblogic 12c
+---------------------------------------------------------------------------------
+# Explain your current Project(UI-Support Engineer)
+-> I am working on insurance domain and My Project Title is "Motor Claim Processing"
+   In My Project there are two modules one is Claim and another is Policy but I am 
+   working on motor claim module.In claim Module claim related activities are handled.
+   Being insurance organization we have tie up with different motor delears like
+   Honda, Hyundai,Kia, Ford,Mahindra,Maruti.
+   These delears register the claim via webservice, ones claim register then it goes from
+   different stages like
+   1) Survey Appoitment
+   2) Survey Completion
+   3) Document Upload
+   4) Assessment
+   5) Final Assesment
+   6) Claim Closing
+   
+-> Technologies used in the Project 
+   1. For Front end we have used - HTML,CSS,JS,Bootstrap and React JS.
+   2. For Back end -Spring Boot and Microservices
+   3. Data Base- Oracle
+   4. Version Cntrol Tool- Git.
+   5. Methodology: Agile
+   6. Midleware: Weblogic 12c
+-> In the Current Project My Role is Application Support Engineer.
+   Being support engineer I resolve the issues which delears are facing.
+-----------------------------------------------------------------------------------
+Q. What is DR activity?
+(This question is applicable for both- UI Developer and Support Engineer)
+-> DR stands Disaster recovery.
+-------------
+Q. What is role in DR activity?
+Ans: 1) DR stands disaster recovery.
+     2) In our organization this activity is carried out two time in year.
+        First they carry out in jun or july and second December or January
+        It is 2 days activity and it carried out on Saturday and Sunday.
+        On Saturday at 11:00 pm this activity is started and on Sunday
+        at 11:00 pm it get end.
+     3) In DR activity actual server is down and DR server is up.
+     4) In DR activity my role is to check services or application 
+        are working properly or not.
+------------------------------------
+Q. How you cross check services are running or not in DR activity?
+   Or How you check application is up and running in DR activity?
+(Note:This question is applicable for both- UI Developer and Support Engineer)
+
+Ans: To check application is up and running we have certain check points
+     and these are as
+     1) Check the database entry and check the time stamp.
+        For example, If I want to check claim registration service is
+        running or not for that I will fire a query
+
+        select * from clm_dtls where delear_flag='HONDA' order by clm_reg_date desc
+   
+        If there is entry in DB then I can conclude service is working.
+        If there is not entry in DB then I inform to DBA team and developement
+        team so and so service is not working
+
+     2) Another Example : If I want to check document upload service is running or 
+        not then also I will follow same process.
+
+    3) Another check point to check service is running or not, I check logs of server.
+	   or check logs in table. We are maintaing webservice logs in "ws_log_dtls" table.
+	   I will check the entries in the table.
+
+    4) We do dumy claim registration and do complete end to end flow
+       for that claim.
+------------------------------------------------------------------------
+Q. What is Data recon activity?
+(Note: This question is applicable for both- UI Developer and Support Engineer)
+-> This activity is carried out to make data in synch.
+-> Data in sync means claim status on insurance organization portal must be
+   same with delear portal.If data is not in sync then we need to carry out
+   recon activity.
+-> Delear sent claim list in excel file along with claim status over the mail.
+-> Ones we receive this list, first we cross check every claim status at our portal.
+   if there is mismatch, then we need to update delear portal claim status manually.
+-> To update status manually, we use postman tool.
+   1) Open postman->add end point uri -> add request payload in the request body
+      -> hit the service and check the reponse.
+-> This activity we need to carry out as per delear requirement.
+-------------------------------------------------------------------------
+

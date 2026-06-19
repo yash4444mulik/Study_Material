@@ -1,0 +1,253 @@
+Q. What is API?
+-> API stands for Application Programming Interface
+-> API defines set of rules and protocols that allows one application to interact
+   with anothe application.
+-> Examples of Some API's
+   i) Google Map
+   ii) Twitter
+   iii) Amazon S3 
+---------------------------------------------------
+Q. Why API is needed?
+-> 1. Interoperability: APIs enable different software systems to communicate and       interact with each other
+   2. Modularity:APIs allows us to create modular and reusable code
+   3. Abstraction: We hight light set of service instead of highlihting its                   internal implementation.
+      Being a developer we use then, instead of knowing its internal working.
+   4. Rapid Development:Instead of building everything from scratch, developers can           integrate APIs to access features like authentication, payment processing,             mapping services, and more
+   5. Scalability:APIs support scalability by allowing applications to interact with       external services or databases.
+   6. Security:APIs provide a controlled way to access and share data between       applications 
+---------------------------------------------------
+Q. What are different Types of API?
+-> Internal API or Private API: The API which is accessible within an organization
+   is called Private API.
+-> Exteral API or Public API : The API which are accessible to any one with or without
+   authorization is called Public API.
+-> Paterner API: The API which is accessible only selected business partners or
+   group of business partners.
+---------------------------------------------------
+Q.HTTP response status codes in API
+-> When we send request to server then server process it, generate some result
+   and send response to client along with the some status code.
+-> These codes provide information about the status of the request. i.e 
+   request is successfully executed or not.
+-> Every HTTP status codes is a three-digit number.
+-> We have various status code and all these status code are are grouped into 5 different    classes and these classes are as below.
+   1. Informational responses(1XX)
+      The status code starting with 1 are considered as infomational response.
+      Range is 100-199
+   2. Successful responses(2XX)
+      The status code starting with 2 are considered as successfull response.
+      Range is 200 – 299
+   3. Redirection messages(3XX)
+      The status code starting with 3 are considered as Redirectiona Message.
+      Range is 300-399
+   4. Client Error Responses
+      The status code starting with 4 are considered as Client Error.
+      Range is 400-499
+   5. Server Error Responses
+      The status code starting with 5 are considered as Server Side Error.
+      Range is 500-599
+---------------------------------------------------
+# Commonly used status code
+1. 200 OK : Request is successfully executed.
+   This status code is generally used for GET type request.
+2. 201 Created: Request is successfully executed and Resource is created.
+   This status code generally used for POST type request.
+3. 204 No Content: Request is successfully executed.
+   This status code is generally used for DELETE type request.
+   Resource is successfully delete and in the response no content.
+4. 301 Moved Permanently
+    The URL of the requested resource has been changed permanently.
+	The new URL is given in the response.
+5. 304 Not Modified: This is used for caching purposes. 
+   It tells the client that the response has not been modified,
+   so the client can continue to use the same cached version of the response
+6. 400 Bad Request: Request is not in specified format.
+7. 401 Unathorised: Provided authentication details are wrong.
+8. 403 forbidden: The client does not have access rights to the content
+9. 404 Not found: The server cannot find the requested resource.This may be
+   URL is not correct or request resource is not available on server.
+10. 405 Method Not Allowed: Client is sending GET type request but server is expecting
+    POST type request on same end point. 
+11. 415 Unsupported Media Type: The media format of the requested data is not supported by  
+    the server. For Examples client is sending JSON format data but server is expecting
+	XML format.
+12. 500 Internal Server Error: While processing the request there is an exception at server 
+    side.
+13. 503 Service Unavailable: The server is not ready to handle the request.
+    Common causes are a server that is down for maintenance or that is overloaded.
+-----------------------------------------------------
+# Types of HTTP Request
+1. GET Request
+-> This is used to retrive data from server
+-> From server we will either 200 OK or 404 Not Found
+2. POST Request
+-> This is used to create a resource on server.
+-> From server we will status code as 201 Created or 400 Bad request or 404 Not Found.
+3. PUT Request
+-> This is used to Update existing resource on server.
+-> status code are 200,400,404
+4. PATCH Request
+-> This is used for partial update of the resource.
+5. DELETE Request
+-> To delete resource
+-> status code 204,200,400,404
+--------------------------------
+Q. What is difference between GET and POST?
+1. GET request is used to retrive data from server where as POST request is used
+   to post the data on the server.
+2. GET request is idempotent where POST is non idempotent.
+3. GET send the in the URL's query parameters where as POST send the data in the request body.
+4. GET is not secure where POST is secure.
+5. With the help of GET request we can send limited amount of data where as we can send 
+   large amount of data using POST request
+6. GET request Responses can be cached by browsers where as POST request Response can't be
+   cached by browsers.
+7. GET request Can be bookmarked where as POST is request cannot be bookmarked
+--------------------------------
+Q. What is difference between POST and PUT?
+1. POST request is generally used to create a Resource where PUT request is generally
+   used to update the resource.
+2. POST is Non-idempotent where PUT is an idempotent.
+3. POST method return 201 status after successfull resource creation where as 
+   PUT method returns 200 status code after successfull resource updation.
+--------------------------------
+Q. What is difference between PUT and PATCH?
+1. PUT update the entire resource where as PATCH update the resource partially.
+2. PUT is idempotent where as PATCH is not necessarily idempotent.
+--------------------------------
+
+Ans: The service that is available on web is called as Web Service
+Note: But everything available on web or everything online is not web service
+Note: Webservice is one Type of API
+==============================================================
+Q. What is Difference between standard web site(Web Application) and web service? 
+-> Standard web site is meant for human consumption while web service 
+   is for code  consumption
+==============================================================
+Q. What is advantage of Web-Service?
+-> The main advantage or feature of web service is interoperability
+-> Interoperability means platform independent and technology independent
+==============================================================
+Q. Types of web service
+Ans There are two types of Webservices
+    1) Restfull WebServices
+    2) SOAP WebServices
+==============================================================
+Q. What is full form of SOAP?
+Ans: Simple Object Access Protocol
+==============================================================
+Q. What is full form of REST?
+Ans: REpresentational State Transfer
+==============================================================
+Q. What is difference SOAP web service and REST web service?
+Ans: 1) SOAP stands Simple Object Access Protocol where
+        REST stands for REpresentational State Transfer
+     2) SOAP is a protocol where REST is architectural style
+     3) SOAP can't use REST but REST can use SOAP
+     4) SOAP uses WSDL file to expose business logic where
+        REST uses URI to expose business logic
+     5) SOAP defines its own security where as REST don't has 
+        its own security
+     6) SOAP support only xml data format where REST support
+        XML, JSON, HTML, text format
+     7) SOAP requires more resources and more band width where
+        REST requires less resources and less band width
+     8) SOAP is heavy weight component where REST is light 
+        weight component
+     9) SOAP is less prefered than REST where REST is more Prepared than 
+        SOAP 
+==============================================================
+Q. SOAP can't use REST but REST can use SOAP, why?
+Ans: SOAP can't use REST but REST can use SOAP because SOAP is protocol
+     where REST is architectural style
+==============================================================
+Q. What is full form of WSDL?
+Ans: 1) WSDL stands for Web Services Description Language
+     2) WSDL is a XML file and has extention dot xml (.xml)
+==============================================================
+Q. What is full form of JSON?
+Ans: 1) JSON stands for JavaScript Object Notation
+     2) JSON file has dot json extention(.json)
+     3) In JSON file values are stored in key-value paire format
+     4) Key can't be duplicate but value can be duplicate
+	 5) key should be enclosed in double quote 
+	 6) If value is String type then we need to enclose in double quote
+	 7) Key-value paire are seperated using comma.
+==============================================================
+Q. Which tool is used Test Rest API?
+Ans: I know the Postman tool
+==============================================================
+Q. What is Postman tool?
+Ans: It is one kind of browser and used to test Restfull WebServices
+==============================================================
+Q. How you Test an API?
+Ans: To Test API I follow the below steps
+     1) Start Server
+     2) Open Postman
+     3) Select HTTP method
+     4) add end point uri
+     5) Add the request Payload(either JSON or XML format) in the request body
+     6) Add the headers if required
+     7) click on send request buttton
+     8) Check the response and HTTP status code
+==============================================================
+Q.What is full form of URI?
+Ans: URI stands for Uniform Resource Identifier
+==============================================================
+Q. State some basic or core HTTP methods?
+Ans: GET, POST, PUT, DELETE and PATCH
+==============================================================
+Role of the Postman Tool:
+-> Postman is a testing tool.
+-> It is used to Test Restfull WebServices.
+-> Note: If we want to Test SOAP webservice then there is another tool "SOAP-UI"
+-> Components of Postman
+   1. HTTP methods(GET,POST,PUT,PATCH,DELETE)
+   2. URI(Uniform Resouce Indentifier)
+      localhost:9192/users/save
+	  
+	  Here /users/save is called URI.
+   3. HTTP Request.
+      Every HTTP request is divided into 2 part
+	  First part is header and second part is request body.
+	  Request Body is also called as request payload.
+      Request Paylod can be in JSON(JavaScript Object Notation) format or
+	  XML(Xtentiable Markup Language format.
+	  
+  4. HTTP Response
+     Every HTTP Response is divided into two part.
+	 First part is header and second part is response body.
+	 In the response server send HTTP status code.
+---------------------------------------------------
+# HTTP methods(GET,POST,PUT,PATCH,DELETE)
+  1. GET Method
+     This method is used to retrive data from the server.
+	 This method never accept request payload.
+	 On successfull execution request server will respond
+	 either 200 or 404 status code.
+	 GET is idempotent request.
+	 Idempotent means if we send same request multiple time then we 
+	 are getting same result.
+	 
+   2. POST Method.
+      This method is used to POST data on the server.
+	  This method is used to create a resouce on the server.
+	  Resouce creation means one database entry is added
+	  If resouce is successfully created it restuns "201 create" 
+	  as a status code.
+	  This method always accept request Paylod.
+	  POST is non-idempotent request.
+	  Non-idempotent means if we send same request multiple time then we are getting
+	  different result.
+	  
+   3. PUT method.
+      This method is used to update a entire resouce.
+	  PUT is idempotent request.
+	  
+   4. PATCH Method
+      This method is used to update resouce partially.
+	  PATCH is idempotent request.
+	  
+   5. DELETE Method
+      This method is used to delete resouce.
+-----------------------------------------------

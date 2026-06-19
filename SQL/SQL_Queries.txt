@@ -94,3 +94,6 @@ Q.1 Composite primary key on empname and empno
 	==> alter table Employee add constraint empname_duration_uk unique(empname,duration)
 	Q.3 Composite check constraint on duration and dept_id 
 	==> alter table Employee add constraint duration_dept_id check(duration>to_date('11-JUN-2000','dd-mon-yyyy') and dept_id>10)
+
+Q.. Delete duplicate record from table?
+==> delete from tmp where rowid NOT IN(select min(rowid) from tmp group by id);

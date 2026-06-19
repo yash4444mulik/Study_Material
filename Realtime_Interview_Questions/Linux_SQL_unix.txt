@@ -1,0 +1,256 @@
+Company Name: Alkemtechsolution
+Round : 1
+Q.introduction
+---------------------
+Q.which type of issue you are facing?
+---------------------
+Q.on which type of domain you are working?
+---------------------
+Q.write query to fetch policy number from table?
+---------------------
+Q.write query to count how many claim processed between 1dec to 2 dec?
+---------------------
+Q.suppose we have two table
+      table one contain policy_number,account holder name,policy_date
+      table two contain policy_number,preminum_paid
+Q.write query to find total preminum paid by user?
+Q.write query to find total preminum paid by user during every month?
+---------------------
+Q.what are different types of joins?
+---------------------
+Q.what is the difference between inner join and outer join?
+---------------------
+Q.which precaution taking while deployement?
+
+
+SBI Global IT centre 
+Final interview questions 
+Q.Tell me about your current used technical experience ?
+Q .what is use of AWK command?
+Q .What is grep command ?
+Q. What is difference between awk command and Grep command ?
+Q. How files get deleted ?
+Q. If we use ' rm -rf f1.txt ' what will be happens?
+Q. If we use '  rm rf f1 .txt ' what will happen? 
+Q. Please write SQL query to highest marks of the  student ?
+Q. What you is your role in DR activity?
+Q.if we want extract files how we can?
+Q. If we want compress file how we can ?
+Q. If we want decompress file then what should we do ?
+Q. There are two tables in student band subject tell me in the both tables which are primary key column and foreign key column ?
+Q. if I want rename file what should I do?
+Q. Do you have server installation experience ?
+Q. Window server experience?
+Q.If we want find IP address which command used?
+
+
+company: contigue ltd 
+round : 1 
+
+Q. Introduction?
+
+Q. Are you working on Health insurance or general insurance ?
+
+Q. please tell me the process once claim get registered ?
+
+Q. data types in sql ?
+
+Q. char and varchar ?
+
+Q.DDLandDMLstatement?
+
+Q. what is JOIN  and its type?
+
+Q. what is self join?
+
+
+
+Company Name: 63moon
+Round 1
+
+Q. introduction
+Q. did you perform testing?
+Q. your company name is jowar india pvt ltd?
+Q. where you staying?
+Q. what is your working location?
+Q. what is your notic period?
+Q. why you resign from their?
+Q. you are holding any offer?
+Q. where jowar india located at?
+Q. what is your roles and responsibilities?
+Q. what is your daily?
+Q. what kind of issue your are facing?
+Q. how you solve the issue?
+Q. which kind of tools you are using during the solve issue?
+Q. how you solve issue at core level?
+Q. what is the sql query to change login credential if your user accout get locked?
+Q. on which OS you are working?windows/linux?
+Q. which version of linux you are using?
+Q. how to login linux?
+Q. how to access linux?
+Q. how to check disk space?
+Q. how to check hard disk space?
+Q. how do you check memory?
+Q. how to check cpu utilization?
+Q. in top command how many field are their?
+Q. can you explain top command output?
+Q. how do you schedule multiple jobs in linux?
+Q. what is cronjob?
+Q. how to check ip address in linux? hostname -i/ifconfig
+Q. what is 'chmod' command?
+Q. what is the syntax to give full permission on file?
+Q. what is the difference between chmod and chown?
+Q. what is default port for sql?
+Q. what is tar command?
+Q. what is zip command?
+Q. how to zip folder?
+Q. do you have any certification in linux?
+Q. what is postman?
+Q. what are different http methods?
+
+
+Company: JiBe ltd 
+Round: 1 
+Q. introduce yourself?
+Q. what is notice period?
+Q. if you got selected then how much time you join to our compny?
+Q. why you resign from their?
+Q. what are your basic skills?
+Q. which kinds of tools you are using?
+Q. which ticketing tool you are using?
+Q. how much rate you in sql?
+Q. what is oracle?
+Q. what is sql?
+Q. what is difference between DML and DDL?
+Q. what is DR activity?
+Q. what is linux?
+Q. what is AWK command?
+Q. how to find files in linux?
+Q. how to insert data in table?
+Q. how to delete forign key column value?
+Q. what is API?
+Q. how to copy data from one table to another?
+Q. how you relocate to Navi Mumbai?
+Q. Tell me about Jowar India Pvt Ltd?
+Q. who is your Reporting manager?
+Q. who is your HR name?
+
+
+company: FGI ltd
+round 2
+Q. introduction
+Q. tell me about your project 
+Q. what is the structure of project 
+Q. what is join 
+Q. syntax of join 
+Q. who is your reporting manager
+Q. write a query to fetch data from table 
+   which contain empno,empname
+Q. we have two table T1 and T2. T1 have empid and 
+   T2 have empid,remark 
+Q. write a query to find empid and remark of employee 
+Q. write a query to find remark of employee which has id 1 
+Q. write a query to find remark of employee which has id 1  and rank is 3 
+Q. what is awk command
+Q. what is sed command 
+Q. what is find command 
+Q. what is DR activity 
+Q. what is Data recon activity
+
+
+Future Generali insurance 
+Q. Tell me about your self
+Q. How do you resolve issues on daily basis ?
+Q. How many tickets you resolve ?
+Q.out of 15-20 how much passed to L2 team for Support?
+Q. in our organisation on daily basis tickets being raised near about 45-48 per day ?How do you handle?
+Q. Which kinds of issues you facing in your current organisation?
+Q. You work on rest api application or module?
+Q. Please tell me the scenario in that you have resolved verious kinds of tickets?
+Q. There are two tables like Table A and Table B .
+in Table A emp_id column and in Table B salary column. Then tell me how do you fetch data from both table and write query?
+Q. If there is policy in progress ? Then tell me what happened? is claim going to register or not ?
+Q. What is your current CTC? And expected?
+Q. Is it Negotiable?
+Q. Where you stay now ? 
+Q. Where is your hometown?
+Q. How many times you visit at hometown in a month?
+
+
+virtual round 1:ICICI Lombard
+intoduce about yourself?
+what is api?
+what is use of api?
+what is api authentication?
+what is differance between soap and rest?
+what is purpose of web api?
+do you know about postman collection?
+how to retrive data unique data from table?
+what is store procedure?
+do you know about self join and cross join?
+differance between unique key and primary key?
+syntax of self join?
+
+
+Company: JiBe ltd 
+Round: 3
+Q. introduce about yourself?
+Q. tell me about your family background?
+Q. what is highest education?
+Q. how you switch IT from engineering?
+Q. you work for Jowar India since last 3 year so except the hands on skills which new tools you learn?
+Q. what is JS?
+Q. what is React JS?
+Q. what is bootstrap?
+Q. do you have experience in application installation?
+Q. do you have any experience in Network related activity?
+Q. what is DNS?
+Q. what is Bias?
+Q. we are looking candidate who has network related knowledge so how we select you because you don't have any network related
+Q. how much rate you out of 10 in SQL?
+Q. what is sql?
+Q. what is difference between DML and DCL?
+Q. what is grant and revoke?
+Q. which statement comes under DDL?
+Q. what is difference between Drop,Delete and Truncate?
+Q. how you relocate to Navi Mumbai?
+Q. what is notice period?
+Q. why we select you?
+Q. why you resign from Jowar India?
+
+
+Company: JiBe ltd 
+Round: 2 
+Q. Introduction
+Q. which ticketing tool you are using?
+Q. how to resolve the issue?
+Q. what is your daily routine?
+Q. how you solve issue remotely?
+Q. how you solve issue if you need to take access of client laptop remotely?
+Q. which type of issues you daily solve?
+Q. if customer not register the claim then what is your next step?
+Q. if total application is down then what is your action?
+Q. if customer does not updat the document then how do you handle this situation?
+Q. did you connect with customer via call,mail or chat?
+Q. what are the priority to solve the issue?
+Q. how to decide the priorities of issue?
+Q. who assign ticket to you?
+Q. what is weblogic?
+Q. can you brief explain weblogic?
+Q. how to connect server?
+Q. if server is failing then what is your next step?
+Q. how to solve network related issue?
+Q. do you have experience in application installation?
+Q. can you install any application in your personal laptop?
+Q. can you install excel?
+Q. if their is big application then do you install?
+Q. how you install the application?
+Q. what is sql?
+Q. what is view?
+Q. what is index?
+Q. what is difference between clustered index and non clustered index?
+Q. what is role in UAT and QA envirnment?
+Q. what is Data recon activity?
+Q. what your working time?
+Q. what is your role in DR activity?
+Q. what is scrum meeting?

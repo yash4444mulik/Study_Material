@@ -3402,7 +3402,7 @@ Q.. Write a PL/SQL function to validate mobile number
 	
 	CREATE OR REPLACE FUNCTION mobile_validate(f_mobileno IN NUMBER)RETURN NUMBER
 	IS 
-	v_regex_pattern varchar(90):='^[789][0-9](9)$';
+	v_regex_pattern varchar(90):='^[789][0-9]{9}$';
 	result NUMBER=0;
 	BEGIN
 		IF REGEXP_LIKE(f_mobileno,v_regex_pattern) THEN 
@@ -3885,7 +3885,7 @@ Q.. What is Varray?
 		- if array is empty then it return null.
 		
 	- LAST: This function return last element from array
-		- if array is not empty then it return last element 
+		- if array is not empty then it return last index of last element 
 		- if array is empty then it return null	
 		declare
 		type student_list IS VARRAY(4) OF NUMBER;
@@ -3967,7 +3967,7 @@ Q.. What is nested table?
 	
 	# NESTED TABLE STORED IN DATABASE COLUMN
 	create or replace TYPE phone_list IS TABLE OF varchar2(50);
-	create table cust11(custid number,customer_name varchar2(50),phone phone_list)nested table phone store as phone_nt
+	create table cust11(custid number,customer_name varchar2(50),phone phone_list)NESTED TABLE phone STORE AS phone_list_nt
 	insert into cust11 values(101,'yash',phone_list('9370585700','937038030'))
 	select c.customer_name,p.column_value as phone from cust11 c,TABLE(c.phone)p;
 	
@@ -4013,7 +4013,7 @@ Q.. What is difference between varray and nested table?
 ------------------------------------------------
 Q.. what is associative array(index-by-index)?
 ==> - it is called index-by table.
-	- it is colled collection type that stores data in key-value format.
+	- it is collection type that stores data in key-value format.
 	- duplicate keys are not allowed but values can be duplicate.
 	- if you add duplicate key then old value is replaced with new value.
 	- key can be integer or string type.
@@ -4058,12 +4058,9 @@ Q.. write a program to calculate occurance of character?welcome?
 ------------------------------------------------
 Q.. write a program to display duplicate characters from given string "hello"?
 ------------------------------------------------
-Q.. what is RECORD type?
-==> - RECORD type is composite datatype in PLSQL
-	- A RECORD is like a row of table.
-	- It can hold multiple column in one variable.
-	- can hold multiple different datatypes.
-	- Used inside PL/SQL block.
+Q.. what is RECORD?
+==> - RECORD is composite datatype in PLSQL which hold multiple column in single variable
+	- It act as a row of table and hold multiple datatypes
 	=> Types of RECORD 
 		1. %ROWTYPE
 		2. %TYPE
@@ -4129,11 +4126,13 @@ Q.. What is difference between nested table and associative array?
 	- nested table used in SQL where as associative array used in PL/SQL
 ------------------------------------------------
 Q.. What is cursor?
-==> cursor is pointer to query result set.
-	It is used to fetch and process records row by row from the database.
+==> We have %rowtype data type.%rowtype store one row at a time.if select statement return multiple row 
+	then we will get an error so to over come this problem cursor come in picture.
+	- cursor is pointer to query result set.
+	- It is used to fetch and process records row by row from the database.
 	
 	=> Type of cursor?
-		1. Implicit cursor 
+		1. Implicit cursor
 		2. Explicit cursor
 		
 	1. Implicit cursor: cursor created by oracle engine is nothing but implicit cursor.
@@ -4143,7 +4142,8 @@ Q.. What is cursor?
 ------------------------------------------------
 Q.. What is Implicit cursor?
 ==> cursor created by oracle engine is nothing but implicit cursor.
-	it is created when INSERT,UPDATE,DELETE,SELECT INTO 
+	it is created when INSERT,UPDATE,DELETE,SELECT operation performed
+	we don't need to declare,open,fetch,close manually,oracle engine will do it automatically.
 	
 	BEGIN
 	update employee set salary=45000 where empno=109;
@@ -4178,7 +4178,7 @@ Q.. Cursor Life cycle?
 	4. close cursor 
 ------------------------------------------------
 Q.. Important attribute of cursor?
-==> Cursor attribut start with % 
+==> Cursor attributes start with % 
 	- Below are the some important attributes 
 	
 	1. %FOUND: This attribute is used to check row is fetched or not.
@@ -4197,10 +4197,6 @@ Q.. How to use attribute of cursor?
 ==> Syntax: 
 	cursor_name%attribute_name;
 ------------------------------------------------
-Q.. What is the need of cursor?
-==> We have %rowtype data type.%rowtype store one row at a time.if select statement return multiple row 
-	then we will get an error so to over come this problem cursor come in picture.
-------------------------------------------------
 Q.. What happens when we open a cursor?
 ==> 1. Query is executed
 	2. memory is allocated
@@ -4208,6 +4204,26 @@ Q.. What happens when we open a cursor?
 ------------------------------------------------
 Q.. What happens when we close a cursor?
 ==> Releases memory.
+------------------------------------------------
+Q.. Behaviour of fetch in cursor?
+==> When you call fetch first time then 
+	1. cursor pointer moves from before the first row to the first row.
+	2. The first row is fetched into variables.
+	3. After the fetch pointer is remain on that row and the next fetch will move it to the second row.
+	4. It does not immediately move to the next row after fetching.
+------------------------------------------------
+Q.. After open cursor where is the cursor pointing?
+==> Before the first row not on the first row.
+------------------------------------------------
+Q.. What happen if cursor not closed?
+==> If we have not closed cursor then we don't get any compilation error but it consume memory resources.
+	so it is highly recommended to close the cursor once your work done.
+------------------------------------------------
+Q.. which cursor attribute return number of rows fetched?
+==> %ROWCOUNT
+------------------------------------------------
+Q.. Which attribute check cursor open state?
+==> %ISOPEN
 ------------------------------------------------
 Q.. Check cursor is open or not?
 ==> declare
@@ -4250,19 +4266,18 @@ Q.. How to fetch values from cursor?
 ------------------------------------------------
 Q.. How to iterate Cursor(processing row one by one)
 ==> ITERATION USING SIMPLE LOOP 
-		declare
-		cursor my_cursor IS SELECT empno,empname,salary from employee;
-		begin
-		if my_cursor%ISOPEN then 
-		dbms_output.put_line('cursor is open');
-		else 
-		dbms_output.put_line('cursor is not open at initially');
+		DECLARE
+		CURSOR my_cursor is SELECT empno,empname FROM employee;
+		v_empno number;
+		v_empname varchar(90);
+		BEGIN
 		open my_cursor;
-		if my_cursor%ISOPEN then
-		dbms_output.put_line('cursor is open now after open it');
-		end if;
-		end if;
-		end;
+		LOOP
+		FETCH my_cursor into v_empno,v_empname;
+		EXIT WHEN my_cursor%NOTFOUND;
+		DBMS_OUTPUT.PUT_LINE('employee_no '||v_empno||' empname '||v_empname);
+		END LOOP;
+		END;
 		
 	USING WHILE Loop
 		declare
@@ -4280,6 +4295,8 @@ Q.. How to iterate Cursor(processing row one by one)
 		close my_cursor;
 		end;
 		
+	Note: while loop ignore first row 
+		
 	USING FOR LOOP
 		declare
 		cursor emp_cursor IS SELECT empno,empname,salary from employee;
@@ -4288,26 +4305,6 @@ Q.. How to iterate Cursor(processing row one by one)
 		dbms_output.put_line(emp_rec.empno||' '||emp_rec.empname||' '||emp_rec.salary);
 		END LOOP;
 		end;
-------------------------------------------------
-Q.. Behaviour of fetch in cursor?
-==> When you call fetch first time then 
-	1. cursor pointer moves from before the first row to the first row.
-	2. The first row is fetched into variables.
-	3. After the fetch pointer is remain on that row and the next fetch will move it to the second row.
-	4. It does not immediately move to the next row after fetching.
-------------------------------------------------
-Q.. After open cursor where is the cursor pointing?
-==> Before the first row not on the first row.
-------------------------------------------------
-Q.. What happen if cursor not closed?
-==> If we have not closed cursor then we don't get any compilation error but it consume memory resources.
-	so it is highly recommended to close the cursor once your work done.
-------------------------------------------------
-Q.. which cursor attribute return number of rows fetched?
-==> %ROWCOUNT
-------------------------------------------------
-Q.. Which attribute check cursor open state?
-==> %ISOPEN
 ------------------------------------------------
 Q.. What is paramaterized cursor?
 ==> Cursor which accepts parameters is called paramaterized cursor.
@@ -4349,7 +4346,7 @@ Q.. Pass empid to cursor and display employee details?
 	end;
 ------------------------------------------------
 Q.. What is REF CURSOR(Reference Cursor)?
-==> REF CURSOR is cursor variable which store address of query result set.
+==> REF CURSOR is cursor variable thats points to the result set of query. 
 	
 	=> Type of REF CURSOR
 		1. Strong REF CURSOR 
@@ -4357,9 +4354,7 @@ Q.. What is REF CURSOR(Reference Cursor)?
 		
 	1. Strong REF CURSOR:
 		- The cursor whose row structure is fixed is called strong REF CURSOR.
-		- RETURN clause is mandatory.
-		- ROW structure is RECORD type.
-		- This Record type we can define using %ROWTYPE or CUSTOME RECORD TYPE.
+		
 		
 		=> How to declare strong REF cursor
 		Syntax: TYPE ref_cursor_name IS REF CURSOR RETURN table_name%ROW_TYPE;
@@ -4543,7 +4538,6 @@ Q.. what is difference between cursor and ref cursor?
 Q.. What is difference between strong and weak REF cursor?
 ==> - Strong ref cursor has fixed return type whereas weak ref cursor has no fixed return type.
 	- strong ref cursor must match the defined structure whereas weak ref cursor can return any query result.
-	- strong ref cursor provide type safety whereas weak ref cursor does not provide type safety.
 	- strong ref cursor is less flexible where as weak ref cursor is more flexible.
 	- strong ref cursor is defined with return clause whereas weak ref cursor is defined without return clause.
 ------------------------------------------------
@@ -4556,8 +4550,8 @@ Q.. What is difference between explicit and paramaterized cursor?
 ------------------------------------------------
 Q.. MERGE Statement?
 ==> MERGE is a sql statement used to Sync data in target table 
-	based on matching condition between source and target tables.
-	- we can insert,update and delete the records.
+	based on matching condition between source table and target tables.
+	- we can insert,update and delete the records in single statement.
 	
 	=> Syntax: 
 		MERGE INTO table_name1 t1 USING table_name2 t2 ON(t1.clm_name=t2.clm_name)
@@ -4593,6 +4587,10 @@ Q.. Is it manadatory to write both conditions(MATCHED and NOT MATCHED) in a MERG
 				update set m.name=d.name,m.plan=d.plan
 			WHEN NOT MATCHED THEN 
 				insert values(d.id,d.name,d.plan);
+				
+	==> MERGE INTO old_employee e using new_employee n ON(e.empno=n.empno)
+		when matched then update set e.empname=n.empname,e.salary=n.salary
+		when not matched then insert (empno,empname,salary) values(n.empno,n.empname,n.salary);
 ------------------------------------------------
 ------------------------------------------------
 ------------------------------------------------
@@ -4601,7 +4599,7 @@ Q.. Is it manadatory to write both conditions(MATCHED and NOT MATCHED) in a MERG
 ------------------------------------------------
 Q.. What is bulk collect?
 ==> Bulk collect means fetch multiple rows at once from a collection instead of fetching row-by-row,
-	it fetches all rows in one go,which improve performance 
+	it fetches all rows in one go,which improve performance
 	
 	=> Why do we use Bulk collect?
 		- Improve performance
@@ -4694,11 +4692,11 @@ Q.. Can we use "limit" without cursor?
 Q.. What is FORALL in Pl/SQL?
 ==>	- it is a bulk processing statement in PLSQL.
 	- it is used to perform DML operations on collections.
-	- In stead of executing DML operation row-by-row,FORALL executes DML in bull(one shot).
+	- Instead of executing DML operation row-by-row,FORALL executes DML in bulk(one shot).
 	- FORALL is used in INSERT,UPDATE,DELETE but not allowed in SELECT.
 	Syntax:
-		FORALL index IN lower_bound .. upper_bound DML statement;
-	
+		FORALL variable_name IN start_index..end_index 	DML OPERATION;
+		
 	- Forall is not loop.it is a bulk DML statement.it sends all operations to SQL engine in one go and 
 	  improve performance by reducing context switching.
 	- FOR LOOP = ROW BY ROW where as FORALL=all rows at once.
@@ -4730,6 +4728,39 @@ Q.. Delete 5 row from tmp table where id > 15?
 	end loop;
 	END;
 
+------------------------------------------------
+Q.. Delete 1-500 rows from tmp table using forall?
+	==>	DECLARE
+			TYPE t_emp_id IS TABLE OF NUMBER;
+			v_ids t_emp_id := t_emp_id();
+		BEGIN
+			-- Populate collection with 1 to 500
+			FOR i IN 1..500 LOOP
+				v_ids.EXTEND;
+				v_ids(i) := i;
+			END LOOP;
+
+			-- Bulk delete
+			FORALL i IN 1..v_ids.COUNT
+				DELETE FROM tmp
+				WHERE id = v_ids(i);
+
+			COMMIT;
+		END;
+		/
+------------------------------------------------
+Q. insert 1-10 ids in tmp table?
+==> declare
+	TYPE v_emp_id IS TABLE OF NUMBER;
+	v_ids v_emp_id:=v_emp_id();
+	begin
+	for i in 1..10 loop
+	v_ids.extend;
+	v_ids(v_ids.count):=i;
+	end loop;
+	FORALL i IN 1..v_ids.count
+	insert into tmp values(v_ids(i));
+	end;
 ------------------------------------------------
 Q.. Handling exception in bulk DML operation?
 ==> We can handle exception in bulk DML using save exceptions.
@@ -4904,7 +4935,7 @@ Q.. What is difference between DELETE and PURGE?
 	- We can use WHERE clause in DELETE statement but we can't use WHERE clause in PURGE statement.
 ------------------------------------------------
 Q..  What is mean by PACKAGE?
-==> - Package is collection of PROCEDURE,FUNCTION,variable and cursor.
+==> - Package is database object it is collection of PROCEDURE,FUNCTION,variable and cursor.
 	- PACKAGE has 2 parts
 		1. PKS 
 		2. PKB
@@ -4945,7 +4976,8 @@ Q.. What is PKS?
 			
 		END package_name;
 		/
-		
+	
+	- element available in PKS considered as global or public element.
 	- PKS file has .pks extention.
 	- If we modify .pks file then we need to compile.
 ------------------------------------------------
@@ -4995,4 +5027,8 @@ Q.. Why proceudre cannot be called inside select?
 ------------------------------------------------
 Q.. How to call procedure if package is in another schema?
 ==> schema_name.package_name.procedure_name
+------------------------------------------------
+Q.. What is Dynamic SQL?
+==> Dynamic SQL is a technique where the SQL statement is constructed and executed 
+	at runtime rather than being hardcoded at compile time.
 ------------------------------------------------
