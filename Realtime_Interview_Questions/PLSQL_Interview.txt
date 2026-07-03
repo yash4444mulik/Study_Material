@@ -1,0 +1,220 @@
+TCS Interview
+Q.. What is difference between truncate,drop & delete?
+Q.. Which is faster in between truncate,drop & delete?
+Q.. What is use of RETURN keyword inside procedure?
+Q.. What is use of OUT parameter in procedure?
+Q.. What is output of==> select null-null from dual;
+Q.. What is output of==> select any_number-null from dual;
+Q.. What is output of==> select date-date from dual;
+Q.. What is trigger?
+Q.. What is materialized view?
+Q.. Difference between materialized view and normal view?
+Q.. Which command used in Linux?
+Q.. What is the syntax to move file from one location to another location?
+Q.. What is the syntax to rename file?
+Q.. how to view content of file?
+
+
+
+Wipro Interview 
+Q.. Introducation 
+Q.. What is query optimization and performance tunning?
+Q.. How to identify which query is taking more time?
+Q.. There are multiple queries/functions/procedures how do you identify which code taking or consume more time?
+Q.. What is Materialized view?
+Q.. What is difference between simple view and Materialized view?
+Q.. If some columns value is changed and we want to check previous value how to view that value?
+Q.. What is cursor?
+Q.. Why we use cursor?
+Q.. What is the constraint?Type of cursor?
+Q.. If we don't want to insert duplicate records in table then which constraint need to add?
+Q.. What is performance tunning?
+Q.. What is exception & how to handle exception?
+------------------------
+Q.. If we want to execute procedure but we don't have permission actual server and temporary table.
+how will you execute procedure.
+==> 
+------------------------
+Q.. What type of functions you written in project?
+==> There are 2 type of function 
+	1. Predefined function
+		- The function defined by oracle is nothing but predefined function.
+		- Predefined function have 2 types 
+			1. Single row function
+			2. Multi row function
+	2. User defined function
+		- Function which is defined by programmer/developer is nothing but user defined function
+		
+	In Our project we used single row function like 
+	INSTR()=> used to find numeric position of given character in source string 
+			Syntax: INSTR(source_string,search_string,start_index);
+			- In our project we receive delimited string format such as policy number,customer name,status,
+			  dob,pan number etc seperated by ~.we use INSTR() to identify the delimiter position and SUBSTR()
+			  to extract individual values.
+			  The TRIM() function is used to remove any leading and trailing spaces from the extracted data. 
+			  These values are then stored in a collection for further processing and validation.
+			  
+	MAX()=> Based on proposal number to find policy number.
+	SUM()=> Sum of premium because for some plans there is discount applied,
+
+------------------------
+SBI Interview
+Q.. Introduction?
+Q.. Explain your project?
+Q.. What is stored procedure?
+Q.. How to handle exception?
+Q.. What is index?What are the type of index?
+Q.. What is B-tree Index?
+Q.. What is trigger & its type?
+Q.. What is the instead of trigger?
+Q.. What is function and why we use function?
+Q.. What is view and what are the different type of view?
+Q.. What is difference between simple view and materialized view?
+Q.. does materialized view has its own data?
+Q.. what is difference between rank() and dense_rank()?
+Q.. 21,21,22 => output of rank() & dense_rank()?
+---------------------------
+Clover Infotech
+Q.. Introduction
+Q.. Who assign role to you?
+Q.. What is SLA?
+Q.. Ticket resolution time?
+Q.. What is GTT?
+Q.. What is Private Temporaray Table?
+Q.. Can we use DDL & DML command in Function?
+Q.. How use DML command while create function?
+Q.. How to use DDL command in Function?
+Q.. What is pragma autonomous transcation?
+Q.. What is trigger?
+Q.. How many trigger we can create on single table?
+Q.. What is predefined exception in Oracle?
+==> Exception defined by oracle engine and have error code and error name is nothing but predefined exception
+	- These exception handled in exception block without declaring them 
+	1. NO_DATA_FOUND => select statement return no row 
+	2. TOO_MANY_ROWS => select statement return more than one rows
+	3. ZERO_DIVIDE => division by zero
+	4. DUP_VAL_ON_INDEX => duplicate value in unique index 
+	5. INVALID_NUMBER => Invalid number conversion 
+	6. VALUE_ERROR => arithmatic,conversion or size error
+	
+Q.. If i insert duplicate value in block then which type of error occur?
+==> If we are inserting duplicate value in primary key and unique key column then oracle 
+	raise predefined exception 
+	Exception ==> DUP_VAL_ON_INDEX
+		begin
+		insert into department values(10,'mech','pune');
+		exception
+		when dup_val_on_index then
+		dbms_output.put_line('you are inserting duplicate value in table');
+		end;
+	
+Q.. If error occured then how to handle it?
+==> If error occured then we can handle it in exception section 
+	- Predefined Exception - we can handle using when exception_name then statement.
+		begin
+		insert into department values(10,'mech','pune');
+		exception
+		when dup_val_on_index then
+		dbms_output.put_line('you are inserting duplicate value in table');
+		end;
+	- Non Predefined exception - we can handle using PRAGMA EXCEPTION_INIT
+		declare
+		fk_exception exception;
+		pragma exception_init(fk_exception,-02292);
+		begin
+		delete from department where deptno=30;
+		exception
+		WHEN fk_exception then
+		dbms_output.put_line('can not delete child recored');
+		end;
+		
+	- User defined exception
+		DECLARE
+		   e_invalid_salary EXCEPTION;
+		   v_salary NUMBER := -1000;
+
+		BEGIN
+
+		   IF v_salary < 0 THEN
+			  RAISE e_invalid_salary;
+		   END IF;
+
+		EXCEPTION
+		   WHEN e_invalid_salary THEN
+			  DBMS_OUTPUT.PUT_LINE('Salary cannot be negative');
+		END;
+
+Q.. If i'm inserting duplicate value and we want to handle it then which predefined exception we are using?
+==> If i'm inserting duplicate value then we will get an error of DUP_VAL_ON_INDEX
+	so we can handle it in exception block 
+	begin
+	insert into department values(30,'mech','or');
+	exception
+		when dup_val_on_index then
+		dbms_output.put_line('department 30 already present in department table');
+	end;
+	
+Q.. What is collection?
+Q.. Types of collection?
+Q.. What is bulk collect & Forall?
+Q.. How did you handle error using bulk collect & forall?
+Q.. Difference between simple view and Materialized view?
+Q.. Can we use DML operation on view ?
+Q.. If we want to execute DML operation on complex view then what i need to do?
+Q.. Can we use DML operation on Materialized view?
+Q.. What is Cursor?
+Q.. What are the Attributes of cursor?
+Q.. How many attributes of cursor?
+Q.. What is joins?
+Q.. Type of joins?
+Q.. joins output of rows on inner|left outer|right outer|full outer 
+    A        B
+    1        1
+    1        2
+    2       null     
+    2       null
+    null
+	
+Q.. join output 
+	A  => 1,1,2,3
+	B => 1,1,2,4
+	inner => 5
+	left => 6
+	right => 6
+	full => 7
+	
+Q.. join output
+	A => 1,1,1
+	B => 1,1
+	inner => 6
+	left => 6
+	right => 6
+	full => 6
+	
+Q.. join output
+	A=> 1,2,null
+	B=> 2,null 
+	inner => 1
+	left => 3
+	right => 2
+	full => 4
+	
+	
+Q.. join output 
+	A=>1,1,1,2
+	B=> 1,1,2,2
+	inner => 8
+	left => 8
+	right => 8
+	full => 8
+	
+	
+Q.. join output 
+	A=>1,2,2,3
+	B=>2,2,3,4
+	inner => 5
+	left => 6
+	right => 6
+	full => 7
+	
+-------------------------------

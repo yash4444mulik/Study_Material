@@ -1,5 +1,4 @@
 ============ WELCOME TO SQL =========================
-
 Q.. What is entity?
 ==> anything in real world is nothing but entity
 --------------------------
@@ -87,7 +86,7 @@ Q.. What is SQL?
 	SQL is not case sensative language 
 	SQL is used to perform operation on realtional database.
 	Relational means data is stored in table format 
---------------------------	
+--------------------------
 Q.. With the help of SQL which activity we can perform?
 		1. we can create database 
 		2. we can delete database 
@@ -2516,7 +2515,6 @@ Q.. Which join type can be used to find rows present in one table but not in ano
 	RIGHT JOIN table_b b ON a.id = b.id
 	WHERE a.id IS NULL;	
 ----------------------------------------------
-
 Q.. What is right outer join 
 			- In right outer join it fetch all data from right side table 
 			  and only common data from left side table
@@ -2955,6 +2953,47 @@ Q.. How to schedule atomatic refresh?
 		  DBMS_SCHEDULER.DROP_JOB/ENABLE/DISABLE('MV_REFRESH_JOB');
 		END;
 		/
+		
+	=> Rename job 
+		BEGIN
+		   DBMS_SCHEDULER.RENAME_JOB(
+			  job_name => 'OLD_JOB_NAME',
+			  new_name => 'NEW_JOB_NAME'
+		   );
+		END;
+		/
+		
+	=> Alter job action
+		BEGIN
+			DBMS_SCHEDULER.SET_ATTRIBUTE(
+				job_name=>'job_name',
+				attribute=>'JOB_ACTION',
+				value=>'BEGIN DBMS_MVIEW.REFRESH(''m_emp_view'',''c'');END;';
+				);
+		END;
+		
+	=> Alter job repeat interval
+		BEGIN
+			DBMS_SCHEDULER.SET_ATTRIBUTE(
+				name=>'job_name',
+				attribute=>'REPEAT_INTERVAL',
+				value=>'FREQ_MINUTELY'
+				);
+		END;
+----------------------------------------------
+Q.. If Materialized view is not running on time what should i do?
+==> 1. Scheduler Job status Disabled
+	2. Incorrect Repeat Interval
+	3. Materialized view name mismatch
+	4. Incorrect JOB ACTION
+	
+	If a Materialized View is not refreshing on time, 
+	I first check the Scheduler Job status in USER_SCHEDULER_JOBS and verify whether 
+	the job is enabled and scheduled correctly. Then I check USER_SCHEDULER_JOB_RUN_DETAILS 
+	for any failures or ORA errors. I verify the REPEAT_INTERVAL, START_DATE, and JOB_ACTION. 
+	I also check whether JOB_QUEUE_PROCESSES is greater than 0 and test the refresh manually 
+	using DBMS_MVIEW.REFRESH. Based on the findings, I fix the scheduler configuration or the 
+	refresh issue and monitor the next execution.
 ----------------------------------------------
 Q.. What is difference between Simple view and Materialized view?
 ==> - Simple view does not store data only stores the sql query where as 
@@ -2969,6 +3008,13 @@ Q.. What are the limitations of Materialized view?
 	2. need refresh 
 	3. fast refresh has restrications
 	4. maintenance overhead.
+----------------------------------------------
+Q.. Can we use DML operation on materialized view?
+==> No,we can't perform DML operation on materialized view because it is copy actual table 
+	if materialized view is refreshed then actual table data will reflect in materialized view.
+----------------------------------------------
+Q.. Can we use DML operation on view?
+==> In simple view DML operation are allowed but in complex view
 ----------------------------------------------
 Q.. What is subquery?
 ==> query within query is called as subquery.
@@ -3101,7 +3147,7 @@ Q.. What is ANY operator?
 	  where salary> SOME (select salary from employee where deptId=4)
 ----------------------------------------------
 Q.. What is difference between ALL and ANY?
-==> ALL return all value if condition is true where as ANY return true if one match is found.
+==> ALL return true if condition is true where as ANY return true if one match is found.
 ----------------------------------------------
 Q.. What is EXISTS operator?
 ==> - EXISTS is boolean operator
@@ -3154,7 +3200,7 @@ Q.. What is null in oracle?
 			
 		4. ANY or ALL consider the NULL values 	
 ----------------------------------------------
-Q.. What is CASE EXPRESSION ?
+Q.. What is CASE EXPRESSION?
 ==> CASE is not function it it expression 
 	it is used to add conditional logic in sql query.
 	CASE expression is used in where,order by,having,group by clause 
@@ -3741,5 +3787,26 @@ Q.. Query optimization questions?
 		select dept_id,sum(salary) from employee group by dept_id;
 		=> solution
 			create materialized view emp_mv as select dept_id,sum(salary) from employee group by dept_id;
+			
+	8. use bulk collect for fetching 
+	9. use for all to execute bulk dml operation
+	10 avoid nessary loops 
+	11. use collection which allow to fetch multiple row in memory instead of accesing database repeatedly 
 ----------------------------------------------
+Q.. What is EXPLAIN PLAN?
+==> EXPLAIN PLAN is performance tunning tool used to view the execution plan of a SQL statement before it runs
+	When we execute EXPLAIN PLAN it shows 
+		- execution path of the query
+		- Operation performed
+		- number of rows processed
+		- estimated query cost
+		- Percentage of CPU consumtion
+		- Time consumed by query
+		- tables and indexes are used by query
+		
+	Syntax of EXPLAIN PLAN is 
+	EXPLAIN PLAN FOR SELECT QUERY
+	
+	To view execution plan syntax is: 
+	SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
 ----------------------------------------------

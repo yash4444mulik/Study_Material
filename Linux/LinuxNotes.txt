@@ -1141,6 +1141,35 @@ Q.. Regular expression?
 	[!abc] => any character except a,b and c 
 	{} => list files with comma seperated 
 --------------------------------------------------------------------------------------------
+Q.. What is Grep command?
+==> Grep command stand for Global regular expression print 
+	it is used to search given pattern in single file or multiple files 
+	Syntax: 
+		grep [option] <pattern> file_name 
+	
+	here option are optional 
+		
+		1. Search proposal number in policy.log file 
+		=> grep '5106791234' policy.log 
+		
+		2. search faild transaction in policy.log file 
+		=> grep 'failed' policy.log
+		
+		3. search nbqc cases 
+		=> grep 'nbqc' policy.log
+		
+		4. nbqc cases with occurance 
+		=> grep -c 'nbqc' policy.log 
+		
+		5. show error line number 
+		=> grep -n 'error' policy.log 
+		
+		6. search in multiple file 
+		=> grep '5106788666' policy.log 
+		
+		
+		
+--------------------------------------------------------------------------------------------
 Q.. What is PS command?
 ==> ps command stand for process status.
 	- There are 2 Types of process 
@@ -1276,56 +1305,6 @@ Q. What is daily scrum time?(UI-Support Engineer)
    If shift is in morning then scrum meeting is at 11:30 am.
    If shift is in evening then scrum meeting is 5:15 pm.
    Some time It may be changed.
-----------------------------------------------------------
-# Explain your current Project(UI-Developer)
--> I am working on insurance domain and My Project Title is "Motor Claim Processing"
-   In My Project there are two modules one is Claim and another is Policy but I am 
-   working on motor claim module.In claim Module claim related activities are handled.
-   Being insurance organization we have tie up with different motor delears like
-   Honda, Hyundai,Kia, Ford,Mahindra,Maruti.
-   These delears register the claim via webservice, ones claim register then it goes from
-   different stages like
-   1) Survey Appoitment
-   2) Survey Completion
-   3) Document Upload
-   4) Assessment
-   5) Final Assesment
-   6) Claim Closing
-   
--> Being UI developer my role is to develope UI component as per requirement.
-   
--> Technologies used in the Project 
-   1. For Front end we have used - HTML,CSS,JS,Bootstrap and React JS.
-   2. For Back end -Spring Boot and Microservices
-   3. Data Base- Oracle 12c
-   4. Version Cntrol Tool- Git.
-   5. Methodology: Agile
-   6. Midleware: Weblogic 12c
----------------------------------------------------------------------------------
-# Explain your current Project(UI-Support Engineer)
--> I am working on insurance domain and My Project Title is "Motor Claim Processing"
-   In My Project there are two modules one is Claim and another is Policy but I am 
-   working on motor claim module.In claim Module claim related activities are handled.
-   Being insurance organization we have tie up with different motor delears like
-   Honda, Hyundai,Kia, Ford,Mahindra,Maruti.
-   These delears register the claim via webservice, ones claim register then it goes from
-   different stages like
-   1) Survey Appoitment
-   2) Survey Completion
-   3) Document Upload
-   4) Assessment
-   5) Final Assesment
-   6) Claim Closing
-   
--> Technologies used in the Project 
-   1. For Front end we have used - HTML,CSS,JS,Bootstrap and React JS.
-   2. For Back end -Spring Boot and Microservices
-   3. Data Base- Oracle
-   4. Version Cntrol Tool- Git.
-   5. Methodology: Agile
-   6. Midleware: Weblogic 12c
--> In the Current Project My Role is Application Support Engineer.
-   Being support engineer I resolve the issues which delears are facing.
 -----------------------------------------------------------------------------------
 Q. What is DR activity?
 (This question is applicable for both- UI Developer and Support Engineer)

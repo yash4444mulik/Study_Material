@@ -466,6 +466,74 @@ Q.. Which statement are allowed in trigger body?
 Q.. Which statements are not allowed in trigger body?
 ==> CREATE,DROP,ALTER,COMMIT,ROLLBACK
 ------------------------------------
+Q.. How to audit table?
+==> First we have to create audit table then create trigger that fire for DML opeartion and 
+	use loggic inside it to store changed in audit table 
+		create table employee_audit(
+		audit_id NUMBER,
+		empno NUMBER,
+		empname VARCHAR(90),
+		old_salary NUMBER,
+		new_salary NUMBER,
+		old_commission NUMBER,
+		new_commission NUMBER,
+		action_type VARCHAR(90),
+		changed_by VARCHAR(90),
+		changed_date DATE
+		);
+
+
+		CREATE SEQUENCE audit_id_seq
+		start with 1
+		increment by 1
+
+		CREATE OR REPLACE TRIGGER employee_audit_tgr
+		AFTER INSERT OR UPDATE OR DELETE ON EMPLOYEE
+		FOR EACH ROW
+		DECLARE
+		BEGIN 
+			IF INSERTING THEN
+				INSERT INTO employee_audit values(
+				audit_id_seq.NEXTVAL,
+				:new.empno,
+				:new.empname,
+				null,
+				:new.salary,
+				null,
+				:new.commission,
+				'Insert',
+				USER,
+				SYSDATE
+				);
+			ELSIF UPDATING THEN
+				INSERT INTO employee_audit values(
+				audit_id_seq.NEXTVAL,
+				:new.empno,
+				:new.empname,
+				:old.salary,
+				:new.salary,
+				:old.commission,
+				:new.commission,
+				'Update',
+				USER,
+				SYSDATE
+				);
+			ELSIF DELETING THEN
+				INSERT INTO employee_audit values(
+				audit_id_seq.NEXTVAL,
+				:NEW.empno,
+				:NEW.empname,
+				:OLD.salary,
+				null,
+				:OLD.commission,
+				null,
+				'DELETE',
+				USER,
+				SYSDATE
+				);
+			END IF;
+		END;
+------------------------------------
 Q.. Consider Employee table when a row is inserted into Employee table 
 	then insert a record into audit_log table.
 ==> CREATE trigger employee_tgr 
@@ -490,8 +558,8 @@ Q.. If trigger body is performing DML operation,how will that data get committed
 ==> The COMMIT operation is done by the session that fired the trigger not by trigger itself			
 ------------------------------------
 Q.. What is instead of Trigger?
-==> An Instead of trigger is trigger which get executes instead of actual DML operations.
-	- if we have created complext view then if we try to insert data into it then we will get an error 
+==> An Instead of trigger is special type of trigger which get executes on view instead of actual DML operations on table.
+	- if we have created complex view then if we try to insert data into it then we will get an error 
 	  so to avoid this issue we can use instead of trigger.
 	
 	Syntax: 
@@ -590,6 +658,12 @@ Q.. In which case delete operation is allowed on complex view and in which use c
 ------------------------------------
 Q.. Can we delete data from multiple base table on single delete operation?
 ==> Yes,using INSTEAD OF trigger.
+------------------------------------
+Q.. In Bhartiaxa project where you have used INSTEAD OF TRIGGER?
+==> I have not directly implemented INSTEAD OF triggers in the BhartiAxa project.
+	Most of transactional processing such as proposal creation,underwriting,payment,nbqc is 
+	handled through packages and procedures.
+	however I understand that INSTEAD OF TRIGGER are useful for enabling DML operations on complex view.
 ------------------------------------
 Q.. How to enable or disable triggers?
 ==> - bydefault triggers are enabled 
@@ -1510,6 +1584,14 @@ Q.. Non-Predefined exception?
 		2. FOREGIN KEY constraint voilation
 		3. table or view does not exist 
 		4. unable to extent table
+		5. check constraint violation
+		
+	- Real time 
+		1. suppose tried to delete policies that already used in another table.
+		2. we can't delete product 
+		3. deletin customer who has active policy 
+		4. Premium amount violation (premium should be greater than zero)
+		5. Invalid customer ID (AU user tried to enter invalid customer ID)
 ------------------------------------
 Q.. How to handle Non-Predefined exception?
 ==> we can handle Non-Predefined exception using 2 ways 
@@ -1597,6 +1679,11 @@ Q.. What is user defined exception?
 	- Properties
 		1. declared by programmer in declare block
 		2. raised by programmer using RAISE and RAISE_APPLICATION_ERROR
+		
+	- Example
+		- Minimum premium criteria
+		- for some plan age should be between 45-60
+		- PAN validation error 
 ------------------------------------
 Q.. What is RAISE ?
 ==> RAISE is PL/SQL statement.
@@ -1876,10 +1963,10 @@ Q.. What is Mutating table?
 ------------------------------------
 Q.. What is PRAGMA AUTONOMOUS_TRANSACTION?
 ==> - PRAGMA AUTONOMOUS_TRANSACTION is used in procedure,function,trigger and block.
-	- It is used to run procedure,Function,Trigger and block in its own independant transaction,
-	  seperate from calling transaction
+	- It is used to run procedure,Function,Trigger and block in its own independant transaction
+	- It has own commit and rollback
+	- changes made in autonomous transaction are saved even if the main transaction is rolled back.
 	- it commonly used for logging and audit tables.
-	- If we are using PRAGMA AUTONOMOUS_TRANSACTION then we need to write COMMIT and ROLLBACK explicitly 
 ------------------------------------
 Q.. When to use PRAGMA AUTONOMOUS_TRANSACTION?
 ==> - error debugging
@@ -1888,6 +1975,13 @@ Q.. When to use PRAGMA AUTONOMOUS_TRANSACTION?
 ------------------------------------
 Q.. Where not to use PRAGMA AUTONOMOUS_TRANSACTION?
 ==> Not recommended for business logic 
+------------------------------------
+Q.. Where you have used PRAGMA AUTONOMOUS_TRANSACTION?
+==> Sinario 1-
+		when we process policy batch at that time if any policy failed due to validation or database errors,
+		we log the policy number and error message using an PRAGMA AUTONOMOUS_TRANSACTION.Even if the main 
+		transaction is rolled back,the error details remain available in the log table for 
+		support and reprocessing process.
 ------------------------------------
 Q.. Oracle storage heirarchy?
 ==> Database ->Tablespace->DataFiles(Physical)->segment->Extent->Data Block
@@ -3117,6 +3211,12 @@ Q.. Write a procedure which accpet two emp_id and returns sum of salary?
 
 	end;
 ------------------------------------------------
+Q.. What is difference between procedure & function?
+==> - In Function return statement is mandatory where as In procedure return statement is not manadatory.
+	- Function return only one value where as In procedure we can return multiple values.
+	- To return value from function we use return keyword where as in Procedure we use out parameter.
+	- In procedure return keyword is used to exit from procedure where as in function return keyword is used to return a value
+------------------------------------------------
 Q.. What is regular expression?
 ==> Regular expression is pattern used to search,check or extract text.
 	- Regular expression is also called as REGEXP
@@ -3925,10 +4025,28 @@ Q.. What is Varray?
 			Update table(select mark from stud11 where stud_id=101)set column_value=20000 where column_value=30
 
 ------------------------------------------------
+Q.. Varray realtime example?
+==> 1. In our policy we allow customer to add upto 3 nominee.
+		Syntax: 
+			TYPE v_nominee IS VARRAY(3) OF VARCHAR(90);
+			nominee_list v_nominee:=v_nominee();
+		
+		If we try to add 4th nominee then we will get an error 
+			nominee_list.extend();
+			nominee(4):='father';
+		ORA-06532: Subscript outside of limit
+		
+	2. Payment mode
+		every policy support only 4 frequencies yearly,quarterly,half-yearly,monthly
+		for that purpose we can create varray.
+		Syntax: 
+			TYPE v_array IS VARRAY(4) OF VARCHAR(90);
+-------------------------------
 Q.. Write program which store student list and display one by one?(using for loop)?
 ------------------------------------------------
 Q.. What is nested table?
-==> it is a collection type that stores multiple values of same datatype.
+==> Nested table is PLSQL collection that store multiple value of same data type
+	Its size is growble
 	
 	=> Properties of nested table
 		- index start from 1.
@@ -4001,11 +4119,39 @@ Q.. NESTED TABLE STORED IN DATABASE COLUMN?
 	UPDATE TABLE(SELECT column_name from MAIN_TABLE_NAME WHERE CONDITION) SET column_value='' where column_value='';
 	update table(select phone from cust11 where custid=101) set column_value='yashraj' where column_value='9370585700'
 ------------------------------------------------
+Q.. What are the realtime example of NESTED TABLE?
+==> - During the batch process we used NESTED TABLES with BULK COLLECT & FORLL to process large volume 
+	  of policy and premium record during batch jobs.
+	- This improve performance by reducing context switching between the PLSQL and SQL engine.
+	
+	1. Every day, we receive policy details from multiple banking partners such as AU Bank, KBL,
+		SFB, Shivalik Bank, and Axis Bank.These records are first loaded into a staging table
+		We then use BULK COLLECT to fetch the records into a nested table and FORALL to insert 
+		them into the POLICY_MASTER
+			DECLARE
+			TYPE v_table IS TABLE OF EMPLOYEE%ROWTYPE;
+			v_table_list v_table;
+			BEGIN
+			select * bulk collect into v_table_list from employee;
+			Forall i IN 1..v_table_list.count insert into emp values v_table_list(i);
+			END;
+		
+	2. Every day, we identify customers whose premium due date is the current date. 
+		We fetch all eligible customer records into a nested table using BULK COLLECT.
+		Then, using FORALL, we insert the records into the NOTIFICATION_TABLE, 
+		from which SMS or email notifications are sent to customers.
+			- here i have used condition of dept_number we can replace by premium due day 
+			DECLARE
+			TYPE v_table IS TABLE OF EMPLOYEE%ROWTYPE;
+			v_table_list v_table;
+			BEGIN
+			select * bulk collect into v_table_list from employee where dept_number=30;
+			Forall i IN 1..v_table_list.count insert into emp1 values v_table_list(i);
+			END;
+------------------------------------------------
 Q.. What is difference between varray and nested table?
 ==> 1. varray has fixed maximum size where as nested table is growble 
 	2. In varray insertion order is preserved where as in nested table insertion order is not preserved
-	3. In the database,varray values are stored inline with the parent table row where as 
-		nested table values are stored in a seperate storage table.
 	4. Varray does not create a seperate internal storage table but nested table create seperate internal 
 	   storage to store its elements
 	5. we can't delete middle element from varray where as we can delete middle element of nested table.
@@ -4019,6 +4165,7 @@ Q.. what is associative array(index-by-index)?
 	- key can be integer or string type.
 	- associate array is dynamic in size.it's size may be increase or decrease at run time.
 	- Data is stored in memory only.
+	- exist only during program execution
 	
 	=> How to declare associative array
 		TYPE type_name IS TABLE OF data_type INDEX BY PLS_Integer/VARCHAR2(size);
@@ -4051,6 +4198,35 @@ Q.. what is associative array(index-by-index)?
 		if exists then it return true otherwise false.
 	=> DELETE:remove elements
 	=> COUNT:return number of elements present 
+------------------------------------------------
+Q.. Associative Array real time use?
+==> In out project we used associative array to store reference data in memory for fast lookup
+	This help use to avoid repeated database queries during batch processing and it improve performance.
+	
+	1. we receive policy data from multiple partner instead fetching using select statement 
+	   we load all partner code and partner name into an associative array.
+	2. when policies received from different branch then instead of fetching using select statement 
+		we load all branch details in associative array
+	
+	DECLARE
+	TYPE a_array IS TABLE OF VARCHAR(10) INDEX BY PLS_INTEGER;
+	branch_list a_array;
+	BEGIN
+	FOR rec IN (SELECT branch_code,branch_name from branch_master)
+	LOOP
+	branch_list(rec.branch_code):=rec.branch_name ;
+	END LOOP;
+	dbms_output.put_line(branch_list(101));
+	END;
+	
+	DECLARE
+	TYPE a_array IS TABLE OF varchar(20) INDEX BY PLS_INTEGER;
+	Partner_code a_array;
+	BEGIN
+	Partner_code(201):='AU';
+	Partner_code(202):='KBL';
+	dbms_output.put_line(Partner_code(202));
+	END;
 ------------------------------------------------
 Q.. write program to store key-values in associative array (store student rollno and name)?DAY54
 ------------------------------------------------
@@ -4128,8 +4304,8 @@ Q.. What is difference between nested table and associative array?
 Q.. What is cursor?
 ==> We have %rowtype data type.%rowtype store one row at a time.if select statement return multiple row 
 	then we will get an error so to over come this problem cursor come in picture.
-	- cursor is pointer to query result set.
-	- It is used to fetch and process records row by row from the database.
+	- cursor is pointer to memory area where oracle store result set of sql query.
+	- It is used to process multiple rows one at a time
 	
 	=> Type of cursor?
 		1. Implicit cursor
@@ -4531,8 +4707,8 @@ Q.. what is difference between %found and %notfound?
 Q.. what is difference between cursor and ref cursor?
 ==> - Explicit cursor is static where as REF cursor is dynamic
 	- In Explicit cursor query is fixed at compile time where as In REF cursor query can change at runtime.
-	- Explicit cursor defined at compile time where as REF cursor is opened dynamically at runtime.
-	- explicit curseor used within a single block where as REF cursor can be passed,returned and reused.
+	- Explicit cursor declared with select statement where as REF cursor is opened dynamically at runtime.
+	- explicit curseor used within a same block where as REF cursor can be passed,returned and reused.
 	- Explicit cursor has limited flexibility where as REF cursor provide more flexibility.
 ------------------------------------------------
 Q.. What is difference between strong and weak REF cursor?
@@ -4548,10 +4724,20 @@ Q.. What is difference between explicit and paramaterized cursor?
 	- explicit cursor is used for fixed conditions whereas paramaterized cursor is used for dynamic filtering
 	- explicit cursor does not require parameters whereas paramaterized cursor is defined with parameter.
 ------------------------------------------------
+------------------------------------------------
+------------------------------------------------
+Q.. Where you have used cursor in your bhartiaxa project?
+==> In our Bharti AXA project, Once cases reach to NBQC,UW,DCR generation then 
+	case will assigned to corresponding team for review and decision.
+	cursor are mainly used in scheduler job and batch run to identify pending proposals and 
+	assigne them to respective team for review and decision.
+------------------------------------------------
+------------------------------------------------
+------------------------------------------------
 Q.. MERGE Statement?
 ==> MERGE is a sql statement used to Sync data in target table 
 	based on matching condition between source table and target tables.
-	- we can insert,update and delete the records in single statement.
+	- we use merge statement when we want to perform insert,update and delete the records in single SQL statement.
 	
 	=> Syntax: 
 		MERGE INTO table_name1 t1 USING table_name2 t2 ON(t1.clm_name=t2.clm_name)
@@ -4592,7 +4778,27 @@ Q.. Is it manadatory to write both conditions(MATCHED and NOT MATCHED) in a MERG
 		when matched then update set e.empname=n.empname,e.salary=n.salary
 		when not matched then insert (empno,empname,salary) values(n.empno,n.empname,n.salary);
 ------------------------------------------------
+Q.. What is the use of Merge statement or when we should go with Merge?
+==> Merge is used to execute insert,update,delete statement in single sql statement
+	- It improve performance by reducing execute query one by one 
+	- It simplifies loading and synchronize data.
+	- It maintain consistency
+	- It reduces changes of error during insert,update,delete operation performed.
 ------------------------------------------------
+Q.. Where you use MERGE statement in Bhartiaxa Project?
+==> When policy status is mismatch in out end and customer end then 
+	we use MERGE Statement to make policy status correct 
+	we will take approval from TL for this activity and make query 
+	MERGE INTO policy_master p using Customer_policy c ON (p.proposal_no=c.proposal_no)
+	WHEN MATCHED THEN 
+		update set p.status=c.status
+	WHEN NOT MATCHED THEN 
+		INSERT (proposal_no,status) VALUES(c.proposal_no,c.status);
+		
+	
+	2. Payment reconciliation
+	3. DCR generation
+	4. NBQC Status update.
 ------------------------------------------------
 ------------------------------------------------
 ------------------------------------------------
@@ -4775,8 +4981,37 @@ Q.. What is SAVE EXCEPTIONS?
 		2. errors stored internally.
 		3. We can handle them later.
 ------------------------------------------------
-Q.. What is SQL%BULKEXCEPTIONS?
+Q.. What is SQL%BULK_EXCEPTIONS?
 ==> It is a collection that stores error details.
+------------------------------------------------
+Q.. example of save exceptions
+==> create table emp_source(empno number,empname varchar(90),salary number);
+	insert into emp_source values(101,'yash',90000);
+	insert into emp_source values(102,'jay',90344);
+	insert into emp_source values(103,'raj',80000);
+	insert into emp_source values(104,'abc',40000);
+
+	create table emp_target(empno number,empname varchar(90),salary number);
+	insert into emp_target values(102,'jay',90344);
+
+
+	DECLARE
+	TYPE emp_type IS TABLE OF emp_source%rowtype;
+	emp_rec emp_type;
+	BEGIN
+	select * bulk collect into emp_rec from emp_source;
+	FORALL i IN 1..emp_rec.count SAVE EXCEPTIONS
+	INSERT INTO emp_target VALUES emp_rec(i);
+	dbms_output.put_line('record inserted');
+	EXCEPTION
+	WHEN OTHERS THEN 
+	DBMS_OUTPUT.PUT_LINE(SQL%ROWCOUNT || ' records inserted successfully');
+	FOR j IN 1..SQL%BULK_EXCEPTIONS.COUNT LOOP
+	DBMS_OUTPUT.PUT_LINE('ERROR_INDEX'||SQL%BULK_EXCEPTIONS(j).ERROR_INDEX);
+	DBMS_OUTPUT.PUT_LINE('ERROR_CODE'||SQLERRM(-SQL%BULK_EXCEPTIONS(j).ERROR_CODE));
+	END LOOP;
+	END;
+	/
 ------------------------------------------------
 Q.. FLASHBACK?
 ==> - To detete an object(table,index,view,sequence,etc) we use drop statement.
@@ -4784,7 +5019,7 @@ Q.. FLASHBACK?
 	- once we delete row and commit we can't rollback.
 	- once we update row and commit we can't rollback.
 	- once we insert the row and commit we can't rollback.
-	- when we drop an obect or when we delete rows that object or row get stored in recycle bin.
+	- when we drop an object or when we delete rows that object or row get stored in recycle bin.
 	- To restore objects or rows from recycle we use "flashback"
 	- flashback is for data recovery and historical analysis 
 	- flashback features were introduced in oracle 9i database release2 later versions
@@ -5016,7 +5251,7 @@ Q.. What is difference between pks and pkb?
 ==> 1. pks stand for package specification and pkb stand for package body.
 	2. pks is an interface and pkb is implementation
 	3. private members are not allowed in pks but private members are allowed in pkb
-	4. pks is not depends on pks but pkb is depends on pks.
+	4. pks is not depends on pkb but pkb is depends on pks.
 	5. pks variable are public but pkb variables are private.
 ------------------------------------------------
 Q.. can we call procedure inside select statement?
@@ -5028,7 +5263,24 @@ Q.. Why proceudre cannot be called inside select?
 Q.. How to call procedure if package is in another schema?
 ==> schema_name.package_name.procedure_name
 ------------------------------------------------
-Q.. What is Dynamic SQL?
-==> Dynamic SQL is a technique where the SQL statement is constructed and executed 
-	at runtime rather than being hardcoded at compile time.
-------------------------------------------------
+Q.. What type of functions you written in project?
+==> There are 2 type of function 
+	1. Predefined function
+		- The function defined by oracle is nothing but predefined function.
+		- Predefined function have 2 types 
+			1. Single row function
+			2. Multi row function
+	2. User defined function
+		- Function which is defined by programmer/developer is nothing but user defined function
+		
+	In Our project we used single row function like 
+	INSTR()=> used to find numeric position of given character in source string 
+			Syntax: INSTR(source_string,search_string,start_index);
+			- In our project we receive delimited string format such as policy number,customer name,status,
+			  dob,pan number etc seperated by ~.we use INSTR() to identify the delimiter position and SUBSTR()
+			  to extract individual values.
+			  The TRIM() function is used to remove any leading and trailing spaces from the extracted data. 
+			  These values are then stored in a collection for further processing and validation.
+			  
+	MAX()=> Based on proposal number to find policy number.
+	SUM()=> Sum of premium because for some plans there is discount applied,

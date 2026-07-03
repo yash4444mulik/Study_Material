@@ -8,13 +8,13 @@ Q. What is API?
    iii) Amazon S3 
 ---------------------------------------------------
 Q. Why API is needed?
--> 1. Interoperability: APIs enable different software systems to communicate and       interact with each other
+-> 1. Interoperability: application developed in one language can be used in another programming language
    2. Modularity:APIs allows us to create modular and reusable code
-   3. Abstraction: We hight light set of service instead of highlihting its                   internal implementation.
+   3. Abstraction: We hightlight set of service instead of highlihting its internal implementation.
       Being a developer we use then, instead of knowing its internal working.
-   4. Rapid Development:Instead of building everything from scratch, developers can           integrate APIs to access features like authentication, payment processing,             mapping services, and more
-   5. Scalability:APIs support scalability by allowing applications to interact with       external services or databases.
-   6. Security:APIs provide a controlled way to access and share data between       applications 
+   4. Rapid Development:Instead of building everything from scratch, developers can integrate APIs to access features like authentication, payment processing,             mapping services, and more
+   5. Scalability:APIs support scalability by allowing applications to interact with external services or databases.
+   6. Security:APIs provide a controlled way to access and share data between applications 
 ---------------------------------------------------
 Q. What are different Types of API?
 -> Internal API or Private API: The API which is accessible within an organization
@@ -124,9 +124,19 @@ Q. What is Difference between standard web site(Web Application) and web service
 -> Standard web site is meant for human consumption while web service 
    is for code  consumption
 ==============================================================
+Q.. What is web services?
+==> The services available on web is nothing but web services.
+==============================================================
 Q. What is advantage of Web-Service?
 -> The main advantage or feature of web service is interoperability
 -> Interoperability means platform independent and technology independent
+==============================================================
+Q.. What is difference between API and webservices?
+==> API is boarder term involving all interfaces that allow communication between software.
+	web service is specific type of API that works over the web using web-based protocols 
+==============================================================
+Q.. What is advantage of web services?
+==> main advantage is interoperability.means platform is independent
 ==============================================================
 Q. Types of web service
 Ans There are two types of Webservices

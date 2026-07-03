@@ -1,0 +1,658 @@
+==============WEBLOGIC=======================
+
+Q.. What is JDK?
+==> JDK stand for java developement kit 
+	- JDK provides all tools required for java developement.
+	- It is used to develope,compile & run java applications.
+---------------------------------------
+Q.. How to check jdk available or not?
+==> open command prompt and execute command "java -version"
+	if command return jdk version then jdk is available
+	if command give error then jdk is not available
+---------------------------------------
+Q.. What is extention of JAVA source code file?
+==> - Java source code has 	.java extention
+	- we compile .java file.If compilation is sucessfull then we will get .class file.
+	- we run .class file to get output.
+---------------------------------------
+Q.. Which compiler is used to compile java source code?
+==> javac compile is used to compile java source it is available inside the "bin" directory.
+---------------------------------------
+Q.. how to check compile?
+==> javac -version
+---------------------------------------
+Q.. Difference between JDK,JRE and JVM?
+==> JDK => used to develope and run java program
+	JRE => Provide run time envirnoment to run java program
+	JVM => execute java bytecode (.class file)
+	
+	Inside JDK we have JRE and inside JRE we have JVM 
+---------------------------------------
+Q.. What is mean by application?
+==> Collection of services is nothing but application.
+	there are 3 type of application
+		1. web application
+		2. Server side application
+		3. Enterprise Application
+---------------------------------------
+Q.. What is server?
+==> A system or software that handle incomming HTTP request is called server.
+	There are 3 type of server
+	1. web server 
+		- the server which provide web content to user is called web server 
+		- web server host the websites 
+		- web server show the app to end user 
+		- e.g apache HTTP server , Microsoft IIS , Nginx
+		
+	2. application server
+		- The server which handle business logic of an application is nothing but application server.
+		- If application logic is simple then we use simple application server like apache tomcat,jetty,undertow
+		- If application logic is complex then we use Enterprise level application servers like weblogic,web sphere,jboss
+		
+	3. DB server 
+		- The server which handle database related functionality is called DB server 
+		- e.g 
+			1. oracle database
+			2. Mysql database
+			3. MS SQL Server
+			4. IBM DB2
+			5. MangoDB
+---------------------------------------
+Q.. What is tomcat?
+==> Tomcat is open source app server used to run java applications.
+	- main component of java are 
+		1. Catelina
+		2. coyote
+		3. jasper 
+---------------------------------------
+Q.. what is catelina?
+==> core servlet container of tomcat
+---------------------------------------
+Q.. What is coyote?
+==> HTTP connector handling client communication
+---------------------------------------
+Q.. What is jasper?
+==> JSP engine that convert JSP into servlet 
+	.jsp=>.java=>.class 
+---------------------------------------
+Q.. Default port of tomcat?
+==> 1. HTTP => 8080
+	2. Shutdown => 8005
+	3. HTTPS => 8443
+---------------------------------------
+Q.. Where tomacat logs stored?
+==> server level logs stored in "catelina.date.log"
+	application level logs stored in "Tomcat9-stdout.date.log"
+---------------------------------------
+Q. What is mean by server?
+=> server is one kind of software which handle incoming https request 
+------------------------------------------------------
+Q. What is weblogic?
+=> weblogic is application server used to develope,deploye and run 
+   java based enterprise application.
+------------------------------------------------------
+Q.. Functionality supported by weblogic?
+==> 1. Application deployment and management 
+	2. High availability & clustering
+	3. connection management 
+	4. messaging service 
+	5. Transaction management 
+	6. security management 
+	7. web service supporte
+	8. Load balancing and support 
+	9. Monitoring and logging
+	10. Integration with other middleware
+------------------------------------------------------
+Q.. What is mean by High availability?
+==> All the time application should be available for end users.
+------------------------------------------------------
+Q.. What is mean by scalability?
+==> Scalability means increase system capacity by adding more servers or resource by demand grows.
+------------------------------------------------------
+Q.. What is load balancing?
+==> distributing incomming requests equaly among all the available servers.
+	- the main goal is to avoid overloading any single server.
+------------------------------------------------------
+Q.. What is mean by fail over?
+==> Fail over means if one server fails in the middle of transaction then transaction should
+	be automatically continue by another server without interrupting the user session
+------------------------------------------------------
+Q. What is mean by domain in weblogic?
+=> Domain is single logical admistritive unit which can contain one or 
+   more weblogic server instance
+	- single weblogic server have multiple domains 
+	- There are 2 modes to configure domain 
+		1. Deployment mode (default)
+		2. Production mode 
+------------------------------------------------------
+Q. What are differenet component of weblogic?
+=> 1. Admin Server :Admin server is central server used to configure and manage the domain  
+				   - Every domain has a single Admin server 
+				   - 7001 http for https=>7002
+   2. Managed Server:Managed server run the actual application or services 
+					- A domain can contain one or more managed server 
+					- managed servers are controlled by admin server 
+					  but they can operate independently once started 
+   3. Node Manager:Node manager is utility in weblogic server 
+				  - node manager help us to start,stop or restart 
+				    server instances remotely
+   4. Cluster: cluster is group of managed server 
+				for load balancing and high availability.
+			  - clustering distributes the application workload across 
+			    multiple servers and improve performance and reliability of an application 
+------------------------------------------------------
+Q.. for domain,at least how many servers are required?
+==> At least one server required that is admin server 
+------------------------------------------------------
+Q.. in which server we deploye our application?
+==> managed server 
+------------------------------------------------------
+Q.. can we deploye application on admin server?
+==> yes but it is not recommended
+------------------------------------------------------
+Q.. why Nodemanager is needed?
+==> 1. If there is no Nodemanager then we can't start Managed Server rometely by using remote console or WLST tool.
+		- we need to start managed server manually.
+		- If there is no Nodemanager then we can start managed server remotely by using remote console or WLST tool.
+	2. If there is no Nodemanager and If managed server crashes then it is not started automatically but 
+		If there is Nodemanager and if managed server crashes then it will automatically restart out managed server.
+	
+	3. To enable automatic crash recovery,you would need to set CrashRecoveryEnabled=true in the nodemanager.properties file.
+------------------------------------------------------
+Q.. Type of node manager?
+==> there are 2 types of node manager
+	1. Java based node manager
+	2. script based node manager
+	
+	Bydefault java based node manager for weblogic.
+------------------------------------------------------
+Q.. What are different componenet of nodemanager?
+==> 1. nodemanager.properties
+		configure file for node manager
+	2. nm_password.properties
+		store node manager passowrd in encrepted
+		path is "domain_name/config/nodemanager"
+		
+	3. nodemanger.log 
+		log file of nodemanager service 
+	
+	4. nodemanager.domains 
+		maps domain name and path 
+------------------------------------------------------
+Q.. what is default port of nodemanager?
+==> 5556,we can change it from nodemanager.properties
+------------------------------------------------------
+Q.. Type of log?
+==> We have different types of logs in weblogic.
+	1. Server log files(admin/managed)
+		- adminserver.log 
+		- ms-1.log 
+		server log location => domain/servers/server_name/logs/server_name.log 
+		
+		- Server logs include (admin/managed)
+		1. server stop/shutdown
+		2. deployement,undeployment tag
+		3. JDBS/JMS subsystem message
+		4. thread dumps,stuck threads
+		5. Garbeg collection log 
+		6. Java exceptions 
+		7. SSL,security warnings 
+		8. node manager connection messages
+		
+	2. Domain logs 
+		- centralized view of all server logs 
+		- Domain log file includes 
+			1. Messages from Adminserver+all managed server 
+			2. same that appears in server.log,but in one place
+			3. domain configuration changes 
+			4. Deployment status
+			5. Node manager events 
+		- Naming convention for domain log file:DomainName.log
+		- Location:  domain/servers/server_name/logs/DomainName.log
+		
+	3. Access log 
+		- captures all HTTP request that hit the weblogic server 
+			Includes 
+			1. Client IP 
+			2. URL Requested 
+			3. HTTP Method(GET/POST)
+			4. Response code (200/404/500)
+			5. Response time 
+			6. Timestamp
+			7. User-agents 
+		- Every server has own access.log file 
+		- location=> domain/servers/server_name/logs/access.log 
+		
+	4. ManagedServerName.out file 
+		- If we have started Managed server using nodemanager that one extra log file is created 
+			for every managed server and that file name is ManagedServerName.out
+		- location => domain/servers/server_name/logs/ManagedServerName.out
+		
+	5. Nodemanager log 
+		- Node manager related logs +managed server log maintained in nodemanager.log file 
+		- If manager server unble to start via nodemanger then we need to check nodemanager.log file
+		- Location => domain/nodemanager/nodemanager.log 
+		
+	6. datasource.log 
+		- It maintain datasource related logs 
+		- For every managed server we have seperate datasource log file 
+		- Name of the datasource log file is datasource.log 
+		- Location=> domain/servers/managed_server/logs/datasource.log
+------------------------------------------------------
+Q.. What is log?
+==> server.log => Internal server events 
+	domain.log => Aggeregated sever log 
+	access.log => External HTTP requests 
+------------------------------------------------------
+Q.. Who generate log?
+==> server.log => Each server 
+	domain.log => Admin server 
+	access.log => HTTP subsytem of each server 
+	nodemanager.log => nodemanager 
+------------------------------------------------------
+Q.. When to check which logs?
+==> Sinario 1: user getting 500 Intenal Server Error
+		- check domain.log,nodemanger.log for stack trace 
+		- check server.log 
+		- check access.log to confirm 500 & pattern
+		
+	Sinario 2: Deployment Failed
+		- login to admin console > deployment section > check status of application
+		- on which its deployment failed check that server logs 
+		- Note: access.log is irrelevant 
+		
+	Sinario 3: Login page slow/high response time 
+		- check access.log for request latency
+		- then check server.log for thread issue 
+		- create thread dump and analysis of thread dump 
+------------------------------------------------------
+Q. How to start Admin server?
+=>  there are 3 ways to start admin server 
+	1. by executing script 
+	2. using wlst tool 
+	3. using node manager 
+	
+	1. by executing script 
+		- open command prompt 
+		- navigate to bin directory of user_project 
+		- execute script startWeblogic.sh 
+		
+	2. using wlst tool 
+		- open command prompt 
+		- navigate to oracle_common directory then navigate 
+		  bin directory of common directory 
+		- execute script wlst.sh 
+		- execute command 
+		  startServer('servername','domainName','url','username','password');
+		-startServer('AdminServer','base_domain','t3://localhost:7001','weblogic','weblogic@123')
+	
+---------------------------------------
+Q. How to deploy the application?
+=> To deploy the application login to Admin server 
+	- go to deployement section 
+	- click on install button 
+	- browser the war or jar file 
+	- click on next button
+	- if file is war then select option deployement as an application 
+	- if file is jar then select option deployement as library
+	- click on next button 
+	- select server 
+	- click on next button
+	- click on finish button 
+---------------------------------------
+Q. How to stop admin server?
+=> to stop admin server there are 4 different ways 
+   1) Through "stopWeblogic.cmd" or "stopWeblogic.sh" script
+   2) Through the "wlst" tool
+   3) Through the nodemanager
+   4) Through WebLogic Admin console
+   
+   1. using script 
+	1. Open command prompt and Navigate to domain's bin directory
+	2. Execute "stopWeblogic.cmd" if you are on windows.
+      Execute ""stopWeblogic.sh" if your are Linux.
+   
+   2.using wlst tool 
+	   1. start "wlst" tool
+	   2. Connect to Admin Server through below command
+		  connect('username', 'password', 't3://localhost:7001')
+	   3. shutdown('servername')
+		  Example: shutdown('AdminServer') 
+		  
+   3. Stoping Admin Server Through Through the nodemanager
+	-> Steps:
+	   1. nodemanager should be up and running
+	   2. start wlst tool.
+	   3. Connect to nodemanager
+		  nmConnect('nodemanager','nodemanager@123','localhost','5556','base_domain',
+	  'C\:\\weblogic12c\\user_projects\\domains\\base_domain','plain')
+	  
+	  4.Connect to Admin Server.
+		connect('username', 'password', 't3://localhost:7001')
+	  5. nmKill('AdminServer')
+	  6. nmDisconnect() : To disconnect from node manager.
+	  
+   4. Stoping AdminServer Through WebLogic Admin console
+	-> Steps:
+	   1. Login to Admin Console
+	   2. Environment -> Servers -> Control -> Select sever -> Shutdown
+------------------------------------------------------
+Q. Who said you to deploy the application?
+When Developer/Tester ask to Deploy an application on server/bin
+Then share mail and share the path of shared folder.
+I copy the war file from share folder to my local system
+and deploy.
+------------------------------------------------------
+Q. How to create managed server?
+=> - login to weblogic administration console 
+   - navigate to Environment section 
+   - navigate to server section 
+   - click on new button to create managed server 
+   - Enter required information like 
+     server_name==> specify unique server name ,
+     server_listen_address==> This is the IP address or hostname of the machine 
+      where the Managed Server will run.,
+    
+server_listen_port==> The port on which the Managed Server will listen
+   - click on next button 
+   - click on finish button 
+------------------------------------------
+Q. How to start managed server?
+=> there are multiple ways to start managed server 
+	1. by executing startup script from command line 
+	2. using weblogic administration console 
+	3. using WLST tool 
+	
+	
+	1. by executing startup script from command line 
+	==> - open terminal or command prompt 
+	    - navigate to the domain's bin directory 
+		- run startManagedWeblogic script,passing the server name 
+		  and URL of the admin server as below 
+		
+		startManagedWeblogic.sh <managed_server_name>
+		http://<admin_server_hostname>:<admin_server_port>
+	
+	2. using weblogic administration console
+	==> if admin server is running then you can start managed server 
+	    using weblogic administration console 
+		- login to administartion console 
+		- navigate to envirnoment section then navigate server section 
+		- navigate to control section
+		- select managed server that you want to start and click start 
+		
+	3. using WLST tool (WebLogic Scripting tool)
+	==> WLST tool allow you to start managed server 
+	   - open terminal or command prompt 
+	   - navigate to wlst directory 
+	   - /oracle_comman/common/bin
+	   - connect to admin server using WLST tool 
+		 connect ('username','password','t3://localhost:7001')
+	   - Start managed server :
+			start ('managed_server_name')
+	
+------------------------------------------
+Q. How to check status WLST 
+==> 1. to check status of server 
+		state('ManagedServere1')
+	2. stop the managed server 
+		shutdown('ManagedServere1','server1',force='true')
+	3. disconnect and exit WLST
+		disconnect()
+	4. close the prompt 
+		exit()
+------------------------------------------
+Q. Tell me step to connect server using putty?
+==> 1. open putty tool and enter hostname or ip address 
+    2. enter port number 
+	3. select ssh protocol 
+	4. click on open button to connect 
+	5. enter the username and password 
+	6. on sucessful login we can access the command line interface of server 
+-----------------------------------------------------
+Q. Application Deployment Modes in WebLogic Server
+-> We deploy an application on Managed server.(For your information)
+-> We have 12 Managed servers in Production.
+-> On UAT and QA we have 2 Managed Server.
+-> I make deployment in QA and UAT environments.
+-> DBA Team is doing Deployment in the Production. 
+   I am working as helping hand to DBA. So, In Production Deployment my role is 
+   1. Extract call components and Maintain the status in one Excel file 
+   2. For JSP files,js files,procedure,sql queries we deploy
+      in pre-prod(Pre-Production) and cross check for compilation
+   3. If there is compilation Problem then inform the respective 
+      Developer via mail and revert the call.
+   4. Inform  the status of Call extraction to DBA.
+   5. Initiate the mail for Deployment.
+   6. DBA team do the deployment in the morning between 6 to 7
+------------------------------------------------------ 
+Q. How to add server port?
+==> I don't know in our organization network related activities 
+	are handled by network administartion team 
+------------------------------------------
+Q. Which version of weblogic you are using?
+Ans: 12c
+-----------------------------------------
+Q. What is default port of weblogic?
+Ans: 7001
+-----------------------------------------
+Q. How many server are there in your orgnization?
+Ans: I am hadling one server and it has 12 ports.
+-----------------------------------------
+Q. How to start weblogic server?
+Ans: To start the weblogic server we need to run startWebLogic.sh file
+-----------------------------------------
+Q. Where "startWebLogic.sh" file available?
+Ans : It is available in bin directory
+-----------------------------------------
+Q. How to stop weblogic server?
+Ans: To stop the weblogic server we need to run stopWebLogic.sh
+-----------------------------------------
+Q. Where "stopWebLogic.sh" file available?
+Ans : It is available in bin directory
+-----------------------------------------  
+Q. Weblogic is which type of server?
+-> It is Application server
+------------------------------------------------	
+Q. have you worked on tomacat server?
+=> yes i have worked on tomcat server 
+   in developement environment we are using tomcat
+   On UAT(user acceptance testing) and QA(quality assurance testing)
+   and production envirnoment we are using weblogic
+------------------------------------------------
+Q. How to start tomcat?
+=> - navigate to bin directory 
+   - click on Tomcat9w.exe file then new window get opened
+   - on that window click on start button 
+------------------------------------------------
+Q. How to stop tomcat?
+=> - navigate to bin directory 
+   - click on Tomcat9w.exe file then new window get opened
+   - on that window click on stop button 
+------------------------------------------------
+Q. Where server logs are stored in tomcat?
+=> server level logs are stored inside 'cataline.date.log' file 
+   and that file is located inside log directory 
+   - here date format is 'yyyy-mm-dd'
+------------------------------------------------
+Q. where application level logs are stored?
+=> application level logs are store in 'tomcat9-stdout.date.log'
+   here date format is 'yyyy-mm-dd'
+------------------------------------------------
+Q. What is difference between internet and intranet?
+=> If application is available on internet then it is accessible to every one 
+   If application is available on intranet then it is accessible to organization 
+   people only or specify user only 
+------------------------------------------------
+Q. do you have experience in server installation and cofiguration?
+=> No,I don't have experience in server installation and configuration
+   Being L1 support engineer my role is to deploy an application on server,
+   to start applicaiton,to stop application and to stop server of 
+   UAT and QA environment
+------------------------------------------------
+Q. How many thread can weblogic server handle?
+=> bydefault weblogic server handle 400 request 
+------------------------------------------------
+Q. Can we have multiple domains in weblogic?
+=> you can use single weblogic server installation to create and 
+   run multiple domains,or 
+   you can use multiple installations to run a single domain 
+------------------------------------------------
+Q. What is ideal thread in weblogic?
+=> the thread which not performing task is considered as ideal thread 
+------------------------------------------------
+Q. What is thread?
+=> program under execution is know as thread
+------------------------------------------------
+Q. How to handle 1000 request per second?
+=> To handle high traffic,you should setup load balancer with 
+   multiple node/instances
+------------------------------------------------
+Q. Do you have experience in load balancer?
+=> No 
+------------------------------------------------
+Q. what is JVM 
+=> JVM Stand for java virtual machine 
+   JVM used to run java program 
+------------------------------------------------
+Q. What is time of deployement?
+=> we have deployement 2 times in month at morning 6 to 7
+------------------------------------------------
+Q. How will you troubleshoot when weblogic server fails to start?
+=>- there are multiple reason for server fails to start 
+  - some check point as below 
+  1. check server logs for error message
+  2. analysis common error message 
+		- port conflicts
+		- out of memory error 
+		- database connection issue 
+		- file/directory permission 
+  3. verify java envirnoment
+		- java version 
+		- java home 
+		- jvm parameter
+  4. check configuration files for error 
+  5. check network and database connectivity
+  6. clear temporary and cache files 
+  1. check server logs for error message 
+  => If admin server is failing then check admin server log 
+     admin server log stored in 'server/adminServer/log/'  
+     - if managed server is failing then check manged server 
+	   log 
+  2. Analyze common error message 
+	a) port conflicts:Error like "address already in use"
+	solution: use netstate or lsof to find process using the port or configure 
+	          weblogic to use a different port in config.xml file 
+			- lsof command:- display process with port number			 
+			
+	b) Out of memory error : error like "java.hang.outofmemoryerror" indicate memory constraint 
+	solution: increase heap memory in the server's startup configuration
+				(-xms or -xmx parameter in setDomainEnv.sh)
+	
+	c) Database connection issue: Database connectivity issue or incorrect credentials 
+	solution: verify the database server status,network accessibility and the 
+				correctness of JDBC configuration
+				which is present in config/jdbc directory
+				
+	
+	d) file/directory permission: error like 'java.io.FileFoundationException' weblogic may not 
+			not have necessary file or directory access 
+	solution: Ensure weblogic has read/write permission on all necessary directories 
+			Q. how to give permission of read/write?
+			=> using chmod command => sudo chmod 777 file_name 
+			
+  3. Verify java envirnoment: 
+		a) Java Version: confirm java version is compatible with your weblogic server 
+		b) Java_home: check java_home and path point to valid jdk 
+		c) jvm parameter: In setDomainEnv.sh verify jvm arguments,unsupported argument 
+							can cause the JVM fails 
+
+  4. check configuration files for error 
+	a) config.xml : syntax error or incorrect value in config.xml file 
+		solution: correct any error or rollback provious configuration 
+		
+	b) Starts scripts : Error in script like 'startWeblogic.sh' or 'startManagedWeblogic.sh'
+						may also prevent backup 
+       solution: review recent changes and restore any modified start script if necessary
+  
+  5. check network and database connectivity: 
+		a) ping database and external services: ensure network access to external services 
+				and databases that weblogic depend on 
+		b) Firewall and network configuration: check firewall rule to network setting to 
+			    ensure they aren't blocking access to critical resources 
+
+   6. Clear temporary and cache files 
+		corrupted temporary or cache files can prevent startup delete that file from 
+		following directories
+		$DOMAIN_HOME/servers/AdminServer/tmp/
+		$DOMAIN_HOME/servers/AdminServer/cache/
+		$DOMAIN_HOME/servers/AdminServer/data/
+		These files will be recreated at the next startup attempt.
+---------------------------------
+Q. How would you handle an out-of-memory error in WebLogic? 
+-> To handle an out-of-memory error in WebLogic, you can try these steps:
+1. Increase the memory
+   Modify the "setDomainEnv" script to increase the values of the USER_MEM_ARGS parameter. 
+   -Xms1024m -Xmx4096m
+   -Xms: Initial heap size
+   -Xmx: Maximum heap size
+   Note: default value are : -Xms256m -Xmx512m
+---------------------------------
+Q.. How do you improve WebLogic performance?
+==>	JVM tuning
+	Thread tuning
+	Connection pool tuning
+	Clustering
+	Load balancing
+	Session replication
+---------------------------------------
+Q.. Users report that the application is slow. What will you do?
+==> Check server health
+	Analyze logs
+	Check JDBC datasource
+	Monitor JVM heap
+	Verify database performance
+	Check thread dumps
+---------------------------------------
+Q.. A deployment failed. How will you troubleshoot?
+==> Review deployment logs
+	Check application compatibility
+	Verify datasource configuration
+	Confirm target servers are running
+---------------------------------------
+Q.. Which applications are deployed on WebLogic in your project?
+==> In our insurance project, WebLogic hosts applications related to proposal creation, 
+	payment processing, document upload, underwriting, NBQC, customer consent, and policy issuance. 
+	Applications are packaged as JAR and WAR files and deployed on Managed Servers through the Admin Console 
+	or deployment scripts.
+---------------------------------------
+Q.. How do you monitor proposal creation failures?
+==> First, I verify the proposal status in the application database. Then I check application logs, 
+	Managed Server logs, and integration logs to identify errors. I also validate database connectivity, 
+	service responses, and investigate whether the failure occurred during customer details, payment, 
+	document upload, underwriting, or issuance stages.
+---------------------------------------
+Q.. How do you verify whether a Managed Server is down?
+==> I verify the Managed Server status from the WebLogic Admin Console under Environment → Servers. 
+	I also review server logs and check whether the server port is listening. 
+	Using WLST, I can check the server state command as well. 
+	If the server is unreachable and not accepting requests, it indicates the Managed Server is down.
+---------------------------------------
+Q.. How do you restart a server during production support?
+==> Before restarting, I inform the relevant teams and verify whether traffic can be redirected 
+	to other cluster members. Then I stop the Managed Server gracefully, monitor shutdown logs, 
+	start the server again, and confirm that it reaches the RUNNING state. Finally, 
+	I validate application accessibility and monitor logs for any startup issues.
+---------------------------------------
+Q.. Have you used WLST for automation?
+==> I am currently learning WLST and have worked with commands for connecting to domains, 
+	checking server status, and understanding how servers can be started and stopped through WLST. 
+	I am gaining hands-on experience with administration and automation activities.
+---------------------------------------
+Q.. Have you worked with clusters and load balancers?
+==> I understand WebLogic clustering concepts such as high availability, failover, and load balancing. 
+	Multiple Managed Servers can be grouped into a cluster so that user traffic is distributed efficiently. 
+	A load balancer routes requests among available Managed Servers and ensures service continuity if 
+	one server becomes unavailable.
+---------------------------------------
+
