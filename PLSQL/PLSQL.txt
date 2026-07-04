@@ -1982,6 +1982,49 @@ Q.. Where you have used PRAGMA AUTONOMOUS_TRANSACTION?
 		we log the policy number and error message using an PRAGMA AUTONOMOUS_TRANSACTION.Even if the main 
 		transaction is rolled back,the error details remain available in the log table for 
 		support and reprocessing process.
+		
+		-- create policy_staging table and insert dummy data 
+		CREATE TABLE policy_staging(policy_no VARCHAR2(10),customer_name VARCHAR2(30),premium NUMBER);
+		INSERT INTO policy_staging values('POL001','Yash',1000);
+		INSERT INTO policy_staging values('POL002','Raj',NULL);
+		INSERT INTO policy_staging values('POL003','Viraj',3000);
+
+		--create bharti_policy_master table 
+		CREATE TABLE bharti_policy_master(policy_no VARCHAR2(10),customer_name VARCHAR2(30),premium NUMBER);
+
+		--create policy_error_log table to log error message
+		CREATE TABLE policy_error_log(error_id NUMBER,policy_no VARCHAR2(90),error_msg VARCHAR2(90),created_date DATE);
+
+		--create sequence for error_id 
+		CREATE SEQUENCE pol_error_id start with 1 increment by 1
+
+		--create procedure for autonomous transaction
+		CREATE OR REPLACE PROCEDURE error_log1(p_policy_no VARCHAR2,p_error_msg VARCHAR2)
+		IS
+		PRAGMA_AUTONOMOUS_TRANSACTION;
+		BEGIN
+		INSERT INTO policy_error_log VALUES(pol_error_id.NEXTVAL,p_policy_no,p_error_msg,SYSDATE);
+		COMMIT;
+		END;
+
+		--create procedure for batch processing
+		CREATE OR REPLACE PROCEDURE process_policy_batch1
+		IS
+		CURSOR c_policy IS SELECT * FROM policy_staging;
+		BEGIN
+		FOR rec IN c_policy LOOP
+		IF rec.premium IS NULL THEN
+		error_log1(rec.policy_no,SQLERRM);
+		END IF;
+		BEGIN
+		INSERT INTO bharti_policy_master values(rec.policy_no,rec.customer_name,rec.premium);
+		EXCEPTION 
+		WHEN OTHERS THEN
+		error_log1(rec.policy_no,SQLERRM);
+		END;
+		END LOOP;
+		END;
+		
 ------------------------------------
 Q.. Oracle storage heirarchy?
 ==> Database ->Tablespace->DataFiles(Physical)->segment->Extent->Data Block
@@ -3991,8 +4034,9 @@ Q.. What is Varray?
 		type student_list IS VARRAY(4) OF NUMBER;
 		v_slist student_list:=student_list(10,20,30,40);
 		begin
-		dbms_output.put_line(v_slist.first);
+		dbms_output.put_line(v_slist(v_slist.first));
 		end;
+		
 		
 	- COUNT: This function return number of element present in array.
 		- if array is an empty then it return 0 
@@ -4280,6 +4324,20 @@ Q.. what is RECORD?
 			)
 			
 		record_variable record_type_name;
+		
+		E.g
+			DECLARE
+				TYPE emp_record IS RECORD(
+				empno employee.empno%TYPE,
+				empname employee.empname%TYPE );
+				TYPE emp_type IS TABLE OF emp_record INDEX BY PLS_INTEGER;
+				emp_list emp_type;
+			BEGIN
+				select empno,empname bulk collect into emp_list from employee;
+				FOR i IN 1..emp_list.count loop
+				dbms_output.put_line(emp_list(i).empno || emp_list(i).empname);
+				end loop;
+			END;
 ------------------------------------------------
 Q.. What is difference between %rowtype and %type?
 ==> - %TYPE is used to declare variable for single column data type where as 
@@ -4895,7 +4953,7 @@ Q.. How to handle large data using cursor?
 Q.. Can we use "limit" without cursor?
 ==> No.
 ------------------------------------------------
-Q.. What is FORALL in Pl/SQL?
+Q.. What is FORALL in PL/SQL?
 ==>	- it is a bulk processing statement in PLSQL.
 	- it is used to perform DML operations on collections.
 	- Instead of executing DML operation row-by-row,FORALL executes DML in bulk(one shot).
@@ -4983,6 +5041,7 @@ Q.. What is SAVE EXCEPTIONS?
 ------------------------------------------------
 Q.. What is SQL%BULK_EXCEPTIONS?
 ==> It is a collection that stores error details.
+	it has 2 attribute ERROR_INDEX & ERROR_CODE
 ------------------------------------------------
 Q.. example of save exceptions
 ==> create table emp_source(empno number,empname varchar(90),salary number);
@@ -5247,6 +5306,10 @@ Q.. Between PKS and PKB which one compile first?
 Q.. If PKS is invalid can PKB compile?
 ==> No
 ------------------------------------------------
+Q.. if i have not specified procedure in pks directly used in pkb then which error will give?
+==> it will give an error that 
+	PLS-00302: component 'procedure-1' must be declared
+------------------------------------------------
 Q.. What is difference between pks and pkb?
 ==> 1. pks stand for package specification and pkb stand for package body.
 	2. pks is an interface and pkb is implementation
@@ -5263,24 +5326,39 @@ Q.. Why proceudre cannot be called inside select?
 Q.. How to call procedure if package is in another schema?
 ==> schema_name.package_name.procedure_name
 ------------------------------------------------
-Q.. What type of functions you written in project?
-==> There are 2 type of function 
-	1. Predefined function
-		- The function defined by oracle is nothing but predefined function.
-		- Predefined function have 2 types 
-			1. Single row function
-			2. Multi row function
-	2. User defined function
-		- Function which is defined by programmer/developer is nothing but user defined function
+Q.. Why we use packages in PLSQL?
+==> 1. Package help to oragnize business logic into single unit
+	2. PKS expose public objects where as PKB contains implementation details and private objects 
+	3. when package object called then entire package loads into memory
+	4. all related code is contained in one place.
+------------------------------------------------
+Q.. which queries you have resolved in last 2 weeks 
+==> 1. Query Performance Issue
+		- A report query was taking 8–10 minutes to execute.
+		- Analyzed the execution plan and found full table scans.
+		- Added appropriate indexes and rewrote joins/subqueries.
+		- Reduced execution time to less than 1 minute.
 		
-	In Our project we used single row function like 
-	INSTR()=> used to find numeric position of given character in source string 
-			Syntax: INSTR(source_string,search_string,start_index);
-			- In our project we receive delimited string format such as policy number,customer name,status,
-			  dob,pan number etc seperated by ~.we use INSTR() to identify the delimiter position and SUBSTR()
-			  to extract individual values.
-			  The TRIM() function is used to remove any leading and trailing spaces from the extracted data. 
-			  These values are then stored in a collection for further processing and validation.
-			  
-	MAX()=> Based on proposal number to find policy number.
-	SUM()=> Sum of premium because for some plans there is discount applied,
+	2. Duplicate Data Issue
+		- Business reported duplicate policy records in a report.
+		- Identified duplicate entries using `ROW_NUMBER()`.
+		- Removed duplicates and added validation logic to prevent recurrence.
+		
+	3. Batch Job Failure
+		- A nightly batch job failed due to invalid data.
+		- Checked logs and identified a data mismatch.
+		- Corrected the data and modified the procedure to handle such cases gracefully.
+	
+	4. Data Correction Request
+		- Business requested correction of customer details for specific policies.
+		- Validated the request and executed SQL update scripts after approval.
+		- Verified the data with users after deployment.
+	
+	5. Stored Procedure Enhancement
+		- Added new business validation in an existing PL/SQL procedure.
+		- Tested the changes in UAT and deployed to production.
+		
+	6. Email Notification Issue
+		- Policy issuance emails were not triggering.
+		- Traced the issue to a failed database trigger.
+		- Fixed the trigger logic and verified successful email generation.

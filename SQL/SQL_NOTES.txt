@@ -2707,6 +2707,7 @@ Q.. What is INTERSECT?
 ----------------------------------------------	
 Q.. What is difference between INTERSECT and INNER JOIN?
 ==> INTERSECT work on select statement where as Inner Join work on table level.
+	INTERSECT return distinct common rows where as inner join combine matching rows
 	Intersect does not count duplicate where as inner join count duplicate 
 ----------------------------------------------
 Q.. What is MINUS?
@@ -2730,6 +2731,9 @@ Q.. What is difference between SET and JOIN?
 	- In set operator number of column must be same where In join no any restriction for column 
 	- We have set operator like (union,union all,intersect,minus) where as 
 	  we have joins like(inner join,left join,right join,full outer join,cross join)
+----------------------------------------------	
+Q.. Find policies that exist in both staging and master tables
+==> select policy_no from policy_staging INTERSECT select policy_no from policy_master;
 ----------------------------------------------	
 Q.. Which set operator remove duplicate from result?
 ==> UNION.
@@ -3810,3 +3814,44 @@ Q.. What is EXPLAIN PLAN?
 	To view execution plan syntax is: 
 	SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
 ----------------------------------------------
+Q.. How do you use EXPLAIN PLAN for query optimization?
+==> I use EXPLAIN PLAN to understand how oracle executes a query.
+	- I check whether oracle is performing full table scan or using indexes indentify the joins method such as 
+		(nested loop,hash join,merge joins) and look for expansive operations such as sort or large scans.
+		
+	- Based on execution plan I optimize the query by creating appropriate index,rewrite SQL query,updating statastics,
+		reducing unnecessary operations.
+	- After making changes i generate execution plan again to verify optimizer has choosen more efficient execution plan.
+----------------------------------------------
+Q.. Which column do you check first in EXPLAIN PLAN?
+==> First I check OPERATION COLUMN to see whether oracle is using an index or a full table scan.
+	- Then i check cost to understand the optimizer's estimated resources usage
+	- Rows to verify the estimated number of rows and predict information to see how the where clause is begin applied.
+	- I also review name column to identify the table or index being accessed and the ID column to understand execution order 
+----------------------------------------------
+Q.. What is difference between EXPLAIN PLAN and DBMS_XPLAN.DISPLAY_CURSOR?
+==> EXPLAIN PLAN shows estimated execution plan before the query runs where as 
+	DBMS_XPLAN.DISPLAY_CURSOR shows the actual execution plan for query that has already executed 
+	and can includes runtime statistics.
+----------------------------------------------
+Q.. What type of functions you written in project?
+==> There are 2 type of function 
+	1. Predefined function
+		- The function defined by oracle is nothing but predefined function.
+		- Predefined function have 2 types 
+			1. Single row function
+			2. Multi row function
+	2. User defined function
+		- Function which is defined by programmer/developer is nothing but user defined function
+		
+	In Our project we used single row function like 
+	INSTR()=> used to find numeric position of given character in source string 
+			Syntax: INSTR(source_string,search_string,start_index);
+			- In our project we receive delimited string format such as policy number,customer name,status,
+			  dob,pan number etc seperated by ~.we use INSTR() to identify the delimiter position and SUBSTR()
+			  to extract individual values.
+			  The TRIM() function is used to remove any leading and trailing spaces from the extracted data. 
+			  These values are then stored in a collection for further processing and validation.
+			  
+	MAX()=> Based on proposal number to find policy number.
+	SUM()=> Sum of premium because for some plans there is discount applied,

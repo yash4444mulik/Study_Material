@@ -421,6 +421,31 @@ Q.. Write a program to loop through cursor and insert data into another table.
 	close v_cursor;
 	end;
 ----------------------------------------------------------------------
+Q..  write a program which insert data into another table? 
+	declare
+	TYPE v_type IS TABLE OF employee%rowtype;
+	v_rec v_type;
+	begin
+	select * bulk collect into v_rec from employee;
+	forall i IN 1..v_rec.count insert into emp values v_rec(i);
+	end;
+----------------------------------------------------------------------
+Q.. write a program which insert data into another table? 
+==> DECLARE
+	   CURSOR v_cursor IS SELECT *FROM employee;
+	   TYPE emp_type IS TABLE OF employee%ROWTYPE;
+	   v_rec emp_type;
+	BEGIN
+	   OPEN v_cursor;
+	   FETCH v_cursor BULK COLLECT INTO v_rec;
+	   CLOSE v_cursor;
+	   FORALL i IN 1..v_rec.COUNT
+		  INSERT INTO emp
+		  VALUES v_rec(i);
+	   COMMIT;
+	END;
+	/
+----------------------------------------------------------------------
 Q.. Write a program using explicit cursor to handle NO_DATA_FOUND and TOO_MANY_ROWS exceptions.
 ==> declare
 	cursor v_cursor IS SELECT empname,salary from employee where empno=101;
@@ -493,6 +518,37 @@ Q.. Write the procedure and try to make sure the conditions below
 	when others then 
 	dbms_output.put_line(SQLERRM);
 	END;
+----------------------------------------------------------------------
+Q,, Use 2 variables, 1 input paramter, 1 output parameter, 1 type of cursor, 
+	if else condition and 2 exceptions inside that function?
+==> 
+create or replace function f_practise(f_empno number)return varchar2
+IS
+CURSOR v_cursor IS SELECT empname FROM EMPLOYEE WHERE empno=f_empno;
+v_rec v_cursor%rowtype;
+v_empname varchar2(90);
+v_count number:=0;
+BEGIN
+open v_cursor;
+LOOP
+FETCH v_cursor into v_rec;
+exit when v_cursor%notfound;
+v_count:=v_count+1;
+v_empname:=v_rec.empname;
+END LOOP;
+
+IF v_count=0 THEN 
+RAISE NO_DATA_FOUND;
+ELSIF v_count>1 THEN
+RAISE TOO_MANY_ROWS;
+END IF;
+return v_empname;
+EXCEPTION
+WHEN NO_DATA_FOUND THEN
+dbms_output.put_line('no data found');
+WHEN TOO_MANY_ROWS THEN
+dbms_output.put_line('too many rows');
+END;
 ----------------------------------------------------------------------
 Q.. Write a program to print employee names using cursor FOR LOOP (without OPEN/FETCH/CLOSE)
 ==> declare
@@ -815,3 +871,170 @@ Q.. Write a program:
 	END;
 		
 -----------------------------------------------
+-----------------------------------------------
+-----------------------------------------------
+-----------------------------------------------
+-----------------------------------------------
+-----------------------------------------------
+1. Find whether a number is Palindrome.
+==> CREATE OR REPLACE FUNCTION f_palindrome(f_num NUMBER)return varchar2
+	IS
+	v_temp number;
+	v_reverse number:=0;
+	v_rem number;
+	BEGIN
+	v_temp:=f_num;
+	WHILE v_temp>0 LOOP
+	v_rem:=mod(v_temp,10);
+	v_reverse:=v_reverse*10+v_rem;
+	v_temp:=trunc(v_temp/10);
+	END LOOP;
+	IF v_reverse=f_num THEN
+	RETURN 'palindrom';
+	ELSE
+	RETURN 'not palindrom';
+	END IF;
+	END;
+	
+2. Find the Factorial of a number.
+3. Check whether a number is Prime.
+4. Generate the Fibonacci series.
+5. Reverse a number.
+6. Sum of digits of a number.
+7. Count the number of digits.
+8. Check whether a number is an Armstrong number.
+9. Find the largest of three numbers.
+10. Swap two numbers (with and without a third variable).
+
+String Programs
+
+11. Reverse a string.
+12. Check whether a string is a palindrome.
+==> CREATE OR REPLACE FUNCTION f_palindrome(f_string IN VARCHAR2)RETURN VARCHAR2
+	IS
+	f_len NUMBER;
+	result VARCHAR2(90);
+	BEGIN
+	f_len:=length(f_string);
+	FOR i IN REVERSE 1..f_len LOOP
+	result:=concat(result,substr(f_string,i,1));
+	END LOOP;
+	IF f_string=result THEN
+	RETURN 'PALINDROME';
+	ELSE
+	RETURN 'NOT PALINDROME';
+	END IF;
+	END;
+13. Count vowels and consonants.
+14. Count the occurrence of a character.
+15. Remove duplicate characters from a string.
+16. Find the length of a string without using LENGTH.
+17. Convert a string to uppercase/lowercase.
+
+Loop & Control Statements
+
+18. Print numbers from 1 to 100.
+19. Print even and odd numbers.
+20. Print multiplication tables.
+21. Print star patterns using nested loops.
+22. Calculate the sum of numbers from 1 to N.
+
+Cursor-Based Questions
+
+23. Display all employee names using an explicit cursor.
+24. Update employee salaries using a cursor.
+25. Find the highest-paid employee using a cursor.
+26. Count the number of employees in each department using a cursor.
+==> DECLARE
+	CURSOR v_cursor IS SELECT deptno,count(*) as count FROM EMPLOYEE GROUP BY deptno;
+	BEGIN
+	FOR i IN v_cursor LOOP
+	dbms_output.put_line('dept number: '||i.deptno);
+	dbms_output.put_line('emp count: '||i.count);
+	END LOOP;
+	END;
+
+Collections
+
+27. Store employee IDs in a nested table and display them.
+==> DECLARE
+	TYPE emp_no IS TABLE OF employee.empno%type;
+	emp_rec emp_no;
+	BEGIN
+	SELECT EMPNO bulk collect INTO EMP_REC FROM EMPLOYEE;
+	for i in 1..emp_rec.count loop
+	dbms_output.put_line(emp_rec(i));
+	end loop;
+	END;
+	
+28. Use an associative array to store employee names.
+	--  use associative array and give empno and empname
+	DECLARE
+	TYPE empno_array IS TABLE OF employee.empno%TYPE INDEX BY pls_integer;
+	TYPE empname_array IS TABLE OF employee.empname%TYPE INDEX BY pls_integer;
+	emp_number empno_array;
+	emp_name empname_array;
+	BEGIN
+	select empno,empname bulk collect into emp_number,emp_name from employee;
+	for i IN 1..emp_number.count loop
+	dbms_output.put_line(emp_number(i)||emp_name(i));
+	end loop;
+	END;
+	
+29. Delete elements from a collection.
+30. Bulk collect employee records.
+
+Procedures & Functions
+
+31. Write a procedure to calculate a bonus.
+32. Write a function to return annual salary.
+33. Create a procedure with IN, OUT, and IN OUT parameters.
+34. Call one procedure from another.
+
+Exception Handling
+
+35. Handle NO_DATA_FOUND.
+36. Handle TOO_MANY_ROWS.
+37. Raise a user-defined exception.
+38. Use RAISE_APPLICATION_ERROR.
+
+Triggers
+
+39. Create a trigger to prevent salary reduction.
+40. Create an audit trigger for INSERT, UPDATE, and DELETE.
+41. Maintain salary history using a trigger.
+
+Practical SQL + PL/SQL
+
+42. Find the second-highest salary.
+43. Find duplicate records.
+44. Delete duplicate records.
+45. Find the nth highest salary.
+46. Split a comma-separated string.
+47. Merge data from one table to another.
+48. Generate a sequence number without using a sequence.
+49. Write a procedure to transfer an amount between two accounts.
+==>	create or replace procedure amount_transfer(first_acc IN NUMBER,second_acc IN NUMBER,p_amount IN NUMBER)
+	IS 
+	v_balance NUMBER;
+	BEGIN
+	select balance into v_balance from accounts where acc_no=first_acc;
+	IF v_balance<p_amount THEN 
+	RAISE_APPLICATION_ERROR(-20001,'Insufficient balance');
+	END IF;
+	UPDATE accounts set balance=balance-p_amount where acc_no=first_acc;
+	UPDATE accounts set balance=balance+p_amount where acc_no=second_acc;
+	COMMIT;
+	dbms_output.put_line('Amount transferred successfully');
+	EXCEPTION
+	WHEN NO_DATA_FOUND THEN 
+		ROLLBACK;
+		dbms_output.put_line('Account not found');
+	WHEN OTHERS THEN 
+		ROLLBACK;
+		dbms_output.put_line(SQLERRM);
+	END;
+	
+	// BEGIN amount_transfer(101,102,10000); END;
+	
+50. Write a procedure to log errors into an error table.
