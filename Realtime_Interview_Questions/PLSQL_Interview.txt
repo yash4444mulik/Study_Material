@@ -254,3 +254,109 @@ Q.. Find mothly transactions running total?
 
 
 -------------------------------
+Q.. what is your role currently?
+"My designation is PL/SQL Developer, but my role includes both development and production support.
+On the development side, I write and modify PL/SQL procedures, functions, packages, triggers, 
+and SQL queries based on business requirements. I also fix database-related bugs and optimize queries.
+On the support side, I monitor production issues, analyze logs, investigate failed policy processing,
+resolve database errors, support deployments, and provide fixes for production incidents. I also work with Jira tickets and coordinate with other teams when required."
+-------------------------------
+Q.. In last 2 weeks which trigger you wrote?
+==> 1. I wrote trigger to main audit the information in one new bank partner AU.
+		- Whenever a policy record was updated, the trigger automatically updated the 
+		  LAST_UPDATED_BY and LAST_UPDATED_DATE columns. This ensured that every modification 
+		  was tracked without requiring changes in the application code
+	2. I didn't create a new trigger in the last two weeks. 
+		I reviewed and modified an existing trigger to support a new business requirement
+	
+Q.. In last 2 weeks which function you wrote?
+==>	1. I developed a function to validate customer eligibility based on age and the selected insurance plan.
+		The function returned 'Eligible' or 'Not Eligible', and 
+		it was called by the proposal processing logic before the proposal moved to the next stage.
+		
+	2. I modified an existing premium calculation function to support a new business rule.
+	
+Q.. In last 2 weeks which procedure you wrote?
+==> 1. I worked on a procedure that processed policy records received from the staging table. 
+		The procedure validated the data, inserted valid records into the policy master table, 
+		updated the processing status, and logged any errors using an autonomous transaction for reprocessing.
+	
+Q.. In last 2 weeks which cursor you wrote?
+	1. I used an explicit cursor to fetch pending policy records from the staging table. 
+	The cursor processed each record individually, performed validations, updated the policy status, 
+	and logged any failures.
+	
+	
+Q.. In last 2 weeks which production issue resolved?
+==> 1. A production issue occurred where some proposals were stuck in the 'Payment Awaited' status 
+		even though the customer had completed the payment. I investigated the database records, verified 
+		the payment details in Razorpay/BillDesk, checked the application logs, identified that the payment 
+		response had not been updated in the database, corrected the data, and confirmed that the proposal 
+		moved to the next stage successfully.
+		
+	2. I investigated PIVC rejection cases where customer details were incomplete during the verification call. 
+		I verified the database records, coordinated with the business team, identified the root cause, 
+		and guided the team on the required customer information to complete the process.
+----------------------------------------------
+Q.. which things you modified in last 2 weeks?
+==> In the last two weeks, I mainly worked on an existing procedure named PR_PROCESS_POLICY.
+	This procedure processes policy records received from the staging table.
+	My task was to modify the existing validation logic because the business introduced 
+	a new mandatory validation for customer PAN details.
+	I analyzed the procedure, identified the validation section, added the new business rule, tested it in the
+	development environment, and verified that valid policies were processed successfully while invalid
+	policies were logged into the error log table using an autonomous transaction.
+	
+	Q.. Which validation?
+	==> 1. PAN validation => if premium is greater than 100k then pan is mandatory
+		2. nominee validation => if nominee age less than 18 then declaration document is mandatory.
+		3. PIVC link validation => pivc link will not trigger if premium is above 30k 
+		4. Age validation for GWP plan=> if age is 58 then pt ppt combination should be 30 30 otherwise error.
+		
+	Q.. If they ask, "What modification did you make?"
+	==> Added a new validation.
+		Modified an existing SQL query.
+		Added a new column to the INSERT statement.
+		Updated the MERGE logic.
+		Improved exception handling.
+		Optimized a slow query using indexes.
+		Fixed a cursor that wasn't processing all records.
+		Added logging for easier troubleshooting.
+	
+	
+	
+	Q.. Full process of procedure
+		The procedure first fetches pending policy records from the staging table using a cursor. 
+		It validates mandatory fields such as customer details, PAN, Aadhaar, nominee information, 
+		and premium details. If all validations pass, it inserts or updates records in the 
+		policy master table and changes the status to 'Processed'. If any validation fails, 
+		it logs the policy number and error message into the error log table using 
+		PRAGMA AUTONOMOUS_TRANSACTION so that the error is retained even if 
+		the main transaction is rolled back
+		
+	Q.. 
+	I first understood the business requirement, then analyzed the existing procedure to 
+	locate the relevant validation section. I checked the impacted SQL statements and conditions, 
+	made the required changes, tested them with sample data, and 
+	verified that no existing functionality was affected.
+		
+-----------------------
+Q.. Did you actually write or modify PL/SQL code in your current project, 
+	or is your work mostly SQL queries and production support?
+==> My role is a combination of PL/SQL development and production support. 
+	Most of my daily work involves analyzing production issues, writing SQL queries to 
+	investigate data, fixing data issues, and modifying existing PL/SQL objects based 
+	on business requirements. I don't frequently develop large PL/SQL modules from 
+	scratch because the application is already mature. Instead, I mainly enhance 
+	existing procedures, functions, packages, and SQL queries, test the changes, 
+	support deployments, and verify the functionality in UAT and Production	
+-----------------------
+Q.. What PL/SQL development have you done?
+	Modified existing procedures to implement new business validations.
+	Modified functions to change business logic or calculations.
+	Wrote and optimized SQL queries for new requirements.
+	Used MERGE statements to synchronize policy data.
+	Added exception handling and logging in existing procedures.
+	Fixed bugs in packages and cursors.
+	Tested PL/SQL changes in the development and UAT environments before deployment.
+-----------------------

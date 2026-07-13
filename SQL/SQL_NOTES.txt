@@ -617,7 +617,8 @@ Q.. In select statement,what is the position of ORDER BY clause?
 Q.. Syntax to sort the result set based on two columns?
 ==> ORDER BY column1_name ASC|DESC,column_2_name ASC|DESC
 ------------------------------------------
-Q.. What is precedence order of sorting in Order by clause for the following things?
+Q.. What is preceden
+ce order of sorting in Order by clause for the following things?
 	1. Special symbols 
 	2. Upper case character 
 	3. Lower case character 
@@ -3826,13 +3827,41 @@ Q.. How do you use EXPLAIN PLAN for query optimization?
 Q.. Which column do you check first in EXPLAIN PLAN?
 ==> First I check OPERATION COLUMN to see whether oracle is using an index or a full table scan.
 	- Then i check cost to understand the optimizer's estimated resources usage
-	- Rows to verify the estimated number of rows and predict information to see how the where clause is begin applied.
+	- Rows to verify the numbers of rows returned and predict information to see how the where clause is begin applied.
 	- I also review name column to identify the table or index being accessed and the ID column to understand execution order 
 ----------------------------------------------
 Q.. What is difference between EXPLAIN PLAN and DBMS_XPLAN.DISPLAY_CURSOR?
 ==> EXPLAIN PLAN shows estimated execution plan before the query runs where as 
 	DBMS_XPLAN.DISPLAY_CURSOR shows the actual execution plan for query that has already executed 
 	and can includes runtime statistics.
+----------------------------------------------
+Q.. Joins method in optimization?
+==> Joins method are the algorithms that oracle uses to combine rows from two or more tables.
+	The oracle optimizer automatically choose efficient join method
+	based on size,indexes and statastics and query condition
+	
+	We have 3 type of join
+		1. Nested loop
+		2. Hash join 
+		3. Merge join
+		
+	1. Nested loop:- Read one row from oute table and search matching row in inner table 
+					- repeat for every row 
+					- it is best when one table is small and other has an index.
+					
+	2. Hash Join:- Oracle creates in memory hash table for the smaller table 
+					- Then it scan larger table and uses a hash table to find matching rows
+					- it is best for large tables.
+	
+	3. Merge join:- Oracle first sort both tables on the join column 
+					- Then it walks throgh both sorted datasets together to find matches
+					- it is best for both inputs tables are sorted
+----------------------------------------------
+Q.. Who decide join method?
+==> Oracle chooses best join method not developer.
+	- The oracle cost based optimizer automatically chooses join method by evaluting factors such as 
+	table statistics,indexes,estimated rows,available memory and overall execution cost.
+	- In most of cases developers do not need to specify the join method.
 ----------------------------------------------
 Q.. What type of functions you written in project?
 ==> There are 2 type of function 

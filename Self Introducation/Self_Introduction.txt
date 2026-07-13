@@ -12,8 +12,7 @@ data validation, and troubleshooting database-related issues.
 I regularly interact with clients and end users through calls, emails, and chats 
 I am also involved in Disaster Recovery (DR) activities
 I Involved in data reconciliation processes
-
 I also involved in query optimization and production support activities to ensure smooth application performance.
 
 My core skills include Oracle SQL, PL/SQL, Performance Tuning, Query Optimization,
-Cursors, Triggers, Procedures, Functions, Packages, and Production Support.
+Cursors, Triggers, Procedures, Functions, Packages

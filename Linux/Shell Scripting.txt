@@ -1,0 +1,139 @@
+#####Shell Scripting
+
+Q.. What is Shell Scripting?
+==> Shell scripting is the process of writing a series of Linux/unix commands in a file to automate repetative tasks
+	- Instead of executing commands one by one we write them in script and execute script
+	- A shell script has .sh extention and it is interpreted by shell BASH
+	
+-------------------------------
+Q.. Why do we use Shell scripting?
+==> - Running database script
+	- Monitoring application or server status
+	- Starting and Stopping servers
+	- Sheduling job using crontab
+	- processing log files 
+	- Executing SQL scripts automatically
+-------------------------------
+Q.. What is shebang?
+==> shebang is first line of code which tells the operating system which interpreter should execute the script.
+-------------------------------
+Q.. What is echo command?
+==> echo command is used to print something.
+-------------------------------
+Q.. What is comment in shell scripting?
+==> comment is non-executable part which is used only for information purpose
+	there are 2 type of comment 
+	1. single line comment 
+	2. multi line comment 
+	
+	1. single line comment: the comment which is for only for single is nothing but single line comment.
+		# it is start with has 
+		
+	2. multi line comment : the comment which is for multiple lines is nothing but multi line comment.
+		<<comm 
+		a muli
+		line comment 
+		comm
+-------------------------------
+Q.. What is variable in shell scripting?
+==> A variable is a placeholder which varries the value.
+	There are 3 type of variable 
+		1. predefined variable 
+			variable declare by operating system is nothing but predefined variable
+			$home
+			$pwd
+			$hostname
+			
+		2. user defined variable
+			=> variable declared by developer is nothing but user defined variable
+				#!/bin/bash => bash interpreter 
+				name="Yash" => variable 
+				age=25.9	=> variable 
+				echo "My name is $name and age is $age"
+-------------------------------
+Q.. How to declare constant variable?
+==> the variable whose value is remain same throughout the script and we can change in middle is nothing but constant variable 
+	Syntax: 
+		readonly variable_name=value 
+-------------------------------
+Q.. What are the array in shell scripting?
+==> Array is combination of homogenous and hetrogenous values 
+	- In Array indexing is start with 0
+	Syntax to declare variable 
+		array_name =(1 2 3 vitthal "yash mulik")
+		
+		to access values 
+		0th access => "${array_name[0]}"
+		
+		to access all values 
+		=> "${array_name[*]}"
+		
+		update existing index 
+		array_name[4]=raja => update 4th index 
+		
+		add values inside index 
+		array_name+=(10 20 30 40)
+		
+		To delete specific index 
+		unset array_name[4]
+		
+-------------------------------
+Q.. How to define array with key value pair?
+==> #!/bin/bash
+	declare -A myArray
+	myArray=([name]=paul [city]=pune [age]=30)
+	
+	echo "${myArray['name']}"
+-------------------------------
+Q.. String operations ?
+==> 
+	1. Find length of string
+		${#myString}
+		
+	2. Upper case character
+		${myString^^}
+		
+	3. Lower case character
+		${myString,,}
+		
+	4. Replace word with another word 
+		${myString/replace_word/new_word}
+		
+	5. Substring
+		${myString:Start_Index:How_many_index}
+-------------------------------
+Q.. Getting value from user?
+==> read -p "enter your name " name 
+	echo "Welcome $name"
+-------------------------------
+Q.. Arithmatic operations in shell ?
+==> 1. Addition
+		x=10
+		y=20 
+		let sum=x+y
+		echo "addition of x and y is $sum"
+-------------------------------
+Q.. IF ELSE statement?
+==> Syntax: 
+	
+	IF [ condition ] 
+	THEN 
+		// executable statements 
+	ELSE
+		//executable statements
+	FI 
+	
+	Operator 
+		equal:  -eq/==
+		greater-than_or_equal_to:  -ge
+		less_than_or_equal to:  -le 
+		not_equal_to: -ne/!=
+		Greater_than: -gt 
+		less_than: -lt
+-------------------------------
+-------------------------------
+-------------------------------
+-------------------------------
+-------------------------------
+-------------------------------
+-------------------------------

@@ -251,10 +251,763 @@ Q.. Write PL/SQL block to check mobile number is 10 digit or not?
 	   dbms_output.put_line('enter 10 digit mobile number');
 	END;
 	/
+	
+	
+
+-----------------------------------------------
+-----------------------------------------------
+-----------------------------------------------
+===============================================
+********Trigger QUESTIONS**********
+===============================================
+-----------------------------------------------
+-----------------------------------------------
+-----------------------------------------------
+-----------------------------------------------
+Q.. Write Trigger to log all DDL Changes?
+==> first create table to store log 
+	=> 	CREATE TABLE ddl_audit_logs(
+		username varchar(50),
+		object_name varchar(50),
+		object_type varchar(50),
+		ddl_action varchar(50),
+		ddl_time DATE
+		);
+		
+	create or replace trigger ddl_audit_tgr
+	AFTER DDL ON DATABASE
+	BEGIN
+		INSERT INTO ddl_audit_logs(username,object_name,object_type,ddl_action,ddl_time)
+		values(SYS_CONTEXT('USERENV','SESSION_USER'),
+		ORA_DICT_OBJ_NAME,ORA_DICT_OBJ_TYPE,ORA_SYSEVENT,SYSDATE);
+	END;
+	/
+----------------------------------------
+Q.. Schema level DDL Trigger:Control Changes in specific schema?
+==> Example 1: 
+	CREATE OR REPLACE trigger schema_ddl_tgr
+	BEFORE CREATE ON Schema
+	BEGIN
+	RAISE_APPLICATION_ERROR(-20001,'DDL Operation create not allowed');
+	END;
+	/
+----------------------------------------
+Q.. when we create a schema-level DDL trigger to restrict DDL operations but you can still 
+	create a table in same schema,why?
+==> Reason: 
+		1. it may be due to disabled trigger status
+		2. incorrect trigger logic
+		3. powerful privileges such as DBA/system privileges that can bypass the restriction
+		4. need to check with exception handling
+----------------------------------------
+Q.. When does a schema-level DDL trigger fire?
+==> Schema-level trigger fires when another user is trying to 
+	perform DDL operation on another user's schema.
+	
+	Example: 
+	-> Suppose there are two users A and B.
+	-> User A has created schema-level DDL trigger for create statement 
+	   When user A is trying to create table then trigger is not fired but 
+	   if User B is trying to create table in  A's schema then schema level 
+	   trigger get fired.
+----------------------------------------
+Q.. Why schema-level DDL trigger is bypassed?
+==> it is not bypassed.Oracle does not fire schema-level DDL triggers for DDL 
+	executed by the schema owner.
+----------------------------------------
+Q.. How to restrict DDL operation using trigger?
+==> Way first: USE DATABASE-level DDL trigger 
+	CREATE OR REPLACE TRIGGER block_ddl_operations
+	BEFORE DDL CREATE ON DATABASE 
+	BEGIN 
+		RAISE_APPLICATION_ERROR(-20001,'Table creation is restricted due to trigger block_create_table');
+	END;
+	/
+----------------------------------------
+Q.. create trigger for login/logout audit?
+==> Step 1: Create login_audit table
+		CREATE TABLE emp12(username varchar(50),login_time date,activity varchar(100));
+		
+	step 2: create trigger 
+		CREATE OR REPLACE TRIGGER logoff_audit
+		BEFORE LOGON ON DATABASE
+		DECLARE
+		   PRAGMA AUTONOMOUS_TRANSACTION;
+		BEGIN
+		   INSERT INTO emp12
+		   VALUES (
+			  SYS_CONTEXT('USERENV','SESSION_USER'),
+			  SYSDATE,
+			  'LOGOFF');
+		   COMMIT;
+		END;
+		/
+		
+	step 3: create trigger for logoff 
+		CREATE OR REPLACE TRIGGER logoff_audit
+		BEFORE LOGOFF ON DATABASE
+		DECLARE
+		   PRAGMA AUTONOMOUS_TRANSACTION;
+		BEGIN
+		   INSERT INTO emp12
+		   VALUES (
+			  SYS_CONTEXT('USERENV','SESSION_USER'),
+			  SYSDATE,
+			  'LOGOFF'
+		   );
+		   COMMIT;
+		END;
+		/
+	
+	Note: when we use upper syntax and logged in using another user than created trigger user then 
+		log is not printed so to avoid this need to use syntax is INSERT INTO SYSTEM.login_audit
+			step 2: create trigger 
+			CREATE OR REPLACE TRIGGER logoff_audit
+			BEFORE LOGON ON DATABASE
+			DECLARE
+			   PRAGMA AUTONOMOUS_TRANSACTION;
+			BEGIN
+			   INSERT INTO system.emp12
+			   VALUES (
+				  SYS_CONTEXT('USERENV','SESSION_USER'),
+				  SYSDATE,
+				  'LOGOFF');
+			   COMMIT;
+			END;
+			/
+			
+			step 3: 
+			CREATE OR REPLACE TRIGGER logoff_audit
+			BEFORE LOGOFF ON DATABASE
+			DECLARE
+			   PRAGMA AUTONOMOUS_TRANSACTION;
+			BEGIN
+			   INSERT INTO system.emp12
+			   VALUES (
+				  SYS_CONTEXT('USERENV','SESSION_USER'),
+				  SYSDATE,
+				  'LOGOFF'
+			   );
+			   COMMIT;
+			END;
+			/
+----------------------------------------
+Q.. How will you prevent users from logging in during maintenance activity?
+==>	CREATE OR REPLACE TRIGGER trg_login_prevent
+	AFTER LOGON ON DATABASE
+	BEGIN
+	IF USER NOT IN ('SYS','SYSTEM') THEN
+	RAISE_APPLICATION_ERROR(
+	-20002,
+	'Due to maintenance activity, login is restricted,maintenance_activity_login_prevent'
+	);
+	END IF;
+	END;
+	/
+----------------------------------------
+Q.. How can you audit who dropped a table in the database?
+==> CREATE OR REPLACE TRIGGER table_drop_audit
+	AFTER DROP ON DATABASE
+	DECLARE
+		PRAGMA AUTONOMOUS_TRANSACTION;
+	BEGIN
+	INSERT INTO EMP11 VALUES(SYS_CONTEXT('USERENV','SESSION_USER'),ORA_DICT_OBJ_TYPE,ORA_DICT_OBJ_NAME,ORA_SYSEVENT,SYSDATE);
+	COMMIT;
+	END;
+----------------------------------------
+Q.. Suppose a user creates tables frequently in production. How will you monitor it?
+==> CREATE OR REPLACE TRIGGER table_drop_audit
+	AFTER CREATE ON DATABASE
+	DECLARE
+		PRAGMA AUTONOMOUS_TRANSACTION;
+	BEGIN
+		INSERT INTO EMP11 VALUES(SYS_CONTEXT('USERENV','SESSION_USER'),ORA_DICT_OBJ_TYPE,ORA_DICT_OBJ_NAME,ORA_SYSEVENT,SYSDATE);
+		COMMIT;
+	END;
+
+-----------------------------------------------
+Q.. How to audit table?
+==> First we have to create audit table then create trigger that fire for DML opeartion and 
+	use loggic inside it to store changed in audit table 
+		create table employee_audit(
+		audit_id NUMBER,
+		empno NUMBER,
+		empname VARCHAR(90),
+		old_salary NUMBER,
+		new_salary NUMBER,
+		old_commission NUMBER,
+		new_commission NUMBER,
+		action_type VARCHAR(90),
+		changed_by VARCHAR(90),
+		changed_date DATE
+		);
+
+
+		CREATE SEQUENCE audit_id_seq
+		start with 1
+		increment by 1
+
+		CREATE OR REPLACE TRIGGER employee_audit_tgr
+		AFTER INSERT OR UPDATE OR DELETE ON EMPLOYEE
+		FOR EACH ROW
+		DECLARE
+		BEGIN 
+			IF INSERTING THEN
+				INSERT INTO employee_audit values(
+				audit_id_seq.NEXTVAL,
+				:new.empno,
+				:new.empname,
+				null,
+				:new.salary,
+				null,
+				:new.commission,
+				'Insert',
+				USER,
+				SYSDATE
+				);
+			ELSIF UPDATING THEN
+				INSERT INTO employee_audit values(
+				audit_id_seq.NEXTVAL,
+				:new.empno,
+				:new.empname,
+				:old.salary,
+				:new.salary,
+				:old.commission,
+				:new.commission,
+				'Update',
+				USER,
+				SYSDATE
+				);
+			ELSIF DELETING THEN
+				INSERT INTO employee_audit values(
+				audit_id_seq.NEXTVAL,
+				:NEW.empno,
+				:NEW.empname,
+				:OLD.salary,
+				null,
+				:OLD.commission,
+				null,
+				'DELETE',
+				USER,
+				SYSDATE
+				);
+			END IF;
+		END;
+------------------------------------
+Q.. Consider Employee table when a row is inserted into Employee table 
+	then insert a record into audit_log table.
+==> CREATE trigger employee_tgr 
+	After INSERT on employee 
+	FOR EACH ROW 
+	Begin
+		INSERT INTO audit_log(LOG_ID,MSG,INSERT_DATE,USER_NAME) values(audit_log_sequence.nextval,'data added',sysdate,'yash');
+	END 
+	/
+------------------------------------
+Q.. Can we write TCL(COMMIT,ROLLBACK,SAVEPOINT) statement in trigger body?
+==> If we write TCL statements in trigger,trigger is created,we don't get any error 
+	but at the time of execution it give an error
+	so,final conslusion is TCL statements are not allowed in the trigger body.
+------------------------------------
+Q.. If trigger body insert data into table,how will that data get committed if
+	COMMIT is not allowed in Trigger?
+==> The COMMIT operation is done by session that fired the trigger not by trigger itself
+------------------------------------
+Q.. If trigger body is performing DML operation,how will that data get committed 
+	if COMMIT is not allowed in Tigger?
+==> The COMMIT operation is done by the session that fired the trigger not by trigger itself			
+------------------------------------
+Q.. DELETE Operation with instead of trigger?
+==> Delete on complex view is not allowed directly we can use INSTEAD OF Trigger to delete 
+	complex view.INSTEAD OF Trigger defines how deletion should be performed on underlying base tables 
+	
+	Example: 
+	create table dept11(deptid number primary key,deptname varchar(90))
+	insert into dept11 values(201,'IT')
+	insert into dept11 values(202,'HR')
+
+	create table emp11(empid number,empname varchar(90),salary number,designation varchar(90),dept_id number references dept11(deptid))
+	insert into emp11(empid,empname,salary,designation,dept_id) values(101,'Peter',47000,'Manager',null);
+	insert into emp11(empid,empname,salary,designation,dept_id) values(102,'Robin',45000,'Manager',201);
+	insert into emp11(empid,empname,salary,designation,dept_id) values(103,'Kalis',45000,'Dev',202);
+
+	Trigger: 
+	create or replace trigger d_view_tgr
+	instead of delete on d_view
+	begin
+	delete from emp11 where salary=(select max(salary) from emp11 where designation=:NEW.designation);
+	end;
+------------------------------------
+Q.. sometime delete operation is allowed in complex view but sometime delete operations are not 
+	not allowed on complex view,why?
+Q.. In which case delete operation is allowed on complex view and in which use case delete 
+	operation is not allowed on complex view?
+==> Case 1: DELETE OPERATION IS NOT ALLOWED
+	- if view defination contains group functions,distinct clause,order by clause
+		or deletion affect multiple base tables then direct DELETE operation is not 
+		allowed on that view. In that case solution is Instead of Trigger.
+	
+	Case 2: DELETE OPERATION IS ALLOWED
+	- View is based on multiple tables but only one table is actually updatable and 
+		no ambiguity in row mapping delete operation is allowd on that view 
+------------------------------------
+Q.. Can we delete data from multiple base table on single delete operation?
+==> Yes,using INSTEAD OF trigger.
+-----------------------------------------------
+-----------------------------------------------
+-----------------------------------------------
+===============================================
+********PROCEDURE QUESTIONS**********
+===============================================
+-----------------------------------------------
+-----------------------------------------------
+-----------------------------------------------
+-----------------------------------------------
+Q.. Write a procedure to accept empid from user and print emp name on console?
+==> CREATE OR REPLACE PROCEDURE show_empname_by_id(
+	p_empid IN NUMBER)
+	IS 
+		v_empname varchar2(100);
+	BEGIN
+		SELECT empname INTO v_empname FROM emp11
+		where emp_id=p_empid;
+	EXCEPTION
+		WHEN OTHERS THEN 
+		DBMS_OUTPUT.PUT_LINE('EXCEPTION'||SQLERRM);
+	END show_empname_by_id;
+	/
+------------------------------------------------
+Q.. Write a procedure which take emp_id from user and return his/her name.
+==> 
+	create or replace procedure salary_procedure(v_empid IN NUMBER,v_name OUT varchar2)
+	IS
+	begin
+	select empname into v_name from employee where empno=v_empid;
+	Exception
+	 when others then 
+	 dbms_output.put_line('SQLERRM');
+	end salary_procedure;
+	/
+
+
+	declare
+	v_empname varchar2(90);
+	begin
+	salary_procedure(101,v_empname);
+	dbms_output.put_line(v_empname);
+	end;
+
+------------------------------------------------
+Q.. Write a procedure which accept empid and display his/her salary on console?
+==> CREATE OR REPLACE PROCEDURE display_salary(p_empid IN NUMBER)
+	IS 
+		v_sal NUMBER;
+	BEGIN
+		select salary INTO v_sal FROM emp11
+		WHERE empno=p_empid;
+		DBMS_OUTPUT.PUT_LINE('salary of'||p_empid||'is'||v_sal);
+	EXCEPTION
+		WHEN OTHERS THEN
+			DBMS_OUTPUT.PUT_LINE('EXCEPTION'||SQLERRM);
+	END display_sal;
+	/
+	
+	Test the procedure
+		BEGIN
+			display_salary(101);
+		END;
+------------------------------------------------	
+Q.. write a procedure which accept empid and return status of employee(exist or not)?
+==> CREATE OR REPLACE PROCEDURE emp_exist(p_empid IN NUMBER,p_exit OUT BOOLEAN)
+	IS 
+	v_cnt number;
+	BEGIN
+		select count(*) INTO v_cnt from emp11
+		where empno=p_empid;
+		
+		IF v_cnt>0 THEN 
+			p_exit:=TRUE;
+		ELSE
+			p_exit:=FALSE;
+		END IF;
+	EXCEPTION 
+		WHEN OTHERS THEN 
+		DBMS_OUTPUT.PUT_LINE('Exception'||SQLERRM);
+	END is_emp_exist;
+	/
+	
+	
+	#Testing
+		DECLARE 
+			v_status BOOLEAN;
+		BEGIN
+			emp_exist(101,v_status);
+			DBMS_OUTPUT.PUT_LINE(CASE WHEN v_status 'TRUE' ELSE 'FALSE END);
+		END;
+------------------------------------------------
+Q.. write a procedure which accept empid and return name,salary,dept_id?
+==> 
+	create or replace procedure emp_name_sal_dept(v_empid IN number,v_name out varchar,
+	vsalary out number,dept_id out number)
+	IS
+	begin
+	 select empname,salary,dept_number into v_name,vsalary,dept_id from employee where empno=v_empid;
+	end;
+
+	declare
+	v_name varchar2(90);
+	v_salary number;
+	v_dept_id number;
+	begin
+	emp_name_sal_dept(104,v_name,v_salary,v_dept_id);
+	dbms_output.put_line('employee name is '||v_name||' '||'and his salary is '||v_salary||
+	' belong to department '||v_dept_id);
+	end;
+------------------------------------------------
+Q.. write a procedure which accept emp_id and return his/her name,salary,dept_id?	
+------------------------------------------------
+Q.. Write a procedure which accept emp_id and return increase salary by 10%?
+------------------------------------------------
+Q.. Write a procedure which accpet emp_id,salary and return salary status(max or not)?
+------------------------------------------------
+Q.. Write a procedure which accept emp_id,salary and return salary status(max or not)?
+------------------------------------------------
+
+
+-----------------------------------------------
+-----------------------------------------------
+-----------------------------------------------
+===============================================
+********FUNCTION QUESTIONS**********
+===============================================
+-----------------------------------------------
+-----------------------------------------------
+-----------------------------------------------
+-----------------------------------------------
+Q.. Addition of two numbers using function?
+==> CREATE OR REPLACE FUNCTION add_two_number(n1 IN number,n2 IN number)return NUMBER
+	IS 
+		v_result number;
+	BEGIN
+		v_result:=n1+n2;
+		RETURN v_result;
+	END add_two_number;
+------------------------------------------------
+------------------------------------------------
+Q.. Write a function to find square of number?
+==> CREATE OR REPLACE FUNCTION square_of_number(v_num IN NUMBER)RETURN NUMBER
+	IS
+		v_result NUMBER:=0;
+	BEGIN
+		v_result:=v_num*v_num;
+		RETURN v_result;
+	END square_of_number;
+	/
+	
+	Way 1: Using select statement 
+		select square_of_number(10) from dual;
+		
+	Way 2: Using BEGIN...END block
+		DECLARE 
+			v_result number:=0;
+		BEGIN
+			select square_of_number(10) from dual;
+			dbms_output.put_line(v_result);
+		END;
+------------------------------------------------
+Q.. Write a function to concate two string values.
+==> 
+CREATE OR REPLACE FUNCTION join_two_string(first IN varchar,second IN varchar)RETURN VARCHAR
+IS 
+v_result varchar(50);
+BEGIN
+v_result:=first||second;
+---using predefined function
+select concat(first,second) INTO v_result FROM DUAL;
+RETURN v_result;
+END join_two_string;
+------------------------------------------------
+Q.. Write a function to return salary of employee using empid?
+------------------------------------------------
+Q.. Write a function to return annual salary (salary * 12)?
+------------------------------------------------
+Q.. Write a function to check even or odd number?
+------------------------------------------------
+Q.. Write a function to return maximum of two numbers?
+------------------------------------------------
+Q.. Write a function to return grade based on marks?
+------------------------------------------------
+Q.. write a function to concat 4 string values?
+------------------------------------------------
+Q.. write function to sum of salaries of two employee.pass salary values to function and calculate salary sum?
+------------------------------------------------
+Q.. Write a procedure which accpet two emp_id and returns sum of salary?
+==> 
+	CREATE OR REPLACE PROCEDURE sum_of_sal_two_emp(p_empid1 IN NUMBER,p_empid2 IN NUMBER,p_result OUT NUMBER,p_message OUT VARCHAR)
+	IS
+	v_sal1 NUMBER;
+	v_sal2 NUMBER;
+	BEGIN
+	BEGIN
+	select salary into v_sal1 from emp11 where empno=p_empid1;
+	Exception
+	when others then 
+	v_sal1:=null;
+	END;
+	BEGIN
+	select salary into v_sal2 from emp11 where empno=p_empid2;
+	Exception
+	when others then 
+	v_sal2:=null;
+	END;
+	IF v_sal1 is not null AND v_sal2 is not null THEN 
+	p_result:=v_sal1+v_sal2;
+	p_message:='success';
+	ELSE
+	p_result:=0;
+	END IF;
+	IF v_sal1 is null AND v_sal2 is null then 
+	p_message:=p_empid1||' and '||p_empid2||' Employee does not exist';
+	RETURN;
+	END IF;
+	IF v_sal1 is null then 
+	p_message:=p_empid1||'Employee does not exist';
+	END IF;
+	IF v_sal2 is null then 
+	p_message:=p_empid2||'Employee does not exist';
+	END IF;
+	Exception
+	WHEN OTHERS THEN 
+	DBMS_OUTPUT.PUT_LINE('exception in sum_of_sal_two_emp' || SQLERRM);
+	END sum_of_sal_two_emp;
+	
+	
+	test 
+	declare
+	emp1 number:=101;
+	emp2 number:=102;
+	result number:=0;
+	msg varchar(900);
+	begin
+	sum_of_sal_two_emp(emp1,emp2,result,msg);
+	dbms_output.put_line(result);
+	dbms_output.put_line(msg);
+
+	end;
+------------------------------------------------
+Q.. What is difference between procedure & function?
+==> - In Function return statement is mandatory where as In procedure return statement is not manadatory.
+	- Function return only one value where as In procedure we can return multiple values.
+	- To return value from function we use return keyword where as in Procedure we use out parameter.
+	- In procedure return keyword is used to exit from procedure where as in function return keyword is used to return a value
+------------------------------------------------
+Q.. Find employees whose name starts with 'A'?
+==> CREATE OR REPLACE FUNCTION fn_get_emp(v_regex IN VARCHAR) RETURN SYS_REFCURSOR 
+	IS
+	emp_cur SYS_REFCURSOR;
+	BEGIN
+	OPEN emp_cur FOR SELECT empname from employee WHERE REGEXP_LIKE(empname,v_regex,'i');
+	RETURN emp_cur;
+	END;
+
+	DECLARE
+	c SYS_REFCURSOR;
+	v_empname varchar(90);
+	BEGIN
+	c:=fn_get_emp('^A');
+	LOOP
+	FETCH c INTO v_empname;
+	EXIT WHEN c%NOTFOUND;
+	DBMS_OUTPUT.PUT_LINE(v_empname);
+	END LOOP;
+	CLOSE c;
+	END;
+------------------------------------------------
+Q.. Find employees whose Names ending with 'n'?
+==> CREATE OR REPLACE FUNCTION fnd_emp(v_regex IN VARCHAR)RETURN SYS_REFCURSOR
+	IS
+	emp_cur SYS_REFCURSOR;
+	BEGIN
+	OPEN emp_cur FOR SELECT empname FROM EMPLOYEE WHERE REGEXP_LIKE(empname,v_regex,'i');
+	RETURN emp_cur;
+	END;
+
+	DECLARE
+	c_emp SYS_REFCURSOR;
+	v_empname varchar(90);
+	BEGIN
+	c_emp:=fnd_emp('$n');
+	LOOP
+	FETCH c_emp INTO v_empname;
+	EXIT WHEN c_emp%NOTFOUND;
+	DBMS_OUTPUT.PUT_LINE(v_empname);
+	END LOOP;
+	IF c_emp%ROWCOUNT=0 THEN
+	DBMS_OUTPUT.PUT_LINE('employee not found');
+	END IF;
+	CLOSE c_emp;
+	END;
+------------------------------------------------
+Q.. Find employees whose Names containing digit?
+==> CREATE OR REPLACE FUNCTION fnd_emp(v_regex IN VARCHAR)RETURN SYS_REFCURSOR
+	IS
+	emp_cur SYS_REFCURSOR;
+	BEGIN
+	OPEN emp_cur FOR SELECT empname FROM EMPLOYEE WHERE REGEXP_LIKE(empname,v_regex,'i');
+	RETURN emp_cur;
+	END;
+
+	DECLARE
+	c_emp SYS_REFCURSOR;
+	v_empname varchar(90);
+	BEGIN
+	c_emp:=fnd_emp('[0-9]');
+	LOOP
+	FETCH c_emp INTO v_empname;
+	EXIT WHEN c_emp%NOTFOUND;
+	DBMS_OUTPUT.PUT_LINE(v_empname);
+	END LOOP;
+	IF c_emp%ROWCOUNT=0 THEN
+	DBMS_OUTPUT.PUT_LINE('employee not found');
+	END IF;
+	CLOSE c_emp;
+	END;
+------------------------------------------------
+Q.. Find employees whose Names with only alphabets?
+==> select empname from employee where regexp_like(empname,'^[A-z]+$');
+------------------------------------------------
+Q.. Find employees whose Names starting with capital letter?
+==> select empname from employee where regexp_like(empname,'^[A-Z]');
+------------------------------------------------
+Q.. PAN number validation?
+==> select pan from employee where regexp_like(pan,'^[A-Z]{5}[0-9]{4}[A-Z]$');
+------------------------------------------------
+Q.. Aadhar number validation?
+==> select aadhar_number from employee where regexp_like(aadhar_number,'^[0-9]{12}$')
+------------------------------------------------
+Q.. Find employees whose Names NOT containing vowels?
+==> select empname from employee where regexp_like(empname,'^[^aeiouAEIOU]+$');
+------------------------------------------------
+Q.. Write a PL/SQL function to validate mobile number
+==> 1. Rules(Acceptance Criteria)
+	-> Should be 10 digit.
+	-> Start with either 7,8 or 9(first digit should be 7,8 or 9)
+	
+	CREATE OR REPLACE FUNCTION mobile_validate(f_mobileno IN NUMBER)RETURN NUMBER
+	IS 
+	v_regex_pattern varchar(90):='^[789][0-9]{9}$';
+	result NUMBER=0;
+	BEGIN
+		IF REGEXP_LIKE(f_mobileno,v_regex_pattern) THEN 
+			result:=1;
+			RETURN result;
+		ELSE
+			RETURN result;
+		END IF;
+	EXCEPTION
+		WHEN OTHERS THEN 
+		DBMS_OUTPUT.PUT_LINE('Excpetion in valid mobile no'||SQLERRM);
+	END;
+	
+	Test function: 
+		DECLARE
+			input_test varchar(90):='9370585700';
+			t_result number;
+		BEGIN
+			t_result:=mobile_validate(input_test);
+			if t_result=1 then 
+			dbms_output.put_line('valid mobile number');
+			else
+			dbms_output.put_line('invalid mobile number');
+			end if;
+		END;
+------------------------------------------------
+Q.. Write a function to check number is even or odd?
+==> CREATE OR REPLACE FUNCTION even_odd_validate(f_number IN number)RETURN NUMBER 
+	IS
+		v_result number:=0;
+	BEGIN
+		IF MOD(f_number,2)=0 THEN 
+			v_result:=1;
+            RETURN v_result;
+		ELSE
+			RETURN v_result;
+        END IF;
+	EXCEPTION
+		WHEN OTHERS THEN 
+		DBMS_OUTPUT.PUT_LINE('excpetion is in Even or odd'||SQLERRM);
+	END;
+	
+	TESING OF even_odd_validate
+		DECLARE
+			input_number number:=10;
+			output_result number;
+		BEGIN
+			output_result:=even_odd_validate(input_number);
+			IF output_result=1 THEN
+				DBMS_OUTPUT.PUT_LINE('given number is even');
+			ELSE 
+				DBMS_OUTPUT.PUT_LINE('given number is ODD');
+			END IF;
+		END;
+------------------------------------------------
+Q.. Write a function to validate Vehical number?e.g MH-12-RT-3032
+==> CREATE OR REPLACE FUNCTION validate_vehicle_number(f_vehical_no IN VARCHAR)RETURN BOOLEAN
+	IS 
+		v_regex_pattern varchar(90):='^[A-Z]{2}-[0-9]{2}-[A-Z]{1,2}-[0-9]{4}$';
+	BEGIN
+		RETURN REGEXP_LIKE(f_vehical_no,v_regex_pattern,'i');
+	EXCEPTION
+		WHEN OTHERS THEN 
+		DBMS_OUTPUT.PUT_LINE('Eception in valid mobile no'||SQLERRM);
+	END;
+	
+	
+	TEST FUNCTION:
+		DECLARE
+			input_v_number varchar(90):='MH-11-BJ-5350';
+		BEGIN
+			IF validate_vehicle_number(input_v_number)=1 then 
+				DBMS_OUTPUT.PUT_LINE('valid vehicle number');
+			ELSE
+				DBMS_OUTPUT.PUT_LINE('Invalid vehicle number');
+			END IF;
+		END;
+------------------------------------------------
+Q.. What is Default mode of parameter for Function and Procedure?
+	i.e if we don't specify mode of parameter then what is default value for mode?
+==> Default mode of parameter for function and procedure is IN.
+	i.e If we don't specify mode of parameter then default mode is IN.
+	
+	e.g
+	1. CREATE OR REPLACE FUNCTION addition(n1 NUMBER,n2 NUMBER) RETURN NUMBER
+		IS 
+		BEGIN
+			RETURN n1+n2;
+		EXCEPTION
+			WHEN OTHERS THEN 
+				RETURN 0;
+		END;
+		
+	2. CREATE OR REPLACE PROCEDURE summation(n1 NUMBER,n2 NUMBER,p_result OUT NUMBER)
+		IS 
+		BEGIN
+			p_result:=n1+n2;
+		EXCEPTION
+			WHEN OTHERS THEN 
+				RETURN 0;
+		END;		
+------------------------------------------------
+
+-----------------------------------------------
+-----------------------------------------------
 -----------------------------------------------
 ===============================================
 ********CURSOR QUESTIONS**********
 ===============================================
+-----------------------------------------------
+-----------------------------------------------
+-----------------------------------------------
 -----------------------------------------------
 Q..Write a PL/SQL program using an explicit cursor to display all employee names.
 ==>	declare
@@ -421,7 +1174,7 @@ Q.. Write a program to loop through cursor and insert data into another table.
 	close v_cursor;
 	end;
 ----------------------------------------------------------------------
-Q..  write a program which insert data into another table? 
+Q.. write a program which insert data into another table? 
 	declare
 	TYPE v_type IS TABLE OF employee%rowtype;
 	v_rec v_type;
@@ -2404,6 +3157,162 @@ Q.. What is REGEXP_LIKE?
 Q.. Can REGEXP_LIKE be used in SELECT list?
 ==> No because it returns boolean type value and boolean data type is not supported in SQL.
 ------------------------------------
+Q.. FLASHBACK?
+==> - To detete an object(table,index,view,sequence,etc) we use drop statement.
+	- Drop is DDL statement.All ddl statement are auto-commit once we perform drop we can't rollback that object.
+	- once we delete row and commit we can't rollback.
+	- once we update row and commit we can't rollback.
+	- once we insert the row and commit we can't rollback.
+	- when we drop an object or when we delete rows that object or row get stored in recycle bin.
+	- To restore objects or rows from recycle we use "flashback"
+	- flashback is for data recovery and historical analysis 
+	- flashback features were introduced in oracle 9i database release2 later versions
+		(like oracle database 10g and above) added more powerful flashback features.
+------------------------------------------------
+Q.. What is flashback?
+==> Flashback is feature and it is used for data recovery and historical analysis.
+	using this feature we can view or restore past data.
+	=> Types of flashback features
+		1. Flashback Query
+		2. Flashback table
+		3. Flashback Drop
+		4. Flashback Database
+		5. Flashback Version Query
+		6. Flashback Transaction Query
+------------------------------------------------
+Q.. What is Flashback Query?
+==> Flashback query feature is used to view past data.
+	- we can view past data based on TIMESTAMP and SCN(system Change Number).
+	Syntax:
+		select column_names from table_name 
+		AS OF TIMESTAMP(timestamp-INTERVAL 'value' TIME_UNIT);
+	 
+		Time unit can be : SECOND,MINUTE,HOUR,DAY,MONTH,YEAR.
+		e.g 
+			TIMESTAMP(SYSTIMESTAMP-INTERVAL '10' MINUTE)
+			TIMESTAMP(SYSTIMESTAMP-INTERVAL '2' HOUR)
+			TIMESTAMP(SYSTIMESTAMP-INTERVAL '2' DAY)
+			TIMESTAMP(SYSTIMESTAMP-INTERVAL '2' MONTH)
+			TIMESTAMP(SYSTIMESTAMP-INTERVAL '2' YEAR)
+			
+		Testing:
+		update employee set salary=30000 where empno=101;
+		
+		- View the past data before updation
+		select * from employee AS OF TIMESTAMP(SYSTIMESTAMP-INTERVAL '5' MINUTE);
+------------------------------------------------
+Q.. Flashback Table(Restore table)?
+==> Flashback table feature restore the table data back to old state.
+	- Syntax: 
+		FLASHBACK TABLE table_name TO TIMESTAMP(timestamp_value - INTERVAL 'value' TIME_UNIT);
+		
+	- it restore entire table to past state.
+	- suppose we have employee table with 5 rows and we insert 2 rows now we want to restore table old state
+	  using FLASHBACK TABLE.
+	  Syntax: 
+		FLASHBACK TABLE Employee TO TIMESTAMP(SYSTIMESTAMP-INTERVAL '2' MINUTE)
+	
+	- FLASHBACK need privilege:
+		GRANT FLASHBACK ANY TABLE TO user;
+	- For Flashback table enable the row movement 
+		ALTER TABLE table_name ENABLE ROW MOVEMENT;
+------------------------------------------------
+Q.. Flashback Drop?
+==> - it is used to restore droped table from recycle bin.
+	Syntax:
+		FLASHBACK TABLE table_name TO BEFORE DROP;
+	- Recovers dropped table from recycle bin.
+------------------------------------------------
+Q.. Flashback Version query?
+==> Flashback version query feature is used to view all version of row between two points in time.
+	Syntax:
+		SELECT column_list
+		VERSIONS_STARTTIME,
+		VERSIONS_ENDTIME,
+		VERSION_OPERATION,
+		VERSION_XID
+		FROM table_name
+		versions between TIMESTAMP
+			TO_TIMESTAMP('start_time','YYYY-MM-DD HH24:MI:SS')
+			AND TO_TIMESTAMP('end_time','YYYY-MM-DD HH24:MI:SS')
+			
+	=> Prerequisite for flashback version query
+		1. UNDO_RENTENTION should be sufficient
+		2. Table should not be truncated.
+		3. Data must still exit in UNDO tablespace.
+------------------------------------------------
+Q.. FLASHBACK Transaction Query?
+==> This feature is used to know which DML operation has changed the data.
+	Syntax:
+		SELECT column_list FROM flashback_transaction_query
+		FROM flashback_transaction_query WHERE table_name='table_name_in_capital';
+		
+	- flashback_transaction_query is a view.
+	- Flashback transaction query generate UNDO_SQL to reserse the changes.
+	- E.g 
+		select XID,START_SC,COMMIT_SCN,OPERATION,TABLE_NAME,UNDO_SQL 
+		from flashback_transaction_query where table_name='EMPLOYEE';
+------------------------------------------------
+Q.. How to restore wrong DML operations?
+==> To restore data to original state we can use flashback transaction query.
+	Step 1: Use flashback transaction query and find UNDO_SQL
+		-> SQL 
+			select undo_sql,xid,oepartion from flashback_transaction_query
+			where table_name='EMPLOYEE'
+			
+	Step 3: copy undo_sql and execute
+		-> SQL 
+			update "SYSTEM"."EMPLOYEE" set "SALARY" ="45000" where ROWID='AADksAABAAAKISAAB'
+			
+			above query will restore original data
+------------------------------------------------
+Q.. What is PURGE statement?
+==> PURGE is a DDL statement used to permanently remove objects from the recycle bin
+	
+	Why use PURGE?
+		- free up space in recycle bin
+		- Remove unwanted dropped objects permanently
+		- improve storage management
+		- prevent recovery of sensitive data.
+		
+	Syntax to delete object from Recycle bin 
+	case1: use actual table(user defined table name)
+	Syntax: PURGE TABLE table_name;
+		note: don't specify table_name in single quote.if we specify table name in single quote then we will get an error.
+	Example: PURGE TABLE employee;
+	
+	Case 2: Use system generated table name 
+		When we drop table using drop statement oracle engine generate name for that object.
+		on the basis system generated name we can PURGE the object.
+		Syntax: 
+			PURGE TABLE 'system_generated_table_name';
+		Example: PURGE TABLE 'BIN$hvD1AWFwT43INsSXrz5uHw==$0';
+------------------------------------------------
+Q.. How to know the system generated name?
+==> To retirve system generated name for drop object use below query
+	1. select * from dba_recyclebin where table_name='TABLE_NAME';
+	2. select * from user_recyclebin where table_name='TABLE_NAME';
+	3. select * from recyclebin where table_name='table_name';
+------------------------------------------------
+Q.. What is difference between DROP and PURGE?
+==> - DROP statement drop object from database where as 
+	  PURGE statement delete object permanently.
+	- If we drop the object using drop then droped object goes into recyclebin but 
+	  PURGE statement Bypasses recycle bin
+	- If we drop object using DROP statement then we can recover using FLASHBACK but 
+	  if we drop the object using PURGE statement then we can't recover.
+	- Drop statement does not free the space immediately but PURGE statement free the space immediately.
+	- DROP is safe but PURGE is risky.
+	- For normal delete use drop statement and for permanent deletion is PURGE statement.
+------------------------------------------------
+Q.. What is difference between DELETE and PURGE?
+==> - DELETE is DML statement but PURGE is DDL statement.
+	- DELETE statement delete rows but PURGE statement delete entire object.
+	- In DELETE statement UNDO is possible but in PURGE statement UNDO is not possible.
+	- For DELETE statement commit is required but PURGE statement commit is not required because it is auto commit.
+	- On DELETE statement trigger is fired but on PURGE statement trigger is not fired.
+	- We can use WHERE clause in DELETE statement but we can't use WHERE clause in PURGE statement.
+------------------------------------------------
 ------------------------------------
 ------------------------------------
 ------------------------------------
